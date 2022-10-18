@@ -1,0 +1,38 @@
+disabled_rules:
+included:
+excluded:
+- Libraries
+- Workade/AppDelegate.swift
+- Workade/SceneDelegate.swift
+  
+
+file_length:
+ warning: 400
+ ignore_comment_only_lines: true
+ 
+
+trailing_whitespace:
+  ignores_empty_lines: true
+
+
+opt_in_rules:
+- accessibility_label_for_image
+- anonymous_argument_in_multiline_closure
+- array_init
+- attributes
+- balanced_xctest_lifecycle
+- closure_body_length
+- closure_end_indentation
+- closure_spacing
+- collection_alignment
+- comma_inheritance
+- conditional_returns_on_newline
+- contains_over_filter_is_empty
+- vertical_whitespace_opening_braces
+- vertical_whitespace_closing_braces
+- vertical_whitespace_between_cases
+- switch_case_on_newline
+- self_binding
+- redundant_type_annotation
+
+

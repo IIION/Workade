@@ -1,0 +1,481 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */; };
+		5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */; };
+		5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BE28FE799C0060DBB7 /* ViewController.swift */; };
+		5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17C328FE799C0060DBB7 /* Workade.xcdatamodeld */; };
+		5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17C628FE799D0060DBB7 /* Assets.xcassets */; };
+		5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17C828FE799D0060DBB7 /* LaunchScreen.storyboard */; };
+		5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */; };
+		BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C25E273370A5639B8396DFB /* Pods_Workade.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
+		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
+		5FDC17B728FE799C0060DBB7 /* Workade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workade.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5FDC17BE28FE799C0060DBB7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5FDC17C428FE799C0060DBB7 /* Workade.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workade.xcdatamodel; sourceTree = "<group>"; };
+		5FDC17C628FE799D0060DBB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5FDC17C928FE799D0060DBB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5FDC17CB28FE799D0060DBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5FDC17B428FE799C0060DBB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5FDC17AE28FE799C0060DBB7 = {
+			isa = PBXGroup;
+			children = (
+				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
+				5FDC17B928FE799C0060DBB7 /* Workade */,
+				5FDC17B828FE799C0060DBB7 /* Products */,
+				B7DE360250B0A3F5EC254C91 /* Pods */,
+				7CB795564C6155F242A78A94 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5FDC17B828FE799C0060DBB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5FDC17B728FE799C0060DBB7 /* Workade.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5FDC17B928FE799C0060DBB7 /* Workade */ = {
+			isa = PBXGroup;
+			children = (
+				5FDC17D728FE7B1A0060DBB7 /* Delegate */,
+				5FDC17D628FE7B140060DBB7 /* Extentions */,
+				5FDC17D528FE7B0F0060DBB7 /* Models */,
+				5FDC17D428FE7AFB0060DBB7 /* Views&ViewModels */,
+				5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */,
+				5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */,
+				5FDC17BE28FE799C0060DBB7 /* ViewController.swift */,
+				5FDC17C628FE799D0060DBB7 /* Assets.xcassets */,
+				5FDC17C828FE799D0060DBB7 /* LaunchScreen.storyboard */,
+				5FDC17CB28FE799D0060DBB7 /* Info.plist */,
+				5FDC17C328FE799C0060DBB7 /* Workade.xcdatamodeld */,
+			);
+			path = Workade;
+			sourceTree = "<group>";
+		};
+		5FDC17D428FE7AFB0060DBB7 /* Views&ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Views&ViewModels";
+			sourceTree = "<group>";
+		};
+		5FDC17D528FE7B0F0060DBB7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5FDC17D628FE7B140060DBB7 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		5FDC17D728FE7B1A0060DBB7 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		7CB795564C6155F242A78A94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C25E273370A5639B8396DFB /* Pods_Workade.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B7DE360250B0A3F5EC254C91 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */,
+				1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5FDC17B628FE799C0060DBB7 /* Workade */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FDC17CE28FE799D0060DBB7 /* Build configuration list for PBXNativeTarget "Workade" */;
+			buildPhases = (
+				B8566BD2241DEA72D816CB4E /* [CP] Check Pods Manifest.lock */,
+				5FDC17B328FE799C0060DBB7 /* Sources */,
+				5FDC17B428FE799C0060DBB7 /* Frameworks */,
+				5FDC17B528FE799C0060DBB7 /* Resources */,
+				5FDC17D128FE7A050060DBB7 /* SwiftLint */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Workade;
+			productName = Workade;
+			productReference = 5FDC17B728FE799C0060DBB7 /* Workade.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5FDC17AF28FE799C0060DBB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					5FDC17B628FE799C0060DBB7 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 5FDC17B228FE799C0060DBB7 /* Build configuration list for PBXProject "Workade" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5FDC17AE28FE799C0060DBB7;
+			productRefGroup = 5FDC17B828FE799C0060DBB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5FDC17B628FE799C0060DBB7 /* Workade */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5FDC17B528FE799C0060DBB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
+				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
+				5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5FDC17D128FE7A050060DBB7 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		B8566BD2241DEA72D816CB4E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Workade-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5FDC17B328FE799C0060DBB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
+				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
+				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
+				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5FDC17C828FE799D0060DBB7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FDC17C928FE799D0060DBB7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5FDC17CC28FE799D0060DBB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5FDC17CD28FE799D0060DBB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5FDC17CF28FE799D0060DBB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Workade/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = developer.ILION.Workade;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5FDC17D028FE799D0060DBB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Workade/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = developer.ILION.Workade;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5FDC17B228FE799C0060DBB7 /* Build configuration list for PBXProject "Workade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FDC17CC28FE799D0060DBB7 /* Debug */,
+				5FDC17CD28FE799D0060DBB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5FDC17CE28FE799D0060DBB7 /* Build configuration list for PBXNativeTarget "Workade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FDC17CF28FE799D0060DBB7 /* Debug */,
+				5FDC17D028FE799D0060DBB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5FDC17C328FE799C0060DBB7 /* Workade.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5FDC17C428FE799C0060DBB7 /* Workade.xcdatamodel */,
+			);
+			currentVersion = 5FDC17C428FE799C0060DBB7 /* Workade.xcdatamodel */;
+			path = Workade.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5FDC17AF28FE799C0060DBB7 /* Project object */;
+}

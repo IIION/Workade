@@ -1,0 +1,6 @@
+framework module Pods_Workade {
+  umbrella header "Pods-Workade-umbrella.h"
+
+  export *
+  module * { export * }
+}
