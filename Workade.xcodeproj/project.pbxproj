@@ -66,10 +66,10 @@
 		5FDC17B928FE799C0060DBB7 /* Workade */ = {
 			isa = PBXGroup;
 			children = (
-				5FDC17D728FE7B1A0060DBB7 /* Delegate */,
-				5FDC17D628FE7B140060DBB7 /* Extentions */,
-				5FDC17D528FE7B0F0060DBB7 /* Models */,
-				5FDC17D428FE7AFB0060DBB7 /* Views&ViewModels */,
+				5FDC17DC28FE7C850060DBB7 /* Delegate */,
+				5FDC17DB28FE7C810060DBB7 /* Extentions */,
+				5FDC17DA28FE7C7C0060DBB7 /* Models */,
+				5FDC17D928FE7C720060DBB7 /* Views&ViewModels */,
 				5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */,
 				5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */,
 				5FDC17BE28FE799C0060DBB7 /* ViewController.swift */,
@@ -81,28 +81,28 @@
 			path = Workade;
 			sourceTree = "<group>";
 		};
-		5FDC17D428FE7AFB0060DBB7 /* Views&ViewModels */ = {
+		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
 		};
-		5FDC17D528FE7B0F0060DBB7 /* Models */ = {
+		5FDC17DA28FE7C7C0060DBB7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5FDC17D628FE7B140060DBB7 /* Extentions */ = {
+		5FDC17DB28FE7C810060DBB7 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Extentions;
 			sourceTree = "<group>";
 		};
-		5FDC17D728FE7B1A0060DBB7 /* Delegate */ = {
+		5FDC17DC28FE7C850060DBB7 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -123,7 +123,6 @@
 				41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */,
 				1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
