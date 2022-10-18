@@ -69,12 +69,26 @@ class MagazineViewController: UIViewController {
         return line
     }()
     
+    var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .white
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+    
     private var selectedTab = 0
     private let spacing: CGFloat = (UIScreen.main.bounds.width - 40) / 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        stackView.addArrangedSubview(totalTabBtn)
+        stackView.addArrangedSubview(tipTabBtn)
+        stackView.addArrangedSubview(columnTabBtn)
+        stackView.addArrangedSubview(reviewTabBtn)
         configureUI()
     }
     
@@ -85,30 +99,15 @@ class MagazineViewController: UIViewController {
         navBarTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         navBarTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         
-        view.addSubview(totalTabBtn)
-        totalTabBtn.translatesAutoresizingMaskIntoConstraints = false
-        totalTabBtn.topAnchor.constraint(equalTo: navBarTitle.bottomAnchor, constant: 14).isActive = true
-        totalTabBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        
-        view.addSubview(tipTabBtn)
-        tipTabBtn.translatesAutoresizingMaskIntoConstraints = false
-        tipTabBtn.topAnchor.constraint(equalTo: totalTabBtn.topAnchor).isActive = true
-        tipTabBtn.leadingAnchor.constraint(equalTo: totalTabBtn.trailingAnchor, constant: spacing).isActive = true
-        
-        view.addSubview(columnTabBtn)
-        columnTabBtn.translatesAutoresizingMaskIntoConstraints = false
-        columnTabBtn.topAnchor.constraint(equalTo: tipTabBtn.topAnchor).isActive = true
-        columnTabBtn.leadingAnchor.constraint(equalTo: tipTabBtn.trailingAnchor, constant: spacing).isActive = true
-        
-        view.addSubview(reviewTabBtn)
-        reviewTabBtn.translatesAutoresizingMaskIntoConstraints = false
-        reviewTabBtn.topAnchor.constraint(equalTo: columnTabBtn.topAnchor).isActive = true
-        reviewTabBtn.leadingAnchor.constraint(equalTo: columnTabBtn.trailingAnchor, constant: spacing).isActive = true
-        reviewTabBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        view.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.topAnchor.constraint(equalTo: navBarTitle.bottomAnchor, constant: 14).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         view.addSubview(line)
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.topAnchor.constraint(equalTo: totalTabBtn.bottomAnchor, constant: 10).isActive = true
+        line.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10).isActive = true
         line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         line.heightAnchor.constraint(equalToConstant: 2).isActive = true
