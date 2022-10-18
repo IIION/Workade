@@ -18,7 +18,7 @@ class MagazineViewController: UIViewController {
         return label
     }()
     
-    private lazy var totalTabBtn: UIButton = {
+    private lazy var totalTabButton: UIButton = {
         var button = UIButton()
         button.setTitle("전체", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
@@ -29,7 +29,7 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
-    private lazy var tipTabBtn: UIButton = {
+    private lazy var tipTabButton: UIButton = {
         var button = UIButton()
         button.setTitle("팁", for: .normal)
         button.setTitleColor(UIColor.gray, for: .normal)
@@ -40,7 +40,7 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
-    private lazy var columnTabBtn: UIButton = {
+    private lazy var columnTabButton: UIButton = {
         var button = UIButton()
         button.setTitle("칼럼", for: .normal)
         button.setTitleColor(UIColor.gray, for: .normal)
@@ -51,7 +51,7 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
-    private lazy var reviewTabBtn: UIButton = {
+    private lazy var reviewTabButton: UIButton = {
         var button = UIButton()
         button.setTitle("후기", for: .normal)
         button.setTitleColor(UIColor.gray, for: .normal)
@@ -131,10 +131,10 @@ class MagazineViewController: UIViewController {
     }
     
     func settingStackView() {
-        stackView.addArrangedSubview(totalTabBtn)
-        stackView.addArrangedSubview(tipTabBtn)
-        stackView.addArrangedSubview(columnTabBtn)
-        stackView.addArrangedSubview(reviewTabBtn)
+        stackView.addArrangedSubview(totalTabButton)
+        stackView.addArrangedSubview(tipTabButton)
+        stackView.addArrangedSubview(columnTabButton)
+        stackView.addArrangedSubview(reviewTabButton)
     }
     
     @objc
@@ -142,37 +142,37 @@ class MagazineViewController: UIViewController {
         if selectedTab != sender.tag {
             switch sender.tag {
             case 0:
-                totalTabBtn.setTitleColor(UIColor.black, for: .normal)
-                tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                totalTabButton.setTitleColor(UIColor.black, for: .normal)
+                tipTabButton.setTitleColor(UIColor.gray, for: .normal)
+                columnTabButton.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = TotalDetailViewController()
                 settingDetailView()
                 
             case 1:
-                tipTabBtn.setTitleColor(UIColor.black, for: .normal)
-                totalTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                tipTabButton.setTitleColor(UIColor.black, for: .normal)
+                totalTabButton.setTitleColor(UIColor.gray, for: .normal)
+                columnTabButton.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = TipDetailViewController()
                 settingDetailView()
                 
             case 2:
-                columnTabBtn.setTitleColor(UIColor.black, for: .normal)
-                totalTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                columnTabButton.setTitleColor(UIColor.black, for: .normal)
+                totalTabButton.setTitleColor(UIColor.gray, for: .normal)
+                tipTabButton.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = ColumnDetailViewController()
                 settingDetailView()
                 
             case 3:
-                reviewTabBtn.setTitleColor(UIColor.black, for: .normal)
-                totalTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
-                columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabButton.setTitleColor(UIColor.black, for: .normal)
+                totalTabButton.setTitleColor(UIColor.gray, for: .normal)
+                tipTabButton.setTitleColor(UIColor.gray, for: .normal)
+                columnTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = ReviewDetailViewController()
                 settingDetailView()
