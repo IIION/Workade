@@ -151,14 +151,46 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A35559AD28FEEEA4001E4254 /* TotalDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */,
+			);
+			path = TotalDetail;
+			sourceTree = "<group>";
+		};
+		A35559AE28FEEEB1001E4254 /* TipDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A35559A728FED2B2001E4254 /* TipDetailViewController.swift */,
+			);
+			path = TipDetail;
+			sourceTree = "<group>";
+		};
+		A35559AF28FEEEBB001E4254 /* ColumnDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */,
+			);
+			path = ColumnDetail;
+			sourceTree = "<group>";
+		};
+		A35559B028FEEEC8001E4254 /* ReviewDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */,
+			);
+			path = ReviewDetail;
+			sourceTree = "<group>";
+		};
 		A35BD48028FE85A800D1FA7C /* Magazine */ = {
 			isa = PBXGroup;
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
-				A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */,
-				A35559A728FED2B2001E4254 /* TipDetailViewController.swift */,
-				A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */,
-				A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */,
+				A35559AD28FEEEA4001E4254 /* TotalDetail */,
+				A35559AE28FEEEB1001E4254 /* TipDetail */,
+				A35559AF28FEEEBB001E4254 /* ColumnDetail */,
+				A35559B028FEEEC8001E4254 /* ReviewDetail */,
 			);
 			path = Magazine;
 			sourceTree = "<group>";
