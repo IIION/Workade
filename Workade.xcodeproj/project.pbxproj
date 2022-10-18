@@ -14,6 +14,8 @@
 		5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17C628FE799D0060DBB7 /* Assets.xcassets */; };
 		5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17C828FE799D0060DBB7 /* LaunchScreen.storyboard */; };
 		5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */; };
+		5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* HomeView.swift */; };
+		5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */; };
 		BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C25E273370A5639B8396DFB /* Pods_Workade.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		5FDC17C928FE799D0060DBB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5FDC17CB28FE799D0060DBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		5FDC17DE28FE7F320060DBB7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +88,7 @@
 		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				5FDC17DD28FE7F1B0060DBB7 /* Home */,
 			);
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
@@ -107,6 +112,15 @@
 			children = (
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		5FDC17DD28FE7F1B0060DBB7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5FDC17DE28FE7F320060DBB7 /* HomeView.swift */,
+				5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		7CB795564C6155F242A78A94 /* Frameworks */ = {
@@ -244,8 +258,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
+				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
+				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
