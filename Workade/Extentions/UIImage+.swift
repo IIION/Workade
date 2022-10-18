@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImage {
-    func original() -> UIImage {
+    func setOriginal() -> UIImage {
         return self.withRenderingMode(.alwaysOriginal)
     }
 }

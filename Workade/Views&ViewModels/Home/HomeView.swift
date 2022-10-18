@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     private func setupNavBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "WorkadeLogoTamna")?.original(),
+            image: UIImage(named: "WorkadeLogoTamna")?.setOriginal(),
             style: .done,
             target: nil,
             action: nil
@@ -38,7 +38,7 @@ extension HomeViewController {
         navigationItem.leftBarButtonItem?.isEnabled = false // no touch event
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "ProfileTamna")?.original(),
+            image: UIImage(named: "ProfileTamna")?.setOriginal(),
             style: .done,
             target: self,
             action: nil // will connect to MyPageView
