@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     private func setupNavBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "WorkationerLogoTamna")?.original(),
+            image: UIImage(named: "WorkadeLogoTamna")?.original(),
             style: .done,
             target: nil,
             action: nil
