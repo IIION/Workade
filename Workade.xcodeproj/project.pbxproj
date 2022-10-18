@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F5C074628FE80360089DD4B /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074528FE80360089DD4B /* HomeModel.swift */; };
 		5F5C074828FE803C0089DD4B /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* Color+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
+		5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* HomeModel.swift */; };
 		5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */; };
 		5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */; };
 		5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BE28FE799C0060DBB7 /* ViewController.swift */; };
@@ -25,9 +25,9 @@
 /* Begin PBXFileReference section */
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
-		5F5C074528FE80360089DD4B /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeModel.swift; path = "Workade/Views&ViewModels/Home/HomeModel.swift"; sourceTree = SOURCE_ROOT; };
-		5F5C074728FE803C0089DD4B /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Color+.swift"; path = "Workade/Views&ViewModels/Home/Color+.swift"; sourceTree = SOURCE_ROOT; };
-		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = "Workade/Views&ViewModels/Home/ExampleDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		5F5C074728FE803C0089DD4B /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Color+.swift"; path = "Workade/Extentions/Color+.swift"; sourceTree = SOURCE_ROOT; };
+		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
+		5F5C074D28FE81DE0089DD4B /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		5FDC17B728FE799C0060DBB7 /* Workade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +54,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F5C074B28FE81B40089DD4B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5F5C074D28FE81DE0089DD4B /* HomeModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5F5C074C28FE81BD0089DD4B /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				5F5C074728FE803C0089DD4B /* Color+.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		5F5C074F28FE81F20089DD4B /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				5F5C074928FE80450089DD4B /* ExampleDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
@@ -76,9 +100,9 @@
 		5FDC17B928FE799C0060DBB7 /* Workade */ = {
 			isa = PBXGroup;
 			children = (
-				5FDC17DC28FE7C850060DBB7 /* Delegate */,
-				5FDC17DB28FE7C810060DBB7 /* Extentions */,
-				5FDC17DA28FE7C7C0060DBB7 /* Models */,
+				5F5C074F28FE81F20089DD4B /* Delegate */,
+				5F5C074C28FE81BD0089DD4B /* Extentions */,
+				5F5C074B28FE81B40089DD4B /* Models */,
 				5FDC17D928FE7C720060DBB7 /* Views&ViewModels */,
 				5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */,
 				5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */,
@@ -97,30 +121,6 @@
 				5FDC17DD28FE7F1B0060DBB7 /* Home */,
 			);
 			path = "Views&ViewModels";
-			sourceTree = "<group>";
-		};
-		5FDC17DA28FE7C7C0060DBB7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				5F5C074528FE80360089DD4B /* HomeModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5FDC17DB28FE7C810060DBB7 /* Extentions */ = {
-			isa = PBXGroup;
-			children = (
-				5F5C074728FE803C0089DD4B /* Color+.swift */,
-			);
-			path = Extentions;
-			sourceTree = "<group>";
-		};
-		5FDC17DC28FE7C850060DBB7 /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-				5F5C074928FE80450089DD4B /* ExampleDelegate.swift */,
-			);
-			path = Delegate;
 			sourceTree = "<group>";
 		};
 		5FDC17DD28FE7F1B0060DBB7 /* Home */ = {
@@ -268,10 +268,10 @@
 			files = (
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* Color+.swift in Sources */,
+				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
-				5F5C074628FE80360089DD4B /* HomeModel.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
