@@ -19,6 +19,10 @@
 		5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */; };
 		5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* HomeView.swift */; };
 		5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */; };
+		A35559A628FECF4D001E4254 /* TotalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */; };
+		A35559A828FED2B2001E4254 /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TipDetailViewController.swift */; };
+		A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */; };
+		A35559AC28FEE8EE001E4254 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
 		BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C25E273370A5639B8396DFB /* Pods_Workade.framework */; };
 /* End PBXBuildFile section */
@@ -41,6 +45,10 @@
 		5FDC17DE28FE7F320060DBB7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDetailViewController.swift; sourceTree = "<group>"; };
+		A35559A728FED2B2001E4254 /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
+		A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnDetailViewController.swift; sourceTree = "<group>"; };
+		A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +155,10 @@
 			isa = PBXGroup;
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
+				A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */,
+				A35559A728FED2B2001E4254 /* TipDetailViewController.swift */,
+				A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */,
+				A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */,
 			);
 			path = Magazine;
 			sourceTree = "<group>";
@@ -279,11 +291,15 @@
 			files = (
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* Color+.swift in Sources */,
+				A35559A628FECF4D001E4254 /* TotalDetailViewController.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
+				A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */,
+				A35559A828FED2B2001E4254 /* TipDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
+				A35559AC28FEE8EE001E4254 /* ReviewDetailViewController.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,

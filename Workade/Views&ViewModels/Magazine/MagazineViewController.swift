@@ -78,18 +78,19 @@ class MagazineViewController: UIViewController {
         return stackView
     }()
     
+    var detailView = UIViewController()
+    
     private var selectedTab = 0
     private let spacing: CGFloat = (UIScreen.main.bounds.width - 40) / 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        detailView = TotalDetailViewController()
         
-        stackView.addArrangedSubview(totalTabBtn)
-        stackView.addArrangedSubview(tipTabBtn)
-        stackView.addArrangedSubview(columnTabBtn)
-        stackView.addArrangedSubview(reviewTabBtn)
+        settingStackView()
         configureUI()
+        settingDetailView()
     }
     
     // MARK: AutoLayout 설정
@@ -113,6 +114,30 @@ class MagazineViewController: UIViewController {
         line.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
+    func settingDetailView() {
+        for view in self.view.subviews {
+            view.removeFromSuperview()
+        }
+        
+        configureUI()
+        
+        self.addChild(detailView)
+        self.view.addSubview(detailView.view)
+        detailView.didMove(toParent: self)
+        
+        detailView.view.translatesAutoresizingMaskIntoConstraints = false
+        detailView.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10).isActive = true
+        detailView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        detailView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    func settingStackView() {
+        stackView.addArrangedSubview(totalTabBtn)
+        stackView.addArrangedSubview(tipTabBtn)
+        stackView.addArrangedSubview(columnTabBtn)
+        stackView.addArrangedSubview(reviewTabBtn)
+    }
+    
     @objc
     func buttonTapped(_ sender: UIButton) {
         if selectedTab != sender.tag {
@@ -123,6 +148,8 @@ class MagazineViewController: UIViewController {
                 columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
+                detailView = TotalDetailViewController()
+                settingDetailView()
                 
             case 1:
                 tipTabBtn.setTitleColor(UIColor.black, for: .normal)
@@ -130,6 +157,8 @@ class MagazineViewController: UIViewController {
                 columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
+                detailView = TipDetailViewController()
+                settingDetailView()
                 
             case 2:
                 columnTabBtn.setTitleColor(UIColor.black, for: .normal)
@@ -137,6 +166,8 @@ class MagazineViewController: UIViewController {
                 tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
+                detailView = ColumnDetailViewController()
+                settingDetailView()
                 
             case 3:
                 reviewTabBtn.setTitleColor(UIColor.black, for: .normal)
@@ -144,6 +175,8 @@ class MagazineViewController: UIViewController {
                 tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
+                detailView = ReviewDetailViewController()
+                settingDetailView()
                 
             default:
                 return
