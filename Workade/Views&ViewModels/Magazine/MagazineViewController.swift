@@ -62,6 +62,14 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
+    private let line: UIView = {
+        let line = UIView()
+        line.backgroundColor = .gray
+        
+        return line
+        
+    }()
+    
     private var selectedTab = 0
     
     override func viewDidLoad() {
@@ -97,6 +105,13 @@ class MagazineViewController: UIViewController {
         reviewTabButton.topAnchor.constraint(equalTo: columnTabButton.topAnchor).isActive = true
         reviewTabButton.leadingAnchor.constraint(equalTo: columnTabButton.trailingAnchor, constant: (UIScreen.main.bounds.width - 40) / 5).isActive = true
         reviewTabButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        view.addSubview(line)
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.topAnchor.constraint(equalTo: totalTabButton.bottomAnchor, constant: 10).isActive = true
+        line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        line.heightAnchor.constraint(equalToConstant: 4).isActive = true
     }
     
     @objc
@@ -109,7 +124,7 @@ class MagazineViewController: UIViewController {
                 columnTabButton.setTitleColor(UIColor.gray, for: .normal)
                 reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
-
+                
             case 1:
                 tipTabButton.setTitleColor(UIColor.black, for: .normal)
                 totalTabButton.setTitleColor(UIColor.gray, for: .normal)
@@ -135,5 +150,24 @@ class MagazineViewController: UIViewController {
                 return
             }
         }
+    }
+}
+
+import SwiftUI
+
+struct MagazineViewControllerRepresentable: UIViewControllerRepresentable {
+    typealias UIViewControllerType = MagazineViewController
+    
+    func makeUIViewController(context: Context) -> MagazineViewController {
+        return MagazineViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: MagazineViewController, context: Context) {}
+}
+
+@available(iOS 13.0.0, *)
+struct MagazineViewControllerPreview: PreviewProvider {
+    static var previews: some View {
+        MagazineViewControllerRepresentable()
     }
 }
