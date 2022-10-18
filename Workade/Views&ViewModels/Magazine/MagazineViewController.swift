@@ -18,7 +18,7 @@ class MagazineViewController: UIViewController {
         return label
     }()
     
-    private lazy var totalTabButton: UIButton = {
+    private lazy var totalTabBtn: UIButton = {
         var button = UIButton()
         button.setTitle("전체", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
@@ -29,7 +29,7 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
-    private lazy var tipTabButton: UIButton = {
+    private lazy var tipTabBtn: UIButton = {
         var button = UIButton()
         button.setTitle("팁", for: .normal)
         button.setTitleColor(UIColor.gray, for: .normal)
@@ -40,7 +40,7 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
-    private lazy var columnTabButton: UIButton = {
+    private lazy var columnTabBtn: UIButton = {
         var button = UIButton()
         button.setTitle("칼럼", for: .normal)
         button.setTitleColor(UIColor.gray, for: .normal)
@@ -51,7 +51,7 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
-    private lazy var reviewTabButton: UIButton = {
+    private lazy var reviewTabBtn: UIButton = {
         var button = UIButton()
         button.setTitle("후기", for: .normal)
         button.setTitleColor(UIColor.gray, for: .normal)
@@ -67,10 +67,10 @@ class MagazineViewController: UIViewController {
         line.backgroundColor = .gray
         
         return line
-        
     }()
     
     private var selectedTab = 0
+    private let spacing: CGFloat = (UIScreen.main.bounds.width - 40) / 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,33 +85,33 @@ class MagazineViewController: UIViewController {
         navBarTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         navBarTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         
-        view.addSubview(totalTabButton)
-        totalTabButton.translatesAutoresizingMaskIntoConstraints = false
-        totalTabButton.topAnchor.constraint(equalTo: navBarTitle.bottomAnchor, constant: 14).isActive = true
-        totalTabButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        view.addSubview(totalTabBtn)
+        totalTabBtn.translatesAutoresizingMaskIntoConstraints = false
+        totalTabBtn.topAnchor.constraint(equalTo: navBarTitle.bottomAnchor, constant: 14).isActive = true
+        totalTabBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         
-        view.addSubview(tipTabButton)
-        tipTabButton.translatesAutoresizingMaskIntoConstraints = false
-        tipTabButton.topAnchor.constraint(equalTo: totalTabButton.topAnchor).isActive = true
-        tipTabButton.leadingAnchor.constraint(equalTo: totalTabButton.trailingAnchor, constant: (UIScreen.main.bounds.width - 40) / 5).isActive = true
+        view.addSubview(tipTabBtn)
+        tipTabBtn.translatesAutoresizingMaskIntoConstraints = false
+        tipTabBtn.topAnchor.constraint(equalTo: totalTabBtn.topAnchor).isActive = true
+        tipTabBtn.leadingAnchor.constraint(equalTo: totalTabBtn.trailingAnchor, constant: spacing).isActive = true
         
-        view.addSubview(columnTabButton)
-        columnTabButton.translatesAutoresizingMaskIntoConstraints = false
-        columnTabButton.topAnchor.constraint(equalTo: tipTabButton.topAnchor).isActive = true
-        columnTabButton.leadingAnchor.constraint(equalTo: tipTabButton.trailingAnchor, constant: (UIScreen.main.bounds.width - 40) / 5).isActive = true
+        view.addSubview(columnTabBtn)
+        columnTabBtn.translatesAutoresizingMaskIntoConstraints = false
+        columnTabBtn.topAnchor.constraint(equalTo: tipTabBtn.topAnchor).isActive = true
+        columnTabBtn.leadingAnchor.constraint(equalTo: tipTabBtn.trailingAnchor, constant: spacing).isActive = true
         
-        view.addSubview(reviewTabButton)
-        reviewTabButton.translatesAutoresizingMaskIntoConstraints = false
-        reviewTabButton.topAnchor.constraint(equalTo: columnTabButton.topAnchor).isActive = true
-        reviewTabButton.leadingAnchor.constraint(equalTo: columnTabButton.trailingAnchor, constant: (UIScreen.main.bounds.width - 40) / 5).isActive = true
-        reviewTabButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        view.addSubview(reviewTabBtn)
+        reviewTabBtn.translatesAutoresizingMaskIntoConstraints = false
+        reviewTabBtn.topAnchor.constraint(equalTo: columnTabBtn.topAnchor).isActive = true
+        reviewTabBtn.leadingAnchor.constraint(equalTo: columnTabBtn.trailingAnchor, constant: spacing).isActive = true
+        reviewTabBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         view.addSubview(line)
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.topAnchor.constraint(equalTo: totalTabButton.bottomAnchor, constant: 10).isActive = true
+        line.topAnchor.constraint(equalTo: totalTabBtn.bottomAnchor, constant: 10).isActive = true
         line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        line.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        line.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
     @objc
@@ -119,55 +119,36 @@ class MagazineViewController: UIViewController {
         if selectedTab != sender.tag {
             switch sender.tag {
             case 0:
-                totalTabButton.setTitleColor(UIColor.black, for: .normal)
-                tipTabButton.setTitleColor(UIColor.gray, for: .normal)
-                columnTabButton.setTitleColor(UIColor.gray, for: .normal)
-                reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
+                totalTabBtn.setTitleColor(UIColor.black, for: .normal)
+                tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 
             case 1:
-                tipTabButton.setTitleColor(UIColor.black, for: .normal)
-                totalTabButton.setTitleColor(UIColor.gray, for: .normal)
-                columnTabButton.setTitleColor(UIColor.gray, for: .normal)
-                reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
+                tipTabBtn.setTitleColor(UIColor.black, for: .normal)
+                totalTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 
             case 2:
-                columnTabButton.setTitleColor(UIColor.black, for: .normal)
-                totalTabButton.setTitleColor(UIColor.gray, for: .normal)
-                tipTabButton.setTitleColor(UIColor.gray, for: .normal)
-                reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
+                columnTabBtn.setTitleColor(UIColor.black, for: .normal)
+                totalTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 
             case 3:
-                reviewTabButton.setTitleColor(UIColor.black, for: .normal)
-                totalTabButton.setTitleColor(UIColor.gray, for: .normal)
-                tipTabButton.setTitleColor(UIColor.gray, for: .normal)
-                columnTabButton.setTitleColor(UIColor.gray, for: .normal)
+                reviewTabBtn.setTitleColor(UIColor.black, for: .normal)
+                totalTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                tipTabBtn.setTitleColor(UIColor.gray, for: .normal)
+                columnTabBtn.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 
             default:
                 return
             }
         }
-    }
-}
-
-import SwiftUI
-
-struct MagazineViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = MagazineViewController
-    
-    func makeUIViewController(context: Context) -> MagazineViewController {
-        return MagazineViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: MagazineViewController, context: Context) {}
-}
-
-@available(iOS 13.0.0, *)
-struct MagazineViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        MagazineViewControllerRepresentable()
     }
 }
