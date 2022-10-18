@@ -8,6 +8,15 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    private let welcomeLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 2 // default value = 1
+        label.text = "반가워요!\n같이 워케이션을 꿈꿔볼까요?"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
