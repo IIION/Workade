@@ -81,7 +81,6 @@ class MagazineViewController: UIViewController {
     var detailView = UIViewController()
     
     private var selectedTab = 0
-    private let spacing: CGFloat = (UIScreen.main.bounds.width - 40) / 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
