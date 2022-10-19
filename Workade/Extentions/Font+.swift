@@ -16,18 +16,25 @@ extension UIFont {
         switch customStyle {
         case .title1:
             customFont = UIFont(name: CustomFont.pretendardBold.name, size: 28)!
+            
         case .title2:
             customFont = UIFont(name: CustomFont.pretendardBold.name, size: 24)!
+            
         case .title3:
             customFont = UIFont(name: CustomFont.pretendardBold.name, size: 20)!
+            
         case .headline:
             customFont = UIFont(name: CustomFont.pretendardSemiBold.name, size: 17)!
+            
         case .subHeadline:
             customFont = UIFont(name: CustomFont.pretendardRegular.name, size: 15)!
+            
         case .articleBody:
             customFont = UIFont(name: CustomFont.pretendardSemiBold.name, size: 15)!
+            
         case .footnote:
             customFont = UIFont(name: CustomFont.pretendardMedium.name, size: 13)!
+            
         case .caption:
             customFont = UIFont(name: CustomFont.pretendardRegular.name, size: 12)!
         }
@@ -55,7 +62,6 @@ enum CustomFont {
         }
     }
 }
-
 
 enum CustomTextStyle {
     case title1
