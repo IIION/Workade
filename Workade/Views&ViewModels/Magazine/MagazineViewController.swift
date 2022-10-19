@@ -9,11 +9,12 @@ import UIKit
 
 class MagazineViewController: UIViewController {
     // MARK: 컴포넌트 설정
-    private let navBarTitle: UILabel = {
+    private let viewTitle: UILabel = {
         let label = UILabel()
         label.text = "매거진"
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -65,6 +66,7 @@ class MagazineViewController: UIViewController {
     private let line: UIView = {
         let line = UIView()
         line.backgroundColor = .gray
+        line.translatesAutoresizingMaskIntoConstraints = false
         
         return line
     }()
@@ -74,6 +76,7 @@ class MagazineViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .white
         stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
@@ -88,25 +91,22 @@ class MagazineViewController: UIViewController {
         detailView = TotalDetailViewController()
         
         settingStackView()
-        configureUI()
+        setupLayout()
         settingDetailView()
     }
     
     // MARK: AutoLayout 설정
-    private func configureUI() {
-        view.addSubview(navBarTitle)
-        navBarTitle.translatesAutoresizingMaskIntoConstraints = false
-        navBarTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        navBarTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+    private func setupLayout() {
+        view.addSubview(viewTitle)
+        viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         
         view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: navBarTitle.bottomAnchor, constant: 14).isActive = true
+        stackView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 14).isActive = true
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         view.addSubview(line)
-        line.translatesAutoresizingMaskIntoConstraints = false
         line.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10).isActive = true
         line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -118,7 +118,7 @@ class MagazineViewController: UIViewController {
             view.removeFromSuperview()
         }
         
-        configureUI()
+        setupLayout()
         
         self.addChild(detailView)
         self.view.addSubview(detailView.view)

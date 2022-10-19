@@ -15,13 +15,13 @@ class ReviewDetailViewController: UIViewController {
         
         return label
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        setupLayout()
     }
     
-    func configureUI() {
+    func setupLayout() {
         view.addSubview(testLabel)
         testLabel.translatesAutoresizingMaskIntoConstraints = false
         testLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
