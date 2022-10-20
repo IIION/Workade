@@ -192,22 +192,3 @@ class MagazineViewController: UIViewController {
         }
     }
 }
-
-import SwiftUI
-
-struct MagazineViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = MagazineViewController
-    
-    func makeUIViewController(context: Context) -> MagazineViewController {
-        return MagazineViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: MagazineViewController, context: Context) {}
-}
-
-@available(iOS 13.0.0, *)
-struct MagazineViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        MagazineViewControllerRepresentable()
-    }
-}
