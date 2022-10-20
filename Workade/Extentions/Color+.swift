@@ -14,7 +14,7 @@ import UIKit
 extension UIColor {
     static let theme = ColorTheme()
     
-    static func rgb(_ rgbValue: Int) -> UIColor! {
+    static func rgb(_ rgbValue: Int) -> UIColor {
         return UIColor(
             red: CGFloat((Float((rgbValue & 0xff0000) >> 16)) / 255.0),
             green: CGFloat((Float((rgbValue & 0x00ff00) >> 8)) / 255.0),
