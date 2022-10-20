@@ -69,6 +69,13 @@ class OfficeCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure(office: Office) {
+        // 추후 image는 Task{ } 블럭에서 처리예정.
+        backgroundImageView.image = office.profileImage
+        regionNameLabel.text = office.regionName
+        officeNameLabel.text = office.officeName
+    }
 }
 
 // MARK: UI setup 관련 Methods

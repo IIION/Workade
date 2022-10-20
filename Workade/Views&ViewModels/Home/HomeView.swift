@@ -18,9 +18,10 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private let officeCollectionView: HorizontalCollectionView = {
+    private lazy var officeCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
-        collectionView.register(cell: UICollectionViewCell.self)
+        collectionView.register(cell: OfficeCollectionViewCell.self)
+        collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -82,7 +83,13 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell = collectionView.dequeue(for: indexPath)
+        let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
+        // UI layout확인용 temp data입니다. 데이터 로직은 좀더 정리하고 반영하겠습니다.
+        cell.configure(office: Office(officeName: "O-PIECE",
+                                      regionName: "제주도",
+                                      profileImage: UIImage(named: "OpieceTamna") ?? UIImage(),
+                                      latitude: 30,
+                                      longitude: 30))
         return cell
     }
 }
