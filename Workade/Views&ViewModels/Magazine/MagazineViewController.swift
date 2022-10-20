@@ -86,7 +86,7 @@ class MagazineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .white
+//        view.backgroundColor = .theme.background
         detailView = TotalDetailViewController()
         
         setupStackView()
