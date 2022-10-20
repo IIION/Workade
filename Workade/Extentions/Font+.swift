@@ -11,37 +11,26 @@ import UIKit
 // MARK: Font
 // label.font = .customFont(for: .title1)
 extension UIFont {
-    static func customFont(for customStyle: CustomTextStyle) -> UIFont {
-        var customFont: UIFont!
+static func customFont(for customStyle: CustomTextStyle) -> UIFont {
         switch customStyle {
         case .title1:
-            customFont = UIFont(name: CustomFont.pretendardBold.rawValue, size: 28)!
-            
+            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .bold)
         case .title2:
-            customFont = UIFont(name: CustomFont.pretendardBold.rawValue, size: 24)!
-            
+            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .bold)
         case .title3:
-            customFont = UIFont(name: CustomFont.pretendardBold.rawValue, size: 20)!
-            
+            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .bold)
         case .headline:
-            customFont = UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 17)!
-            
+            return UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
         case .subHeadline:
-            customFont = UIFont(name: CustomFont.pretendardRegular.rawValue, size: 15)!
-            
+            return UIFont(name: CustomFont.pretendardRegular.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
         case .articleBody:
-            customFont = UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 15)!
-            
+            return UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .semibold)
         case .footnote:
-            customFont = UIFont(name: CustomFont.pretendardMedium.rawValue, size: 13)!
-            
+            return UIFont(name: CustomFont.pretendardMedium.rawValue, size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium)
         case .caption:
-            customFont = UIFont(name: CustomFont.pretendardRegular.rawValue, size: 12)!
+            return UIFont(name: CustomFont.pretendardRegular.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
         }
-        
-        return customFont
     }
-}
 
 enum CustomFont: String {
     case pretendardBold = "Pretendard-Bold"
