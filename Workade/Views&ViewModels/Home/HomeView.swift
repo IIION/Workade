@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 2 // default value = 1
         label.text = "반가워요!\n같이 워케이션을 꿈꿔볼까요?"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = .customFont(for: .title3)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
