@@ -78,9 +78,9 @@ extension OfficeCollectionViewCell {
     }
     
     private func setupLayout() {
-        addSubview(backgroundImageView)
-        addSubview(mapButton)
-        addSubview(titleStackView)
+        contentView.addSubview(backgroundImageView)
+        contentView.addSubview(mapButton)
+        contentView.addSubview(titleStackView)
         titleStackView.addArrangedSubview(regionNameLabel)
         titleStackView.addArrangedSubview(officeNameLabel)
         
