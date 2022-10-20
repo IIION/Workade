@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EFB5BA328FF08A100174291 /* NearbyPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceView.swift */; };
+		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
+		0EFB5BA52900E9D800174291 /* IntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceViewController.swift */; };
 		5F5C074828FE803C0089DD4B /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* Color+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* HomeModel.swift */; };
@@ -24,7 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0EFB5BA228FF08A100174291 /* NearbyPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceView.swift; sourceTree = "<group>"; };
+		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
+		0EFB5BA42900E9D800174291 /* IntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Color+.swift"; path = "Workade/Extentions/Color+.swift"; sourceTree = SOURCE_ROOT; };
@@ -59,7 +61,8 @@
 		0EFB5BA128FF088A00174291 /* NearbyPlace */ = {
 			isa = PBXGroup;
 			children = (
-				0EFB5BA228FF08A100174291 /* NearbyPlaceView.swift */,
+				0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */,
+				0EFB5BA42900E9D800174291 /* IntroduceViewController.swift */,
 			);
 			path = NearbyPlace;
 			sourceTree = "<group>";
@@ -278,9 +281,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
+				0EFB5BA52900E9D800174291 /* IntroduceViewController.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* Color+.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
-				0EFB5BA328FF08A100174291 /* NearbyPlaceView.swift in Sources */,
+				0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
