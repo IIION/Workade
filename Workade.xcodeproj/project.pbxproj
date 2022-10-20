@@ -29,6 +29,7 @@
 		96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */; };
 		96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836929014361009F2BC6 /* UICollectionView+.swift */; };
 		96B1836C2901458F009F2BC6 /* HorizontalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836B2901458F009F2BC6 /* HorizontalCollectionView.swift */; };
+		96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */; };
 		A35559A628FECF4D001E4254 /* TotalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */; };
 		A35559A828FED2B2001E4254 /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TipDetailViewController.swift */; };
 		A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */; };
@@ -65,6 +66,7 @@
 		96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReuableView+.swift"; sourceTree = "<group>"; };
 		96B1836929014361009F2BC6 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		96B1836B2901458F009F2BC6 /* HorizontalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionView.swift; sourceTree = "<group>"; };
+		96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDetailViewController.swift; sourceTree = "<group>"; };
 		A35559A728FED2B2001E4254 /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
 		A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnDetailViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				5FDC17DE28FE7F320060DBB7 /* HomeView.swift */,
 				96B1836B2901458F009F2BC6 /* HorizontalCollectionView.swift */,
+				96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */,
 				5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */,
 			);
 			path = Home;
@@ -381,6 +384,7 @@
 				21F6DE6028FFED9C00ED72C6 /* Font+.swift in Sources */,
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
+				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
