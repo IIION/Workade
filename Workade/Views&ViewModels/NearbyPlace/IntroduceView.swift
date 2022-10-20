@@ -5,7 +5,6 @@
 //  Created by ryu hyunsun on 2022/10/20.
 //
 
-import Foundation
 import UIKit
 
 class IntroduceView: UIView {
