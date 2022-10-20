@@ -8,7 +8,7 @@
 import UIKit
 
 class ColumnDetailViewController: UIViewController {
-    let testLabel: UILabel = {
+    let sampleLabel: UILabel = {
         let label = UILabel()
         label.text = "칼럼 뷰 입니다."
         label.textColor = .black
@@ -22,9 +22,12 @@ class ColumnDetailViewController: UIViewController {
     }
     
     func setupLayout() {
-        view.addSubview(testLabel)
-        testLabel.translatesAutoresizingMaskIntoConstraints = false
-        testLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        testLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        view.addSubview(sampleLabel)
+        let sampleLabelLayout = [
+            sampleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sampleLabel.topAnchor.constraint(equalTo: view.topAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(sampleLabelLayout)
     }
 }

@@ -71,12 +71,11 @@ class MagazineViewController: UIViewController {
         return line
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .white
         stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
@@ -98,19 +97,29 @@ class MagazineViewController: UIViewController {
     // MARK: AutoLayout 설정
     private func setupLayout() {
         view.addSubview(viewTitle)
-        viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        let viewTitleLayout = [
+            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
         
         view.addSubview(stackView)
-        stackView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 14).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        let stackViewLayout = [
+            stackView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 14),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            ]
         
         view.addSubview(line)
-        line.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10).isActive = true
-        line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        line.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        let lineLayout = [
+            line.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
+            line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            line.heightAnchor.constraint(equalToConstant: 2)
+        ]
+        
+        NSLayoutConstraint.activate(viewTitleLayout)
+        NSLayoutConstraint.activate(stackViewLayout)
+        NSLayoutConstraint.activate(lineLayout)
     }
     
     func settingDetailView() {
@@ -125,9 +134,12 @@ class MagazineViewController: UIViewController {
         detailView.didMove(toParent: self)
         
         detailView.view.translatesAutoresizingMaskIntoConstraints = false
-        detailView.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10).isActive = true
-        detailView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        detailView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        let detailViewLayout = [
+            detailView.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10),
+            detailView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detailView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ]
+        NSLayoutConstraint.activate(detailViewLayout)
     }
     
     func settingStackView() {
@@ -181,5 +193,24 @@ class MagazineViewController: UIViewController {
                 return
             }
         }
+    }
+}
+
+import SwiftUI
+
+struct MagazineViewControllerRepresentable: UIViewControllerRepresentable {
+    typealias UIViewControllerType = MagazineViewController
+
+    func makeUIViewController(context: Context) -> MagazineViewController {
+        return MagazineViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: MagazineViewController, context: Context) {}
+}
+
+@available(iOS 13.0.0, *)
+struct MagazineViewControllerPreview: PreviewProvider {
+    static var previews: some View {
+        MagazineViewControllerRepresentable()
     }
 }

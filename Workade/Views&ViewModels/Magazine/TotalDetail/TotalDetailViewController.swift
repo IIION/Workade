@@ -8,10 +8,11 @@
 import UIKit
 
 class TotalDetailViewController: UIViewController {
-    let testLabel: UILabel = {
+    let sampleLabel: UILabel = {
         let label = UILabel()
         label.text = "Total 뷰 입니다 나중에 수정"
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -22,9 +23,12 @@ class TotalDetailViewController: UIViewController {
     }
     
     func setupLayout() {
-        view.addSubview(testLabel)
-        testLabel.translatesAutoresizingMaskIntoConstraints = false
-        testLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        testLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        view.addSubview(sampleLabel)
+        let sampleLabelLayout = [
+            sampleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sampleLabel.topAnchor.constraint(equalTo: view.topAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(sampleLabelLayout)
     }
 }
