@@ -105,6 +105,7 @@ class CheckListCell: UICollectionViewCell {
         
         contentView.layer.cornerRadius = 20
         contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         
         self.setupLayout()
     }

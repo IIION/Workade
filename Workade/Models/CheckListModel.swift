@@ -11,7 +11,7 @@ struct CheckListModel {
     let id: String = UUID().uuidString
     let title: String
     let emoji: String
-    let editedDate: Date
+    let travelDate: Date
     let tasks: [Task]
 }
 

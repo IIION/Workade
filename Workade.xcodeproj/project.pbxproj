@@ -87,8 +87,8 @@
 		16083B4729013F9A008056D4 /* CheckList */ = {
 			isa = PBXGroup;
 			children = (
-				16083B4829013F9A008056D4 /* CheckListCell */,
 				16083B4A29013F9A008056D4 /* CheckListViewController.swift */,
+				16083B4829013F9A008056D4 /* CheckListCell */,
 			);
 			path = CheckList;
 			sourceTree = "<group>";

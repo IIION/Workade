@@ -9,7 +9,15 @@ import UIKit
 import SwiftUI
 
 class CheckListViewController: UIViewController {
-    let editButton: UIBarButtonItem = {
+    // test 모델
+    private var checkList = [
+        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: []),
+        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: []),
+        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: []),
+        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: [])
+    ]
+    
+    private let editButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
             title: "편집",
             style: .plain,
@@ -17,33 +25,38 @@ class CheckListViewController: UIViewController {
             action: nil
         )
         barButtonItem.tintColor = .black
+        
         return barButtonItem
     }()
     
-    let checkListLabel: UILabel = {
+    private let checkListLabel: UILabel = {
         let label = UILabel()
         label.text = "Checklist"
         label.font = UIFont.customFont(for: .title2)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
-    let checklistCollectionView: UICollectionView = {
+    private lazy var checklistCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(CheckListCell.self, forCellWithReuseIdentifier: CheckListCell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         return collectionView
     }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
         self.setupNavigationBar()
         self.setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -64,14 +77,41 @@ extension CheckListViewController {
         ]
         
         let checklistCollectionViewConstraints = [
-            checklistCollectionView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 25),
-            checklistCollectionView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: 25),
             checklistCollectionView.topAnchor.constraint(equalTo: checkListLabel.bottomAnchor, constant: 20),
+            checklistCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            checklistCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             checklistCollectionView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(checkListLabelConstraints)
         NSLayoutConstraint.activate(checklistCollectionViewConstraints)
+    }
+}
+
+extension CheckListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: (UIScreen.main.bounds.width / 2) - 30, height: 165)
+        }
+}
+
+extension CheckListViewController: UICollectionViewDelegate {
+    
+}
+
+extension CheckListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.checkList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckListCell.identifier, for: indexPath) as? CheckListCell else {
+            return UICollectionViewCell()
+        }
+        
+        return cell
     }
 }
 
