@@ -41,12 +41,12 @@ class NearbyPlaceViewController: UIViewController {
         return view
     }()
     
-    private let stackViewUnderLine: UIView = {
-        let stackViewUnderLine = UIView()
-        stackViewUnderLine.backgroundColor = .systemGray5
-        stackViewUnderLine.translatesAutoresizingMaskIntoConstraints = false
+    private let segmentUnderLine: UIView = {
+        let segmentUnderLine = UIView()
+        segmentUnderLine.backgroundColor = .systemGray5
+        segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
-        return stackViewUnderLine
+        return segmentUnderLine
     }()
     
     override func viewDidLoad() {
@@ -58,11 +58,12 @@ class NearbyPlaceViewController: UIViewController {
     // 레이아웃 설정.
     private func setupLayout() {
         view.addSubview(segmentedControl)
-        view.addSubview(stackViewUnderLine)
+        view.addSubview(segmentUnderLine)
         view.addSubview(galleryView)
         view.addSubview(introduceView)
         
-        removeSegmentBackgroundAndDivider()
+        removeSegmentBackground()
+        removeSegmentDivider()
         
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
@@ -72,21 +73,21 @@ class NearbyPlaceViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            stackViewUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            stackViewUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackViewUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            stackViewUnderLine.heightAnchor.constraint(equalToConstant: 2)
+            segmentUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
+            segmentUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
         
         NSLayoutConstraint.activate([
-            introduceView.topAnchor.constraint(equalTo: stackViewUnderLine.bottomAnchor, constant: 10),
+            introduceView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 10),
             introduceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             introduceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             introduceView.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
-            galleryView.topAnchor.constraint(equalTo: stackViewUnderLine.bottomAnchor, constant: 10),
+            galleryView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 10),
             galleryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             galleryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             galleryView.heightAnchor.constraint(equalToConstant: 50)
@@ -111,11 +112,15 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     // segmented controller 배경 없애기.
-    private func removeSegmentBackgroundAndDivider() {
+    private func removeSegmentBackground() {
         let image = UIImage()
         segmentedControl.setBackgroundImage(image, for: .normal, barMetrics: .default)
         segmentedControl.setBackgroundImage(image, for: .selected, barMetrics: .default)
         segmentedControl.setBackgroundImage(image, for: .highlighted, barMetrics: .default)
+    }
+    
+    private func removeSegmentDivider() {
+        let image = UIImage()
         segmentedControl.setDividerImage(
             image,
             forLeftSegmentState: .selected,
