@@ -11,7 +11,7 @@ import UIKit
 // MARK: Font
 // label.font = .customFont(for: .title1)
 extension UIFont {
-static func customFont(for customStyle: CustomTextStyle) -> UIFont {
+    static func customFont(for customStyle: CustomTextStyle) -> UIFont {
         switch customStyle {
         case .title1:
             return UIFont(name: CustomFont.pretendardBold.rawValue, size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -31,6 +31,7 @@ static func customFont(for customStyle: CustomTextStyle) -> UIFont {
             return UIFont(name: CustomFont.pretendardRegular.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
         }
     }
+}
 
 enum CustomFont: String {
     case pretendardBold = "Pretendard-Bold"
