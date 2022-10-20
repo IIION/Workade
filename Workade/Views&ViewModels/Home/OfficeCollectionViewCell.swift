@@ -54,11 +54,13 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let titleStackView: UIStackView = {
+    private lazy var titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
         stackView.axis = .vertical
         stackView.spacing = 2
+        stackView.addArrangedSubview(regionNameLabel)
+        stackView.addArrangedSubview(officeNameLabel)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -92,8 +94,6 @@ extension OfficeCollectionViewCell {
         contentView.addSubview(backgroundImageView)
         contentView.addSubview(mapButton)
         contentView.addSubview(titleStackView)
-        titleStackView.addArrangedSubview(regionNameLabel)
-        titleStackView.addArrangedSubview(officeNameLabel)
         
         let backgroundImageViewConstraints = [
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
