@@ -18,6 +18,11 @@ class HomeViewController: UIViewController {
         return label
     }()
     
+    private let officeCollectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
