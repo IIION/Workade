@@ -9,10 +9,21 @@ import UIKit
 import SwiftUI
 
 class CheckListViewController: UIViewController {
+    let editButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(
+            title: "편집",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        barButtonItem.tintColor = .black
+        return barButtonItem
+    }()
+    
     let checkListLabel: UILabel = {
         let label = UILabel()
         label.text = "Checklist"
-        label.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight(870))
+        label.font = UIFont.customFont(for: .title2)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -27,7 +38,8 @@ class CheckListViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         view.backgroundColor = .systemBackground
         
-        self.layout()
+        self.setupNavigationBar()
+        self.setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -36,7 +48,11 @@ class CheckListViewController: UIViewController {
 }
 
 extension CheckListViewController {
-    private func layout() {
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = editButton
+    }
+    
+    private func setupLayout() {
         view.addSubview(checkListLabel)
         view.addSubview(checklistCollectionView)
         

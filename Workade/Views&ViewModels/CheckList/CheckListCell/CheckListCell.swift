@@ -23,7 +23,7 @@ class CheckListCell: UICollectionViewCell {
         
         uncheckImage.tintColor = .black
         uncheckLabel.text = "\(uncheckCnt)"
-        uncheckLabel.font = .systemFont(ofSize: 13)
+        uncheckLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [uncheckImage, uncheckLabel])
         stackView.axis = .horizontal
@@ -39,7 +39,7 @@ class CheckListCell: UICollectionViewCell {
         
         checkImage.tintColor = .black
         checkLabel.text = "\(checkCnt)"
-        checkLabel.font = .systemFont(ofSize: 13)
+        checkLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [checkImage, checkLabel])
         stackView.axis = .horizontal
@@ -72,11 +72,11 @@ class CheckListCell: UICollectionViewCell {
         let dDayLabel = UILabel()
         
         titleLabel.text = title
-        titleLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        titleLabel.font = .customFont(for: .subHeadline)
         titleLabel.tintColor = .black
         
         dDayLabel.text = "D - \(dDay)"
-        dDayLabel.font = .systemFont(ofSize: 12)
+        dDayLabel.font = .customFont(for: .caption)
         dDayLabel.tintColor = .black
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dDayLabel])
@@ -105,6 +105,7 @@ class CheckListCell: UICollectionViewCell {
         
         contentView.layer.cornerRadius = 20
         contentView.layer.borderWidth = 2
+        
         self.setupLayout()
     }
     
