@@ -11,8 +11,8 @@ import SwiftUI
 class CheckListCell: UICollectionViewCell {
     static let identifier = "CheckListCell"
     
-    var uncheckCnt: Int = 0
-    var checkCnt: Int = 0
+    var uncheckCount: Int = 0
+    var checkCount: Int = 0
     var emoji: String = "🏝"
     var title: String = "제목없음"
     var dDay: Int = 0
@@ -22,7 +22,7 @@ class CheckListCell: UICollectionViewCell {
         let uncheckLabel = UILabel()
         
         uncheckImage.tintColor = .black
-        uncheckLabel.text = "\(uncheckCnt)"
+        uncheckLabel.text = "\(uncheckCount)"
         uncheckLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [uncheckImage, uncheckLabel])
@@ -38,7 +38,7 @@ class CheckListCell: UICollectionViewCell {
         let checkLabel = UILabel()
         
         checkImage.tintColor = .black
-        checkLabel.text = "\(checkCnt)"
+        checkLabel.text = "\(checkCount)"
         checkLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [checkImage, checkLabel])
