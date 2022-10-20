@@ -9,35 +9,36 @@ import Foundation
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
-    private lazy var introduceTabButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("소개", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
-        button.tag = 0
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+    private lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: ["소개", "갤러리"])
+        segmentedControl.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: UIColor.gray,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
+                                                for: .normal)
+        segmentedControl.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
+                                                for: .selected)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
-        return button
+        return segmentedControl
     }()
     
-    private lazy var gallaryTabButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("갤러리", for: .normal)
-        button.setTitleColor(UIColor.gray, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
-        button.tag = 1
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+    private let introduceView: IntroduceView = {
+        let view = IntroduceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        return button
+        return view
     }()
     
-    private var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .white
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    private let galleryView: TempGalleryView = {
+        let view = TempGalleryView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        return stackView
+        return view
     }()
     
     private let stackViewUnderLine: UIView = {
@@ -48,77 +49,77 @@ class NearbyPlaceViewController: UIViewController {
         return stackViewUnderLine
     }()
     
-    private var detailView = UIViewController()
-    
-    private var selectedTab = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 여기는 나중에 최상단 뷰에서 white로 지정해주면 없애기.
         view.backgroundColor = .white
-        detailView = IntroduceViewController()
-        
-        settingStackView()
         setupLayout()
-        settingDetailView()
     }
     
+    // 레이아웃 설정.
     private func setupLayout() {
-        view.addSubview(stackView)
-        stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        
+        view.addSubview(segmentedControl)
         view.addSubview(stackViewUnderLine)
-        stackViewUnderLine.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10).isActive = true
-        stackViewUnderLine.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        stackViewUnderLine.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        stackViewUnderLine.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        view.addSubview(galleryView)
+        view.addSubview(introduceView)
+        
+        removeSegmentBackgroundAndDivider()
+        
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
+            stackViewUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            stackViewUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackViewUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackViewUnderLine.heightAnchor.constraint(equalToConstant: 2)
+        ])
+        
+        NSLayoutConstraint.activate([
+            introduceView.topAnchor.constraint(equalTo: stackViewUnderLine.bottomAnchor, constant: 10),
+            introduceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            introduceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            introduceView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
+            galleryView.topAnchor.constraint(equalTo: stackViewUnderLine.bottomAnchor, constant: 10),
+            galleryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            galleryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            galleryView.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
-    private func settingDetailView() {
-        for view in self.view.subviews {
-            view.removeFromSuperview()
-        }
-        
-        setupLayout()
-        
-        self.addChild(detailView)
-        self.view.addSubview(detailView.view)
-        detailView.didMove(toParent: self)
-        
-        detailView.view.translatesAutoresizingMaskIntoConstraints = false
-        detailView.view.topAnchor.constraint(equalTo: stackViewUnderLine.bottomAnchor, constant: 10).isActive = true
-        detailView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        detailView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    }
-    
-    private func settingStackView() {
-        stackView.addArrangedSubview(introduceTabButton)
-        stackView.addArrangedSubview(gallaryTabButton)
-    }
-    
+    // segmented controller 액션.
     @objc
-    private func buttonTapped(_ sender: UIButton) {
-        if selectedTab != sender.tag {
-            switch sender.tag {
-            case 0:
-                print("0번")
-                introduceTabButton.setTitleColor(UIColor.black, for: .normal)
-                gallaryTabButton.setTitleColor(UIColor.gray, for: .normal)
-                selectedTab = sender.tag
-                detailView = IntroduceViewController()
-                settingDetailView()
-                
-            case 1:
-                print("1번")
-                introduceTabButton.setTitleColor(UIColor.gray, for: .normal)
-                gallaryTabButton.setTitleColor(UIColor.black, for: .normal)
-                selectedTab = sender.tag
+    private func indexChanged(_ segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            introduceView.alpha = 1
+            galleryView.alpha = 0
             
-            default:
-                return
-            }
+        case 1:
+            introduceView.alpha = 0
+            galleryView.alpha = 1
+            
+        default:
+            break
         }
+    }
+    
+    // segmented controller 배경 없애기.
+    private func removeSegmentBackgroundAndDivider() {
+        let image = UIImage()
+        segmentedControl.setBackgroundImage(image, for: .normal, barMetrics: .default)
+        segmentedControl.setBackgroundImage(image, for: .selected, barMetrics: .default)
+        segmentedControl.setBackgroundImage(image, for: .highlighted, barMetrics: .default)
+        segmentedControl.setDividerImage(
+            image,
+            forLeftSegmentState: .selected,
+            rightSegmentState: .normal,
+            barMetrics: .default)
     }
 }
