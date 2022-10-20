@@ -32,7 +32,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let regionLabel: UILabel = {
+    private let regionNameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .subHeadline)
         label.textColor = .white
@@ -41,7 +41,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let nameLabel: UILabel = {
+    private let officeNameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .title3)
         label.textColor = .white
@@ -50,7 +50,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let stackView: UIStackView = {
+    private let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
         stackView.axis = .vertical
@@ -80,19 +80,29 @@ extension OfficeCollectionViewCell {
     private func setupLayout() {
         addSubview(backgroundImageView)
         addSubview(mapButton)
-        addSubview(stackView)
-        stackView.addArrangedSubview(regionLabel)
-        stackView.addArrangedSubview(nameLabel)
+        addSubview(titleStackView)
+        titleStackView.addArrangedSubview(regionNameLabel)
+        titleStackView.addArrangedSubview(officeNameLabel)
         
-        backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        let backgroundImageViewConstraints = [
+            backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
+            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
+        ]
         
-        mapButton.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        mapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        mapButton.widthAnchor.constraint(equalToConstant: 36).isActive = true
-        mapButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        let mapButtonConstraints = [
+            mapButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            mapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            mapButton.widthAnchor.constraint(equalToConstant: 36),
+            mapButton.heightAnchor.constraint(equalToConstant: 36)
+        ]
         
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
+        let stackViewConstraints = [
+            titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            titleStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+        ]
+        
+        NSLayoutConstraint.activate(backgroundImageViewConstraints)
+        NSLayoutConstraint.activate(mapButtonConstraints)
+        NSLayoutConstraint.activate(stackViewConstraints)
     }
 }
