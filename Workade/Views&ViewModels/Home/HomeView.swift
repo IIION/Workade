@@ -18,8 +18,11 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private let officeCollectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+    private let officeCollectionView: HorizontalCollectionView = {
+        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
+        collectionView.register(cell: UICollectionViewCell.self)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         return collectionView
     }()
     
@@ -53,6 +56,7 @@ extension HomeViewController {
     
     private func setupLayout() {
         view.addSubview(welcomeLabel)
+        view.addSubview(officeCollectionView)
         
         let welcomeLabelConstraints = [
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
@@ -60,6 +64,25 @@ extension HomeViewController {
             welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ]
         
+        let officeCollectionViewConstraints = [
+            officeCollectionView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 22),
+            officeCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            officeCollectionView.heightAnchor.constraint(equalToConstant: 200)
+        ]
+        
         NSLayoutConstraint.activate(welcomeLabelConstraints)
+        NSLayoutConstraint.activate(officeCollectionViewConstraints)
+    }
+}
+
+// MARK: DataSource
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5 // temp
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: UICollectionViewCell = collectionView.dequeue(for: indexPath)
+        return cell
     }
 }
