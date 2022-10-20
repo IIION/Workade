@@ -4,13 +4,18 @@ excluded:
 - Libraries
 - Workade/AppDelegate.swift
 - Workade/SceneDelegate.swift
-  
+- Workade/Extention
+- Pods
 
+# 반드시 옵션은 공백 2칸 들어갈 것
+# opt_in_rules는 - 하고 공백 3칸
+
+#Defualt Rules
+line_length:
+  warning: 150
 file_length:
- warning: 400
- ignore_comment_only_lines: true
- 
-
+  warning: 400
+  ignore_comment_only_lines: true
 trailing_whitespace:
   ignores_empty_lines: true
 
@@ -22,6 +27,7 @@ opt_in_rules:
 - attributes
 - balanced_xctest_lifecycle
 - closure_body_length
+-   warning: 50
 - closure_end_indentation
 - closure_spacing
 - collection_alignment
@@ -34,5 +40,6 @@ opt_in_rules:
 - switch_case_on_newline
 - self_binding
 - redundant_type_annotation
+- fore_unwrapping
 
 
