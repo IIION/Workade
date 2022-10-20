@@ -46,7 +46,7 @@ extension HomeViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([welcomeLabel])
+        view.addSubview(welcomeLabel)
         
         welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23).isActive = true
         welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
