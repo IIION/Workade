@@ -24,13 +24,13 @@ extension UIColor {
 }
 
 struct ColorTheme {
-    let primary = UIColor(named: "Primary")!
-    let secondary = UIColor(named: "Secondary")!
-    let tertiary = UIColor(named: "Tertiary")!
-    let quaternary = UIColor(named: "Quaternary")!
+    let primary = UIColor(named: "Primary") ?? UIColor(.black)
+    let secondary = UIColor(named: "Secondary") ?? UIColor(.black)
+    let tertiary = UIColor(named: "Tertiary") ?? UIColor(.black)
+    let quaternary = UIColor(named: "Quaternary") ?? UIColor(.black)
     
-    let background = UIColor(named: "Background")!
-    let labelBackground = UIColor(named: "LabelBackground")!
-    let groupedBackground = UIColor(named: "GroupedBackground")!
-    let subGroupedBackground = UIColor(named: "SubGroupedBackground")!
+    let background = UIColor(named: "Background") ?? UIColor(.black)
+    let labelBackground = UIColor(named: "LabelBackground") ?? UIColor(.black)
+    let groupedBackground = UIColor(named: "GroupedBackground") ?? UIColor(.black)
+    let subGroupedBackground = UIColor(named: "SubGroupedBackground") ?? UIColor(.black)
 }
