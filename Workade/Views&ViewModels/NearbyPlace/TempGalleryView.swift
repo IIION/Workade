@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-//TODO: 세그먼트 컨트롤을 위해 임시로 작성한 뷰 입니다. 에반이 작성 완료하면 삭제하겠습니다.
+// TODO: 세그먼트 컨트롤을 위해 임시로 작성한 뷰 입니다. 에반이 작성 완료하면 삭제하겠습니다.
 class TempGalleryView: UIView {
     let testLabel: UILabel = {
         let label = UILabel()
