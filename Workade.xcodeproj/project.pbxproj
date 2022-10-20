@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2120F566290130870035D36E /* GalleryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F565290130870035D36E /* GalleryCollectionView.swift */; };
+		2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F5672901331B0035D36E /* GalleryViewController.swift */; };
+		2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */; };
 		21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */; };
 		21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */; };
 		21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */; };
@@ -31,6 +34,9 @@
 
 /* Begin PBXFileReference section */
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
+		2120F565290130870035D36E /* GalleryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionView.swift; sourceTree = "<group>"; };
+		2120F5672901331B0035D36E /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -68,6 +74,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		218E4F7629012FFB003CF215 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				2120F565290130870035D36E /* GalleryCollectionView.swift */,
+				2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */,
+				2120F5672901331B0035D36E /* GalleryViewController.swift */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
 		21F6DE5628FFED2000ED72C6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +164,7 @@
 		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				218E4F7629012FFB003CF215 /* Gallery */,
 				5FDC17DD28FE7F1B0060DBB7 /* Home */,
 			);
 			path = "Views&ViewModels";
@@ -300,6 +317,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2120F566290130870035D36E /* GalleryCollectionView.swift in Sources */,
+				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
+				2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* Color+.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
