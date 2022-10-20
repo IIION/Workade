@@ -111,7 +111,6 @@ class NearbyPlaceViewController: UIViewController {
         }
     }
     
-    // segmented controller 배경 없애기.
     private func removeSegmentBackground() {
         let image = UIImage()
         segmentedControl.setBackgroundImage(image, for: .normal, barMetrics: .default)

@@ -8,12 +8,13 @@
 import UIKit
 
 class IntroduceView: UIView {
-    let testLabel: UILabel = {
+    private let testLabel: UILabel = {
         let label = UILabel()
         label.text = "소개 뷰"
         label.textAlignment = .center
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
