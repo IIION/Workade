@@ -42,7 +42,6 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .customFont(for: .subHeadline)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -51,7 +50,6 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .customFont(for: .title3)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
