@@ -15,52 +15,39 @@ extension UIFont {
         var customFont: UIFont!
         switch customStyle {
         case .title1:
-            customFont = UIFont(name: CustomFont.pretendardBold.name, size: 28)!
+            customFont = UIFont(name: CustomFont.pretendardBold.rawValue, size: 28)!
             
         case .title2:
-            customFont = UIFont(name: CustomFont.pretendardBold.name, size: 24)!
+            customFont = UIFont(name: CustomFont.pretendardBold.rawValue, size: 24)!
             
         case .title3:
-            customFont = UIFont(name: CustomFont.pretendardBold.name, size: 20)!
+            customFont = UIFont(name: CustomFont.pretendardBold.rawValue, size: 20)!
             
         case .headline:
-            customFont = UIFont(name: CustomFont.pretendardSemiBold.name, size: 17)!
+            customFont = UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 17)!
             
         case .subHeadline:
-            customFont = UIFont(name: CustomFont.pretendardRegular.name, size: 15)!
+            customFont = UIFont(name: CustomFont.pretendardRegular.rawValue, size: 15)!
             
         case .articleBody:
-            customFont = UIFont(name: CustomFont.pretendardSemiBold.name, size: 15)!
+            customFont = UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 15)!
             
         case .footnote:
-            customFont = UIFont(name: CustomFont.pretendardMedium.name, size: 13)!
+            customFont = UIFont(name: CustomFont.pretendardMedium.rawValue, size: 13)!
             
         case .caption:
-            customFont = UIFont(name: CustomFont.pretendardRegular.name, size: 12)!
+            customFont = UIFont(name: CustomFont.pretendardRegular.rawValue, size: 12)!
         }
         
         return customFont
     }
 }
 
-enum CustomFont {
-    case pretendardBold
-    case pretendardSemiBold
-    case pretendardMedium
-    case pretendardRegular
-    
-    var name: String {
-        switch self {
-        case .pretendardBold:
-            return "Pretendard-Bold"
-        case .pretendardSemiBold:
-            return "Pretendard-SemiBold"
-        case .pretendardMedium:
-            return "Pretendard-Medium"
-        case .pretendardRegular:
-            return "Pretendard-Regular"
-        }
-    }
+enum CustomFont: String {
+    case pretendardBold = "Pretendard-Bold"
+    case pretendardSemiBold = "Pretendard-SemiBold"
+    case pretendardMedium = "Pretendard-Medium"
+    case pretendardRegular = "Pretendard-Regular"
 }
 
 enum CustomTextStyle {
