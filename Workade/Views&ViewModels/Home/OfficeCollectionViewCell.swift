@@ -32,7 +32,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private lazy var regionLabel: UILabel = {
+    private let regionLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .subHeadline)
         label.textColor = .white
@@ -41,7 +41,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .title3)
         label.textColor = .white
@@ -59,4 +59,40 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         
         return stackView
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayer()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: UI setup 관련 Methods
+extension OfficeCollectionViewCell {
+    private func setupLayer() {
+        self.layer.cornerRadius = 12
+    }
+    
+    private func setupLayout() {
+        addSubview(backgroundImageView)
+        addSubview(mapButton)
+        addSubview(stackView)
+        stackView.addArrangedSubview(regionLabel)
+        stackView.addArrangedSubview(nameLabel)
+        
+        backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        
+        mapButton.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        mapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        mapButton.widthAnchor.constraint(equalToConstant: 36).isActive = true
+        mapButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
+    }
 }
