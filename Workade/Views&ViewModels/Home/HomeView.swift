@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
         label.text = "반가워요!\n같이 워케이션을 꿈꿔볼까요?"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
