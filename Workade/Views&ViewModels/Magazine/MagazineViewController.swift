@@ -19,48 +19,11 @@ class MagazineViewController: UIViewController {
         return label
     }()
     
-    private lazy var totalTabButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("전체", for: .normal)
-        button.setTitleColor(.theme.primary, for: .normal)
-        button.titleLabel?.font = .customFont(for: .headline)
-        button.tag = 0
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+    private lazy var customTab: UISegmentedControl = {
+        let segmentedControl = CustopSegmentController(items: ["전체", "팁", "칼럼", "후기"])
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
-        return button
-    }()
-    
-    private lazy var tipTabButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("팁", for: .normal)
-        button.setTitleColor(.theme.quaternary, for: .normal)
-        button.titleLabel?.font = .customFont(for: .headline)
-        button.tag = 1
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    private lazy var columnTabButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("칼럼", for: .normal)
-        button.setTitleColor(.theme.quaternary, for: .normal)
-        button.titleLabel?.font = .customFont(for: .headline)
-        button.tag = 2
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    private lazy var reviewTabButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("후기", for: .normal)
-        button.setTitleColor(.theme.quaternary, for: .normal)
-        button.titleLabel?.font = .customFont(for: .headline)
-        button.tag = 3
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        
-        return button
+        return segmentedControl
     }()
     
     private let line: UIView = {
@@ -71,27 +34,17 @@ class MagazineViewController: UIViewController {
         return line
     }()
     
-    private var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .clear
-        stackView.distribution = .fillEqually
-        
-        return stackView
-    }()
-    
-    var detailView = UIViewController()
-    
-    private var selectedTab = 0
+    private let totalDetailVC = TotalDetailViewController()
+    private let tipDetailVC = TipDetailViewController()
+    private let columnnDetailVC = ColumnDetailViewController()
+    private let reviewDetailVC = ReviewDetailViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .theme.background
-        detailView = TotalDetailViewController()
+        view.backgroundColor = .theme.background
         
-        setupStackView()
+        setupSegmentControl()
         setupLayout()
-        setupDetailView()
     }
     
     // MARK: AutoLayout 설정
@@ -102,97 +55,41 @@ class MagazineViewController: UIViewController {
             viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ]
         
-        view.addSubview(stackView)
-        let stackViewLayout = [
-            stackView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 14),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-            ]
+        view.addSubview(customTab)
+        let customTabLayout = [
+            customTab.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 14),
+            customTab.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            customTab.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            customTab.heightAnchor.constraint(equalToConstant: 50)
+        ]
         
         view.addSubview(line)
         let lineLayout = [
-            line.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
+            line.topAnchor.constraint(equalTo: customTab.bottomAnchor, constant: 10),
             line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             line.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         NSLayoutConstraint.activate(viewTitleLayout)
-        NSLayoutConstraint.activate(stackViewLayout)
+        NSLayoutConstraint.activate(customTabLayout)
         NSLayoutConstraint.activate(lineLayout)
     }
     
-    func setupDetailView() {
-        for view in self.view.subviews {
-            view.removeFromSuperview()
-        }
-        
-        setupLayout()
-        
-        self.addChild(detailView)
-        self.view.addSubview(detailView.view)
-        detailView.didMove(toParent: self)
-        
-        detailView.view.translatesAutoresizingMaskIntoConstraints = false
-        let detailViewLayout = [
-            detailView.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10),
-            detailView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(detailViewLayout)
-    }
-    
-    func setupStackView() {
-        stackView.addArrangedSubview(totalTabButton)
-        stackView.addArrangedSubview(tipTabButton)
-        stackView.addArrangedSubview(columnTabButton)
-        stackView.addArrangedSubview(reviewTabButton)
-    }
-    
-    @objc
-    func buttonTapped(_ sender: UIButton) {
-        if selectedTab != sender.tag {
-            switch sender.tag {
-            case 0:
-                totalTabButton.setTitleColor(.theme.primary, for: .normal)
-                tipTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                columnTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                reviewTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                selectedTab = sender.tag
-                detailView = TotalDetailViewController()
-                setupDetailView()
-                
-            case 1:
-                tipTabButton.setTitleColor(.theme.primary, for: .normal)
-                totalTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                columnTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                reviewTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                selectedTab = sender.tag
-                detailView = TipDetailViewController()
-                setupDetailView()
-                
-            case 2:
-                columnTabButton.setTitleColor(.theme.primary, for: .normal)
-                totalTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                tipTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                reviewTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                selectedTab = sender.tag
-                detailView = ColumnDetailViewController()
-                setupDetailView()
-                
-            case 3:
-                reviewTabButton.setTitleColor(.theme.primary, for: .normal)
-                totalTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                tipTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                columnTabButton.setTitleColor(.theme.quaternary, for: .normal)
-                selectedTab = sender.tag
-                detailView = ReviewDetailViewController()
-                setupDetailView()
-                
-            default:
-                return
-            }
-        }
+    func setupSegmentControl() {
+        self.customTab.setTitleTextAttributes(
+            [
+                NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
+                .font: UIFont.customFont(for: .headline)
+            ], for: .normal)
+        self.customTab.setTitleTextAttributes(
+            [
+                NSAttributedString.Key.foregroundColor: UIColor.theme.primary,
+                .font: UIFont.customFont(for: .headline)
+            ],
+            for: .selected
+        )
+        self.customTab.selectedSegmentIndex = 0
     }
 }
 
@@ -200,11 +97,11 @@ import SwiftUI
 
 struct MagazineViewControllerRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = MagazineViewController
-
+    
     func makeUIViewController(context: Context) -> MagazineViewController {
         return MagazineViewController()
     }
-
+    
     func updateUIViewController(_ uiViewController: MagazineViewController, context: Context) {}
 }
 
