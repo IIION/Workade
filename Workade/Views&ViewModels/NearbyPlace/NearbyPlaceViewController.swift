@@ -10,6 +10,7 @@ import UIKit
 class NearbyPlaceViewController: UIViewController {
     private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["소개", "갤러리"])
+        // TODO: 폰트 컬러, 폰트 사이즈는 머지 이후 작업 하도록 하겠습니다.
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.gray,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
@@ -42,7 +43,7 @@ class NearbyPlaceViewController: UIViewController {
     
     private let stackViewUnderLine: UIView = {
         let stackViewUnderLine = UIView()
-        stackViewUnderLine.backgroundColor = .gray
+        stackViewUnderLine.backgroundColor = .systemGray5
         stackViewUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
         return stackViewUnderLine
@@ -71,7 +72,7 @@ class NearbyPlaceViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            stackViewUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            stackViewUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             stackViewUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackViewUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stackViewUnderLine.heightAnchor.constraint(equalToConstant: 2)
