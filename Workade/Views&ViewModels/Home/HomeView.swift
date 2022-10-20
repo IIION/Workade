@@ -21,14 +21,14 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        setupNavBar()
+        setupNavigationBar()
         setupLayout()
     }
 }
 
 // MARK: UI setup 관련 Methods
 extension HomeViewController {
-    private func setupNavBar() {
+    private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "WorkadeLogoTamna")?.setOriginal(),
             style: .done,
