@@ -12,6 +12,7 @@ class TipDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "Tip 뷰 입니다."
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()

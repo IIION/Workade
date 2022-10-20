@@ -12,6 +12,7 @@ class ColumnDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "칼럼 뷰 입니다."
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
