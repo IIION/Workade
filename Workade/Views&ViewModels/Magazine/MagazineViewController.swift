@@ -89,9 +89,9 @@ class MagazineViewController: UIViewController {
         view.backgroundColor = .white
         detailView = TotalDetailViewController()
         
-        settingStackView()
+        setupStackView()
         setupLayout()
-        settingDetailView()
+        setupDetailView()
     }
     
     // MARK: AutoLayout 설정
@@ -122,7 +122,7 @@ class MagazineViewController: UIViewController {
         NSLayoutConstraint.activate(lineLayout)
     }
     
-    func settingDetailView() {
+    func setupDetailView() {
         for view in self.view.subviews {
             view.removeFromSuperview()
         }
@@ -142,7 +142,7 @@ class MagazineViewController: UIViewController {
         NSLayoutConstraint.activate(detailViewLayout)
     }
     
-    func settingStackView() {
+    func setupStackView() {
         stackView.addArrangedSubview(totalTabButton)
         stackView.addArrangedSubview(tipTabButton)
         stackView.addArrangedSubview(columnTabButton)
@@ -160,7 +160,7 @@ class MagazineViewController: UIViewController {
                 reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = TotalDetailViewController()
-                settingDetailView()
+                setupDetailView()
                 
             case 1:
                 tipTabButton.setTitleColor(UIColor.black, for: .normal)
@@ -169,7 +169,7 @@ class MagazineViewController: UIViewController {
                 reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = TipDetailViewController()
-                settingDetailView()
+                setupDetailView()
                 
             case 2:
                 columnTabButton.setTitleColor(UIColor.black, for: .normal)
@@ -178,7 +178,7 @@ class MagazineViewController: UIViewController {
                 reviewTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = ColumnDetailViewController()
-                settingDetailView()
+                setupDetailView()
                 
             case 3:
                 reviewTabButton.setTitleColor(UIColor.black, for: .normal)
@@ -187,7 +187,7 @@ class MagazineViewController: UIViewController {
                 columnTabButton.setTitleColor(UIColor.gray, for: .normal)
                 selectedTab = sender.tag
                 detailView = ReviewDetailViewController()
-                settingDetailView()
+                setupDetailView()
                 
             default:
                 return
