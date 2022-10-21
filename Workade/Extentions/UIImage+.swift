@@ -23,8 +23,8 @@ extension UIImage {
 enum SFSymbol {
     case info
     case mapInCell
-    case chevronLeft
-    case chevronRight // in navigationbar
+    case chevronLeft // in navigationbar
+    case chevronRight
 
     var image: UIImage {
         switch self {
@@ -32,10 +32,10 @@ enum SFSymbol {
             return .fromSystemImage(name: "info.circle.fill", font: .customFont(for: .headline), color: .theme.primary)!
         case .mapInCell:
             return .fromSystemImage(name: "map", font: .systemFont(ofSize: 16, weight: .bold), color: .white)!
-        case .chevronRight:
-            return .fromSystemImage(name: "chevron.right", font: .systemFont(ofSize: 15, weight: .heavy), color: .theme.primary)!
         case .chevronLeft:
             return .fromSystemImage(name: "chevron.left", font: .customFont(for: .headline), color: .theme.primary)!
+        case .chevronRight:
+            return .fromSystemImage(name: "chevron.right", font: .systemFont(ofSize: 15, weight: .heavy), color: .theme.primary)!
         }
     }
 }
