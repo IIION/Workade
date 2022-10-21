@@ -8,12 +8,13 @@
 import UIKit
 
 extension UIImage {
-    convenience init?(symbolName: String, font: UIFont, color: UIColor = .black) {
+    static func fromSystemImage(name: String, font: UIFont, color: UIColor = .black) -> UIImage? {
         let configuration = UIImage.SymbolConfiguration(font: font)
-        self.init(systemName: symbolName, withConfiguration: configuration)
-        self.withTintColor(color)
+        var image = UIImage(systemName: name, withConfiguration: configuration)
+        image = image?.withTintColor(color, renderingMode: .alwaysOriginal)
+        return image
     }
-    
+
     func setOriginal() -> UIImage {
         return self.withRenderingMode(.alwaysOriginal)
     }
