@@ -71,25 +71,3 @@ class TipDetailCell: UICollectionViewCell {
         ])
     }
 }
-
-import SwiftUI
-
-struct TipDetailCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = TipDetailCell
-    
-    func makeUIView(context: Context) -> TipDetailCell {
-        return TipDetailCell()
-    }
-    
-    func updateUIView(_ uiView: TipDetailCell, context: Context) {}
-}
-
-@available(iOS 13.0.0, *)
-struct TipDetailCelllPreview: PreviewProvider {
-    static var previews: some View {
-        TipDetailCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 165, height: 165)
-            .previewLayout(.sizeThatFits)
-    }
-}
