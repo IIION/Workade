@@ -9,8 +9,9 @@ import UIKit
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLineLayoutDelegate {
     
-    var columnSpacing: CGFloat = 20
+    let transitionManager = CardTransitionMananger()
     
+    var columnSpacing: CGFloat = 20
     var testCellHeights: [CGFloat] = [
         130, 160, 240, 340, 560, 400, 250, 380
     ]
@@ -48,6 +49,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -60,7 +62,10 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLi
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         print("hihihihih")
-        present(GalleryDetailViewController(), animated: true)
+        let viewController = GalleryDetailViewController()
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.transitioningDelegate = transitionManager
+        present(viewController, animated: true)
         return true
     }
 }

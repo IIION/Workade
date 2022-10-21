@@ -10,10 +10,15 @@ import UIKit
 class GalleryCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "GalleryCollectionViewCell"
+    var image: UIImage? = UIImage(named: "test")
     
-    lazy var image: UIImage? = {
-        let image = UIImage(named: "")
-        return image
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 12
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -21,6 +26,15 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .theme.groupedBackground
         self.layer.cornerRadius = 12
         self.layer.cornerCurve = .continuous
+        self.clipsToBounds = true
+        self.contentView.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {

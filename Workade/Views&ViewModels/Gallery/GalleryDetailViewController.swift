@@ -11,15 +11,6 @@ class GalleryDetailViewController: UIViewController {
     
     var image: UIImage? = UIImage(named: "test")
     
-    lazy var dimmingView: UIView = {
-        let dimmingView = UIView(frame: .zero)
-        dimmingView.backgroundColor = .black
-        dimmingView.alpha = 0.8
-        dimmingView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return dimmingView
-    }()
-    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
@@ -65,18 +56,12 @@ class GalleryDetailViewController: UIViewController {
     
     func setupLayout() {
 
-        view.addSubview(dimmingView)
         view.addSubview(imageView)
         view.addSubview(dismissButton)
         
         let aspectR = (image?.size.width ?? 0) / (image?.size.height ?? 0)
         
         NSLayoutConstraint.activate([
-            dimmingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dimmingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dimmingView.topAnchor.constraint(equalTo: view.topAnchor),
-            dimmingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
             imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1/aspectR),
