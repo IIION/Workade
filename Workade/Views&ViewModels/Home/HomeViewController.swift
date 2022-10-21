@@ -27,6 +27,13 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    private let divider = {
+        let view = UIView()
+        view.backgroundColor = .theme.labelBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let megazineHeaderView: HeaderView = {
         let stackView = HeaderView(title: "매거진")
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +71,7 @@ extension HomeViewController {
     private func setupLayout() {
         view.addSubview(welcomeLabel)
         view.addSubview(officeCollectionView)
+        view.addSubview(divider)
         view.addSubview(megazineHeaderView)
         
         NSLayoutConstraint.activate([
@@ -75,7 +83,12 @@ extension HomeViewController {
             officeCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             officeCollectionView.heightAnchor.constraint(equalToConstant: 200),
             
-            megazineHeaderView.topAnchor.constraint(equalTo: officeCollectionView.bottomAnchor),
+            divider.topAnchor.constraint(equalTo: officeCollectionView.bottomAnchor, constant: 30),
+            divider.leadingAnchor.constraint(equalTo: officeCollectionView.leadingAnchor, constant: 20),
+            divider.trailingAnchor.constraint(equalTo: officeCollectionView.trailingAnchor, constant: -20),
+            divider.heightAnchor.constraint(equalToConstant: 1),
+            
+            megazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
             megazineHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
             megazineHeaderView.heightAnchor.constraint(equalToConstant: 60)
         ])

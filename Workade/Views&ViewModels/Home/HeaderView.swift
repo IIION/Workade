@@ -26,7 +26,7 @@ class HeaderView: UIStackView {
         
         axis = .horizontal
         alignment = .center
-        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 2)
+        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 8)
         isLayoutMarginsRelativeArrangement = true // ArrangedSubview에 margin적용할지에 대한 Boolean
         
         setupLayout()

@@ -30,7 +30,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
         let image = SFSymbol.mapInCell.image
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 18
-        button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.4).cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
