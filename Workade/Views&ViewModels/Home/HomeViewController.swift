@@ -84,7 +84,7 @@ extension HomeViewController {
         view.addSubview(officeCollectionView)
         view.addSubview(divider)
         view.addSubview(megazineHeaderView)
-        view.addSubview(megazineCollectionView)
+//        view.addSubview(megazineCollectionView)
         
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
@@ -104,9 +104,9 @@ extension HomeViewController {
             megazineHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
             megazineHeaderView.heightAnchor.constraint(equalToConstant: 60),
             
-            megazineCollectionView.topAnchor.constraint(equalTo: megazineHeaderView.bottomAnchor),
-            megazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            megazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
+//            megazineCollectionView.topAnchor.constraint(equalTo: megazineHeaderView.bottomAnchor),
+//            megazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            megazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 }

@@ -8,20 +8,8 @@
 import UIKit
 
 class OfficeCollectionViewCell: UICollectionViewCell {
-    private lazy var backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
-        imageView.backgroundColor = .theme.groupedBackground // Skeleton color
+    private lazy var backgroundImageView: CellImageView = { let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let path = UIBezierPath(rect: self.bounds)
-        let blackLayer = CAShapeLayer()
-        blackLayer.path = path.cgPath
-        blackLayer.fillColor = UIColor.black.withAlphaComponent(0.1).cgColor
-        imageView.layer.addSublayer(blackLayer)
-        
         return imageView
     }()
     
