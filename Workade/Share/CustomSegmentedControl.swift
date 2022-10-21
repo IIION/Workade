@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomSegmentController: UISegmentedControl {
+class CustomSegmentedControl: UISegmentedControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupSegmentControl()

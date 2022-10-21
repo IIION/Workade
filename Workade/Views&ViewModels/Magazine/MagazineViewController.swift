@@ -20,7 +20,7 @@ class MagazineViewController: UIViewController {
     }()
     
     private lazy var customTab: UISegmentedControl = {
-        let segmentedControl = CustomSegmentController(items: ["전체", "팁", "칼럼", "후기"])
+        let segmentedControl = CustomSegmentedControl(items: ["전체", "팁", "칼럼", "후기"])
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.addTarget(self, action: #selector(tabClicked(tab:)), for: UIControl.Event.valueChanged)
         
