@@ -20,8 +20,8 @@ class HomeViewController: UIViewController {
     
     private lazy var officeCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
-        collectionView.register(cell: OfficeCollectionViewCell.self)
         collectionView.dataSource = self
+        collectionView.register(cell: OfficeCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -31,13 +31,24 @@ class HomeViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .theme.labelBackground
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     
     private let megazineHeaderView: HeaderView = {
         let stackView = HeaderView(title: "매거진")
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         return stackView
+    }()
+    
+    private lazy var megazineCollectionView: HorizontalCollectionView = {
+        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 150, height: 200))
+        collectionView.dataSource = self
+        collectionView.register(cell: UICollectionViewCell.self)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
     }()
     
     override func viewDidLoad() {
@@ -73,6 +84,7 @@ extension HomeViewController {
         view.addSubview(officeCollectionView)
         view.addSubview(divider)
         view.addSubview(megazineHeaderView)
+        view.addSubview(megazineCollectionView)
         
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
@@ -90,7 +102,11 @@ extension HomeViewController {
             
             megazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
             megazineHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            megazineHeaderView.heightAnchor.constraint(equalToConstant: 60)
+            megazineHeaderView.heightAnchor.constraint(equalToConstant: 60),
+            
+            megazineCollectionView.topAnchor.constraint(equalTo: megazineHeaderView.bottomAnchor),
+            megazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            megazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 }
@@ -98,7 +114,14 @@ extension HomeViewController {
 // MARK: DataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5 // temp
+        switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
+        case officeCollectionView:
+            return 5
+        case megazineCollectionView:
+            return 20
+        default:
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

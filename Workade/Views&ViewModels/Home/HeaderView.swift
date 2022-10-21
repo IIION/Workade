@@ -11,12 +11,14 @@ class HeaderView: UIStackView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .bold)
+        
         return label
     }()
     
     let pushButton: UIButton = {
         let button = UIButton()
         button.setImage(SFSymbol.chevronRight.image, for: .normal)
+        
         return button
     }()
     
