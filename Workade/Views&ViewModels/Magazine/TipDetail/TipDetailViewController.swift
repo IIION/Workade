@@ -38,7 +38,7 @@ class TipDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             tipDetailCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tipDetailCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            tipDetailCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            tipDetailCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             tipDetailCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }

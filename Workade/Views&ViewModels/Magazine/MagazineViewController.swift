@@ -104,7 +104,7 @@ class MagazineViewController: UIViewController {
     private func setupLayoutDetailView() {
         view.addSubview(totalDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             totalDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             totalDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             totalDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -112,15 +112,15 @@ class MagazineViewController: UIViewController {
         
         view.addSubview(tipDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             tipDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tipDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         view.addSubview(columnDetailViewController.view)
         NSLayoutConstraint.activate([
-            columnDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            columnDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             columnDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             columnDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             columnDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -128,7 +128,7 @@ class MagazineViewController: UIViewController {
         
         view.addSubview(reviewDetailViewController.view)
         NSLayoutConstraint.activate([
-            reviewDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            reviewDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             reviewDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             reviewDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             reviewDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
