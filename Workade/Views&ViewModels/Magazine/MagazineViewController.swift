@@ -79,69 +79,60 @@ class MagazineViewController: UIViewController {
     // MARK: AutoLayout 설정
     private func setupLayout() {
         view.addSubview(viewTitle)
-        let viewTitleLayout = [
+        NSLayoutConstraint.activate([
             viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
-        ]
+        ])
         
         view.addSubview(customTab)
-        let customTabLayout = [
+        NSLayoutConstraint.activate([
             customTab.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 14),
             customTab.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             customTab.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             customTab.heightAnchor.constraint(equalToConstant: 50)
-        ]
+        ])
         
         view.addSubview(line)
-        let lineLayout = [
+        NSLayoutConstraint.activate([
             line.topAnchor.constraint(equalTo: customTab.bottomAnchor, constant: 10),
             line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             line.heightAnchor.constraint(equalToConstant: 2)
-        ]
-        
-        NSLayoutConstraint.activate(viewTitleLayout)
-        NSLayoutConstraint.activate(customTabLayout)
-        NSLayoutConstraint.activate(lineLayout)
+        ])
     }
     
     private func setupLayoutDetailView() {
         view.addSubview(totalDetailVC.view)
-        let totalDetailViewLayout = [
+        NSLayoutConstraint.activate([
             totalDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
             totalDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             totalDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             totalDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
+        ])
         
         view.addSubview(tipDetailVC.view)
-        let tipDetailViewLayout = [
+        NSLayoutConstraint.activate([
             tipDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
             tipDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tipDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tipDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
+        ])
         
         view.addSubview(columnDetailVC.view)
-        let columnDetailViewLayout = [
+        NSLayoutConstraint.activate([
             columnDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
             columnDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             columnDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             columnDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
+        ])
         
         view.addSubview(reviewDetailVC.view)
-        let reviewDetailViewLayout = [
+        NSLayoutConstraint.activate([
             reviewDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
             reviewDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             reviewDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             reviewDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(totalDetailViewLayout)
-        NSLayoutConstraint.activate(tipDetailViewLayout)
-        NSLayoutConstraint.activate(columnDetailViewLayout)
-        NSLayoutConstraint.activate(reviewDetailViewLayout)
+        ])
     }
     
     func setupSegmentControl() {
