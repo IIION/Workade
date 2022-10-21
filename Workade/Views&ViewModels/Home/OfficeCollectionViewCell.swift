@@ -27,10 +27,8 @@ class OfficeCollectionViewCell: UICollectionViewCell {
     
     private let mapButton: UIButton = {
         let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold)
-        let image = UIImage(systemName: "map", withConfiguration: config)
+        let image = SFSymbol.mapInCell.image
         button.setImage(image, for: .normal)
-        button.tintColor = .white
         button.layer.cornerRadius = 18
         button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.2).cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
