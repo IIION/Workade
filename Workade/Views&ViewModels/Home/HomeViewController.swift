@@ -59,20 +59,15 @@ extension HomeViewController {
         view.addSubview(welcomeLabel)
         view.addSubview(officeCollectionView)
         
-        let welcomeLabelConstraints = [
+        NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
             welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ]
+            welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         
-        let officeCollectionViewConstraints = [
             officeCollectionView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 22),
             officeCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             officeCollectionView.heightAnchor.constraint(equalToConstant: 200)
-        ]
-        
-        NSLayoutConstraint.activate(welcomeLabelConstraints)
-        NSLayoutConstraint.activate(officeCollectionViewConstraints)
+        ])
     }
 }
 
