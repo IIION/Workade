@@ -8,7 +8,7 @@
 import UIKit
 
 class TipDetailCell: UICollectionViewCell {
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .theme.background
         label.font = .customFont(for: .headline)
