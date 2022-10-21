@@ -10,14 +10,13 @@ import UIKit
 class NearbyPlaceViewController: UIViewController {
     private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["소개", "갤러리"])
-        // TODO: 폰트 컬러, 폰트 사이즈는 머지 이후 작업 하도록 하겠습니다.
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.gray,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
+            NSAttributedString.Key.foregroundColor: UIColor.rgb(0xD1D1D6),
+            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .normal)
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
+            NSAttributedString.Key.foregroundColor: UIColor.theme.primary,
+            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .selected)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
@@ -43,7 +42,7 @@ class NearbyPlaceViewController: UIViewController {
     
     private let segmentUnderLine: UIView = {
         let segmentUnderLine = UIView()
-        segmentUnderLine.backgroundColor = .systemGray5
+        segmentUnderLine.backgroundColor = UIColor.rgb(0xF2F2F7)
         segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentUnderLine

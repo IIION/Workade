@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class CheckListCell: UICollectionViewCell {
-    static let identifier = "CheckListCell"
+//    static let identifier = "CheckListCell"
     
     var uncheckCount: Int = 0
     var checkCount: Int = 0
