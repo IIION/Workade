@@ -38,6 +38,15 @@ class TipDetailCell: UICollectionViewCell {
         return imageView
     }()
     
+    private let opacityOfImageView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .theme.primary
+        view.alpha = CGFloat(0.1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.layer.cornerRadius = 13.2
@@ -58,6 +67,14 @@ class TipDetailCell: UICollectionViewCell {
             cellBackgroundImage.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
         
+        contentView.addSubview(opacityOfImageView)
+        NSLayoutConstraint.activate([
+            opacityOfImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            opacityOfImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            opacityOfImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            opacityOfImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+        
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
@@ -69,5 +86,27 @@ class TipDetailCell: UICollectionViewCell {
             bookMarkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
             bookMarkButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 16)
         ])
+    }
+}
+
+import SwiftUI
+
+struct TipDetailCellRepresentable: UIViewRepresentable {
+    typealias UIViewType = TipDetailCell
+    
+    func makeUIView(context: Context) -> TipDetailCell {
+        return TipDetailCell()
+    }
+    
+    func updateUIView(_ uiView: TipDetailCell, context: Context) {}
+}
+
+@available(iOS 13.0.0, *)
+struct TipDetailCellPreview: PreviewProvider {
+    static var previews: some View {
+        TipDetailCellRepresentable()
+            .ignoresSafeArea()
+            .frame(width: 165, height: 165)
+            .previewLayout(.sizeThatFits)
     }
 }
