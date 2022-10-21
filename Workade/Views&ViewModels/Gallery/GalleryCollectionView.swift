@@ -8,6 +8,7 @@
 import UIKit
 
 protocol TwoLineLayoutDelegate: AnyObject {
+    var columnSpacing: CGFloat { get set }
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat
 }
 
@@ -33,13 +34,15 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView, cache.isEmpty else { return }
         
         let numberOfColumns: Int = 2
-        let cellPadding: CGFloat = 2
-        let cellWidth: CGFloat = contentWidth / CGFloat(numberOfColumns)
+        let cellPadding: CGFloat = (delegate?.columnSpacing ?? 20) / 2
+        let cellWidth: CGFloat = (contentWidth - cellPadding * 2) / CGFloat(numberOfColumns)
         
         let xOffSet: [CGFloat] = [0, cellWidth]
         var yOffSet: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
         
         var column: Int = 0
+        
+        collectionView.frame = collectionView.frame.insetBy(dx: cellPadding, dy: 0)
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)

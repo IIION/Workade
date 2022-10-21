@@ -9,6 +9,8 @@ import UIKit
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLineLayoutDelegate {
     
+    var columnSpacing: CGFloat = 20
+    
     var testCellHeights: [CGFloat] = [
         130, 160, 240, 340, 560, 400, 250, 380
     ]
@@ -34,8 +36,10 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLi
         layout.delegate = self
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(GalleryCollectionViewCell.self,
                                 forCellWithReuseIdentifier: GalleryCollectionViewCell.identifier)
+        collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -48,7 +52,15 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLi
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension GalleryViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        print("hihihihih")
+        present(GalleryDetailViewController(), animated: true)
+        return true
     }
 }

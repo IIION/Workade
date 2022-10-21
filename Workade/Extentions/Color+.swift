@@ -24,6 +24,8 @@ extension UIColor {
 }
 
 struct ColorTheme {
+    fileprivate init() {}
+    
     let primary = UIColor(named: "Primary") ?? UIColor(.black)
     let secondary = UIColor(named: "Secondary") ?? UIColor(.black)
     let tertiary = UIColor(named: "Tertiary") ?? UIColor(.black)
