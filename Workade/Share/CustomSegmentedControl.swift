@@ -10,19 +10,19 @@ import UIKit
 class CustomSegmentedControl: UISegmentedControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupSegmentControl()
+        self.setupSegmentedControl()
     }
     
     override init(items: [Any]?) {
         super.init(items: items)
-        self.setupSegmentControl()
+        self.setupSegmentedControl()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
     
-    private func setupSegmentControl() {
+    private func setupSegmentedControl() {
         let image = UIImage()
         self.setBackgroundImage(image, for: .normal, barMetrics: .default)
         self.setBackgroundImage(image, for: .selected, barMetrics: .default)

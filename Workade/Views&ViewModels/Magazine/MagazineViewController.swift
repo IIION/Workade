@@ -35,7 +35,7 @@ class MagazineViewController: UIViewController {
         return line
     }()
     
-    private let totalDetailVC: UIViewController = {
+    private let totalDetailViewContoller: UIViewController = {
         let viewController = TotalDetailViewController()
         viewController.view.isHidden = false
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class MagazineViewController: UIViewController {
         return viewController
     }()
     
-    private let tipDetailVC: UIViewController = {
+    private let tipDetailViewContoller: UIViewController = {
         let viewController = TipDetailViewController()
         viewController.view.isHidden = true
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ class MagazineViewController: UIViewController {
         return viewController
     }()
     
-    private let columnDetailVC: UIViewController = {
+    private let columnDetailViewController: UIViewController = {
         let viewController = ColumnDetailViewController()
         viewController.view.isHidden = true
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class MagazineViewController: UIViewController {
         return viewController
     }()
     
-    private let reviewDetailVC: UIViewController = {
+    private let reviewDetailViewController: UIViewController = {
         let viewController = ReviewDetailViewController()
         viewController.view.isHidden = true
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ class MagazineViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
-        setupSegmentControl()
+        setupSegmentedControl()
         setupLayout()
         setupLayoutDetailView()
     }
@@ -102,40 +102,40 @@ class MagazineViewController: UIViewController {
     }
     
     private func setupLayoutDetailView() {
-        view.addSubview(totalDetailVC.view)
+        view.addSubview(totalDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            totalDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
-            totalDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            totalDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            totalDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            totalDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            totalDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            totalDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        view.addSubview(tipDetailVC.view)
+        view.addSubview(tipDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            tipDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
-            tipDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tipDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tipDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            tipDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tipDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        view.addSubview(columnDetailVC.view)
+        view.addSubview(columnDetailViewController.view)
         NSLayoutConstraint.activate([
-            columnDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
-            columnDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            columnDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            columnDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            columnDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            columnDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            columnDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            columnDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        view.addSubview(reviewDetailVC.view)
+        view.addSubview(reviewDetailViewController.view)
         NSLayoutConstraint.activate([
-            reviewDetailVC.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
-            reviewDetailVC.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            reviewDetailVC.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            reviewDetailVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            reviewDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            reviewDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            reviewDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            reviewDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
-    func setupSegmentControl() {
+    func setupSegmentedControl() {
         self.customTab.setTitleTextAttributes(
             [
                 NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
@@ -155,28 +155,28 @@ class MagazineViewController: UIViewController {
     func tabClicked(tab: UISegmentedControl) {
         switch tab.selectedSegmentIndex {
         case 0:
-            totalDetailVC.view.isHidden = false
-            tipDetailVC.view.isHidden = true
-            columnDetailVC.view.isHidden = true
-            reviewDetailVC.view.isHidden = true
+            totalDetailViewContoller.view.isHidden = false
+            tipDetailViewContoller.view.isHidden = true
+            columnDetailViewController.view.isHidden = true
+            reviewDetailViewController.view.isHidden = true
         
         case 1:
-            totalDetailVC.view.isHidden = true
-            tipDetailVC.view.isHidden = false
-            columnDetailVC.view.isHidden = true
-            reviewDetailVC.view.isHidden = true
+            totalDetailViewContoller.view.isHidden = true
+            tipDetailViewContoller.view.isHidden = false
+            columnDetailViewController.view.isHidden = true
+            reviewDetailViewController.view.isHidden = true
             
         case 2:
-            totalDetailVC.view.isHidden = true
-            tipDetailVC.view.isHidden = true
-            columnDetailVC.view.isHidden = false
-            reviewDetailVC.view.isHidden = true
+            totalDetailViewContoller.view.isHidden = true
+            tipDetailViewContoller.view.isHidden = true
+            columnDetailViewController.view.isHidden = false
+            reviewDetailViewController.view.isHidden = true
         
         case 3:
-            totalDetailVC.view.isHidden = true
-            tipDetailVC.view.isHidden = true
-            columnDetailVC.view.isHidden = true
-            reviewDetailVC.view.isHidden = false
+            totalDetailViewContoller.view.isHidden = true
+            tipDetailViewContoller.view.isHidden = true
+            columnDetailViewController.view.isHidden = true
+            reviewDetailViewController.view.isHidden = false
             
         default:
             return
