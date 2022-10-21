@@ -42,6 +42,7 @@ class TipDetailCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .theme.primary
         view.alpha = CGFloat(0.1)
+        view.layer.cornerRadius = 13.2
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -86,27 +87,5 @@ class TipDetailCell: UICollectionViewCell {
             bookMarkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
             bookMarkButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 16)
         ])
-    }
-}
-
-import SwiftUI
-
-struct TipDetailCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = TipDetailCell
-    
-    func makeUIView(context: Context) -> TipDetailCell {
-        return TipDetailCell()
-    }
-    
-    func updateUIView(_ uiView: TipDetailCell, context: Context) {}
-}
-
-@available(iOS 13.0.0, *)
-struct TipDetailCellPreview: PreviewProvider {
-    static var previews: some View {
-        TipDetailCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 165, height: 165)
-            .previewLayout(.sizeThatFits)
     }
 }
