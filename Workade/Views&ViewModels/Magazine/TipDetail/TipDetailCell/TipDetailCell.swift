@@ -20,7 +20,7 @@ class TipDetailCell: UICollectionViewCell {
         return label
     }()
     
-    private let bookMarkButton: UIButton = {
+    let bookMarkButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

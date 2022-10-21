@@ -67,7 +67,19 @@ extension TipDetailViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.titleLabel.text = titleArray[indexPath.row]
+        cell.bookMarkButton.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
         
         return cell
+    }
+    
+    // todo: 추후 데이터 로직과 연결하여 수정
+    @objc
+    func clickedBookmarkButton(sender: UIButton) {
+        if sender.currentImage
+            == UIImage(systemName: "bookmark") {
+            sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        } else {
+            sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
     }
 }
