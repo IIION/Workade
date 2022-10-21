@@ -8,9 +8,8 @@
 import UIKit
 
 class HorizontalCollectionView: UICollectionView {
-    convenience init(itemSize: CGSize, spacing: CGFloat = 20,
-                     inset: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)) {
-        self.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    init(itemSize: CGSize, spacing: CGFloat = 20, inset: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)) {
+        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = itemSize
         layout.minimumLineSpacing = spacing
@@ -18,5 +17,9 @@ class HorizontalCollectionView: UICollectionView {
         layout.sectionInset = inset
         self.collectionViewLayout = layout
         self.showsHorizontalScrollIndicator = false
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
