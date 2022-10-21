@@ -29,7 +29,7 @@
 		5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17C628FE799D0060DBB7 /* Assets.xcassets */; };
 		5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17C828FE799D0060DBB7 /* LaunchScreen.storyboard */; };
 		5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */; };
-		5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* HomeView.swift */; };
+		5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */; };
 		5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
 		96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */; };
@@ -72,7 +72,7 @@
 		5FDC17C928FE799D0060DBB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5FDC17CB28FE799D0060DBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		5FDC17DE28FE7F320060DBB7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 				0EFB5BA42900E9D800174291 /* IntroduceView.swift */,
 			);
 			path = NearbyPlace;
-      sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		16083B4729013F9A008056D4 /* CheckList */ = {
 			isa = PBXGroup;
@@ -222,7 +222,7 @@
 		5FDC17DD28FE7F1B0060DBB7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				5FDC17DE28FE7F320060DBB7 /* HomeView.swift */,
+				5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */,
 				96B1836B2901458F009F2BC6 /* HorizontalCollectionView.swift */,
 				96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */,
 				5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */,
@@ -445,7 +445,7 @@
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
-				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
+				5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */,
 				16083B4E29013FB4008056D4 /* CheckListModel.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
 			);
