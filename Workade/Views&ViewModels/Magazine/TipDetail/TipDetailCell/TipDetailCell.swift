@@ -12,8 +12,6 @@ class TipDetailCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .theme.background
         label.font = .customFont(for: .headline)
-        // Temp
-        label.text = "내 성격에 맞는\n장소 찾는 법"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -32,7 +30,7 @@ class TipDetailCell: UICollectionViewCell {
     private let cellBackgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        // Temp
+        // todo: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
         imageView.image = UIImage(named: "SampleTipImage") ?? UIImage()
         
         return imageView
