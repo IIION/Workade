@@ -47,7 +47,9 @@ extension TipDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: (UIScreen.main.bounds.width - 60) / 2, height: 220)
+        let width = (UIScreen.main.bounds.width - 60) / 2
+        
+        return CGSize(width: width, height: width * 1.3)
         }
 }
 
