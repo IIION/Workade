@@ -22,3 +22,4 @@ struct Megazine {
     let title: String
     let profileImage: UIImage
 }
+// 다른 프로퍼티는 필요한 시점에 추가하겠습니다.
