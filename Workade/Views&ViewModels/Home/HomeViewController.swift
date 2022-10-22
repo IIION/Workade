@@ -51,6 +51,16 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var checkListButton: CheckListButton = {
+        let button = CheckListButton()
+        button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
+        button.layer.borderWidth = 2
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -85,6 +95,7 @@ extension HomeViewController {
         view.addSubview(divider)
         view.addSubview(magazineHeaderView)
         view.addSubview(magazineCollectionView)
+        view.addSubview(checkListButton)
         
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
@@ -106,7 +117,12 @@ extension HomeViewController {
             
             magazineCollectionView.topAnchor.constraint(equalTo: magazineHeaderView.bottomAnchor),
             magazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            magazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
+            magazineCollectionView.heightAnchor.constraint(equalToConstant: 200),
+            
+            checkListButton.topAnchor.constraint(equalTo: magazineCollectionView.bottomAnchor, constant: 30),
+            checkListButton.heightAnchor.constraint(equalToConstant: 57),
+            checkListButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            checkListButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
 }

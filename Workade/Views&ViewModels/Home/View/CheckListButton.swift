@@ -16,9 +16,10 @@ class CheckListButton: UIButton {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.layoutMargins = .init(top: 0, left: 20, bottom: 0, right: 20)
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(imageView)
+        stackView.layoutMargins = .init(top: 0, left: 20, bottom: 0, right: 24)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
