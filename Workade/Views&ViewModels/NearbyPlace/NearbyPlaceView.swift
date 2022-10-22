@@ -29,7 +29,6 @@ class NearbyPlaceView: UIView {
     
     private let placeImageView: UIImageView = {
         let imageView = UIImageView()
-        // TODO: 임시 배경입니다. 스크롤 시 이미지 애니메이션 효과 적용하며 변경할 예정입니다.
         imageView.backgroundColor = UIColor.gray
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
