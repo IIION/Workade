@@ -134,6 +134,60 @@ class CheckListDetailViewController: UIViewController {
         return scrollView
     }()
     
+    private let addButton: UIButton = {
+        let button = UIButton()
+        
+        let image = UIImage(systemName: "plus.circle.fill")
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = .theme.primary
+        imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 26)
+        
+        let label = UILabel()
+        label.text = "탭해서 추가"
+        label.font = .customFont(for: .subHeadline)
+        label.tintColor = .theme.primary
+        
+        let stack = UIStackView(arrangedSubviews: [imageView, label])
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.spacing = 9
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addSubview(stack)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private let templateButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
+        let image = UIImage(systemName: "list.bullet.clipboard.fill", withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.tintColor = .white
+        button.backgroundColor = .theme.primary
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 22
+        button.layer.masksToBounds = true
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private lazy var buttonStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [addButton, templateButton])
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -150,6 +204,7 @@ extension CheckListDetailViewController {
     
     private func setupLayout() {
         view.addSubview(scrollView)
+        view.addSubview(buttonStack)
         
         let guide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -183,6 +238,13 @@ extension CheckListDetailViewController {
             checklistTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             checklistTableView.heightAnchor.constraint(equalToConstant: CGFloat(52 * taskList.count))
         ])
+        
+        NSLayoutConstraint.activate([
+            buttonStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            buttonStack.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            buttonStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -26),
+            buttonStack.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10)
+        ])
     }
 }
 
@@ -196,7 +258,9 @@ extension CheckListDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueCell(withType: CheckListDetailCell.self, for: indexPath) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueCell(withType: CheckListDetailCell.self, for: indexPath) as? CheckListDetailCell else {
+            return UITableViewCell()
+        }
         
         return cell
     }
