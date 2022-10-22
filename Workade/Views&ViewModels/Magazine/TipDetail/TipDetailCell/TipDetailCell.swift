@@ -32,6 +32,8 @@ class TipDetailCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         // TODO: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
         imageView.image = UIImage(named: "TempTipImage") ?? UIImage()
+        imageView.layer.cornerRadius = 13.2
+        imageView.clipsToBounds = true
         
         return imageView
     }()
