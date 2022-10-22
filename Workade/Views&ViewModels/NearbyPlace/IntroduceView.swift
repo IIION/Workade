@@ -10,7 +10,7 @@ import UIKit
 class IntroduceView: UIView {
     private let testLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lorem Ipsum is simply dummy"
+        label.text = "소개 뷰"
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.textAlignment = .center

@@ -11,7 +11,7 @@ import UIKit
 class TempGalleryView: UIView {
     private let testLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+        label.text = "임시 갤러리 뷰"
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.textAlignment = .center
