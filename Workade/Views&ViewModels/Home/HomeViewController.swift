@@ -8,6 +8,18 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let welcomeLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2 // default value = 1
@@ -90,20 +102,31 @@ extension HomeViewController {
     }
     
     private func setupLayout() {
-        view.addSubview(welcomeLabel)
-        view.addSubview(officeCollectionView)
-        view.addSubview(divider)
-        view.addSubview(magazineHeaderView)
-        view.addSubview(magazineCollectionView)
-        view.addSubview(checkListButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        [welcomeLabel, officeCollectionView, divider, magazineHeaderView, magazineCollectionView, checkListButton].forEach {
+            contentView.addSubview($0)
+        }
         
+        let guide = scrollView.contentLayoutGuide
         NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
-            welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: guide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            welcomeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 23),
+            welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            welcomeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         
             officeCollectionView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 22),
-            officeCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            officeCollectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             officeCollectionView.heightAnchor.constraint(equalToConstant: 200),
             
             divider.topAnchor.constraint(equalTo: officeCollectionView.bottomAnchor, constant: 30),
@@ -112,17 +135,18 @@ extension HomeViewController {
             divider.heightAnchor.constraint(equalToConstant: 1),
             
             magazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
-            magazineHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            magazineHeaderView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             magazineHeaderView.heightAnchor.constraint(equalToConstant: 60),
             
             magazineCollectionView.topAnchor.constraint(equalTo: magazineHeaderView.bottomAnchor),
-            magazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            magazineCollectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             magazineCollectionView.heightAnchor.constraint(equalToConstant: 200),
             
             checkListButton.topAnchor.constraint(equalTo: magazineCollectionView.bottomAnchor, constant: 30),
             checkListButton.heightAnchor.constraint(equalToConstant: 57),
-            checkListButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            checkListButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
         ])
     }
 }
