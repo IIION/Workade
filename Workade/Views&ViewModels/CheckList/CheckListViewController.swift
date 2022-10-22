@@ -10,13 +10,14 @@ import SwiftUI
 
 class CheckListViewController: UIViewController {
     private var checkListViewModel = CheckListViewModel()
+    private var editState = EditState.none
     
-    private let editButton: UIBarButtonItem = {
+    private lazy var editButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
             title: "편집",
             style: .plain,
-            target: nil,
-            action: nil
+            target: self,
+            action: #selector(editButtonPressed(_:))
         )
         barButtonItem.tintColor = .black
         
@@ -54,6 +55,18 @@ class CheckListViewController: UIViewController {
         self.setupLayout()
         self.checkListViewModel.loadCheckList()
         self.checklistCollectionView.reloadData()
+    }
+    
+    @objc private func editButtonPressed(_ sender: UIBarButtonItem) {
+        if editState == .edit {
+            editState = .none
+            editButton.title = "편집"
+            checklistCollectionView.reloadData()
+        } else {
+            editState = .edit
+            editButton.title = "완료"
+            checklistCollectionView.reloadData()
+        }
     }
 }
 
@@ -105,7 +118,11 @@ extension CheckListViewController: UICollectionViewDelegate {
 
 extension CheckListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return checkListViewModel.checkList.count + 1
+        if editState == .edit {
+            return checkListViewModel.checkList.count
+        } else {
+            return checkListViewModel.checkList.count + 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -122,9 +139,19 @@ extension CheckListViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
+            if editState == .edit {
+                cell.isDeleteMode = true
+            } else {
+                cell.isDeleteMode = false
+            }
+            
             return cell
         }
     }
+}
+
+enum EditState {
+    case edit, none
 }
 
 struct CheckListViewControllerRepresentable: UIViewControllerRepresentable {

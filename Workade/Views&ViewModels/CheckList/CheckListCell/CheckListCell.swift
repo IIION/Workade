@@ -14,6 +14,18 @@ class CheckListCell: UICollectionViewCell {
     var emoji: String = "🏝"
     var title: String = "제목없음"
     var dDay: Int = 0
+    var isDeleteMode = false {
+        didSet {
+            if isDeleteMode {
+                self.displayStack.isHidden = true
+                self.deleteButton.isHidden = false
+            } else {
+                self.displayStack.isHidden = false
+                self.deleteButton.isHidden = true
+            }
+            self.contentView.layoutIfNeeded()
+        }
+    }
     
     private lazy var uncheckStack: UIStackView = {
         let uncheckImage = UIImageView(image: UIImage(systemName: "circle"))
@@ -55,6 +67,18 @@ class CheckListCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
+    }()
+    
+    lazy var deleteButton: UIButton = {
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: imageConfig)
+        
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.tintColor = .red
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
     }()
     
     private lazy var emojiLabel: UILabel = {
@@ -115,24 +139,26 @@ class CheckListCell: UICollectionViewCell {
 
 extension CheckListCell {
     private func setupLayout() {
-        [displayStack, verticalStack].forEach { subview in
-            contentView.addSubview(subview)
+        [verticalStack, displayStack, deleteButton].forEach { subView in
+            contentView.addSubview(subView)
         }
         
         let guide = contentView.safeAreaLayoutGuide
+
+        NSLayoutConstraint.activate([
+            deleteButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16),
+            deleteButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -16)
+        ])
         
-        let displayStackConstraints = [
+        NSLayoutConstraint.activate([
             displayStack.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16),
             displayStack.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -16)
-        ]
+        ])
         
-        let verticalStackConstraints = [
+        NSLayoutConstraint.activate([
             verticalStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
             verticalStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -7)
-        ]
-        
-        NSLayoutConstraint.activate(displayStackConstraints)
-        NSLayoutConstraint.activate(verticalStackConstraints)
+        ])
     }
 }
 
