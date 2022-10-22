@@ -35,7 +35,7 @@ class NearbyPlaceView: UIView {
     private let placeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
-        imageView.image = UIImage(named: "OpieceTamna")
+        imageView.image = UIImage(named: "officeImage_test")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
