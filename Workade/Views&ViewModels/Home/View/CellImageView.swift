@@ -18,7 +18,7 @@ class CellImageView: UIImageView {
         let path = UIBezierPath(rect: bounds)
         let blackLayer = CAShapeLayer()
         blackLayer.path = path.cgPath
-        blackLayer.fillColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        blackLayer.fillColor = UIColor.black.withAlphaComponent(0.1).cgColor
         layer.addSublayer(blackLayer)
     }
     
