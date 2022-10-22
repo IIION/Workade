@@ -86,6 +86,15 @@ class HomeViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        addBlurEffect()
+    }
+    
+    func addBlurEffect() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let bounds = windowScene?.statusBarManager?.statusBarFrame
+        let blurredStatusBar = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        view.addSubview(blurredStatusBar)
+        blurredStatusBar.frame = bounds ?? CGRect(x: 0, y: 0, width: view.bounds.width, height: 47)
     }
 }
 
