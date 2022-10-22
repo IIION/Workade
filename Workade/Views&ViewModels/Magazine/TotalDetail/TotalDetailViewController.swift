@@ -24,11 +24,9 @@ class TotalDetailViewController: UIViewController {
     
     func setupLayout() {
         view.addSubview(sampleLabel)
-        let sampleLabelLayout = [
+        NSLayoutConstraint.activate([
             sampleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             sampleLabel.topAnchor.constraint(equalTo: view.topAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(sampleLabelLayout)
+        ])
     }
 }
