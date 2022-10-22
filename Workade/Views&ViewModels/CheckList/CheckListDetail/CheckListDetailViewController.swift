@@ -11,9 +11,9 @@ import SwiftUI
 class CheckListDetailViewController: UIViewController {
     // test 모델
     private var taskList = [
-        Task(content: "녹음기", done: false),
-        Task(content: "나만의 루틴 세워가기", done: true),
-        Task(content: "DSLR 카메라", done: true)
+        Todo(content: "녹음기", done: false),
+        Todo(content: "나만의 루틴 세워가기", done: true),
+        Todo(content: "DSLR 카메라", done: true)
     ]
     
     var emoji: String = "⚽️"
