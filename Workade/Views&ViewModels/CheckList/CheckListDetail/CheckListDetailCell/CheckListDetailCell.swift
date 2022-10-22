@@ -77,7 +77,6 @@ struct CheckListDetailCellRepresentable: UIViewRepresentable {
     func updateUIView(_ uiView: CheckListDetailCell, context: Context) {}
 }
 
-@available(iOS 13.0.0, *)
 struct CheckListDetailCellPreview: PreviewProvider {
     static var previews: some View {
         CheckListDetailCellRepresentable()
