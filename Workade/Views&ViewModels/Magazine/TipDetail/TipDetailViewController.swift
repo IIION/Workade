@@ -19,7 +19,6 @@ class TipDetailViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.register(TipDetailCell.self, forCellWithReuseIdentifier: TipDetailCell.identifier)
         collectionView.showsVerticalScrollIndicator = false
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
