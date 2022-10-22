@@ -53,7 +53,12 @@ extension TipDetailViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TipDetailViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tipItemDetailViewController = TipItemDetailViewController()
+        
+        tipItemDetailViewController.modalPresentationStyle = .overFullScreen
+        present(tipItemDetailViewController, animated: true, completion: nil)
+    }
 }
 
 // TODO: 추후 요청으로 처리
