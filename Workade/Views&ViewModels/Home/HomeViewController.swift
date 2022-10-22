@@ -35,17 +35,17 @@ class HomeViewController: UIViewController {
         return view
     }()
     
-    private let megazineHeaderView: HeaderView = {
+    private let magazineHeaderView: HeaderView = {
         let stackView = HeaderView(title: "매거진")
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    private lazy var megazineCollectionView: HorizontalCollectionView = {
+    private lazy var magazineCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 150, height: 200))
         collectionView.dataSource = self
-        collectionView.register(cell: UICollectionViewCell.self)
+        collectionView.register(cell: MagazineCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -83,8 +83,8 @@ extension HomeViewController {
         view.addSubview(welcomeLabel)
         view.addSubview(officeCollectionView)
         view.addSubview(divider)
-        view.addSubview(megazineHeaderView)
-//        view.addSubview(megazineCollectionView)
+        view.addSubview(magazineHeaderView)
+        view.addSubview(magazineCollectionView)
         
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
@@ -100,13 +100,13 @@ extension HomeViewController {
             divider.trailingAnchor.constraint(equalTo: officeCollectionView.trailingAnchor, constant: -20),
             divider.heightAnchor.constraint(equalToConstant: 1),
             
-            megazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
-            megazineHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            megazineHeaderView.heightAnchor.constraint(equalToConstant: 60),
+            magazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
+            magazineHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            magazineHeaderView.heightAnchor.constraint(equalToConstant: 60),
             
-//            megazineCollectionView.topAnchor.constraint(equalTo: megazineHeaderView.bottomAnchor),
-//            megazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            megazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
+            magazineCollectionView.topAnchor.constraint(equalTo: magazineHeaderView.bottomAnchor),
+            magazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            magazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 }
@@ -117,7 +117,7 @@ extension HomeViewController: UICollectionViewDataSource {
         switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
         case officeCollectionView:
             return 5
-        case megazineCollectionView:
+        case magazineCollectionView:
             return 20
         default:
             return 1
@@ -125,13 +125,23 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
-        // UI layout확인용 temp data입니다. 데이터 로직은 좀더 정리하고 반영하겠습니다.
-        cell.configure(office: Office(officeName: "O-PIECE",
-                                      regionName: "제주도",
-                                      profileImage: UIImage(named: "OpieceTamna") ?? UIImage(),
-                                      latitude: 30,
-                                      longitude: 30))
-        return cell
+        switch collectionView {
+        case officeCollectionView:
+            let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.configure(office: Office(officeName: "O-PIECE",
+                                          regionName: "제주도",
+                                          profileImage: UIImage(named: "OpieceTamna") ?? UIImage(),
+                                          latitude: 30,
+                                          longitude: 30))
+            return cell
+        case magazineCollectionView:
+            let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.configure(magazine: Magazine(id: 1, // temp
+                                              title: "내 성격에 맞는\n장소 찾는 법",
+                                              profileImage: UIImage(named: "OpieceTamna") ?? UIImage()))
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
 }

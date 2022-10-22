@@ -8,8 +8,10 @@
 import UIKit
 
 class OfficeCollectionViewCell: UICollectionViewCell {
-    private lazy var backgroundImageView: CellImageView = { let imageView = CellImageView(bounds: bounds)
+    private lazy var backgroundImageView: CellImageView = {
+        let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     
