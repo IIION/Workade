@@ -9,6 +9,13 @@ import UIKit
 import SwiftUI
 
 class CheckListDetailViewController: UIViewController {
+    // test 모델
+    private var taskList = [
+        Task(content: "녹음기", done: false),
+        Task(content: "나만의 루틴 세워가기", done: true),
+        Task(content: "DSLR 카메라", done: true)
+    ]
+    
     var emoji: String = "⚽️"
     var checklistTitle: String = "제목없음"
     var date: Date = Date()
@@ -68,6 +75,7 @@ class CheckListDetailViewController: UIViewController {
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko-KR")
         datePicker.timeZone = .autoupdatingCurrent
+        datePicker.tintColor = .theme.primary
         
         return datePicker
     }()
@@ -100,13 +108,29 @@ class CheckListDetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var checklistTableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.rowHeight = 52
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .theme.labelBackground
+        tableView.registerCell(type: CheckListDetailCell.self, identifier: CheckListDetailCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.isScrollEnabled = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.addSubview(titleStack)
         scrollView.addSubview(dateStack)
         scrollView.addSubview(dashedLine)
+        scrollView.addSubview(checklistTableView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return scrollView
     }()
     
@@ -132,7 +156,7 @@ extension CheckListDetailViewController {
             scrollView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             scrollView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 20),
             scrollView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
-            scrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -20)
+            scrollView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -70)
         ])
         
         NSLayoutConstraint.activate([
@@ -147,8 +171,34 @@ extension CheckListDetailViewController {
         
         NSLayoutConstraint.activate([
             dashedLine.topAnchor.constraint(equalTo: dateStack.bottomAnchor, constant: 20),
-            dashedLine.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
+            dashedLine.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            dashedLine.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            checklistTableView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 20),
+            checklistTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            checklistTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            checklistTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            checklistTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            checklistTableView.heightAnchor.constraint(equalToConstant: CGFloat(52 * taskList.count))
+        ])
+    }
+}
+
+extension CheckListDetailViewController: UITableViewDelegate {
+    
+}
+
+extension CheckListDetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return taskList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueCell(withType: CheckListDetailCell.self, for: indexPath) else { return UITableViewCell() }
+        
+        return cell
     }
 }
 
