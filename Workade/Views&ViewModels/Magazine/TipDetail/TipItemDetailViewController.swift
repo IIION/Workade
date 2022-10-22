@@ -8,41 +8,83 @@
 import UIKit
 
 class TipItemDetailViewController: UIViewController {
-    let testLabel: UILabel = {
-       let label = UILabel()
-        label.text = "TEST VIEW"
-        label.translatesAutoresizingMaskIntoConstraints = false
+    // Binding
+    var label: String?
+    
+    let titleImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        // TODO: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
+        imageView.image = UIImage(named: "TempTipImage") ?? UIImage()
         
-        return label
+        return imageView
     }()
     
     lazy var closeButton: UIButton = {
-       let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        let button = UIButton.closeButton
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
         
         return button
     }()
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .theme.background
+        label.font = .customFont(for: .title1)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    let bookmarkButton: UIButton = {
+        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+
+        let button = UIButton()
+        // TODO: 추후 Bookmark 정보 가져올때 북마크 true / false 정보에 따라 갱신
+        button.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
+        button.tintColor = .theme.background
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .theme.background
+        titleLabel.text = label ?? "정보를 불러올 수 없습니다."
         
         setupLayout()
     }
     
     func setupLayout() {
-        view.addSubview(testLabel)
+        view.addSubview(titleImageView)
         NSLayoutConstraint.activate([
-            testLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            testLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            titleImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            titleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            titleImageView.heightAnchor.constraint(equalToConstant: (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44) + 375)
         ])
         
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-            closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            closeButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20)
+        ])
+        
+        view.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: titleImageView.leadingAnchor, constant: 20),
+            titleLabel.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20)
+        ])
+        
+        view.addSubview(bookmarkButton)
+        NSLayoutConstraint.activate([
+            bookmarkButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20),
+            bookmarkButton.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20),
+            bookmarkButton.widthAnchor.constraint(equalToConstant: 48),
+            bookmarkButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     
