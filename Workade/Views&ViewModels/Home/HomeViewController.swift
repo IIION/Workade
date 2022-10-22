@@ -10,7 +10,6 @@ import UIKit
 class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -115,11 +114,6 @@ extension HomeViewController {
             target: self,
             action: nil // will connect to MyPageView
         )
-        
-        // 스크롤 시 생기는 네비게이션 바 하단 경계선 제거
-        navigationController?.navigationBar.shadowImage = UIImage() // default .none
-        // 스크롤 시 생기는 네비게이션 바 배경 흐려지는 효과 제거
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) // default .none
     }
     
     private func setupLayout() {
@@ -209,15 +203,5 @@ extension HomeViewController: UICollectionViewDataSource {
         default:
             return UICollectionViewCell()
         }
-    }
-}
-
-// MARK: ScrollView Delegate
-extension HomeViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let defaultPosition = view.safeAreaInsets.top
-        let offset = scrollView.contentOffset.y + defaultPosition // 0
-
-        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(500, -offset))
     }
 }
