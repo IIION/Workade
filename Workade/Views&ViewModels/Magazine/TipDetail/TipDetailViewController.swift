@@ -8,7 +8,7 @@
 import UIKit
 
 class TipDetailViewController: UIViewController {
-    // todo: 임시 데이터 -> 추후 요청으로 수정
+    // TODO: 임시 데이터 -> 추후 요청으로 수정
     let titleArray = ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소", "워케이션\n센터주변 맛집정보"]
     
     private let tipDetailCollectionView: UICollectionView = {
@@ -56,7 +56,7 @@ extension TipDetailViewController: UICollectionViewDelegate {
     
 }
 
-// todo: 추후 요청으로 처리
+// TODO: 추후 요청으로 처리
 extension TipDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titleArray.count
@@ -72,7 +72,7 @@ extension TipDetailViewController: UICollectionViewDataSource {
         return cell
     }
     
-    // todo: 추후 데이터 로직과 연결하여 수정
+    // TODO: 추후 데이터 로직과 연결하여 수정
     @objc
     func clickedBookmarkButton(sender: UIButton) {
         if sender.currentImage

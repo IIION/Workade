@@ -30,7 +30,7 @@ class TipDetailCell: UICollectionViewCell {
     private let cellBackgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        // todo: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
+        // TODO: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
         imageView.image = UIImage(named: "SampleTipImage") ?? UIImage()
         
         return imageView

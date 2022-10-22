@@ -67,7 +67,7 @@ class MagazineViewController: UIViewController {
         return viewController
     }()
     
-    // 추후 내비게이션 연동시 삭제할 프로퍼티
+    // TODO: 추후 내비게이션 연동시 삭제할 프로퍼티
     private let tempView: UIView = {
        let view = UIView()
         view.backgroundColor = .clear
@@ -96,7 +96,7 @@ class MagazineViewController: UIViewController {
     
     // MARK: AutoLayout 설정
     private func setupLayout() {
-        // 추후 네비게이션 연결 시 삭제될 레이아웃
+        // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
         view.addSubview(tempView)
         NSLayoutConstraint.activate([
             tempView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -105,7 +105,7 @@ class MagazineViewController: UIViewController {
             tempView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -731)
         ])
         
-        // 추후 네비게이션 연결 시 삭제될 레이아웃
+        // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
         tempView.addSubview(tempBackButton)
         NSLayoutConstraint.activate([
             tempBackButton.leadingAnchor.constraint(equalTo: tempView.leadingAnchor)
@@ -115,7 +115,7 @@ class MagazineViewController: UIViewController {
         NSLayoutConstraint.activate([
 //            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             
-            // 추후 네비게이션 연결시 바로위 주석코드가 작성됩니다.
+            // TODO: 추후 네비게이션 연결시 바로위 주석코드가 작성됩니다.
             viewTitle.topAnchor.constraint(equalTo: tempView.bottomAnchor, constant: 20),
             viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
