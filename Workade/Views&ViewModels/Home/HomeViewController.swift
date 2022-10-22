@@ -8,8 +8,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -73,6 +74,12 @@ class HomeViewController: UIViewController {
         return button
     }()
     
+    private let tempView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -99,18 +106,23 @@ extension HomeViewController {
             target: self,
             action: nil // will connect to MyPageView
         )
+        
+        // 스크롤 시 생기는 네비게이션 바 하단 경계선 제거
+        navigationController?.navigationBar.shadowImage = UIImage() // default .none
+        // 스크롤 시 생기는 네비게이션 바 배경 흐려지는 효과 제거
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) // default .none
     }
     
     private func setupLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [welcomeLabel, officeCollectionView, divider, magazineHeaderView, magazineCollectionView, checkListButton].forEach {
+        [welcomeLabel, officeCollectionView, divider, magazineHeaderView, magazineCollectionView, checkListButton, tempView].forEach {
             contentView.addSubview($0)
         }
         
         let guide = scrollView.contentLayoutGuide
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -146,7 +158,12 @@ extension HomeViewController {
             checkListButton.heightAnchor.constraint(equalToConstant: 57),
             checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
+//            checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
+            
+            tempView.topAnchor.constraint(equalTo: checkListButton.bottomAnchor, constant: 30),
+            tempView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            tempView.heightAnchor.constraint(equalToConstant: 500),
+            tempView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -183,5 +200,15 @@ extension HomeViewController: UICollectionViewDataSource {
         default:
             return UICollectionViewCell()
         }
+    }
+}
+
+// MARK: ScrollView Delegate
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let defaultPosition = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultPosition // 0
+
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(500, -offset))
     }
 }
