@@ -9,13 +9,7 @@ import UIKit
 import SwiftUI
 
 class CheckListViewController: UIViewController {
-    // test 모델
-    private var checkList = [
-        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: []),
-        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: []),
-        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: []),
-        CheckListModel(title: "제목없음", emoji: "👍", travelDate: Date(), tasks: [])
-    ]
+    private var checkListViewModel = CheckListViewModel()
     
     private let editButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
@@ -44,6 +38,7 @@ class CheckListViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(CheckListCell.self, forCellWithReuseIdentifier: CheckListCell.identifier)
+        collectionView.register(CheckListAddButtonCell.self, forCellWithReuseIdentifier: CheckListAddButtonCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +52,8 @@ class CheckListViewController: UIViewController {
         
         self.setupNavigationBar()
         self.setupLayout()
+        self.checkListViewModel.loadCheckList()
+        self.checklistCollectionView.reloadData()
     }
 }
 
@@ -98,20 +95,35 @@ extension CheckListViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension CheckListViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == checkListViewModel.checkList.count {
+            checkListViewModel.addCheckList()
+            self.checklistCollectionView.reloadData()
+        }
+    }
 }
 
 extension CheckListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.checkList.count
+        return checkListViewModel.checkList.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckListCell.identifier, for: indexPath) as? CheckListCell else {
-            return UICollectionViewCell()
+        if indexPath.row == checkListViewModel.checkList.count {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckListAddButtonCell.identifier, for: indexPath)
+                    as? CheckListAddButtonCell else {
+                return UICollectionViewCell()
+            }
+            
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckListCell.identifier, for: indexPath)
+                    as? CheckListCell else {
+                return UICollectionViewCell()
+            }
+            
+            return cell
         }
-        
-        return cell
     }
 }
 
@@ -125,7 +137,6 @@ struct CheckListViewControllerRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: CheckListViewController, context: Context) {}
 }
 
-@available(iOS 13.0.0, *)
 struct CheckListViewControllerPreview: PreviewProvider {
     static var previews: some View {
         CheckListViewControllerRepresentable()

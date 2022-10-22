@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CheckList" representedClassName=".CheckList" syncable="YES" codeGenerationType="class">
+        <attribute name="emoji" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="travelDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="todos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Todo" inverseName="parentCheckList" inverseEntity="Todo"/>
+    </entity>
+    <entity name="Todo" representedClassName=".Todo" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="done" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="parentCheckList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CheckList" inverseName="todos" inverseEntity="CheckList"/>
+    </entity>
 </model>
