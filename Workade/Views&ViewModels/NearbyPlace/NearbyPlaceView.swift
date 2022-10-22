@@ -89,6 +89,13 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupLayout() {
+        removeSegmentDefaultEffect()
+        
+        setupScrollViewLayout()
+        setupNearbyPlaceDetailLayout()
+    }
+    
+    private func setupScrollViewLayout() {
         // 스크롤 뷰 추가
         addSubview(scrollView)
         let scrollViewGuide = scrollView.contentLayoutGuide
@@ -100,8 +107,6 @@ class NearbyPlaceView: UIView {
         contentsContainer.addSubview(segmentUnderLine)
         contentsContainer.addSubview(introduceView)
         contentsContainer.addSubview(galleryView)
-        
-        removeSegmentDefaultEffect()
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -117,7 +122,9 @@ class NearbyPlaceView: UIView {
             contentsContainer.trailingAnchor.constraint(equalTo: scrollViewGuide.trailingAnchor),
             contentsContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-        
+    }
+    
+    private func setupNearbyPlaceDetailLayout() {
         NSLayoutConstraint.activate([
             placeImageView.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             placeImageView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor),
