@@ -37,13 +37,13 @@ class CheckListDetailViewController: UIViewController {
         return label
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = checklistTitle
-        label.font = .customFont(for: .title2)
-        label.tintColor = .theme.primary
+    private lazy var titleLabel: UITextField = {
+        let textField = UITextField()
+        textField.text = checklistTitle
+        textField.font = .customFont(for: .title2)
+        textField.tintColor = .theme.primary
         
-        return label
+        return textField
     }()
     
     private lazy var titleStack: UIStackView = {

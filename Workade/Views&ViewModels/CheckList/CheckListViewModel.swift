@@ -27,6 +27,7 @@ struct CheckListViewModel {
         guard let context = context else { return }
         
         let newCheckList = CheckList(context: context)
+        newCheckList.id = UUID()
         newCheckList.title = title
         newCheckList.emoji = emoji
         self.checkList.append(newCheckList)
