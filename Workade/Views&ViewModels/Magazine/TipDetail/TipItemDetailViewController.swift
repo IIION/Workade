@@ -15,7 +15,7 @@ class TipItemDetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         // TODO: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
-        imageView.image = UIImage(named: "TempTipImage") ?? UIImage()
+        imageView.image = UIImage(named: "sampleTipImage") ?? UIImage()
         
         return imageView
     }()
@@ -28,7 +28,7 @@ class TipItemDetailViewController: UIViewController {
         return button
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .theme.background
         label.font = .customFont(for: .title1)
@@ -38,7 +38,7 @@ class TipItemDetailViewController: UIViewController {
         return label
     }()
     
-    let bookmarkButton: UIButton = {
+    private lazy var bookmarkButton: UIButton = {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
 
         let button = UIButton()
@@ -46,6 +46,7 @@ class TipItemDetailViewController: UIViewController {
         button.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
         button.tintColor = .theme.background
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
 
         return button
     }()
@@ -92,5 +93,18 @@ class TipItemDetailViewController: UIViewController {
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
         TipDetailViewController().setupLayout()
+    }
+    
+    @objc
+    func clickedBookmarkButton(sender: UIButton) {
+        // TODO: 추후 북마크 버튼 눌렀을때 북마크 해제, 추가 로직 구현부
+        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+        
+        if sender.currentImage
+            == UIImage(systemName: "bookmark", withConfiguration: config) {
+            sender.setImage(UIImage(systemName: "bookmark.fill", withConfiguration: config), for: .normal)
+        } else {
+            sender.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
+        }
     }
 }
