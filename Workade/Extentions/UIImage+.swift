@@ -25,6 +25,8 @@ enum SFSymbol {
     case mapInCell
     case chevronLeft // in navigationbar
     case chevronRight
+    case bookmark
+    case bookmarkFill
 
     var image: UIImage {
         switch self {
@@ -36,6 +38,10 @@ enum SFSymbol {
             return .fromSystemImage(name: "chevron.left", font: .customFont(for: .headline), color: .theme.primary)!
         case .chevronRight:
             return .fromSystemImage(name: "chevron.right", font: .systemFont(ofSize: 15, weight: .heavy), color: .theme.primary)!
+        case .bookmark:
+            return .fromSystemImage(name: "bookmark", font: .customFont(for: .title3), color: .white)!
+        case .bookmarkFill:
+            return .fromSystemImage(name: "bookmark.fill", font: .customFont(for: .title3), color: .white)!
         }
     }
 }
