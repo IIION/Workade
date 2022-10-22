@@ -102,7 +102,7 @@ class MagazineViewController: UIViewController {
             tempView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             tempView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tempView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            tempView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -731)
+            tempView.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
