@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E467660290272C100556C41 /* NearbyPlaceView.swift */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
 		0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceView.swift */; };
 		0EFB5BCB29017FBB00174291 /* TempGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* TempGalleryView.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E467660290272C100556C41 /* NearbyPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceView.swift; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		0EFB5BCA29017FBB00174291 /* TempGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempGalleryView.swift; sourceTree = "<group>"; };
@@ -102,11 +104,12 @@
 			isa = PBXGroup;
 			children = (
 				0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */,
+				0E467660290272C100556C41 /* NearbyPlaceView.swift */,
 				0EFB5BCA29017FBB00174291 /* TempGalleryView.swift */,
 				0EFB5BA42900E9D800174291 /* IntroduceView.swift */,
 			);
 			path = NearbyPlace;
-      sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		16083B4729013F9A008056D4 /* CheckList */ = {
 			isa = PBXGroup;
@@ -410,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
+				0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* TempGalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,

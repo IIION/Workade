@@ -11,7 +11,9 @@ import UIKit
 class TempGalleryView: UIView {
     private let testLabel: UILabel = {
         let label = UILabel()
-        label.text = "갤러리 뷰"
+        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +37,8 @@ class TempGalleryView: UIView {
             testLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             testLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             testLabel.topAnchor.constraint(equalTo: topAnchor),
-            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            testLabel.heightAnchor.constraint(equalToConstant: 1000)
         ])
     }
 }

@@ -10,7 +10,9 @@ import UIKit
 class IntroduceView: UIView {
     private let testLabel: UILabel = {
         let label = UILabel()
-        label.text = "소개 뷰"
+        label.text = "Lorem Ipsum is simply dummy"
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,11 +32,13 @@ class IntroduceView: UIView {
     
     private func setupLayout() {
         addSubview(testLabel)
+        
         NSLayoutConstraint.activate([
             testLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             testLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             testLabel.topAnchor.constraint(equalTo: topAnchor),
-            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            testLabel.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
 }
