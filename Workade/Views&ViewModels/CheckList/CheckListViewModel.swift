@@ -9,9 +9,9 @@ import UIKit
 import CoreData
 
 struct CheckListViewModel {
-    var checkList = [CheckList]()
-    
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    
+    var checkList = [CheckList]()
     
     private func saveCheckList() {
         guard let context = context else { return }
@@ -43,6 +43,10 @@ struct CheckListViewModel {
         } catch {
             print("Error fetching data context \(error)")
         }
+    }
+    
+    mutating func updateCheckList(at index: Int, checkList: CheckList) {
+        
     }
     
     mutating func deleteCheckList(at index: Int) {
