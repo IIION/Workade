@@ -60,10 +60,12 @@ struct CheckListDetailViewModel {
         }
     }
     
-    mutating func updateCheckList(title: String? = nil, emoji: String? = nil, travelDate: Date? = nil) {
-        guard let seletedIndex = selectedCheckListIndex else { return }
-        
-        checkListViewModel.updateCheckList(at: seletedIndex, title: title, emoji: emoji, travelDate: travelDate)
+    mutating func updateCheckList(checkList: CheckList) {
+        NotificationCenter.default.post(
+            name: NSNotification.Name("editCheckList"),
+            object: checkList,
+            userInfo: nil
+        )
     }
     
     mutating func updateTodo(at index: Int, todo: Todo) {

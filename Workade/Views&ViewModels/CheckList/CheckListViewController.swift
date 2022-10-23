@@ -62,6 +62,12 @@ class CheckListViewController: UIViewController {
             name: NSNotification.Name("deleteCheckList"),
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(editCheckListNotification(_:)),
+            name: NSNotification.Name("editCheckList"),
+            object: nil
+        )
     }
     
     @objc private func editButtonPressed(_ sender: UIBarButtonItem) {
@@ -91,6 +97,13 @@ class CheckListViewController: UIViewController {
         self.checkListViewModel.deleteCheckList(at: index)
         self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         self.checklistCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    @objc func editCheckListNotification(_ notification: Notification) {
+        guard let checkList = notification.object as? CheckList else { return }
+        guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == checkList.cid }) else { return }
+        checkListViewModel.updateCheckList(at: index, checkList: checkList)
+        self.checklistCollectionView.reloadData()
     }
 }
 

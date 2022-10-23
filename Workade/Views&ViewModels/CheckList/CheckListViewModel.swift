@@ -45,18 +45,8 @@ struct CheckListViewModel {
         }
     }
     
-    mutating func updateCheckList(at index: Int, title: String? = nil, emoji: String? = nil, travelDate: Date? = nil) {
-        let targetCheckList = self.checkList[index]
-        
-        if let title = title {
-            targetCheckList.title = title
-        }
-        if let emoji = emoji {
-            targetCheckList.emoji = emoji
-        }
-        if let travelDate = travelDate {
-            targetCheckList.travelDate = travelDate
-        }
+    mutating func updateCheckList(at index: Int, checkList: CheckList) {
+        self.checkList[index] = checkList
         
         saveCheckList()
     }

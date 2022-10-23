@@ -138,7 +138,7 @@ class CheckListDetailViewController: UIViewController {
         return scrollView
     }()
     
-    private let addButton: UIButton = {
+    private lazy var addButton: UIButton = {
         let button = UIButton()
         
         let image = UIImage(systemName: "plus.circle.fill")
@@ -158,6 +158,7 @@ class CheckListDetailViewController: UIViewController {
         stack.alignment = .center
         stack.translatesAutoresizingMaskIntoConstraints = false
         
+        button.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
         button.addSubview(stack)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -203,6 +204,10 @@ class CheckListDetailViewController: UIViewController {
     @objc private func deleteButtonPressed(_ sender: UIBarButtonItem) {
         checkListDetailViewModel.deleteCheckList()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func addButtonPressed(_ sender: UIButton) {
+        
     }
 }
 
