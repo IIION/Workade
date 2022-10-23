@@ -25,13 +25,13 @@ class GalleryDetailViewController: UIViewController {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
         let xmarkImage = UIImage(systemName: "xmark", withConfiguration: imageConfig)
         
-        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialLight))
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialLight))
         blur.isUserInteractionEnabled = false
         blur.clipsToBounds = true
         blur.layer.cornerRadius = 22
         
         button.setImage(xmarkImage, for: .normal)
-        button.tintColor = .theme.primary
+        button.tintColor = .theme.background
         button.layer.cornerRadius = 22
         button.insertSubview(blur, at: 0)
         button.addTarget(self, action: #selector(close), for: .touchUpInside)
