@@ -17,9 +17,12 @@ class CheckListDetailViewController: UIViewController {
         }
     }
     
-    var emoji: String = "⚽️"
-    var checklistTitle: String = "제목없음"
-    var date: Date = Date()
+    var selectedCheckList: CheckList? {
+        didSet {
+            checkListDetailViewModel.selectedCheckList = selectedCheckList
+            datePicker.date = selectedCheckList?.travelDate ?? Date()
+        }
+    }
     
     private lazy var deleteButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
@@ -35,7 +38,7 @@ class CheckListDetailViewController: UIViewController {
     
     private lazy var emojiLabel: UILabel = {
         let label = UILabel()
-        label.text = emoji
+        label.text = selectedCheckList?.emoji ?? "⚽️"
         label.font = .systemFont(ofSize: 34)
         label.tintColor = .theme.primary
         
@@ -44,7 +47,7 @@ class CheckListDetailViewController: UIViewController {
     
     private lazy var titleLabel: UITextField = {
         let textField = UITextField()
-        textField.text = checklistTitle
+        textField.text = selectedCheckList?.title ?? "제목없음"
         textField.font = .customFont(for: .title2)
         textField.tintColor = .theme.primary
         

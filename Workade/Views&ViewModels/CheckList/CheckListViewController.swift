@@ -139,7 +139,10 @@ extension CheckListViewController: UICollectionViewDelegate {
             self.checklistCollectionView.reloadItems(at: [indexPath])
         }
         let detailViewController = CheckListDetailViewController()
+        
         detailViewController.selectedCheckListIndex = indexPath.row
+        detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
+        
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

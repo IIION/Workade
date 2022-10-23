@@ -49,7 +49,7 @@ struct CheckListDetailViewModel {
         guard let context = context else { return }
         guard let cid = selectedCheckList?.cid else { return }
         
-        let checkListPredicate = NSPredicate(format: "parentCategory.cid MATCHES %@", cid)
+        let checkListPredicate = NSPredicate(format: "parentCheckList.cid MATCHES %@", cid)
         
         request.predicate = checkListPredicate
         
