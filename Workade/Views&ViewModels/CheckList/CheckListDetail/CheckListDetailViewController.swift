@@ -9,19 +9,24 @@ import UIKit
 import SwiftUI
 
 class CheckListDetailViewController: UIViewController {
-    // test 모델
-    private var taskList = [Todo]()
+    private var checkListDetailViewModel = CheckListDetailViewModel()
+    
+    var selectedCheckListIndex: Int? {
+        didSet {
+            checkListDetailViewModel.selectedCheckListIndex = selectedCheckListIndex
+        }
+    }
     
     var emoji: String = "⚽️"
     var checklistTitle: String = "제목없음"
     var date: Date = Date()
     
-    private let deleteButton: UIBarButtonItem = {
+    private lazy var deleteButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "trash.fill"),
             style: .plain,
-            target: nil,
-            action: nil
+            target: self,
+            action: #selector(deleteButtonPressed(_:))
         )
         barButtonItem.tintColor = .theme.primary
         
@@ -191,6 +196,11 @@ class CheckListDetailViewController: UIViewController {
         self.setupNavigationBar()
         self.setupLayout()
     }
+    
+    @objc private func deleteButtonPressed(_ sender: UIBarButtonItem) {
+        checkListDetailViewModel.deleteCheckList()
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 extension CheckListDetailViewController {
@@ -232,7 +242,7 @@ extension CheckListDetailViewController {
             checklistTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             checklistTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             checklistTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            checklistTableView.heightAnchor.constraint(equalToConstant: CGFloat(52 * taskList.count))
+            checklistTableView.heightAnchor.constraint(equalToConstant: CGFloat(52 * checkListDetailViewModel.todos.count))
         ])
         
         NSLayoutConstraint.activate([
@@ -250,7 +260,7 @@ extension CheckListDetailViewController: UITableViewDelegate {
 
 extension CheckListDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskList.count
+        return checkListDetailViewModel.todos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -55,6 +55,13 @@ class CheckListViewController: UIViewController {
         self.setupLayout()
         self.checkListViewModel.loadCheckList()
         self.checklistCollectionView.reloadData()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deleteCheckListNotification(_:)),
+            name: NSNotification.Name("deleteCheckList"),
+            object: nil
+        )
     }
     
     @objc private func editButtonPressed(_ sender: UIBarButtonItem) {
@@ -70,8 +77,20 @@ class CheckListViewController: UIViewController {
     }
     
     @objc private func deleteButtonPressed(_ sender: UIButton) {
-        checkListViewModel.deleteCheckList(at: sender.tag)
-        checklistCollectionView.reloadData()
+        guard let cid = self.checkListViewModel.checkList[sender.tag].cid else { return }
+        NotificationCenter.default.post(
+            name: NSNotification.Name("deleteCheckList"),
+            object: cid,
+            userInfo: nil
+        )
+    }
+    
+    @objc func deleteCheckListNotification(_ notification: Notification) {
+        guard let cid = notification.object as? String else { return }
+        guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
+        self.checkListViewModel.deleteCheckList(at: index)
+        self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+        self.checklistCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
     }
 }
 
@@ -116,14 +135,12 @@ extension CheckListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == checkListViewModel.checkList.count {
             checkListViewModel.addCheckList()
-            self.checklistCollectionView.reloadData()
-            
-            let detailViewController = CheckListDetailViewController()
-            self.navigationController?.pushViewController(detailViewController, animated: true)
-        } else {
-            let detailViewController = CheckListDetailViewController()
-            self.navigationController?.pushViewController(detailViewController, animated: true)
+            self.checklistCollectionView.insertItems(at: [indexPath])
+            self.checklistCollectionView.reloadItems(at: [indexPath])
         }
+        let detailViewController = CheckListDetailViewController()
+        detailViewController.selectedCheckListIndex = indexPath.row
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 

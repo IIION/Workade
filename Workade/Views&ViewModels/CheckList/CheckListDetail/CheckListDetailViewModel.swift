@@ -15,6 +15,18 @@ struct CheckListDetailViewModel {
     
     var todos = [Todo]()
     
+    var selectedCheckListIndex: Int? {
+        didSet {
+            loadTodos()
+        }
+    }
+
+    var selectedCheckList: CheckList? {
+        didSet {
+            loadTodos()
+        }
+    }
+    
     init() {
         checkListViewModel.loadCheckList()
     }
@@ -35,6 +47,11 @@ struct CheckListDetailViewModel {
     
     mutating func loadTodos(with request: NSFetchRequest<Todo> = Todo.fetchRequest()) {
         guard let context = context else { return }
+        guard let cid = selectedCheckList?.cid else { return }
+        
+        let checkListPredicate = NSPredicate(format: "parentCategory.cid MATCHES %@", cid)
+        
+        request.predicate = checkListPredicate
         
         do {
             self.todos = try context.fetch(request)
@@ -43,11 +60,32 @@ struct CheckListDetailViewModel {
         }
     }
     
+    mutating func updateCheckList(title: String? = nil, emoji: String? = nil, travelDate: Date? = nil) {
+        guard let seletedIndex = selectedCheckListIndex else { return }
+        
+        checkListViewModel.updateCheckList(at: seletedIndex, title: title, emoji: emoji, travelDate: travelDate)
+    }
+    
     mutating func updateTodo(at index: Int, todo: Todo) {
         
     }
     
+    mutating func deleteCheckList() {
+        guard let seletedIndex = selectedCheckListIndex else { return }
+        guard let cid = self.checkListViewModel.checkList[seletedIndex].cid else { return }
+        NotificationCenter.default.post(
+            name: NSNotification.Name("deleteCheckList"),
+            object: cid,
+            userInfo: nil
+        )
+    }
+    
     mutating func deleteTodo(at index: Int) {
+        guard let context = context else { return }
         
+        context.delete(self.todos[index])
+        self.todos.remove(at: index)
+        
+        saveTodos()
     }
 }

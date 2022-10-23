@@ -27,7 +27,7 @@ struct CheckListViewModel {
         guard let context = context else { return }
         
         let newCheckList = CheckList(context: context)
-        newCheckList.id = UUID()
+        newCheckList.cid = UUID().uuidString
         newCheckList.title = title
         newCheckList.emoji = emoji
         self.checkList.append(newCheckList)
@@ -45,8 +45,20 @@ struct CheckListViewModel {
         }
     }
     
-    mutating func updateCheckList(at index: Int, checkList: CheckList) {
+    mutating func updateCheckList(at index: Int, title: String? = nil, emoji: String? = nil, travelDate: Date? = nil) {
+        let targetCheckList = self.checkList[index]
         
+        if let title = title {
+            targetCheckList.title = title
+        }
+        if let emoji = emoji {
+            targetCheckList.emoji = emoji
+        }
+        if let travelDate = travelDate {
+            targetCheckList.travelDate = travelDate
+        }
+        
+        saveCheckList()
     }
     
     mutating func deleteCheckList(at index: Int) {
@@ -55,10 +67,6 @@ struct CheckListViewModel {
         context.delete(self.checkList[index])
         self.checkList.remove(at: index)
         
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
+        saveCheckList()
     }
 }
