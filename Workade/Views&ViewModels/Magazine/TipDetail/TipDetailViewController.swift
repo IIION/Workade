@@ -51,7 +51,7 @@ extension TipDetailViewController: UICollectionViewDelegateFlowLayout {
         let width = (UIScreen.main.bounds.width - 60) / 2
         
         return CGSize(width: width, height: width * 1.3)
-        }
+    }
 }
 
 extension TipDetailViewController: UICollectionViewDelegate {
@@ -77,11 +77,15 @@ extension TipDetailViewController: UICollectionViewDataSource {
     // TODO: 추후 데이터 로직과 연결하여 수정
     @objc
     func clickedBookmarkButton(sender: UIButton) {
-        if sender.currentImage
-            == UIImage(systemName: "bookmark") {
-            sender.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        var image: UIImage?
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold)
+        
+        if sender.currentImage == UIImage(systemName: "bookmark", withConfiguration: config) {
+            image = UIImage(systemName: "bookmark.fill", withConfiguration: config)
+            sender.setImage(image, for: .normal)
         } else {
-            sender.setImage(UIImage(systemName: "bookmark"), for: .normal)
+            image = UIImage(systemName: "bookmark", withConfiguration: config)
+            sender.setImage(image, for: .normal)
         }
     }
 }
