@@ -6,5 +6,6 @@ target 'Workade' do
   use_frameworks!
 
   # Pods for Workade
+  pod 'NMapsMap'
 
 end

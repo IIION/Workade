@@ -22,6 +22,7 @@
 		5F5C074828FE803C0089DD4B /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* Color+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* HomeModel.swift */; };
+		5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBADE4F29056811008CCC58 /* MapViewController.swift */; };
 		5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */; };
 		5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */; };
 		5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BE28FE799C0060DBB7 /* ViewController.swift */; };
@@ -63,6 +64,7 @@
 		5F5C074728FE803C0089DD4B /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Color+.swift"; path = "Workade/Extentions/Color+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		5FBADE4F29056811008CCC58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FDC17B728FE799C0060DBB7 /* Workade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +110,7 @@
 				0EFB5BA42900E9D800174291 /* IntroduceView.swift */,
 			);
 			path = NearbyPlace;
-      sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		16083B4729013F9A008056D4 /* CheckList */ = {
 			isa = PBXGroup;
@@ -168,6 +170,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		5FBADE4E29056803008CCC58 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				5FBADE4F29056811008CCC58 /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +221,7 @@
 		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				5FBADE4E29056803008CCC58 /* Map */,
 				0EFB5BA128FF088A00174291 /* NearbyPlace */,
 				A35BD48028FE85A800D1FA7C /* Magazine */,
 				5FDC17DD28FE7F1B0060DBB7 /* Home */,
@@ -311,6 +322,7 @@
 				5FDC17B428FE799C0060DBB7 /* Frameworks */,
 				5FDC17B528FE799C0060DBB7 /* Resources */,
 				5FDC17D128FE7A050060DBB7 /* SwiftLint */,
+				B52226D19F9B9FB707ED2C36 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -391,6 +403,23 @@
 			shellPath = /bin/sh;
 			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		B52226D19F9B9FB707ED2C36 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Workade/Pods-Workade-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Workade/Pods-Workade-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Workade/Pods-Workade-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B8566BD2241DEA72D816CB4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,6 +476,7 @@
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
 				16083B4E29013FB4008056D4 /* CheckListModel.swift in Sources */,
+				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
