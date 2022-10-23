@@ -11,13 +11,32 @@ class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         return scrollView
     }()
     
     private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
+    }()
+    
+    private lazy var navigationView: UIStackView = {
+        let logoImageView = UIImageView(image: UIImage(named: "WorkadeLogoTamna")?.setOriginal())
+        logoImageView.contentMode = .left
+        let profileButton = UIButton()
+        profileButton.setImage(UIImage(named: "ProfileTamna")?.setOriginal(), for: .normal)
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.addArrangedSubview(logoImageView)
+        stackView.addArrangedSubview(profileButton)
+        stackView.layoutMargins = .init(top: 0, left: 20, bottom: 0, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
     }()
     
     private let welcomeLabel: UILabel = {
@@ -73,53 +92,35 @@ class HomeViewController: UIViewController {
         return button
     }()
     
-    private let tempView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
         setupNavigationBar()
         setupLayout()
-        addBlurEffect()
-    }
-    
-    func addBlurEffect() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let bounds = windowScene?.statusBarManager?.statusBarFrame
-        let blurredStatusBar = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        view.addSubview(blurredStatusBar)
-        blurredStatusBar.frame = bounds ?? CGRect(x: 0, y: 0, width: view.bounds.width, height: 47)
+        setupStatusBar()
     }
 }
 
 // MARK: UI setup 관련 Methods
 extension HomeViewController {
     private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "WorkadeLogoTamna")?.setOriginal(),
-            style: .done,
-            target: nil,
-            action: nil
-        )
-        navigationItem.leftBarButtonItem?.isEnabled = false // no touch event
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "ProfileTamna")?.setOriginal(),
-            style: .done,
-            target: self,
-            action: nil // will connect to MyPageView
-        )
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    private func setupStatusBar() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let bounds = windowScene?.statusBarManager?.statusBarFrame
+        let blurredStatusBar = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurredStatusBar.frame = bounds ?? CGRect(x: 0, y: 0, width: view.bounds.width, height: 47)
+        view.addSubview(blurredStatusBar)
     }
     
     private func setupLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [welcomeLabel, officeCollectionView, divider, magazineHeaderView, magazineCollectionView, checkListButton, tempView].forEach {
+        [navigationView, welcomeLabel, officeCollectionView, divider,
+         magazineHeaderView, magazineCollectionView, checkListButton].forEach {
             contentView.addSubview($0)
         }
         
@@ -136,7 +137,11 @@ extension HomeViewController {
             contentView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            welcomeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 23),
+            navigationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            navigationView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            navigationView.heightAnchor.constraint(equalToConstant: 48),
+            
+            welcomeLabel.topAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 20),
             welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             welcomeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         
@@ -158,15 +163,10 @@ extension HomeViewController {
             magazineCollectionView.heightAnchor.constraint(equalToConstant: 200),
             
             checkListButton.topAnchor.constraint(equalTo: magazineCollectionView.bottomAnchor, constant: 30),
-            checkListButton.heightAnchor.constraint(equalToConstant: 57),
+            checkListButton.heightAnchor.constraint(equalToConstant: 62),
             checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-//            checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
-            
-            tempView.topAnchor.constraint(equalTo: checkListButton.bottomAnchor, constant: 30),
-            tempView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            tempView.heightAnchor.constraint(equalToConstant: 500),
-            tempView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
 }

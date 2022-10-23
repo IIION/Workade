@@ -10,7 +10,7 @@ import UIKit
 class CheckListButton: UIButton {
     private let checkListView: UIStackView = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.font = .customFont(for: .headline)
         label.text = "체크리스트"
         let imageView = UIImageView(image: SFSymbol.chevronRight.image)
         let stackView = UIStackView()
