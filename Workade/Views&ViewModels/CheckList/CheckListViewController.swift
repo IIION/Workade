@@ -68,6 +68,11 @@ class CheckListViewController: UIViewController {
             checklistCollectionView.reloadData()
         }
     }
+    
+    @objc private func deleteButtonPressed(_ sender: UIButton) {
+        checkListViewModel.deleteCheckList(at: sender.tag)
+        checklistCollectionView.reloadData()
+    }
 }
 
 extension CheckListViewController {
@@ -144,6 +149,9 @@ extension CheckListViewController: UICollectionViewDataSource {
                     as? CheckListCell else {
                 return UICollectionViewCell()
             }
+            
+            cell.deleteButton.tag = indexPath.row
+            cell.deleteButton.addTarget(self, action: #selector(deleteButtonPressed(_:)), for: .touchUpInside)
             
             if editState == .edit {
                 cell.isDeleteMode = true

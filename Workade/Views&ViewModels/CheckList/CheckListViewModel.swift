@@ -44,4 +44,17 @@ struct CheckListViewModel {
             print("Error fetching data context \(error)")
         }
     }
+    
+    mutating func deleteCheckList(at index: Int) {
+        guard let context = context else { return }
+        
+        context.delete(self.checkList[index])
+        self.checkList.remove(at: index)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+    }
 }
