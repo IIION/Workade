@@ -173,6 +173,9 @@ extension CheckListViewController: UICollectionViewDataSource {
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(deleteButtonPressed(_:)), for: .touchUpInside)
             
+            let checkList = checkListViewModel.checkList[indexPath.row]
+            cell.setup(checkList: checkList)
+            
             if editState == .edit {
                 cell.isDeleteMode = true
             } else {

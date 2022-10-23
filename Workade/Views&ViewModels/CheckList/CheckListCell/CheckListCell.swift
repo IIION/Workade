@@ -11,8 +11,6 @@ import SwiftUI
 class CheckListCell: UICollectionViewCell {
     var uncheckCount: Int = 0
     var checkCount: Int = 0
-    var emoji: String = "🏝"
-    var title: String = "제목없음"
     var dDay: Int = 0
     var isDeleteMode = false {
         didSet {
@@ -83,24 +81,31 @@ class CheckListCell: UICollectionViewCell {
     
     private lazy var emojiLabel: UILabel = {
         let label = UILabel()
-        label.text = emoji
+        label.text = "🏝"
         label.font = .systemFont(ofSize: 30)
         
         return label
     }()
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "제목없음"
+        label.font = .customFont(for: .subHeadline)
+        label.tintColor = .black
+        
+        return label
+    }()
+    
+    private lazy var dDayLabel: UILabel  = {
+        let label = UILabel()
+        label.text = "D - \(dDay)"
+        label.font = .customFont(for: .caption)
+        label.tintColor = .black
+        
+        return label
+    }()
+    
     private lazy var labelStack: UIStackView = {
-        let titleLabel = UILabel()
-        let dDayLabel = UILabel()
-        
-        titleLabel.text = title
-        titleLabel.font = .customFont(for: .subHeadline)
-        titleLabel.tintColor = .black
-        
-        dDayLabel.text = "D - \(dDay)"
-        dDayLabel.font = .customFont(for: .caption)
-        dDayLabel.tintColor = .black
-        
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dDayLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -134,6 +139,11 @@ class CheckListCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup(checkList: CheckList) {
+        emojiLabel.text = checkList.emoji ?? "⚽️"
+        titleLabel.text = checkList.title ?? "제목없음"
     }
 }
 
