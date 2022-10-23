@@ -28,7 +28,7 @@ class OfficeCollectionViewCell: UICollectionViewCell {
     
     private let regionNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.font = .customFont(for: .subHeadline)
         label.textColor = .white
         
         return label

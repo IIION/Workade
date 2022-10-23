@@ -10,7 +10,7 @@ import UIKit
 class HeaderView: UIStackView {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.font = .customFont(for: .headline)
         
         return label
     }()

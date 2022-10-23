@@ -29,7 +29,7 @@ class MagazineCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .customFont(for: .subHeadline)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         
