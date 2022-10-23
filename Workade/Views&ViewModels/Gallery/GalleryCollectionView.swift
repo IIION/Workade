@@ -35,14 +35,14 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
         
         let numberOfColumns: Int = 2
         let cellPadding: CGFloat = (delegate?.columnSpacing ?? 20) / 2
-        let cellWidth: CGFloat = (contentWidth - cellPadding * 2 - 20) / CGFloat(numberOfColumns)
+        let cellWidth: CGFloat = (contentWidth - cellPadding * 2) / CGFloat(numberOfColumns)
         
         let xOffSet: [CGFloat] = [0, cellWidth]
         var yOffSet: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
         
         var column: Int = 0
         
-        collectionView.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)
+        collectionView.contentInset = .init(top: 20, left: 10, bottom: 20, right: 10)
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
