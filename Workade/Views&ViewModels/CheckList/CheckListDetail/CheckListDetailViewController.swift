@@ -196,9 +196,16 @@ class CheckListDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        self.titleLabel.delegate = self
         
         self.setupNavigationBar()
         self.setupLayout()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc private func deleteButtonPressed(_ sender: UIBarButtonItem) {
@@ -263,7 +270,11 @@ extension CheckListDetailViewController {
 }
 
 extension CheckListDetailViewController: UITableViewDelegate {
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let targetCheckList = selectedCheckList else { return }
+        targetCheckList.title = textField.text
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+    }
 }
 
 extension CheckListDetailViewController: UITableViewDataSource {
@@ -278,6 +289,10 @@ extension CheckListDetailViewController: UITableViewDataSource {
         
         return cell
     }
+}
+
+extension CheckListDetailViewController: UITextFieldDelegate {
+    
 }
 
 struct CheckListDetailViewControllerRepresentable: UIViewControllerRepresentable {
