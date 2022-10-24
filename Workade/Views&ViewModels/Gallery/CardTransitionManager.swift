@@ -39,9 +39,8 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
         let containerView = transitionContext.containerView
-        containerView.subviews.forEach({ $0.removeFromSuperview()  })
+        containerView.subviews.forEach({ $0.removeFromSuperview() })
         addDimmingView(to: containerView)
         
         let fromViewController = transitionContext.viewController(forKey: .from)
@@ -52,55 +51,51 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
         guard let galleryDetailViewController = (transition == .dismissal) ? (fromViewController as? GalleryDetailViewController) : (toViewController as? GalleryDetailViewController) else { return }
         
         let indexPath = galleryViewController.collectionView.indexPathsForSelectedItems?.first
-        let item = galleryViewController.collectionView.cellForItem(at: indexPath!) as? GalleryCollectionViewCell
+        guard let item = galleryViewController.collectionView.cellForItem(at: indexPath!) as? GalleryCollectionViewCell else { return }
+        
+        let imageViewCopy = makeimageView(by: item.image ?? UIImage())
+        containerView.addSubview(imageViewCopy)
         
         let springTiming = UISpringTimingParameters(dampingRatio: 0.85, initialVelocity: .init(dx: 0, dy: 2))
         let animator = UIViewPropertyAnimator(duration: transitionDuration, timingParameters: springTiming)
         
         if transition == .presentation {
-            let imageViewCopy = UIImageView(image: item!.image!)
-            imageViewCopy.contentMode = .scaleAspectFill
-            imageViewCopy.clipsToBounds = true
-            imageViewCopy.layer.cornerRadius = 12
             imageViewCopy.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(imageViewCopy)
-            
-            makeCellSize(for: imageViewCopy, item: item!)
-            item?.isHidden = true
+            makeCellSize(for: imageViewCopy, item: item)
+            item.isHidden = true
             animator.addAnimations {
                 self.dimmingView.alpha = 0.8
                 imageViewCopy.layer.cornerRadius = 0
                 self.makeDetailSize(for: imageViewCopy, to: containerView)
                 containerView.layoutIfNeeded()
             }
-            
             animator.addCompletion { _ in
                 containerView.addSubview(galleryDetailViewController.view)
                 transitionContext.completeTransition(true)
             }
-            
             animator.startAnimation()
         } else {
-            let imageViewCopy = UIImageView(image: item!.image!)
-            imageViewCopy.contentMode = .scaleAspectFill
-            imageViewCopy.clipsToBounds = true
-            imageViewCopy.layer.cornerRadius = 12
             imageViewCopy.frame = galleryDetailViewController.imageView.convert(galleryDetailViewController.imageView.frame, to: nil)
-            containerView.addSubview(imageViewCopy)
             self.dimmingView.alpha = 0.8
             animator.addAnimations {
                 self.dimmingView.alpha = 0
-                imageViewCopy.frame = item!.imageView.convert(item!.imageView.frame, to: nil)
+                self.makeCellSize(for: imageViewCopy, item: item)
                 containerView.layoutIfNeeded()
             }
-            
             animator.addCompletion { _ in
-                item?.isHidden = false
+                item.isHidden = false
                 transitionContext.completeTransition(true)
             }
-            
             animator.startAnimation()
         }
+    }
+    
+    private func makeimageView(by image: UIImage) -> UIImageView {
+        let copy = UIImageView(image: image)
+        copy.contentMode = .scaleAspectFill
+        copy.clipsToBounds = true
+        copy.layer.cornerRadius = 12
+        return copy
     }
     
     private func makeDetailSize(for imageView: UIImageView, to containerView: UIView) {
