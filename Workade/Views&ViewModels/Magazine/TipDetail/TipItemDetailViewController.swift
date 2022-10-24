@@ -11,6 +11,15 @@ class TipItemDetailViewController: UIViewController {
     // Binding
     var label: String?
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .red
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return  scrollView
+    }()
+    
     let titleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,27 +69,37 @@ class TipItemDetailViewController: UIViewController {
     }
     
     func setupLayout() {
-        view.addSubview(titleImageView)
+        let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+        
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            titleImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            titleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            titleImageView.heightAnchor.constraint(equalToConstant: (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44) + 375)
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        view.addSubview(closeButton)
+        scrollView.addSubview(titleImageView)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            titleImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            titleImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            titleImageView.heightAnchor.constraint(equalToConstant: topSafeArea + 375),
+            titleImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+        
+        scrollView.addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: titleImageView.topAnchor, constant: topSafeArea + 10),
             closeButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20)
         ])
         
-        view.addSubview(titleLabel)
+        scrollView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: titleImageView.leadingAnchor, constant: 20),
             titleLabel.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20)
         ])
         
-        view.addSubview(bookmarkButton)
+        scrollView.addSubview(bookmarkButton)
         NSLayoutConstraint.activate([
             bookmarkButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20),
             bookmarkButton.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20),
