@@ -109,6 +109,8 @@ class CheckListViewController: UIViewController {
 
 extension CheckListViewController {
     private func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = .theme.primary
+        navigationItem.backButtonTitle = ""
         navigationItem.rightBarButtonItem = editButton
     }
     

@@ -139,27 +139,20 @@ class CheckListDetailViewController: UIViewController {
     }()
     
     private lazy var addButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 9
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
         
-        let image = UIImage(systemName: "plus.circle.fill")
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .theme.primary
-        imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 26)
-        
-        let label = UILabel()
-        label.text = "탭해서 추가"
-        label.font = .customFont(for: .subHeadline)
-        label.tintColor = .theme.primary
-        
-        let stack = UIStackView(arrangedSubviews: [imageView, label])
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 9
-        stack.alignment = .center
-        stack.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("탭해서 추가", for: .normal)
+        button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        button.setTitleColor(.theme.primary, for: .normal)
+        button.configuration = config
+        button.tintColor = .theme.primary
+    
+        button.titleLabel?.font = .customFont(for: .subHeadline)
         
         button.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
-        button.addSubview(stack)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
