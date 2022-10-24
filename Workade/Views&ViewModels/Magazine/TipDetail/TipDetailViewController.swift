@@ -12,6 +12,7 @@ class TipDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "Tip 뷰 입니다."
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -23,11 +24,9 @@ class TipDetailViewController: UIViewController {
     
     func setupLayout() {
         view.addSubview(sampleLabel)
-        let sampleLabelLayout = [
+        NSLayoutConstraint.activate([
             sampleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             sampleLabel.topAnchor.constraint(equalTo: view.topAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(sampleLabelLayout)
+        ])
     }
 }

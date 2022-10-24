@@ -14,6 +14,10 @@
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
 		16083B4E29013FB4008056D4 /* CheckListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4D29013FB4008056D4 /* CheckListModel.swift */; };
+		16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD45C290272F50056A641 /* CheckListDetailViewController.swift */; };
+		16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD461290290910056A641 /* CheckListDetailCell.swift */; };
+		16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4692902FB0F0056A641 /* UITableView+.swift */; };
+		16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46B2902FB480056A641 /* UITableViewCell+.swift */; };
 		21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */; };
 		21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */; };
 		21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */; };
@@ -42,6 +46,7 @@
 		A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */; };
 		A35559AC28FEE8EE001E4254 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
+		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
 		BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C25E273370A5639B8396DFB /* Pods_Workade.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +59,10 @@
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		16083B4D29013FB4008056D4 /* CheckListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListModel.swift; sourceTree = "<group>"; };
+		16CBD45C290272F50056A641 /* CheckListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewController.swift; sourceTree = "<group>"; };
+		16CBD461290290910056A641 /* CheckListDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailCell.swift; sourceTree = "<group>"; };
+		16CBD4692902FB0F0056A641 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		16CBD46B2902FB480056A641 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -86,6 +95,7 @@
 		A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnDetailViewController.swift; sourceTree = "<group>"; };
 		A35559AB28FEE8EE001E4254 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
+		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +126,7 @@
 			children = (
 				16083B4A29013F9A008056D4 /* CheckListViewController.swift */,
 				16083B4829013F9A008056D4 /* CheckListCell */,
+				16CBD45B290272DE0056A641 /* CheckListDetail */,
 			);
 			path = CheckList;
 			sourceTree = "<group>";
@@ -126,6 +137,23 @@
 				16083B4929013F9A008056D4 /* CheckListCell.swift */,
 			);
 			path = CheckListCell;
+			sourceTree = "<group>";
+		};
+		16CBD45B290272DE0056A641 /* CheckListDetail */ = {
+			isa = PBXGroup;
+			children = (
+				16CBD45C290272F50056A641 /* CheckListDetailViewController.swift */,
+				16CBD45E290290600056A641 /* CheckListDetailCell */,
+			);
+			path = CheckListDetail;
+			sourceTree = "<group>";
+		};
+		16CBD45E290290600056A641 /* CheckListDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				16CBD461290290910056A641 /* CheckListDetailCell.swift */,
+			);
+			path = CheckListDetailCell;
 			sourceTree = "<group>";
 		};
 		21F6DE5628FFED2000ED72C6 /* Fonts */ = {
@@ -157,6 +185,8 @@
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
+				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
+				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -191,6 +221,7 @@
 		5FDC17B928FE799C0060DBB7 /* Workade */ = {
 			isa = PBXGroup;
 			children = (
+				A3947B2129013ECA00DA4E0D /* Share */,
 				5F5C074F28FE81F20089DD4B /* Delegate */,
 				5F5C074C28FE81BD0089DD4B /* Extentions */,
 				5F5C074B28FE81B40089DD4B /* Models */,
@@ -280,6 +311,14 @@
 				A35559B028FEEEC8001E4254 /* ReviewDetail */,
 			);
 			path = Magazine;
+			sourceTree = "<group>";
+		};
+		A3947B2129013ECA00DA4E0D /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */,
+			);
+			path = Share;
 			sourceTree = "<group>";
 		};
 		B7DE360250B0A3F5EC254C91 /* Pods */ = {
@@ -416,7 +455,9 @@
 				0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* TempGalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
+				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
+				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* Color+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
@@ -431,7 +472,10 @@
 				A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */,
 				A35559A828FED2B2001E4254 /* TipDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
+				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				A35559AC28FEE8EE001E4254 /* ReviewDetailViewController.swift in Sources */,
+				16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */,
+				A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */,
 				21F6DE6028FFED9C00ED72C6 /* Font+.swift in Sources */,
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,

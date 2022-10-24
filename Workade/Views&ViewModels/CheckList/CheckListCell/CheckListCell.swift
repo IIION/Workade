@@ -9,8 +9,6 @@ import UIKit
 import SwiftUI
 
 class CheckListCell: UICollectionViewCell {
-//    static let identifier = "CheckListCell"
-    
     var uncheckCount: Int = 0
     var checkCount: Int = 0
     var emoji: String = "🏝"
@@ -148,7 +146,6 @@ struct CheckListCellRepresentable: UIViewRepresentable {
     func updateUIView(_ uiView: CheckListCell, context: Context) {}
 }
 
-@available(iOS 13.0.0, *)
 struct CheckListCellPreview: PreviewProvider {
     static var previews: some View {
         CheckListCellRepresentable()
