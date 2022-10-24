@@ -10,10 +10,9 @@ import UIKit
 class GalleryCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "GalleryCollectionViewCell"
-    var image: UIImage? = UIImage(named: "test")
     
     lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView(image: UIImage())
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 12
         imageView.translatesAutoresizingMaskIntoConstraints = false

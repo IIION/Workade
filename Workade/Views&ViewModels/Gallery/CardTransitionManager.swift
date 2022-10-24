@@ -53,7 +53,7 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
         let indexPath = galleryViewController.collectionView.indexPathsForSelectedItems?.first
         guard let item = galleryViewController.collectionView.cellForItem(at: indexPath!) as? GalleryCollectionViewCell else { return }
         
-        let imageViewCopy = makeimageView(by: item.image ?? UIImage())
+        let imageViewCopy = makeimageView(by: item.imageView.image ?? UIImage())
         containerView.addSubview(imageViewCopy)
         
         let springTiming = UISpringTimingParameters(dampingRatio: 0.85, initialVelocity: .init(dx: 0, dy: 2))

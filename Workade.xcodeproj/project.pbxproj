@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21096F8329069ECF007EC889 /* GalleryViewModel.swift */; };
 		2120F566290130870035D36E /* UICollectionViewTwoLineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */; };
 		2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F5672901331B0035D36E /* GalleryViewController.swift */; };
 		2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
+		21096F8329069ECF007EC889 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewTwoLineLayout.swift; sourceTree = "<group>"; };
 		2120F5672901331B0035D36E /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				2120F5672901331B0035D36E /* GalleryViewController.swift */,
 				21862A902902675500518EBC /* GalleryDetailViewController.swift */,
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
+				21096F8329069ECF007EC889 /* GalleryViewModel.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				5F5C074828FE803C0089DD4B /* Color+.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
+				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */,

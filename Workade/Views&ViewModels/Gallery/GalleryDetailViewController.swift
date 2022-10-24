@@ -9,7 +9,7 @@ import UIKit
 
 class GalleryDetailViewController: UIViewController {
     
-    var image: UIImage? = UIImage(named: "test")
+    var image: UIImage?
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: image)
