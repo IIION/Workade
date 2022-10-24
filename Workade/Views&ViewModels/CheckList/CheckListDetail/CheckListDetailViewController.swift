@@ -160,17 +160,15 @@ class CheckListDetailViewController: UIViewController {
     
     private let templateButton: UIButton = {
         let button = UIButton(type: .custom)
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
-        let image = UIImage(systemName: "list.bullet.clipboard.fill", withConfiguration: imageConfig)
+        var config = UIButton.Configuration.filled()
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 13, leading: 13, bottom: 13, trailing: 13)
+        config.cornerStyle = .capsule
+        config.buttonSize = .large
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 10)
         
-        button.setImage(image, for: .normal)
-        button.contentMode = .scaleAspectFit
-        button.tintColor = .white
-        button.backgroundColor = .theme.primary
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 22
-        button.layer.masksToBounds = true
-        
+        button.setImage(UIImage(systemName: "list.bullet.clipboard.fill", withConfiguration: imageConfig), for: .normal)
+        button.configuration = config
+        button.tintColor = .theme.primary
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
