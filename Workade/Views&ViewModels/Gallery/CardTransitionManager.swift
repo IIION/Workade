@@ -95,6 +95,7 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
         copy.contentMode = .scaleAspectFill
         copy.clipsToBounds = true
         copy.layer.cornerRadius = 12
+        
         return copy
     }
     

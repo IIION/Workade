@@ -21,6 +21,7 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
     private var contentWidth: CGFloat {
         guard let collectionView = collectionView else { return 0 }
         let insets = collectionView.contentInset
+        
         return collectionView.bounds.width - (insets.left + insets.right)
     }
     

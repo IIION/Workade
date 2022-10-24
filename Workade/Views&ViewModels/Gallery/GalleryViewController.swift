@@ -73,6 +73,7 @@ extension GalleryViewController: UICollectionViewDelegate {
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.transitioningDelegate = transitionManager
         present(viewController, animated: true)
+        
         return true
     }
 }
