@@ -20,7 +20,9 @@ class TipDetailCell: UICollectionViewCell {
     
     let bookMarkButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold)
+        
+        button.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .theme.background
         
