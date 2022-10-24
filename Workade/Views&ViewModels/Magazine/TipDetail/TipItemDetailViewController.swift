@@ -11,13 +11,22 @@ class TipItemDetailViewController: UIViewController {
     // Binding
     var label: String?
     
+    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    private var bottomConstraints: NSLayoutConstraint!
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .red
-        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        return  scrollView
+        return scrollView
+    }()
+    
+    private let contentsContainer: UIView = {
+        let contentsContainer = UIView()
+        contentsContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        return contentsContainer
     }()
     
     let titleImageView: UIImageView = {
@@ -27,6 +36,13 @@ class TipItemDetailViewController: UIViewController {
         imageView.image = UIImage(named: "sampleTipImage") ?? UIImage()
         
         return imageView
+    }()
+    
+    private let imageContainer: UIView = {
+        let imageContainer = UIView()
+        imageContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageContainer
     }()
     
     lazy var closeButton: UIButton = {
@@ -49,15 +65,22 @@ class TipItemDetailViewController: UIViewController {
     
     private lazy var bookmarkButton: UIButton = {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-
+        
         let button = UIButton()
         // TODO: 추후 Bookmark 정보 가져올때 북마크 true / false 정보에 따라 갱신
         button.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
         button.tintColor = .theme.background
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
-
+        
         return button
+    }()
+    
+    private let magazineDetailView: MagazineDetailView = {
+        let view = MagazineDetailView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
     }()
     
     override func viewDidLoad() {
@@ -65,46 +88,80 @@ class TipItemDetailViewController: UIViewController {
         view.backgroundColor = .theme.background
         titleLabel.text = label ?? "정보를 불러올 수 없습니다."
         
+        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
+        
+        setupScrollViewLayout()
         setupLayout()
     }
     
     func setupLayout() {
-        let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
-        
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        scrollView.addSubview(titleImageView)
-        NSLayoutConstraint.activate([
-            titleImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            titleImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            titleImageView.heightAnchor.constraint(equalToConstant: topSafeArea + 375),
-            titleImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-        ])
-        
-        scrollView.addSubview(closeButton)
+        contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: titleImageView.topAnchor, constant: topSafeArea + 10),
             closeButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20)
         ])
         
-        scrollView.addSubview(titleLabel)
+        contentsContainer.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: titleImageView.leadingAnchor, constant: 20),
             titleLabel.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20)
         ])
         
-        scrollView.addSubview(bookmarkButton)
+        contentsContainer.addSubview(bookmarkButton)
         NSLayoutConstraint.activate([
             bookmarkButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20),
             bookmarkButton.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20),
             bookmarkButton.widthAnchor.constraint(equalToConstant: 48),
             bookmarkButton.heightAnchor.constraint(equalToConstant: 48)
+        ])
+        
+        contentsContainer.addSubview(magazineDetailView)
+        NSLayoutConstraint.activate([
+            magazineDetailView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 20),
+            magazineDetailView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
+            magazineDetailView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
+            bottomConstraints
+        ])
+    }
+    
+    func setupScrollViewLayout() {
+        let scrollViewGuide = scrollView.contentLayoutGuide
+        
+        let imageViewTopConstraint = titleImageView.topAnchor.constraint(equalTo: view.topAnchor)
+        imageViewTopConstraint.priority = .defaultHigh
+        
+        view.addSubview(scrollView)
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        scrollView.addSubview(contentsContainer)
+        NSLayoutConstraint.activate([
+            contentsContainer.topAnchor.constraint(equalTo: scrollViewGuide.topAnchor),
+            contentsContainer.bottomAnchor.constraint(equalTo: scrollViewGuide.bottomAnchor),
+            contentsContainer.leadingAnchor.constraint(equalTo: scrollViewGuide.leadingAnchor),
+            contentsContainer.trailingAnchor.constraint(equalTo: scrollViewGuide.trailingAnchor),
+            contentsContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
+        contentsContainer.addSubview(imageContainer)
+        NSLayoutConstraint.activate([
+            imageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
+            imageContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageContainer.heightAnchor.constraint(equalToConstant: topSafeArea + 375),
+            imageContainer.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+        
+        contentsContainer.addSubview(titleImageView)
+        NSLayoutConstraint.activate([
+            imageViewTopConstraint,
+            titleImageView.heightAnchor.constraint(greaterThanOrEqualTo: imageContainer.heightAnchor),
+            titleImageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
+            titleImageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
+            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
         ])
     }
     
