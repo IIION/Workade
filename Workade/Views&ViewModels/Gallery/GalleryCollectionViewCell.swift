@@ -8,9 +8,6 @@
 import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
-    
-    static let identifier = "GalleryCollectionViewCell"
-    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage())
         imageView.contentMode = .scaleAspectFill
