@@ -15,6 +15,7 @@ class CheckListDetailViewController: UIViewController {
         didSet {
             checkListDetailViewModel.selectedCheckList = selectedCheckList
             datePicker.date = selectedCheckList?.travelDate ?? Date()
+            self.checklistTableView.reloadData()
         }
     }
     
@@ -201,7 +202,10 @@ class CheckListDetailViewController: UIViewController {
     }
     
     @objc private func addButtonPressed(_ sender: UIButton) {
+        let index = checkListDetailViewModel.todos.count
         
+        checkListDetailViewModel.addTodo()
+        self.checklistTableView.reloadData()
     }
     
     @objc private func templateButtonPressed(_ sender: UIButton) {
@@ -265,11 +269,7 @@ extension CheckListDetailViewController {
 }
 
 extension CheckListDetailViewController: UITableViewDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let targetCheckList = selectedCheckList else { return }
-        targetCheckList.title = textField.text
-        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
-    }
+    
 }
 
 extension CheckListDetailViewController: UITableViewDataSource {
@@ -287,7 +287,11 @@ extension CheckListDetailViewController: UITableViewDataSource {
 }
 
 extension CheckListDetailViewController: UITextFieldDelegate {
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let targetCheckList = selectedCheckList else { return }
+        targetCheckList.title = textField.text
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+    }
 }
 
 struct CheckListDetailViewControllerRepresentable: UIViewControllerRepresentable {

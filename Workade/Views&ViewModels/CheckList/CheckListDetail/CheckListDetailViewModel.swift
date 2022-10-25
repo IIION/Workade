@@ -11,18 +11,12 @@ import CoreData
 struct CheckListDetailViewModel {
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
-    private var checkListViewModel = CheckListViewModel()
-    
     var todos = [Todo]()
 
     var selectedCheckList: CheckList? {
         didSet {
             loadTodos()
         }
-    }
-    
-    init() {
-        checkListViewModel.loadCheckList()
     }
     
     private func saveTodos() {
@@ -35,8 +29,17 @@ struct CheckListDetailViewModel {
         }
     }
     
-    mutating func addTodo() {
+    mutating func addTodo(content: String = "", done: Bool = false, editedTime: Date = Date()) {
+        guard let context = context else { return }
         
+        let newTodo = Todo(context: context)
+        newTodo.content = content
+        newTodo.done = done
+        newTodo.editedTime = editedTime
+        newTodo.parentCheckList = self.selectedCheckList
+        self.todos.append(newTodo)
+        
+        self.saveTodos()
     }
     
     mutating func loadTodos(with request: NSFetchRequest<Todo> = Todo.fetchRequest()) {
@@ -63,7 +66,9 @@ struct CheckListDetailViewModel {
     }
     
     mutating func updateTodo(at index: Int, todo: Todo) {
+        self.todos[index] = todo
         
+        saveTodos()
     }
     
     mutating func deleteCheckList() {
