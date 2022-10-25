@@ -17,7 +17,7 @@ class CheckListViewController: UIViewController {
             title: "편집",
             style: .plain,
             target: self,
-            action: #selector(editButtonPressed(_:))
+            action: #selector(barButtonPressed(_:))
         )
         barButtonItem.tintColor = .black
         
@@ -70,7 +70,7 @@ class CheckListViewController: UIViewController {
         )
     }
     
-    @objc private func editButtonPressed(_ sender: UIBarButtonItem) {
+    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
         if editState == .edit {
             editState = .none
             editButton.title = "편집"
