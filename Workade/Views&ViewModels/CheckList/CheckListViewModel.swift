@@ -8,6 +8,8 @@
 import UIKit
 import CoreData
 
+// TODO: Coredata Manager 분리 예정
+
 struct CheckListViewModel {
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
