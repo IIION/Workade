@@ -83,6 +83,15 @@ class TipItemDetailViewController: UIViewController {
         return view
     }()
     
+    init(label: String?) {
+        super.init(nibName: nil, bundle: nil)
+        self.label = label
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background

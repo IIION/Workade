@@ -56,8 +56,7 @@ extension TipDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension TipDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tipItemDetailViewController = TipItemDetailViewController()
-        tipItemDetailViewController.label = self.titleArray[indexPath.row]
+        let tipItemDetailViewController = TipItemDetailViewController(label: self.titleArray[indexPath.row])
         
         tipItemDetailViewController.modalPresentationStyle = .overFullScreen
         present(tipItemDetailViewController, animated: true, completion: nil)
