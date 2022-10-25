@@ -14,12 +14,6 @@ struct CheckListDetailViewModel {
     private var checkListViewModel = CheckListViewModel()
     
     var todos = [Todo]()
-    
-    var selectedCheckListIndex: Int? {
-        didSet {
-            loadTodos()
-        }
-    }
 
     var selectedCheckList: CheckList? {
         didSet {
@@ -73,8 +67,7 @@ struct CheckListDetailViewModel {
     }
     
     mutating func deleteCheckList() {
-        guard let seletedIndex = selectedCheckListIndex else { return }
-        guard let cid = self.checkListViewModel.checkList[seletedIndex].cid else { return }
+        guard let cid = self.selectedCheckList?.cid else { return }
         NotificationCenter.default.post(
             name: NSNotification.Name("deleteCheckList"),
             object: cid,

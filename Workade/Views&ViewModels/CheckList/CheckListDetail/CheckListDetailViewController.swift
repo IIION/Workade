@@ -11,12 +11,6 @@ import SwiftUI
 class CheckListDetailViewController: UIViewController {
     private var checkListDetailViewModel = CheckListDetailViewModel()
     
-    var selectedCheckListIndex: Int? {
-        didSet {
-            checkListDetailViewModel.selectedCheckListIndex = selectedCheckListIndex
-        }
-    }
-    
     var selectedCheckList: CheckList? {
         didSet {
             checkListDetailViewModel.selectedCheckList = selectedCheckList
