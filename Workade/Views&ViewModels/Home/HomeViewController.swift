@@ -98,6 +98,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        setupScrollViewLayout()
         setupNavigationBar()
         setupLayout()
         setupStatusBar()
