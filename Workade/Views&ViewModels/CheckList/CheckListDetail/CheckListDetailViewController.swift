@@ -158,7 +158,7 @@ class CheckListDetailViewController: UIViewController {
         return button
     }()
     
-    private let templateButton: UIButton = {
+    private lazy var templateButton: UIButton = {
         let button = UIButton(type: .custom)
         var config = UIButton.Configuration.filled()
         config.contentInsets = NSDirectionalEdgeInsets.init(top: 13, leading: 13, bottom: 13, trailing: 13)
@@ -169,6 +169,8 @@ class CheckListDetailViewController: UIViewController {
         button.setImage(UIImage(systemName: "list.bullet.clipboard.fill", withConfiguration: imageConfig), for: .normal)
         button.configuration = config
         button.tintColor = .theme.primary
+        button.addTarget(self, action: #selector(templateButtonPressed(_:)), for: .touchUpInside)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -206,6 +208,14 @@ class CheckListDetailViewController: UIViewController {
     
     @objc private func addButtonPressed(_ sender: UIButton) {
         
+    }
+    
+    @objc private func templateButtonPressed(_ sender: UIButton) {
+        let bottomSheetViewController = CheckListBottomSheetViewController()
+        
+        bottomSheetViewController.modalPresentationStyle = .overFullScreen
+        
+        self.present(bottomSheetViewController, animated: false, completion: nil)
     }
 }
 
