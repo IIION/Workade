@@ -168,7 +168,6 @@ class TipItemDetailViewController: UIViewController {
     @objc
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-        TipDetailViewController().setupLayout()
     }
     
     @objc
