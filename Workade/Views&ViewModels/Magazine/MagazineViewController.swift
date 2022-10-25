@@ -67,6 +67,24 @@ class MagazineViewController: UIViewController {
         return viewController
     }()
     
+    // TODO: 추후 내비게이션 연동시 삭제할 프로퍼티
+    private let tempView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let tempBackButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.tintColor = .theme.primary
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -78,9 +96,27 @@ class MagazineViewController: UIViewController {
     
     // MARK: AutoLayout 설정
     private func setupLayout() {
+        // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
+        view.addSubview(tempView)
+        NSLayoutConstraint.activate([
+            tempView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            tempView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            tempView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            tempView.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
+        tempView.addSubview(tempBackButton)
+        NSLayoutConstraint.activate([
+            tempBackButton.leadingAnchor.constraint(equalTo: tempView.leadingAnchor)
+        ])
+        
         view.addSubview(viewTitle)
         NSLayoutConstraint.activate([
-            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            //            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            
+            // TODO: 추후 네비게이션 연결시 바로위 주석코드가 작성됩니다.
+            viewTitle.topAnchor.constraint(equalTo: tempView.bottomAnchor, constant: 20),
             viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
         
@@ -104,7 +140,7 @@ class MagazineViewController: UIViewController {
     private func setupLayoutDetailView() {
         view.addSubview(totalDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             totalDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             totalDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             totalDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -112,15 +148,15 @@ class MagazineViewController: UIViewController {
         
         view.addSubview(tipDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             tipDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tipDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         view.addSubview(columnDetailViewController.view)
         NSLayoutConstraint.activate([
-            columnDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            columnDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             columnDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             columnDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             columnDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -128,7 +164,7 @@ class MagazineViewController: UIViewController {
         
         view.addSubview(reviewDetailViewController.view)
         NSLayoutConstraint.activate([
-            reviewDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 24),
+            reviewDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor),
             reviewDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             reviewDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             reviewDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -159,7 +195,7 @@ class MagazineViewController: UIViewController {
             tipDetailViewContoller.view.isHidden = true
             columnDetailViewController.view.isHidden = true
             reviewDetailViewController.view.isHidden = true
-        
+            
         case 1:
             totalDetailViewContoller.view.isHidden = true
             tipDetailViewContoller.view.isHidden = false
@@ -171,7 +207,7 @@ class MagazineViewController: UIViewController {
             tipDetailViewContoller.view.isHidden = true
             columnDetailViewController.view.isHidden = false
             reviewDetailViewController.view.isHidden = true
-        
+            
         case 3:
             totalDetailViewContoller.view.isHidden = true
             tipDetailViewContoller.view.isHidden = true

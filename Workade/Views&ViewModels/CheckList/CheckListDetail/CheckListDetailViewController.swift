@@ -296,7 +296,6 @@ struct CheckListDetailViewControllerRepresentable: UIViewControllerRepresentable
     func updateUIViewController(_ uiViewController: CheckListDetailViewController, context: Context) {}
 }
 
-@available(iOS 13.0.0, *)
 struct CheckListDetailViewControllerPreview: PreviewProvider {
     static var previews: some View {
         CheckListDetailViewControllerRepresentable()

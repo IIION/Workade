@@ -7,32 +7,21 @@
 
 import UIKit
 
+/// 오피스를 나열한 컬렉션뷰의 셀
 class OfficeCollectionViewCell: UICollectionViewCell {
-    private lazy var backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
-        imageView.backgroundColor = .theme.groupedBackground // Skeleton color
+    private lazy var backgroundImageView: CellImageView = {
+        let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let path = UIBezierPath(rect: self.bounds)
-        let blackLayer = CAShapeLayer()
-        blackLayer.path = path.cgPath
-        blackLayer.fillColor = UIColor.black.withAlphaComponent(0.1).cgColor
-        imageView.layer.addSublayer(blackLayer)
         
         return imageView
     }()
     
     private let mapButton: UIButton = {
         let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold)
-        let image = UIImage(systemName: "map", withConfiguration: config)
+        let image = SFSymbol.mapInCell.image
         button.setImage(image, for: .normal)
-        button.tintColor = .white
         button.layer.cornerRadius = 18
-        button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.4).cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -95,25 +84,21 @@ extension OfficeCollectionViewCell {
         contentView.addSubview(mapButton)
         contentView.addSubview(titleStackView)
         
-        let backgroundImageViewConstraints = [
+        NSLayoutConstraint.activate([
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
-        ]
+        ])
         
-        let mapButtonConstraints = [
+        NSLayoutConstraint.activate([
             mapButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             mapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             mapButton.widthAnchor.constraint(equalToConstant: 36),
             mapButton.heightAnchor.constraint(equalToConstant: 36)
-        ]
+        ])
         
-        let stackViewConstraints = [
+        NSLayoutConstraint.activate([
             titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             titleStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
-        ]
-        
-        NSLayoutConstraint.activate(backgroundImageViewConstraints)
-        NSLayoutConstraint.activate(mapButtonConstraints)
-        NSLayoutConstraint.activate(stackViewConstraints)
+        ])
     }
 }
