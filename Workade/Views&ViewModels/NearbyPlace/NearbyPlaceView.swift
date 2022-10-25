@@ -106,41 +106,40 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupScrollViewLayout() {
-        // 스크롤 뷰 추가
         addSubview(scrollView)
         let scrollViewGuide = scrollView.contentLayoutGuide
-        scrollView.addSubview(contentsContainer)
-        
-        // 스크롤 뷰에 들어갈 컴포넌트들
-        contentsContainer.addSubview(placeImageContainer)
-        contentsContainer.addSubview(placeImageView)
-        contentsContainer.addSubview(segmentedControl)
-        contentsContainer.addSubview(segmentUnderLine)
-        contentsContainer.addSubview(introduceView)
-        contentsContainer.addSubview(galleryView)
         
         // priority 설정을 통해,
         let placeImageViewTopConstraint = placeImageView.topAnchor.constraint(equalTo: topAnchor)
         // layout이 깨지는 것을 방지하기 위한 우선순위 설정
         placeImageViewTopConstraint.priority = .defaultHigh
-
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+        
+        scrollView.addSubview(contentsContainer)
+        NSLayoutConstraint.activate([
             contentsContainer.topAnchor.constraint(equalTo: scrollViewGuide.topAnchor),
             contentsContainer.bottomAnchor.constraint(equalTo: scrollViewGuide.bottomAnchor),
             contentsContainer.leadingAnchor.constraint(equalTo: scrollViewGuide.leadingAnchor),
             contentsContainer.trailingAnchor.constraint(equalTo: scrollViewGuide.trailingAnchor),
-            contentsContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
+            contentsContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
+        contentsContainer.addSubview(placeImageContainer)
+        NSLayoutConstraint.activate([
             placeImageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             placeImageContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
             placeImageContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            placeImageContainer.heightAnchor.constraint(equalToConstant: 420),
-            
+            placeImageContainer.heightAnchor.constraint(equalToConstant: 420)
+        ])
+        
+        contentsContainer.addSubview(placeImageView)
+        NSLayoutConstraint.activate([
             placeImageViewTopConstraint,
             placeImageView.bottomAnchor.constraint(equalTo: placeImageContainer.bottomAnchor),
             placeImageView.leadingAnchor.constraint(equalTo: placeImageContainer.leadingAnchor),
@@ -151,22 +150,32 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupNearbyPlaceDetailLayout() {
+        contentsContainer.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: placeImageContainer.bottomAnchor),
             segmentedControl.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
             segmentedControl.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 50),
-            
+            segmentedControl.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        contentsContainer.addSubview(segmentUnderLine)
+        NSLayoutConstraint.activate([
             segmentUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             segmentUnderLine.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor),
             segmentUnderLine.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor),
-            segmentUnderLine.heightAnchor.constraint(equalToConstant: 2),
-            
+            segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
+        ])
+        
+        contentsContainer.addSubview(introduceView)
+        NSLayoutConstraint.activate([
             introduceView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 20),
             introduceView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
             introduceView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
-            introduceBottomConstraints,
-            
+            introduceBottomConstraints
+        ])
+        
+        contentsContainer.addSubview(galleryView)
+        NSLayoutConstraint.activate([
             galleryView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 20),
             galleryView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
             galleryView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20)
