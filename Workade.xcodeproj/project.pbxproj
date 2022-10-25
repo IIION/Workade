@@ -17,6 +17,7 @@
 		16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD461290290910056A641 /* CheckListDetailCell.swift */; };
 		16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4692902FB0F0056A641 /* UITableView+.swift */; };
 		16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46B2902FB480056A641 /* UITableViewCell+.swift */; };
+		21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF04BB2907E9BE007B6270 /* EmojiPickerController.swift */; };
 		21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */; };
 		21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */; };
 		21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */; };
@@ -62,6 +63,7 @@
 		16CBD461290290910056A641 /* CheckListDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailCell.swift; sourceTree = "<group>"; };
 		16CBD4692902FB0F0056A641 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		16CBD46B2902FB480056A641 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		21DF04BB2907E9BE007B6270 /* EmojiPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerController.swift; sourceTree = "<group>"; };
 		21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		16083B4729013F9A008056D4 /* CheckList */ = {
 			isa = PBXGroup;
 			children = (
+				21DF04BA2907E9AF007B6270 /* EmojiPicker */,
 				16083B4A29013F9A008056D4 /* CheckListViewController.swift */,
 				16083B4829013F9A008056D4 /* CheckListCell */,
 				16CBD45B290272DE0056A641 /* CheckListDetail */,
@@ -153,6 +156,14 @@
 				16CBD461290290910056A641 /* CheckListDetailCell.swift */,
 			);
 			path = CheckListDetailCell;
+			sourceTree = "<group>";
+		};
+		21DF04BA2907E9AF007B6270 /* EmojiPicker */ = {
+			isa = PBXGroup;
+			children = (
+				21DF04BB2907E9BE007B6270 /* EmojiPickerController.swift */,
+			);
+			path = EmojiPicker;
 			sourceTree = "<group>";
 		};
 		21F6DE5628FFED2000ED72C6 /* Fonts */ = {
@@ -487,6 +498,7 @@
 				21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */,
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
+				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeView.swift in Sources */,
