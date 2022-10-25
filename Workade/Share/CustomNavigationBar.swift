@@ -77,19 +77,24 @@ class CustomNavigationBar: UIViewController {
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6)
+            titleLabel.heightAnchor.constraint(equalToConstant: 44),
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
         
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6)
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44),
+            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
         
         view.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -10),
-            rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6)
+            rightButton.widthAnchor.constraint(equalToConstant: 44),
+            rightButton.heightAnchor.constraint(equalToConstant: 44),
+            rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
     }
     
