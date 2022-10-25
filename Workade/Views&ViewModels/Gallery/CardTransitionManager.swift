@@ -50,8 +50,8 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
         
         guard let galleryDetailViewController = (transition == .dismissal) ? (fromViewController as? GalleryDetailViewController) : (toViewController as? GalleryDetailViewController) else { return }
         
-        let indexPath = galleryViewController.collectionView.indexPathsForSelectedItems?.first
-        guard let item = galleryViewController.collectionView.cellForItem(at: indexPath!) as? GalleryCollectionViewCell else { return }
+        guard let indexPath = galleryViewController.collectionView.indexPathsForSelectedItems?.first else { return }
+        guard let item = galleryViewController.collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell else { return }
         
         let imageViewCopy = makeimageView(by: item.imageView.image ?? UIImage())
         containerView.addSubview(imageViewCopy)
@@ -74,7 +74,7 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(true)
             }
             animator.startAnimation()
-        } else {
+        } else { // transition == .dismissal
             imageViewCopy.frame = galleryDetailViewController.imageView.convert(galleryDetailViewController.imageView.frame, to: nil)
             self.dimmingView.alpha = 0.8
             animator.addAnimations {

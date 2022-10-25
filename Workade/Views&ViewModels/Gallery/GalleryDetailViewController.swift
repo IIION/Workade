@@ -59,14 +59,19 @@ class GalleryDetailViewController: UIViewController {
         view.addSubview(imageView)
         view.addSubview(dismissButton)
         
-        let aspectR = (image?.size.width ?? 0) / (image?.size.height ?? 0)
+        var aspectR: CGFloat = 1
+        if let image = image {
+            aspectR = image.size.width / image.size.height
+        }
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1/aspectR),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             dismissButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -20),
             dismissButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 20),
             dismissButton.widthAnchor.constraint(equalToConstant: 44),

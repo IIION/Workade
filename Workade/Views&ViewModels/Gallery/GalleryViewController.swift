@@ -7,33 +7,13 @@
 
 import UIKit
 
-class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLineLayoutDelegate {
+class GalleryViewController: UIViewController {
     
     let viewModel = GalleryViewModel()
     let transitionManager = CardTransitionMananger()
+    var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
     
-    var columnSpacing: CGFloat = 20
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.images.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = GalleryCollectionViewCell.identifier
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? GalleryCollectionViewCell
-        cell?.imageView.image = viewModel.images[indexPath.row]
-        guard let cell = cell else { fatalError() }
-        
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let image = viewModel.images[indexPath.row]
-        let aspectR = image.size.width / image.size.height
-        return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
-    }
-
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewTwoLineLayout()
         layout.delegate = self
@@ -56,12 +36,38 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, TwoLi
     
     private func setupLayout() {
         self.view.addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension GalleryViewController: TwoLineLayoutDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let image = viewModel.images[indexPath.row]
+        let aspectR = image.size.width / image.size.height
+        
+        return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
+    }
+}
+
+extension GalleryViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let identifier = GalleryCollectionViewCell.identifier
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? GalleryCollectionViewCell
+        cell?.imageView.image = viewModel.images[indexPath.row]
+        guard let cell = cell else { fatalError() }
+        
+        return cell
     }
 }
 
