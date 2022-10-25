@@ -83,25 +83,21 @@ extension OfficeCollectionViewCell {
         contentView.addSubview(mapButton)
         contentView.addSubview(titleStackView)
         
-        let backgroundImageViewConstraints = [
+        NSLayoutConstraint.activate([
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
-        ]
+        ])
         
-        let mapButtonConstraints = [
+        NSLayoutConstraint.activate([
             mapButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             mapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             mapButton.widthAnchor.constraint(equalToConstant: 36),
             mapButton.heightAnchor.constraint(equalToConstant: 36)
-        ]
+        ])
         
-        let stackViewConstraints = [
+        NSLayoutConstraint.activate([
             titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             titleStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
-        ]
-        
-        NSLayoutConstraint.activate(backgroundImageViewConstraints)
-        NSLayoutConstraint.activate(mapButtonConstraints)
-        NSLayoutConstraint.activate(stackViewConstraints)
+        ])
     }
 }

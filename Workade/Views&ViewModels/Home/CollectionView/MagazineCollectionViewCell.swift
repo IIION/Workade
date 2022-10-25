@@ -71,13 +71,17 @@ extension MagazineCollectionViewCell {
         
         NSLayoutConstraint.activate([
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
-            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor),
-            
+            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
             bookmarkButton.topAnchor.constraint(equalTo: topAnchor),
             bookmarkButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             bookmarkButton.widthAnchor.constraint(equalToConstant: 44),
-            bookmarkButton.heightAnchor.constraint(equalToConstant: 44),
-            
+            bookmarkButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])

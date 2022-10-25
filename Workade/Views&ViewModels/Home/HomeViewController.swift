@@ -116,52 +116,71 @@ extension HomeViewController {
         view.addSubview(blurredStatusBar)
     }
     
-    private func setupLayout() {
+    private func setupScrollViewLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [navigationView, welcomeLabel, officeCollectionView, divider,
-         magazineHeaderView, magazineCollectionView, checkListButton].forEach {
-            contentView.addSubview($0)
-        }
         
         let guide = scrollView.contentLayoutGuide
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: guide.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+    }
+    
+    private func setupLayout() {
+        [navigationView, welcomeLabel, officeCollectionView, divider,
+         magazineHeaderView, magazineCollectionView, checkListButton].forEach {
+            contentView.addSubview($0)
+        }
+        
+        NSLayoutConstraint.activate([
             navigationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             navigationView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            navigationView.heightAnchor.constraint(equalToConstant: 48),
-            
+            navigationView.heightAnchor.constraint(equalToConstant: 48)
+        ])
+        
+        NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 20),
             welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            welcomeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            welcomeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
         
+        NSLayoutConstraint.activate([
             officeCollectionView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 22),
             officeCollectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            officeCollectionView.heightAnchor.constraint(equalToConstant: 200),
-            
+            officeCollectionView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        NSLayoutConstraint.activate([
             divider.topAnchor.constraint(equalTo: officeCollectionView.bottomAnchor, constant: 30),
             divider.leadingAnchor.constraint(equalTo: officeCollectionView.leadingAnchor, constant: 20),
             divider.trailingAnchor.constraint(equalTo: officeCollectionView.trailingAnchor, constant: -20),
-            divider.heightAnchor.constraint(equalToConstant: 1),
-            
+            divider.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
+        NSLayoutConstraint.activate([
             magazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
             magazineHeaderView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            magazineHeaderView.heightAnchor.constraint(equalToConstant: 60),
-            
+            magazineHeaderView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        NSLayoutConstraint.activate([
             magazineCollectionView.topAnchor.constraint(equalTo: magazineHeaderView.bottomAnchor),
             magazineCollectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            magazineCollectionView.heightAnchor.constraint(equalToConstant: 200),
-            
+            magazineCollectionView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        NSLayoutConstraint.activate([
             checkListButton.topAnchor.constraint(equalTo: magazineCollectionView.bottomAnchor, constant: 30),
             checkListButton.heightAnchor.constraint(equalToConstant: 62),
             checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
