@@ -64,7 +64,7 @@ class CheckListDetailViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var dateLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.text = "워케이션 날짜"
         label.font = .customFont(for: .footnote)
@@ -85,7 +85,7 @@ class CheckListDetailViewController: UIViewController {
     }()
     
     private lazy var dateStack: UIStackView = {
-       let stackView = UIStackView(arrangedSubviews: [dateLabel, datePicker])
+       let stackView = UIStackView(arrangedSubviews: [subtitleLabel, datePicker])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 4
