@@ -141,7 +141,7 @@ class CheckListCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(checkList: CheckList) {
+    func setupCell(checkList: CheckList) {
         emojiLabel.text = checkList.emoji ?? "⚽️"
         titleLabel.text = checkList.title ?? "제목없음"
     }
