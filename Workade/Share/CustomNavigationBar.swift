@@ -66,7 +66,7 @@ class CustomNavigationBar: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        self.view.frame = CGRect(x: 0, y: safaAreaTop + 8, width: self.view.frame.width, height: 44)
+        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: safaAreaTop + 44)
         self.rightButton.setImage(rightButtonImage, for: .normal)
         self.titleLabel.text = titleText?.components(separatedBy: ["\n"]).joined()
         
@@ -77,19 +77,19 @@ class CustomNavigationBar: UIViewController {
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6)
         ])
         
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6)
         ])
         
         view.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -10),
-            rightButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6)
         ])
     }
     
