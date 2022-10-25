@@ -69,7 +69,7 @@ class MagazineViewController: UIViewController {
     
     // TODO: 추후 내비게이션 연동시 삭제할 프로퍼티
     private let tempView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -77,7 +77,7 @@ class MagazineViewController: UIViewController {
     }()
     
     private let tempBackButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         button.tintColor = .theme.primary
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +113,7 @@ class MagazineViewController: UIViewController {
         
         view.addSubview(viewTitle)
         NSLayoutConstraint.activate([
-//            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            //            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             
             // TODO: 추후 네비게이션 연결시 바로위 주석코드가 작성됩니다.
             viewTitle.topAnchor.constraint(equalTo: tempView.bottomAnchor, constant: 20),
@@ -195,7 +195,7 @@ class MagazineViewController: UIViewController {
             tipDetailViewContoller.view.isHidden = true
             columnDetailViewController.view.isHidden = true
             reviewDetailViewController.view.isHidden = true
-        
+            
         case 1:
             totalDetailViewContoller.view.isHidden = true
             tipDetailViewContoller.view.isHidden = false
@@ -207,7 +207,7 @@ class MagazineViewController: UIViewController {
             tipDetailViewContoller.view.isHidden = true
             columnDetailViewController.view.isHidden = false
             reviewDetailViewController.view.isHidden = true
-        
+            
         case 3:
             totalDetailViewContoller.view.isHidden = true
             tipDetailViewContoller.view.isHidden = true
