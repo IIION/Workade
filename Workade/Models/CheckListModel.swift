@@ -12,10 +12,10 @@ struct CheckListModel {
     let title: String
     let emoji: String
     let travelDate: Date
-    let tasks: [Task]
+    let tasks: [Todo]
 }
 
-struct Task {
+struct Todo {
     let content: String
     let done: Bool
 }
