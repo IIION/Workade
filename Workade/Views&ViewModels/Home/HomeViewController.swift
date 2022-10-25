@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
         return scrollView
     }()
     
+    /// *scrollView*의 실제 컨텐트 영역입니다.
     private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -22,6 +23,7 @@ class HomeViewController: UIViewController {
         return view
     }()
     
+    /// navigation인 척!하는 *UIStackView*
     private lazy var navigationView: UIStackView = {
         let logoImageView = UIImageView(image: UIImage(named: "WorkadeLogoTamna")?.setOriginal())
         logoImageView.contentMode = .left

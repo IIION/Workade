@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 매거진을 나열한 컬렉션뷰의 셀
 class MagazineCollectionViewCell: UICollectionViewCell {
     var magazineId: Int?
     

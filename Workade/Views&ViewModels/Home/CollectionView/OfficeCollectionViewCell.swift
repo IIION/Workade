@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 오피스를 나열한 컬렉션뷰의 셀
 class OfficeCollectionViewCell: UICollectionViewCell {
     private lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)

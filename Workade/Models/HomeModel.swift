@@ -15,8 +15,10 @@ struct Office {
     let longitude: Double
 }
 
-// 식별자로 북마크 여부 판단 및 마이페이지에서 찜한 애들만 불러옴
-// Int는 아니어도 무관 (고유한 값이기만 하면 됩니다.)
+/// **매거진 모델**
+/// - id: 북마크 상태 추적, 이미지 불러오기, 이미지 캐싱 등에 사용
+/// - title: 매거진의 제목
+/// - profileImage: 프로필의 이미지 (추후 없어질 수도 있음)
 struct Magazine {
     let id: Int
     let title: String
