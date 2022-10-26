@@ -43,9 +43,8 @@ class NearbyPlaceView: UIView {
         return imageView
     }()
     
-    // TODO: 치콩이 통합으로 쓸 수 있는 환경을 구축해 놓았습니다. 머지 이후 통합시키겠습니다.
     private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["소개", "갤러리"])
+        let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.rgb(0xD1D1D6),
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
@@ -55,7 +54,7 @@ class NearbyPlaceView: UIView {
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .selected)
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentedControl
@@ -99,8 +98,6 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupLayout() {
-        removeSegmentDefaultEffect()
-        
         setupScrollViewLayout()
         setupNearbyPlaceDetailLayout()
     }
@@ -198,18 +195,5 @@ class NearbyPlaceView: UIView {
         default:
             break
         }
-    }
-    
-    // TODO: 머지 이후 치콩이 작성한 뷰와 합치며 삭제될 함수입니다.
-    private func removeSegmentDefaultEffect() {
-        let image = UIImage()
-        segmentedControl.setBackgroundImage(image, for: .normal, barMetrics: .default)
-        segmentedControl.setBackgroundImage(image, for: .selected, barMetrics: .default)
-        segmentedControl.setBackgroundImage(image, for: .highlighted, barMetrics: .default)
-        segmentedControl.setDividerImage(
-            image,
-            forLeftSegmentState: .selected,
-            rightSegmentState: .normal,
-            barMetrics: .default)
     }
 }
