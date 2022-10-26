@@ -39,6 +39,7 @@ class MyPageViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        setupGradientLayer()
     }
 }
 
@@ -86,6 +87,18 @@ extension MyPageViewController {
             target: self,
             action: #selector(pushToSettingVC)
         )
+    }
+    
+    func setupGradientLayer() {
+        let layer = CAGradientLayer()
+        layer.colors = [UIColor.white.withAlphaComponent(0).cgColor,
+                        UIColor.white.withAlphaComponent(0.6).cgColor]
+        layer.locations = [0, 1]
+        layer.frame = CGRect(x: 0, y: view.bounds.height/7*6,
+                             width: view.bounds.width, height: view.bounds.height/7)
+        layer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        layer.endPoint = CGPoint(x: 0.0, y: 1.0)
+        view.layer.addSublayer(layer)
     }
     
     private func setupLayout() {
