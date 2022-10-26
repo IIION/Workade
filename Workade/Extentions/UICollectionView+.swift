@@ -34,7 +34,9 @@ extension UICollectionView {
     /// - inset: 컨텐츠 영역 inset
     /// - direction: 스크롤 방향
     ///
-    /// collectionView를 만들고 layout을 정의할 때, 넣는 요소들을 한 번에 넣으면서 초기화를 할 수 있습니다. 세로, 가로 방향 선택해서 모두 지원가능합니다. 기존 HorizontalCollectionView를 이걸로 대체하면 됩니다. 아직 HorizontalCollectionView를 사용하는 곳이 있는 것으로 알고 있어서 남겨놓겠습니다.
+    /// collectionView를 만들고 layout을 정의할 때, 넣는 요소들을 한 번에 넣으면서 초기화를 할 수 있습니다.
+    /// 세로, 가로 방향 선택해서 모두 지원가능합니다. 기존 HorizontalCollectionView를 이걸로 대체하면 됩니다.
+    /// 아직 HorizontalCollectionView를 사용하는 곳이 있는 것으로 알고 있어서 남겨놓겠습니다.
     convenience init(itemSize: CGSize, spacing: CGFloat = 20,
                      inset: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20), direction: UICollectionView.ScrollDirection) {
         self.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
