@@ -96,9 +96,6 @@ class CheckListViewController: UIViewController {
         guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
         self.checkListViewModel.deleteCheckList(at: index)
         self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-        for trailingIndex in index...checkListViewModel.checkList.count-1 {
-            self.checklistCollectionView.reloadItems(at: [IndexPath(row: trailingIndex, section: 0)])
-        }
     }
     
     @objc func editCheckListNotification(_ notification: Notification) {
