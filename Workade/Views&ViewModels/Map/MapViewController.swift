@@ -9,7 +9,28 @@ import NMapsMap
 import UIKit
 
 class MapViewController: UIViewController {
-    lazy var map = NMFMapView()
+    //Binding 객체
+    var latitude = 33.533054
+    var longitude = 126.630947
+    var officeName = "제주 O-PEACE"
+    
+    init(latitude: Double, longitude: Double, officeName: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.latitude = latitude
+        self.longitude = longitude
+        self.officeName = officeName
+        
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var map = NMFMapView()
     private var topInfoStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.backgroundColor = .clear
@@ -19,10 +40,10 @@ class MapViewController: UIViewController {
         
         return stackView
     }()
-    private var officeNameLabel: BasePaddingLabel = {
+    private lazy var officeNameLabel: BasePaddingLabel = {
         var label = BasePaddingLabel(padding: UIEdgeInsets(top: 12, left: 40, bottom: 12, right: 40))
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "제주 O-PEACE"
+        label.text = self.officeName
         label.textAlignment = .center
         label.backgroundColor = .theme.background
         label.layer.masksToBounds = true
@@ -31,6 +52,7 @@ class MapViewController: UIViewController {
         
         return label
     }()
+    
     private lazy var backButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -68,10 +90,6 @@ class MapViewController: UIViewController {
         setupTopInfoViewLayout()
     }
     
-    private func setupNMap() {
-        map.frame = view.frame
-    }
-    
     private func setupTopInfoViewLayout() {
         topInfoStackView.addSubview(officeNameLabel)
         NSLayoutConstraint.activate([
@@ -89,6 +107,62 @@ class MapViewController: UIViewController {
     }
     
     @objc private func backButtonDown() {
-        print("Back Button Pushed")
+        var cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
+        cameraUpdate.animation = .fly
+        cameraUpdate.animationDuration = 1
+        map.moveCamera(cameraUpdate)
+    }
+}
+
+//지도에 관한 Extention입니다.
+extension MapViewController {
+    private func setupNMap() {
+        map.frame = view.frame
+        setCameraMap()
+        setMarkOfficePlace()
+    }
+    
+    private func setCameraMap() {
+        var cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
+        cameraUpdate.animation = .fly
+        cameraUpdate.animationDuration = 1
+        map.moveCamera(cameraUpdate)
+    }
+    
+    private func setMarkOfficePlace() {
+        let officeMarker = NMFMarker()
+        
+        officeMarker.position = NMGLatLng(lat: latitude, lng: longitude)
+        officeMarker.captionText = officeName
+        
+        let closure: (NMFOverlay) -> Bool = { overlay in
+            print("Heeloooo")
+            return true
+        }
+        officeMarker.touchHandler = closure
+        
+        let officeInfo = NMFInfoWindow()
+        let officeSource = NMFInfoWindowDefaultTextSource.data()
+        officeSource.title = "누르면 나오는 정보"
+        officeInfo.dataSource = officeSource
+        
+        officeInfo.open(with: officeMarker)
+
+        
+        officeMarker.mapView = map
+        
+        map.touchDelegate = self
+        
+    }
+}
+
+extension MapViewController: NMFMapViewTouchDelegate {
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        print(point.debugDescription)
+    }
+    
+    func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
+        print(symbol.debugDescription)
+        return true
     }
 }
