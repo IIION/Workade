@@ -113,8 +113,10 @@ class CellItemDetailViewController: UIViewController {
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: titleImageView.topAnchor, constant: topSafeArea + 10),
-            closeButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20)
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 10),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         contentsContainer.addSubview(titleLabel)
@@ -212,9 +214,11 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         if currentScrollYOffset > defaultScrollYOffset {
             customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
+            closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
         } else {
             customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1
+            closeButton.alpha = 1
         }
     }
 }
