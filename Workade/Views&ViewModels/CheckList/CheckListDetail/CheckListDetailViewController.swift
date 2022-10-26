@@ -256,7 +256,7 @@ extension CheckListDetailViewController {
         
         checkListTableViewHeightConstraint = checklistTableView
             .heightAnchor
-            .constraint(equalToConstant: CGFloat(52 * checkListDetailViewModel.todos.count))
+            .constraint(equalToConstant: CGFloat(52 * (checkListDetailViewModel.todos.count + 1)))
         NSLayoutConstraint.activate([
             checklistTableView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 20),
             checklistTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -275,7 +275,7 @@ extension CheckListDetailViewController {
     }
     
     func updateCheckListTableViewConstant() {
-        checkListTableViewHeightConstraint.constant = CGFloat(52 * checkListDetailViewModel.todos.count)
+        checkListTableViewHeightConstraint.constant = CGFloat(52 * (checkListDetailViewModel.todos.count + 1))
     }
 }
 
@@ -294,6 +294,18 @@ extension CheckListDetailViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        "삭제"
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
+            self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
+            updateCheckListTableViewConstant()
+        }
     }
 }
 
