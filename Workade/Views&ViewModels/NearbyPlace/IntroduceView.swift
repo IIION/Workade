@@ -50,7 +50,14 @@ class IntroduceView: UIView {
     private func appendTextToStackView(_ content: String, _ font: String?, _ color: String?) {
         let label = UILabel()
         label.text = content
-        label.font = .customFont(for: .articleBody)
+        
+        if let font = font {
+            label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
+        }
+        
+        if let color = color {
+            label.textColor = UIColor(named: color) ?? UIColor(.black)
+        }
         
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
