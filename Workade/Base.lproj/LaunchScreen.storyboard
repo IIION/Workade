@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GalleryTestImage2" translatesAutoresizingMaskIntoConstraints="NO" id="aB6-We-lC7">
-                                <rect key="frame" x="0.0" y="0.0" width="510" height="844"/>
+                                <rect key="frame" x="-120" y="0.0" width="510" height="844"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WorkadeLogoTamna" translatesAutoresizingMaskIntoConstraints="NO" id="ktS-d8-8qG">
                                 <rect key="frame" x="135" y="390" width="120" height="64"/>
@@ -33,9 +33,9 @@
                         <constraints>
                             <constraint firstItem="ktS-d8-8qG" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="7Pz-fv-Nwc"/>
                             <constraint firstItem="aB6-We-lC7" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="CLM-wh-O24"/>
-                            <constraint firstItem="aB6-We-lC7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="cYs-Gb-oml"/>
+                            <constraint firstItem="aB6-We-lC7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-120" id="cYs-Gb-oml"/>
                             <constraint firstItem="ktS-d8-8qG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hQ5-eC-h6e"/>
-                            <constraint firstAttribute="trailing" secondItem="aB6-We-lC7" secondAttribute="trailing" constant="-120" id="kJG-uD-caA"/>
+                            <constraint firstAttribute="trailing" secondItem="aB6-We-lC7" secondAttribute="trailing" id="kJG-uD-caA"/>
                             <constraint firstAttribute="top" secondItem="aB6-We-lC7" secondAttribute="top" id="yTD-fW-qg5"/>
                         </constraints>
                     </view>
