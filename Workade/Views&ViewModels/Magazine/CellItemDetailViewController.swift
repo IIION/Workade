@@ -184,7 +184,9 @@ class CellItemDetailViewController: UIViewController {
     }
     
     func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: bookmarkButton.currentImage)
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium, scale: .default)
+        
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
         customNavigationBar.view.alpha = 0
     }
     
