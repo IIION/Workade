@@ -11,9 +11,19 @@ import SwiftUI
 class CheckListCell: UICollectionViewCell {
     var uncheckCount: Int = 0
     var checkCount: Int = 0
-    var emoji: String = "🏝"
-    var title: String = "제목없음"
     var dDay: Int = 0
+    var isDeleteMode = false {
+        didSet {
+            if isDeleteMode {
+                self.displayStack.isHidden = true
+                self.deleteButton.isHidden = false
+            } else {
+                self.displayStack.isHidden = false
+                self.deleteButton.isHidden = true
+            }
+            self.contentView.layoutIfNeeded()
+        }
+    }
     
     private lazy var uncheckStack: UIStackView = {
         let uncheckImage = UIImageView(image: UIImage(systemName: "circle"))
@@ -57,26 +67,45 @@ class CheckListCell: UICollectionViewCell {
         return stackView
     }()
     
+    lazy var deleteButton: UIButton = {
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: imageConfig)
+        
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.tintColor = .red
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     private lazy var emojiLabel: UILabel = {
         let label = UILabel()
-        label.text = emoji
+        label.text = "🏝"
         label.font = .systemFont(ofSize: 30)
         
         return label
     }()
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "제목없음"
+        label.font = .customFont(for: .subHeadline)
+        label.tintColor = .black
+        
+        return label
+    }()
+    
+    private lazy var dDayLabel: UILabel  = {
+        let label = UILabel()
+        label.text = "D - \(dDay)"
+        label.font = .customFont(for: .caption)
+        label.tintColor = .black
+        
+        return label
+    }()
+    
     private lazy var labelStack: UIStackView = {
-        let titleLabel = UILabel()
-        let dDayLabel = UILabel()
-        
-        titleLabel.text = title
-        titleLabel.font = .customFont(for: .subHeadline)
-        titleLabel.tintColor = .black
-        
-        dDayLabel.text = "D - \(dDay)"
-        dDayLabel.font = .customFont(for: .caption)
-        dDayLabel.tintColor = .black
-        
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dDayLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -111,28 +140,35 @@ class CheckListCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setupCell(checkList: CheckList) {
+        emojiLabel.text = checkList.emoji ?? "⚽️"
+        titleLabel.text = checkList.title ?? "제목없음"
+    }
 }
 
 extension CheckListCell {
     private func setupLayout() {
-        [displayStack, verticalStack].forEach { subview in
-            contentView.addSubview(subview)
+        [verticalStack, displayStack, deleteButton].forEach { subView in
+            contentView.addSubview(subView)
         }
         
         let guide = contentView.safeAreaLayoutGuide
+
+        NSLayoutConstraint.activate([
+            deleteButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16),
+            deleteButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -16)
+        ])
         
-        let displayStackConstraints = [
+        NSLayoutConstraint.activate([
             displayStack.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16),
             displayStack.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -16)
-        ]
+        ])
         
-        let verticalStackConstraints = [
+        NSLayoutConstraint.activate([
             verticalStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
             verticalStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -7)
-        ]
-        
-        NSLayoutConstraint.activate(displayStackConstraints)
-        NSLayoutConstraint.activate(verticalStackConstraints)
+        ])
     }
 }
 

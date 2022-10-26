@@ -13,7 +13,6 @@
 		0EFB5BCB29017FBB00174291 /* TempGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* TempGalleryView.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
-		16083B4E29013FB4008056D4 /* CheckListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4D29013FB4008056D4 /* CheckListModel.swift */; };
 		16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD45C290272F50056A641 /* CheckListDetailViewController.swift */; };
 		16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD461290290910056A641 /* CheckListDetailCell.swift */; };
 		16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4692902FB0F0056A641 /* UITableView+.swift */; };
@@ -24,6 +23,9 @@
 		2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
+		16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46D29040D950056A641 /* CheckListViewModel.swift */; };
+		16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */; };
+		16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */; };
 		21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */; };
 		21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */; };
 		21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */; };
@@ -69,7 +71,6 @@
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
-		16083B4D29013FB4008056D4 /* CheckListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListModel.swift; sourceTree = "<group>"; };
 		16CBD45C290272F50056A641 /* CheckListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewController.swift; sourceTree = "<group>"; };
 		16CBD461290290910056A641 /* CheckListDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailCell.swift; sourceTree = "<group>"; };
 		16CBD4692902FB0F0056A641 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
@@ -80,6 +81,9 @@
 		2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
+		16CBD46D29040D950056A641 /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
+		16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListAddButtonCell.swift; sourceTree = "<group>"; };
+		16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewModel.swift; sourceTree = "<group>"; };
 		21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				16083B4A29013F9A008056D4 /* CheckListViewController.swift */,
+				16CBD46D29040D950056A641 /* CheckListViewModel.swift */,
 				16083B4829013F9A008056D4 /* CheckListCell */,
 				16CBD45B290272DE0056A641 /* CheckListDetail */,
 			);
@@ -157,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				16083B4929013F9A008056D4 /* CheckListCell.swift */,
+				16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */,
 			);
 			path = CheckListCell;
 			sourceTree = "<group>";
@@ -165,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				16CBD45C290272F50056A641 /* CheckListDetailViewController.swift */,
+				16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */,
 				16CBD45E290290600056A641 /* CheckListDetailCell */,
 			);
 			path = CheckListDetail;
@@ -207,7 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				5F5C074D28FE81DE0089DD4B /* HomeModel.swift */,
-				16083B4D29013FB4008056D4 /* CheckListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -530,6 +536,7 @@
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
 				96CFBE2629044E9200A4B488 /* CheckListButton.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
+				16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */,
 				A35559A628FECF4D001E4254 /* TotalDetailViewController.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
 				0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */,
@@ -540,6 +547,7 @@
 				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A374B8562902856B003C7390 /* TipDetailCell.swift in Sources */,
+				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
 				A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				A35559A828FED2B2001E4254 /* TipDetailViewController.swift in Sources */,
@@ -553,6 +561,7 @@
 				21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */,
 				21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */,
 				21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */,
+				16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */,
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
