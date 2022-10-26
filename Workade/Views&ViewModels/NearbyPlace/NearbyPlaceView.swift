@@ -66,6 +66,19 @@ class NearbyPlaceView: UIView {
         return placeLabel
     }()
     
+    
+    // TODO: 머지 이후 치콩이 작성한 dismissButton으로 수정 예정입니다.
+    let dismissButton: UIButton = {
+        let dismissButton = UIButton()
+        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 22, weight: .semibold))
+        var image = UIImage(systemName: "xmark", withConfiguration: configuration)
+        image = image?.withTintColor(.black)
+        dismissButton.setImage(image, for: .normal)
+        
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        return dismissButton
+    }()
+    
     lazy var mapButton: UIButton = {
         let mapButton = UIButton()
         let blur = UIVisualEffectView(effect:
@@ -174,6 +187,12 @@ class NearbyPlaceView: UIView {
     
     private func setupScrollViewLayout() {
         addSubview(scrollView)
+        addSubview(dismissButton)
+        NSLayoutConstraint.activate([
+            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: topSafeArea + 20),
+            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -28)
+        ])
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -232,6 +251,7 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupPlaceInfoLayout() {
+        
         contentsContainer.addSubview(placeLabel)
         NSLayoutConstraint.activate([
             placeLabel.bottomAnchor.constraint(equalTo: placeImageContainer.bottomAnchor, constant: -20),
@@ -320,6 +340,15 @@ extension NearbyPlaceView {
             galleryBottomConstraints.isActive = true
         default:
             break
+        }
+    }
+}
+
+extension UIView {
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
         }
     }
 }

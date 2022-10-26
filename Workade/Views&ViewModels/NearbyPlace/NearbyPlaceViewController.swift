@@ -83,7 +83,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let totalOffset = scrollView.contentOffset.y
         let detailOffset = nearbyPlaceView.detailScrollView.contentOffset.y
-        
+       
         switch scrollView {
         case nearbyPlaceView.scrollView:
             if totalOffset > 0 {
@@ -92,8 +92,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
                     // 전체 스크롤 뷰를 막고, 디테일 뷰의 스크롤 뷰를 활성화 시킴.
                     nearbyPlaceView.scrollView.isScrollEnabled = false
                     nearbyPlaceView.detailScrollView.isScrollEnabled = true
-                }
-                else {
+                } else {
                     if nearbyPlaceView.segmentedControl.selectedSegmentIndex == 0 {
                         nearbyPlaceView.detailScrollView.isScrollEnabled = false
                     }
