@@ -7,8 +7,8 @@
 
 import UIKit
 
-// cell class명을 identifier로 사용
 extension UICollectionReusableView {
+    /// 셀 클래스의 이름 그 자체를 식별자로 쓸 수 있도록 지정
     static var identifier: String {
         return String(describing: Self.self)
     }
