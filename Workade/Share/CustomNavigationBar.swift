@@ -101,13 +101,13 @@ class CustomNavigationBar: UIViewController {
     @objc
     func clickedCloseButton(sender: UIButton) {
         // TODO: 버튼 활성화
-        print("click")
+        print("Dissmiss View")
     }
     
     @objc
     func clickedRightButton(sender: UIButton) {
         // TODO: 버튼 활성화
-        print("click")
+        print("rightButton Clicked")
     }
     
 }
