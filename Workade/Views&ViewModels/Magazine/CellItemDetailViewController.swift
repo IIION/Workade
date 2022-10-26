@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TipItemDetailViewController: UIViewController {
+class CellItemDetailViewController: UIViewController {
     // Binding
     var label: String?
     
@@ -205,7 +205,7 @@ class TipItemDetailViewController: UIViewController {
     }
 }
 
-extension TipItemDetailViewController: UIScrollViewDelegate {
+extension CellItemDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentScrollYOffset = scrollView.contentOffset.y
         
