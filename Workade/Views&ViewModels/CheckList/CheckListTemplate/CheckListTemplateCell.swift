@@ -10,13 +10,7 @@ import SwiftUI
 
 class CheckListTemplateCell: UICollectionViewCell {
     
-    //TODO: CheckListViewController의 뷰모델에 있는 리스트의 요소(구조체) 형태로 빼주기
-    var id: Int = 0
-    var image: UIImage = UIImage(named: "folder") ?? UIImage()
-    var title: String = ""
-    var color: UIColor = .theme.primary
-    var partialText: String = ""
-    var checklist: [String] = []
+    let model: CheckListTemplateModel = CheckListTemplateModel.sample
     
     lazy var plusButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.custom)
@@ -32,7 +26,7 @@ class CheckListTemplateCell: UICollectionViewCell {
         button.tintColor = .theme.primary
         button.layer.cornerRadius = 16
         button.insertSubview(blur, at: 0)
-//        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.addTarget(self, action: #selector(add), for: .touchUpInside)
         
         blur.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +41,7 @@ class CheckListTemplateCell: UICollectionViewCell {
     }()
     
     lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView(image: model.image)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -56,10 +50,14 @@ class CheckListTemplateCell: UICollectionViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "안녕하세요!~~~"
         label.textColor = .theme.primary
+        label.numberOfLines = 0
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let attributedStr = NSMutableAttributedString(string: model.title)
+        attributedStr.addAttribute(.foregroundColor, value: model.color, range: (model.title as NSString).range(of: model.partialText))
+        label.attributedText = attributedStr
         
         return label
     }()
@@ -104,6 +102,8 @@ class CheckListTemplateCell: UICollectionViewCell {
         ])
     }
     
+    @objc
+    private func add() { }
 }
 
 struct CheckListTemplateCellRepresentable: UIViewRepresentable {

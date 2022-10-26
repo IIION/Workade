@@ -23,7 +23,7 @@ class CheckListTemplateViewController: UIViewController {
     }()
     
     lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: viewModel.image)
+        let imageView = UIImageView(image: viewModel.template.image)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -36,8 +36,8 @@ class CheckListTemplateViewController: UIViewController {
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let attributedStr = NSMutableAttributedString(string: viewModel.title)
-        attributedStr.addAttribute(.foregroundColor, value: viewModel.color, range: (viewModel.title as NSString).range(of: viewModel.partialText))
+        let attributedStr = NSMutableAttributedString(string: viewModel.template.title)
+        attributedStr.addAttribute(.foregroundColor, value: viewModel.template.color, range: (viewModel.template.title as NSString).range(of: viewModel.template.partialText))
         label.attributedText = attributedStr
         
         return label
@@ -45,7 +45,7 @@ class CheckListTemplateViewController: UIViewController {
     
     lazy var countLabel: UILabel = {
         let label = UILabel()
-        let text = "\(viewModel.checklist.count)개의 체크리스트"
+        let text = "\(viewModel.template.checklist.count)개의 체크리스트"
         label.font = .customFont(for: .caption)
         label.textColor = .theme.primary
         
