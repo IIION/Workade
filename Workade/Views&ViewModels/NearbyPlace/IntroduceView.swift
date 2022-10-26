@@ -79,7 +79,7 @@ class IntroduceView: UIView {
                     let url = URL(string: detailData.context)
                     appendImageToStackView(url)
                 // 텍스트 타입일 경우
-                case "Text":
+                case "text":
                     appendTextToStackView(detailData.context, detailData.font, detailData.color)
                     
                 default:

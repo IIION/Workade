@@ -27,14 +27,14 @@ class NearbyPlaceView: UIView {
         return contentsContainer
     }()
     
-    private let placeImageContainer: UIView = {
+    let placeImageContainer: UIView = {
         let placeImageContainer = UIView()
         placeImageContainer.translatesAutoresizingMaskIntoConstraints = false
         
         return placeImageContainer
     }()
     
-    private let placeImageView: UIImageView = {
+    let placeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
         imageView.image = UIImage(named: "officeImage_test")
@@ -94,7 +94,7 @@ class NearbyPlaceView: UIView {
         return mapButtonContainer
     }()
     
-    private lazy var segmentedControl: UISegmentedControl = {
+    lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
@@ -297,7 +297,6 @@ class NearbyPlaceView: UIView {
 extension NearbyPlaceView {
     @objc
     private func indexChanged(_ segmentedControl: UISegmentedControl) {
-        let safeTop = safeAreaInsets.top
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             detailScrollView.isScrollEnabled = true
