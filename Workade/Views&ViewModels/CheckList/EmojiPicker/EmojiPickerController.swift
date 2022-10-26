@@ -67,6 +67,11 @@ class EmojiPickerViewController: UIViewController, UICollectionViewDelegate {
         configureDataSource()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.tintColor = .theme.primary
+    }
+    
     @objc func onClose() {
         presentingViewController?.dismiss(animated: true)
     }
@@ -230,6 +235,5 @@ class EmojiCollectionViewCell: UICollectionViewCell {
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
         ])
-        
     }
 }
