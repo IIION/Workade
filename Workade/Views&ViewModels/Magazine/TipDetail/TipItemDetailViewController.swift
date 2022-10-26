@@ -47,7 +47,7 @@ class TipItemDetailViewController: UIViewController {
     }()
     
     lazy var closeButton: UIButton = {
-        let button = UIButton.closeButton
+        let button = UIButton().setCloseButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
         
