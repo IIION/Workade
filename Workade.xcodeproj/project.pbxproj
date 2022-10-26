@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E370E6329091943009C69BB /* NearbyPlaceViewDetailData.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E370E6229091943009C69BB /* NearbyPlaceViewDetailData.json */; };
+		0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* DetailDataModel.swift */; };
 		0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E467660290272C100556C41 /* NearbyPlaceView.swift */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
 		0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceView.swift */; };
@@ -51,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E370E6229091943009C69BB /* NearbyPlaceViewDetailData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NearbyPlaceViewDetailData.json; sourceTree = "<group>"; };
+		0E370E6429091B3A009C69BB /* DetailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataModel.swift; sourceTree = "<group>"; };
 		0E467660290272C100556C41 /* NearbyPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceView.swift; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
@@ -110,6 +114,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E370E612909190C009C69BB /* Dummies */ = {
+			isa = PBXGroup;
+			children = (
+				0E370E6229091943009C69BB /* NearbyPlaceViewDetailData.json */,
+			);
+			path = Dummies;
+			sourceTree = "<group>";
+		};
 		0EFB5BA128FF088A00174291 /* NearbyPlace */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +185,7 @@
 			children = (
 				5F5C074D28FE81DE0089DD4B /* HomeModel.swift */,
 				16083B4D29013FB4008056D4 /* CheckListModel.swift */,
+				0E370E6429091B3A009C69BB /* DetailDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -221,6 +234,7 @@
 		5FDC17B928FE799C0060DBB7 /* Workade */ = {
 			isa = PBXGroup;
 			children = (
+				0E370E612909190C009C69BB /* Dummies */,
 				A3947B2129013ECA00DA4E0D /* Share */,
 				5F5C074F28FE81F20089DD4B /* Delegate */,
 				5F5C074C28FE81BD0089DD4B /* Extentions */,
@@ -394,6 +408,7 @@
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
+				0E370E6329091943009C69BB /* NearbyPlaceViewDetailData.json in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
 				5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */,
 				21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */,
@@ -453,6 +468,7 @@
 			files = (
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */,
+				0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* TempGalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
