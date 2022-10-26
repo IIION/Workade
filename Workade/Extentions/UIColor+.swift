@@ -23,11 +23,11 @@ extension UIColor {
 }
 
 struct ColorTheme {
+    fileprivate init() {}
     let primary = UIColor(named: "Primary") ?? UIColor.black
     let secondary = UIColor(named: "Secondary") ?? UIColor.black
     let tertiary = UIColor(named: "Tertiary") ?? UIColor.black
     let quaternary = UIColor(named: "Quaternary") ?? UIColor.black
-    
     let background = UIColor(named: "Background") ?? UIColor.black
     let labelBackground = UIColor(named: "LabelBackground") ?? UIColor.black
     let groupedBackground = UIColor(named: "GroupedBackground") ?? UIColor.black
