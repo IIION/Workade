@@ -24,9 +24,19 @@ class LaunchScreenAnimationView: UIView {
         return view
     }()
     
+    lazy var dimmingView: UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        view.alpha = 0.2
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        showAnimation()
     }
     
     required init?(coder: NSCoder) {
@@ -35,27 +45,52 @@ class LaunchScreenAnimationView: UIView {
     
     private func setupLayout() {
         self.addSubview(backgroundView)
+        self.addSubview(dimmingView)
         self.addSubview(logoView)
         
         NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -120),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
             backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
-        var aspectR: CGFloat = 1
-        if let image = logoView.image {
-            print(image.size.width)
-            print(image.size.height)
-            aspectR = image.size.width / image.size.height
-        }
+        NSLayoutConstraint.activate([
+            dimmingView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            dimmingView.topAnchor.constraint(equalTo: self.topAnchor),
+            dimmingView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            dimmingView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+        
         NSLayoutConstraint.activate([
             logoView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logoView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             logoView.widthAnchor.constraint(equalToConstant: 120),
-            logoView.heightAnchor.constraint(equalToConstant: 120, multiplier: 1 / aspectR)
+            logoView.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    private func showAnimation() {
+        let animator = UIViewPropertyAnimator(duration: 0.6, curve: .easeInOut)
+        let endAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .linear)
+        animator.addAnimations({
+            self.backgroundView.frame.origin.x = 120
+        }, delayFactor: 0.2)
+        
+        animator.addCompletion { _ in
+            endAnimator.startAnimation(afterDelay: 0.2)
+        }
+        
+        endAnimator.addAnimations {
+            self.backgroundView.alpha = 0
+            self.logoView.alpha = 0
+        }
+        
+        endAnimator.addCompletion { _ in
+            self.isHidden = true
+        }
+        
+        animator.startAnimation()
     }
 }
 
