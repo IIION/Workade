@@ -11,6 +11,7 @@ class TipItemDetailViewController: UIViewController {
     // Binding
     var label: String?
     
+    private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     private var bottomConstraints: NSLayoutConstraint!
     
@@ -46,7 +47,7 @@ class TipItemDetailViewController: UIViewController {
     }()
     
     lazy var closeButton: UIButton = {
-        let button = UIButton.closeButton
+        let button = UIButton().setCloseButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
         
@@ -83,6 +84,8 @@ class TipItemDetailViewController: UIViewController {
         return view
     }()
     
+    private var customNavigationBar: UIViewController!
+    
     init(label: String?) {
         super.init(nibName: nil, bundle: nil)
         self.label = label
@@ -98,12 +101,16 @@ class TipItemDetailViewController: UIViewController {
         titleLabel.text = label ?? "정보를 불러올 수 없습니다."
         
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
+        scrollView.delegate = self
         
+        setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
     }
     
     func setupLayout() {
+        view.addSubview(customNavigationBar.view)
+        
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: titleImageView.topAnchor, constant: topSafeArea + 10),
@@ -174,6 +181,11 @@ class TipItemDetailViewController: UIViewController {
         ])
     }
     
+    func setupCustomNavigationBar() {
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: bookmarkButton.currentImage)
+        customNavigationBar.view.alpha = 0
+    }
+    
     @objc
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -189,6 +201,20 @@ class TipItemDetailViewController: UIViewController {
             sender.setImage(UIImage(systemName: "bookmark.fill", withConfiguration: config), for: .normal)
         } else {
             sender.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
+        }
+    }
+}
+
+extension TipItemDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentScrollYOffset = scrollView.contentOffset.y
+        
+        if currentScrollYOffset > defaultScrollYOffset {
+            customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
+            titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
+        } else {
+            customNavigationBar.view.alpha = 0
+            titleImageView.alpha = 1
         }
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIButton {
-    static let closeButton = {
+    func setCloseButton() -> UIButton {
         let config = UIImage.SymbolConfiguration(pointSize: 44, weight: .medium, scale: .default)
 
         let button = UIButton()
@@ -16,5 +16,5 @@ extension UIButton {
         button.tintColor = .theme.background
 
         return button
-    }()
+    }
 }

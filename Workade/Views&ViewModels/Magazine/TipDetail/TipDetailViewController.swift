@@ -59,7 +59,7 @@ extension TipDetailViewController: UICollectionViewDelegate {
         let tipItemDetailViewController = TipItemDetailViewController(label: self.titleArray[indexPath.row])
         
         tipItemDetailViewController.modalPresentationStyle = .overFullScreen
-        present(tipItemDetailViewController, animated: true, completion: nil)
+        present(tipItemDetailViewController, animated: true)
     }
 }
 

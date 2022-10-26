@@ -66,9 +66,9 @@ class CustomNavigationBar: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        self.view.frame = CGRect(x: 0, y: safaAreaTop + 8, width: self.view.frame.width, height: 44)
+        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: safaAreaTop + 60)
         self.rightButton.setImage(rightButtonImage, for: .normal)
-        self.titleLabel.text = titleText?.components(separatedBy: ["\n"]).joined()
+        self.titleLabel.text = titleText?.components(separatedBy: ["\n"]).joined(separator: " ")
         
         setupLayout()
     }
@@ -77,32 +77,37 @@ class CustomNavigationBar: UIViewController {
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            titleLabel.heightAnchor.constraint(equalToConstant: 44),
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
         
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44),
+            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
         
         view.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -10),
-            rightButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            rightButton.widthAnchor.constraint(equalToConstant: 44),
+            rightButton.heightAnchor.constraint(equalToConstant: 44),
+            rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
     }
     
     @objc
     func clickedCloseButton(sender: UIButton) {
         // TODO: 버튼 활성화
-        print("click")
+        print("Dissmiss View")
     }
     
     @objc
     func clickedRightButton(sender: UIButton) {
         // TODO: 버튼 활성화
-        print("click")
+        print("rightButton Clicked")
     }
     
 }
