@@ -35,7 +35,9 @@ class MapViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .white
-        button.setTitle("X", for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
+        let xmarkImage = UIImage(systemName: "xmark", withConfiguration: imageConfig)
+        button.setImage(xmarkImage, for: .normal)
         button.titleLabel?.font = UIFont(name: "SF Pro Rounded", size: 17)
         button.setTitleColor(UIColor.black, for: .normal)
         button.layer.cornerRadius = 22
