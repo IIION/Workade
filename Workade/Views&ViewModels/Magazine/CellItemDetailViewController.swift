@@ -100,7 +100,7 @@ class CellItemDetailViewController: UIViewController {
         view.backgroundColor = .theme.background
         titleLabel.text = label ?? "정보를 불러올 수 없습니다."
         
-        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
+        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -200)
         scrollView.delegate = self
         
         setupCustomNavigationBar()
