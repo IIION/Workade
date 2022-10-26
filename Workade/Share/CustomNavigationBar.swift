@@ -11,8 +11,8 @@ class CustomNavigationBar: UIViewController {
     let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     // Binding
-    var titleText: String?
-    var rightButtonImage: UIImage?
+    private var titleText: String?
+    private var rightButtonImage: UIImage?
     
     private let navigationBar: UIView = {
         let view = UIView()
