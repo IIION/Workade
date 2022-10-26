@@ -181,6 +181,8 @@ class CheckListDetailViewController: UIViewController {
         return stack
     }()
     
+    private var checkListTableViewHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -205,7 +207,9 @@ class CheckListDetailViewController: UIViewController {
         let index = checkListDetailViewModel.todos.count
         
         checkListDetailViewModel.addTodo()
-        self.checklistTableView.reloadData()
+        updateCheckListTableViewConstant()
+        self.checklistTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        self.checklistTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
     
     @objc private func templateButtonPressed(_ sender: UIButton) {
@@ -250,13 +254,16 @@ extension CheckListDetailViewController {
             dashedLine.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
         ])
         
+        checkListTableViewHeightConstraint = checklistTableView
+            .heightAnchor
+            .constraint(equalToConstant: CGFloat(52 * checkListDetailViewModel.todos.count))
         NSLayoutConstraint.activate([
             checklistTableView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 20),
             checklistTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             checklistTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             checklistTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             checklistTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            checklistTableView.heightAnchor.constraint(equalToConstant: CGFloat(52 * checkListDetailViewModel.todos.count))
+            checkListTableViewHeightConstraint
         ])
         
         NSLayoutConstraint.activate([
@@ -265,6 +272,10 @@ extension CheckListDetailViewController {
             buttonStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -26),
             buttonStack.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10)
         ])
+    }
+    
+    func updateCheckListTableViewConstant() {
+        checkListTableViewHeightConstraint.constant = CGFloat(52 * checkListDetailViewModel.todos.count)
     }
 }
 
