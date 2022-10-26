@@ -39,7 +39,6 @@ class NearbyPlaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view = nearbyPlaceView
         view.backgroundColor = .white
         nearbyPlaceView.translatesAutoresizingMaskIntoConstraints = false
         nearbyPlaceView.scrollView.delegate = self
