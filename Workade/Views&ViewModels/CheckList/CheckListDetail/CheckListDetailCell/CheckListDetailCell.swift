@@ -9,29 +9,26 @@ import UIKit
 import SwiftUI
 
 class CheckListDetailCell: UITableViewCell {
-    var isChecked: Bool = false
-    var content: String = ""
-    
-    private lazy var checkImage: UIImageView = {
-        let imageView = UIImageView()
-        let image = isChecked ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
-        imageView.image = image
-        imageView.tintColor = .theme.primary
-        imageView.frame = CGRect(x: 0, y: 0, width: 21, height: 22)
+    lazy var checkButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let image = UIImage(systemName: "circle")
+        button.setImage(image, for: .normal)
+        button.tintColor = .theme.primary
+        button.frame = CGRect(x: 0, y: 0, width: 21, height: 22)
         
-        return imageView
+        return button
     }()
     
-    private lazy var contentText: UITextField = {
+    lazy var contentText: UITextField = {
         let textField = UITextField()
-        textField.text = content
+        textField.text = "내용없음"
         textField.font = .customFont(for: .footnote)
         
         return textField
     }()
     
     private lazy var checkStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [checkImage, contentText])
+        let stackView = UIStackView(arrangedSubviews: [checkButton, contentText])
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 9
@@ -49,6 +46,11 @@ class CheckListDetailCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupCell(todo: Todo) {
+        checkButton.setImage(todo.done ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle"), for: .normal)
+        contentText.text = todo.content
     }
 }
 

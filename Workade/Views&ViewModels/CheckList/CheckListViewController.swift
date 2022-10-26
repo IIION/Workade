@@ -151,7 +151,6 @@ extension CheckListViewController: UICollectionViewDelegate {
         if indexPath.row == checkListViewModel.checkList.count {
             checkListViewModel.addCheckList()
             self.checklistCollectionView.insertItems(at: [indexPath])
-            self.checklistCollectionView.reloadItems(at: [indexPath])
         }
         let detailViewController = CheckListDetailViewController()
         

@@ -209,7 +209,6 @@ class CheckListDetailViewController: UIViewController {
         checkListDetailViewModel.addTodo()
         updateCheckListTableViewConstant()
         self.checklistTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-        self.checklistTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
     
     @objc private func templateButtonPressed(_ sender: UIButton) {
@@ -218,6 +217,13 @@ class CheckListDetailViewController: UIViewController {
         bottomSheetViewController.modalPresentationStyle = .overFullScreen
         
         self.present(bottomSheetViewController, animated: false, completion: nil)
+    }
+    
+    @objc private func checkButtonPressed(_ sender: UIButton) {
+        let todo = checkListDetailViewModel.todos[sender.tag]
+        todo.done.toggle()
+        checkListDetailViewModel.updateTodo(at: sender.tag, todo: todo)
+        checklistTableView.reloadData()
     }
 }
 
@@ -293,6 +299,14 @@ extension CheckListDetailViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.checkButton.tag = indexPath.row
+        cell.checkButton.addTarget(self, action: #selector(checkButtonPressed(_:)), for: .touchUpInside)
+        cell.contentText.tag = indexPath.row
+        cell.contentText.delegate = self
+        
+        let todo = checkListDetailViewModel.todos[indexPath.row]
+        cell.setupCell(todo: todo)
+        
         return cell
     }
     
@@ -304,6 +318,7 @@ extension CheckListDetailViewController: UITableViewDataSource {
         if editingStyle == .delete {
             self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
             self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
+            self.checklistTableView.reloadRows(at: [indexPath], with: .automatic)
             updateCheckListTableViewConstant()
         }
     }
@@ -311,9 +326,16 @@ extension CheckListDetailViewController: UITableViewDataSource {
 
 extension CheckListDetailViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let targetCheckList = selectedCheckList else { return }
-        targetCheckList.title = textField.text
-        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+        if textField == titleLabel {
+            guard let targetCheckList = selectedCheckList else { return }
+            targetCheckList.title = textField.text
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+        } else {
+            let todo = checkListDetailViewModel.todos[textField.tag]
+            todo.content = textField.text
+            checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
+            checklistTableView.reloadData()
+        }
     }
 }
 

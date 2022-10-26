@@ -29,7 +29,7 @@ struct CheckListDetailViewModel {
         }
     }
     
-    mutating func addTodo(content: String = "", done: Bool = false) {
+    mutating func addTodo(content: String = "내용없음", done: Bool = false) {
         guard let context = context else { return }
         
         let newTodo = Todo(context: context)
