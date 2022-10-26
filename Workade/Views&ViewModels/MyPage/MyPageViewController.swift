@@ -36,12 +36,57 @@ class MyPageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
+        setupNavigationBar()
         setupLayout()
+    }
+}
+
+// MARK: Navigates
+extension MyPageViewController {
+    @objc
+    func popToHomeVC() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func pushToSettingVC() {
+//        let vc = SettingViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+// MARK: Protocols
+extension MyPageViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // 임시 UI 보여주기용 수치입니다.
+        // UI먼저 PR쏘고, 다음 PR에 ViewModel 및 각종 Manager 클래스들 순서대로 PR하겠습니다.
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+        return cell
     }
 }
 
 // MARK: UI setup 관련 Methods
 extension MyPageViewController {
+    private func setupNavigationBar() {
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.chevronLeft.image,
+            style: .done,
+            target: self,
+            action: #selector(popToHomeVC)
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.gearshapeFill.image,
+            style: .done,
+            target: self,
+            action: #selector(pushToSettingVC)
+        )
+    }
+    
     private func setupLayout() {
         view.addSubview(titleView)
         view.addSubview(wishLabel)
@@ -62,19 +107,5 @@ extension MyPageViewController {
             wishMagazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             wishMagazineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-}
-
-// MARK: Protocols
-extension MyPageViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // 임시 UI 보여주기용 수치입니다.
-        // UI먼저 PR쏘고, 다음 PR에 ViewModel 및 각종 Manager 클래스들 순서대로 PR하겠습니다.
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
-        return cell
     }
 }
