@@ -26,6 +26,7 @@ class MyPageViewController: UIViewController {
             itemSize: CGSize(width: width, height: width*1.3),
             inset: .init(top: 0, left: 20, bottom: 20, right: 20),
             direction: .vertical)
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,12 +53,12 @@ extension MyPageViewController {
     
     @objc
     func pushToSettingVC() {
-//        let vc = SettingViewController()
-//        navigationController?.pushViewController(vc, animated: true)
+        let viewController = SettingViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-// MARK: Protocols
+// MARK: DataSource
 extension MyPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // 임시 UI 보여주기용 수치입니다.
@@ -68,6 +69,15 @@ extension MyPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
         return cell
+    }
+}
+
+// MARK: Delegate
+extension MyPageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = TipItemDetailViewController(label: nil)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }
 

@@ -54,6 +54,7 @@ class HomeViewController: UIViewController {
     
     private lazy var officeCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: OfficeCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,8 +70,9 @@ class HomeViewController: UIViewController {
         return view
     }()
     
-    private let magazineHeaderView: HeaderView = {
+    private lazy var magazineHeaderView: HeaderView = {
         let stackView = HeaderView(title: "매거진")
+        stackView.pushButton.addTarget(self, action: #selector(pushToMagazineVC), for: .touchUpInside)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -78,6 +80,7 @@ class HomeViewController: UIViewController {
     
     private lazy var magazineCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 150, height: 200))
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,6 +93,7 @@ class HomeViewController: UIViewController {
         button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(pushToCheckListVC), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -124,6 +128,18 @@ extension HomeViewController {
     @objc
     func pushToMyPageVC() {
         let viewController = MyPageViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc
+    func pushToMagazineVC() { // 요기
+        let viewController = MagazineViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc
+    func pushToCheckListVC() {
+        let viewController = CheckListViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -249,6 +265,23 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         default:
             return UICollectionViewCell()
+        }
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case officeCollectionView:
+            let viewController = NearbyPlaceViewController()
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true)
+        case magazineCollectionView:
+            let viewController = TipItemDetailViewController(label: nil)
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true)
+        default:
+            print("default")
         }
     }
 }

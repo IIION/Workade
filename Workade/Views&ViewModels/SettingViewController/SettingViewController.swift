@@ -15,6 +15,7 @@ class SettingViewController: UIViewController {
         button.layer.backgroundColor = UIColor.systemGroupedBackground.cgColor
         button.layer.cornerRadius = 12
         button.translatesAutoresizingMaskIntoConstraints = false
+        
         return button
     }()
 
