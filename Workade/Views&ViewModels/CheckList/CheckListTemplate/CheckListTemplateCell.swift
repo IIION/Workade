@@ -9,6 +9,8 @@ import UIKit
 import SwiftUI
 
 class CheckListTemplateCell: UICollectionViewCell {
+    
+    //TODO: CheckListViewController의 뷰모델에 있는 리스트의 요소(구조체) 형태로 빼주기
     var id: Int = 0
     var image: UIImage = UIImage(named: "folder") ?? UIImage()
     var title: String = ""

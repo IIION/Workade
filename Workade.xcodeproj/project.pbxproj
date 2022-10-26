@@ -25,6 +25,8 @@
 		2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F5672901331B0035D36E /* GalleryViewController.swift */; };
 		2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */; };
 		2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A8922909142E00486344 /* CheckListTemplateCell.swift */; };
+		2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89429091AE600486344 /* CheckListTemplateViewController.swift */; };
+		2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
 		21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */; };
@@ -84,6 +86,8 @@
 		2120F5672901331B0035D36E /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2154A8922909142E00486344 /* CheckListTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateCell.swift; sourceTree = "<group>"; };
+		2154A89429091AE600486344 /* CheckListTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewController.swift; sourceTree = "<group>"; };
+		2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewModel.swift; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -151,7 +155,7 @@
 		16083B4729013F9A008056D4 /* CheckList */ = {
 			isa = PBXGroup;
 			children = (
-				2154A891290913EF00486344 /* CheckListTemplateCell */,
+				2154A891290913EF00486344 /* CheckListTemplate */,
 				16083B4A29013F9A008056D4 /* CheckListViewController.swift */,
 				16CBD46D29040D950056A641 /* CheckListViewModel.swift */,
 				16083B4829013F9A008056D4 /* CheckListCell */,
@@ -196,12 +200,14 @@
 			path = CheckListDetailCell;
 			sourceTree = "<group>";
 		};
-		2154A891290913EF00486344 /* CheckListTemplateCell */ = {
+		2154A891290913EF00486344 /* CheckListTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				2154A8922909142E00486344 /* CheckListTemplateCell.swift */,
+				2154A89429091AE600486344 /* CheckListTemplateViewController.swift */,
+				2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */,
 			);
-			path = CheckListTemplateCell;
+			path = CheckListTemplate;
 			sourceTree = "<group>";
 		};
 		218E4F7629012FFB003CF215 /* Gallery */ = {
@@ -550,6 +556,7 @@
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
+				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
@@ -562,6 +569,7 @@
 				96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */,
 				96B1836C2901458F009F2BC6 /* HorizontalCollectionView.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
+				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
 				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
