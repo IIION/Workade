@@ -85,8 +85,8 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var checkListButton: CheckListButton = {
-        let button = CheckListButton()
+    private lazy var checkListButton: NavigateButton = {
+        let button = NavigateButton(image: nil, text: "체크리스트")
         button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
