@@ -11,6 +11,8 @@ class NearbyPlaceView: UIView {
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
     
+    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +97,7 @@ class NearbyPlaceView: UIView {
     private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.rgb(0xD1D1D6),
+            NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .normal)
         segmentedControl.setTitleTextAttributes([
@@ -111,7 +113,7 @@ class NearbyPlaceView: UIView {
     
     private let segmentUnderLine: UIView = {
         let segmentUnderLine = UIView()
-        segmentUnderLine.backgroundColor = UIColor.rgb(0xF2F2F7)
+        segmentUnderLine.backgroundColor = UIColor.theme.quaternary
         segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentUnderLine
@@ -166,6 +168,7 @@ class NearbyPlaceView: UIView {
     private func setupLayout() {
         setupScrollViewLayout()
         setupPlaceInfoLayout()
+        setupSegmentedControl()
         setupNearbyPlaceDetailLayout()
     }
     
@@ -193,7 +196,7 @@ class NearbyPlaceView: UIView {
             placeImageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             placeImageContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
             placeImageContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            placeImageContainer.heightAnchor.constraint(equalToConstant: 420)
+            placeImageContainer.heightAnchor.constraint(equalToConstant: topSafeArea + 375)
         ])
         
         let placeImageViewTopConstraint = placeImageView.topAnchor.constraint(equalTo: topAnchor)
@@ -208,7 +211,9 @@ class NearbyPlaceView: UIView {
             // heightAnchor 설정을 통해, 세로가 긴 이미지가 들어올때 이미지 영역 깨지는걸 방지.
             placeImageView.heightAnchor.constraint(greaterThanOrEqualTo: placeImageContainer.heightAnchor)
         ])
-        
+    }
+    
+    private func setupSegmentedControl() {
         contentsContainer.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: placeImageContainer.bottomAnchor),
@@ -224,7 +229,6 @@ class NearbyPlaceView: UIView {
             segmentUnderLine.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor),
             segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
-        
     }
     
     private func setupPlaceInfoLayout() {
@@ -261,7 +265,7 @@ class NearbyPlaceView: UIView {
             detailScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             detailScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             detailScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentsContainer.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: 420)
+            contentsContainer.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: 375)
         ])
         
         let detailScrollViewGuide = detailScrollView.contentLayoutGuide
@@ -288,7 +292,9 @@ class NearbyPlaceView: UIView {
             galleryView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: -20)
         ])
     }
-    
+}
+
+extension NearbyPlaceView {
     @objc
     private func indexChanged(_ segmentedControl: UISegmentedControl) {
         let safeTop = safeAreaInsets.top
@@ -308,7 +314,7 @@ class NearbyPlaceView: UIView {
             // 전체 뷰의 스크롤은 멈춰야함.
             scrollView.isScrollEnabled = false
             // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
-            scrollView.setContentOffset(CGPoint(x: 0, y: 420 - safeTop), animated: false)
+            scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
             introduceView.isHidden = true
             galleryView.isHidden = false
             introduceBottomConstraints.isActive = false
