@@ -24,6 +24,7 @@ class MyPageViewController: UIViewController {
         let width = (view.bounds.width - 60) / 2
         let collectionView = UICollectionView(
             itemSize: CGSize(width: width, height: width*1.3),
+            inset: .init(top: 0, left: 20, bottom: 20, right: 20),
             direction: .vertical)
         collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
