@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E370E6329091943009C69BB /* NearbyPlaceViewDetailData.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E370E6229091943009C69BB /* NearbyPlaceViewDetailData.json */; };
 		0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* DetailDataModel.swift */; };
 		0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E467660290272C100556C41 /* NearbyPlaceView.swift */; };
 		0ED6D420290946B1000DF27B /* TempNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */; };
@@ -54,7 +53,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E370E6229091943009C69BB /* NearbyPlaceViewDetailData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NearbyPlaceViewDetailData.json; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* DetailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataModel.swift; sourceTree = "<group>"; };
 		0E467660290272C100556C41 /* NearbyPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceView.swift; sourceTree = "<group>"; };
 		0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigationBar.swift; sourceTree = "<group>"; };
@@ -116,14 +114,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E370E612909190C009C69BB /* Dummies */ = {
-			isa = PBXGroup;
-			children = (
-				0E370E6229091943009C69BB /* NearbyPlaceViewDetailData.json */,
-			);
-			path = Dummies;
-			sourceTree = "<group>";
-		};
 		0EFB5BA128FF088A00174291 /* NearbyPlace */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,7 +227,6 @@
 		5FDC17B928FE799C0060DBB7 /* Workade */ = {
 			isa = PBXGroup;
 			children = (
-				0E370E612909190C009C69BB /* Dummies */,
 				A3947B2129013ECA00DA4E0D /* Share */,
 				5F5C074F28FE81F20089DD4B /* Delegate */,
 				5F5C074C28FE81BD0089DD4B /* Extentions */,
@@ -411,7 +400,6 @@
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
-				0E370E6329091943009C69BB /* NearbyPlaceViewDetailData.json in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
 				5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */,
 				21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */,

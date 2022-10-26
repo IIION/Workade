@@ -23,6 +23,7 @@ class IntroduceView: UIView {
         let imageView = UIImageView()
         guard let url = url else { return }
         
+        // TODO: 머지 이후, 매니져 로직으로 변경 예정입니다.
         getImage(from: url) { data, _, error in
             guard let data = data, error == nil else { return }
             DispatchQueue.main.async {
