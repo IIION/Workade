@@ -66,7 +66,7 @@ class CustomNavigationBar: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: safaAreaTop + 44)
+        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: safaAreaTop + 60)
         self.rightButton.setImage(rightButtonImage, for: .normal)
         self.titleLabel.text = titleText?.components(separatedBy: ["\n"]).joined(separator: " ")
         
