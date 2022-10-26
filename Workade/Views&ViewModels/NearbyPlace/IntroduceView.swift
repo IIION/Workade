@@ -55,7 +55,7 @@ class IntroduceView: UIView {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         
-        label.setLineHeight(lineHeight: 5.0)
+        label.setLineHeight(lineHeight: 12.0)
 
         stackView.addArrangedSubview(label)
     }
