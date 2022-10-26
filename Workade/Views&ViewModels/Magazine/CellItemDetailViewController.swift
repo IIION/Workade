@@ -113,7 +113,7 @@ class CellItemDetailViewController: UIViewController {
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 10),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             closeButton.widthAnchor.constraint(equalToConstant: 44),
             closeButton.heightAnchor.constraint(equalToConstant: 44)
