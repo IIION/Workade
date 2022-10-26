@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
         logoImageView.contentMode = .left
         let profileButton = UIButton()
         profileButton.setImage(UIImage(named: "ProfileTamna")?.setOriginal(), for: .normal)
+        profileButton.addTarget(self, action: #selector(pushToMyPageVC), for: .touchUpInside)
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -103,12 +104,36 @@ class HomeViewController: UIViewController {
         setupLayout()
         setupStatusBar()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // HomeVC에서는 네비게이션 영역 쓰지않음
+        // viewDidAppear로 하면, 홈화면 돌아올 때 backButton의 잔상이 순간 보이게 되버림
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // viewDidDisappear로 하면, 다음 화면에서 backButton이 다소 늦게 나타나버림
+        navigationController?.navigationBar.isHidden = false
+    }
+}
+
+// MARK: Navigates
+extension HomeViewController {
+    @objc
+    func pushToMyPageVC() {
+        let viewController = MyPageViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: UI setup 관련 Methods
 extension HomeViewController {
     private func setupNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
+        // hide 안걸어주면 push할 때 backButton 잔상 남아버림
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = .theme.primary
     }
     
     private func setupStatusBar() {

@@ -17,15 +17,15 @@
 		16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD461290290910056A641 /* CheckListDetailCell.swift */; };
 		16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4692902FB0F0056A641 /* UITableView+.swift */; };
 		16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46B2902FB480056A641 /* UITableViewCell+.swift */; };
+		16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46D29040D950056A641 /* CheckListViewModel.swift */; };
+		16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */; };
+		16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */; };
 		21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21096F8329069ECF007EC889 /* GalleryViewModel.swift */; };
 		2120F566290130870035D36E /* UICollectionViewTwoLineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */; };
 		2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F5672901331B0035D36E /* GalleryViewController.swift */; };
 		2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
-		16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46D29040D950056A641 /* CheckListViewModel.swift */; };
-		16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */; };
-		16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */; };
 		21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */; };
 		21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */; };
 		21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */; };
@@ -45,6 +45,7 @@
 		5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */; };
 		5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */; };
 		961C56212902BF77003E238F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C56202902BF77003E238F /* HeaderView.swift */; };
+		9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763729092D4A0047ED34 /* MyPageViewController.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
 		96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */; };
 		96972ED12903011500197DEE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ED02903011500197DEE /* CellImageView.swift */; };
@@ -52,9 +53,9 @@
 		96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836929014361009F2BC6 /* UICollectionView+.swift */; };
 		96B1836C2901458F009F2BC6 /* HorizontalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836B2901458F009F2BC6 /* HorizontalCollectionView.swift */; };
 		96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */; };
+		96CFBE2629044E9200A4B488 /* CheckListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBE2529044E9200A4B488 /* CheckListButton.swift */; };
 		A33835242903C96C009882BF /* TipItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* TipItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
-		96CFBE2629044E9200A4B488 /* CheckListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBE2529044E9200A4B488 /* CheckListButton.swift */; };
 		A35559A628FECF4D001E4254 /* TotalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */; };
 		A35559A828FED2B2001E4254 /* TipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TipDetailViewController.swift */; };
 		A35559AA28FEE8B3001E4254 /* ColumnDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */; };
@@ -79,15 +80,15 @@
 		16CBD461290290910056A641 /* CheckListDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailCell.swift; sourceTree = "<group>"; };
 		16CBD4692902FB0F0056A641 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		16CBD46B2902FB480056A641 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		16CBD46D29040D950056A641 /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
+		16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListAddButtonCell.swift; sourceTree = "<group>"; };
+		16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewModel.swift; sourceTree = "<group>"; };
 		21096F8329069ECF007EC889 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewTwoLineLayout.swift; sourceTree = "<group>"; };
 		2120F5672901331B0035D36E /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
-		16CBD46D29040D950056A641 /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
-		16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListAddButtonCell.swift; sourceTree = "<group>"; };
-		16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewModel.swift; sourceTree = "<group>"; };
 		21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../Fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		21F6DE5828FFED5C00ED72C6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../Fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Regular.otf"; path = "../Fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961C56202902BF77003E238F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		9646763729092D4A0047ED34 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
 		96972ED02903011500197DEE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
@@ -118,9 +120,9 @@
 		96B1836929014361009F2BC6 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		96B1836B2901458F009F2BC6 /* HorizontalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionView.swift; sourceTree = "<group>"; };
 		96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeCollectionViewCell.swift; sourceTree = "<group>"; };
+		96CFBE2529044E9200A4B488 /* CheckListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListButton.swift; sourceTree = "<group>"; };
 		A33835232903C96C009882BF /* TipItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
-		96CFBE2529044E9200A4B488 /* CheckListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListButton.swift; sourceTree = "<group>"; };
 		A35559A528FECF4D001E4254 /* TotalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDetailViewController.swift; sourceTree = "<group>"; };
 		A35559A728FED2B2001E4254 /* TipDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailViewController.swift; sourceTree = "<group>"; };
 		A35559A928FEE8B3001E4254 /* ColumnDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnDetailViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				0EFB5BA128FF088A00174291 /* NearbyPlace */,
 				A35BD48028FE85A800D1FA7C /* Magazine */,
 				5FDC17DD28FE7F1B0060DBB7 /* Home */,
+				9646763629092D340047ED34 /* MyPage */,
 				16083B4729013F9A008056D4 /* CheckList */,
 			);
 			path = "Views&ViewModels";
@@ -338,6 +341,14 @@
 				96972ED02903011500197DEE /* CellImageView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9646763629092D340047ED34 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				9646763729092D4A0047ED34 /* MyPageViewController.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		A35559AD28FEEEA4001E4254 /* TotalDetail */ = {
@@ -544,6 +555,7 @@
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
+				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
 				A393992629081628000E129A /* CustomNavigationBar.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
@@ -583,7 +595,6 @@
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */,
-				16083B4E29013FB4008056D4 /* CheckListModel.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
