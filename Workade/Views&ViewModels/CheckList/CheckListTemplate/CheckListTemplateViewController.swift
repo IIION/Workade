@@ -32,17 +32,27 @@ class CheckListTemplateViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "asdfas"
+        label.numberOfLines = 0
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let attributedStr = NSMutableAttributedString(string: viewModel.title)
+        attributedStr.addAttribute(.foregroundColor, value: viewModel.color, range: (viewModel.title as NSString).range(of: viewModel.partialText))
+        label.attributedText = attributedStr
         
         return label
     }()
     
     lazy var countLabel: UILabel = {
         let label = UILabel()
-        label.text = "16개의 체크리스트"
+        let text = "\(viewModel.checklist.count)개의 체크리스트"
         label.font = .customFont(for: .caption)
+        label.textColor = .theme.primary
+        
+        let attributedStr = NSMutableAttributedString(string: text)
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.theme.quaternary, range: (text as NSString).range(of: "개의 체크리스트"))
+        label.attributedText = attributedStr
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -51,7 +61,7 @@ class CheckListTemplateViewController: UIViewController {
     lazy var checkListTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
-        tableView.rowHeight = 52
+        tableView.rowHeight = 40
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .theme.labelBackground
         tableView.registerCell(type: CheckListTemplateDetailCell.self, identifier: CheckListTemplateDetailCell.identifier)
@@ -74,6 +84,7 @@ class CheckListTemplateViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
         button.tintColor = .theme.primary
+        button.addTarget(self, action: #selector(add), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -81,10 +92,25 @@ class CheckListTemplateViewController: UIViewController {
     
     lazy var dismissButton: UIButton = {
         let button = UIButton(type: .custom)
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: config)
+        button.setImage(image, for: .normal)
+        button.tintColor = .theme.tertiary
+        button.addTarget(self, action: #selector(close), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
+    
+    @objc
+    private func close() {
+        presentingViewController?.dismiss(animated: true)
+    }
+    
+    @objc
+    private func add() {
+        presentingViewController?.dismiss(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,6 +166,11 @@ class CheckListTemplateViewController: UIViewController {
             addButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             addButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             addButton.heightAnchor.constraint(equalToConstant: 45)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dismissButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            dismissButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16)
         ])
     }
 }

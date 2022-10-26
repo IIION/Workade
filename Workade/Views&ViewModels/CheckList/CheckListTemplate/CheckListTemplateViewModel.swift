@@ -10,8 +10,8 @@ import UIKit
 
 class CheckListTemplateViewModel {
     var image: UIImage = UIImage(named: "folder") ?? UIImage()
-    var title: String = ""
-    var color: UIColor = .theme.primary
-    var partialText: String = ""
+    var title: String = "개발자라면 필수로\n챙겨야 할 물건 리스트"
+    var color: UIColor = .systemYellow
+    var partialText: String = "개발자"
     var checklist: [String] = []
 }
