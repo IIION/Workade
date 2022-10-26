@@ -66,13 +66,12 @@ class NearbyPlaceView: UIView {
         return placeLabel
     }()
     
-    
     // TODO: 머지 이후 치콩이 작성한 dismissButton으로 수정 예정입니다.
     let dismissButton: UIButton = {
         let dismissButton = UIButton()
         let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 22, weight: .semibold))
         var image = UIImage(systemName: "xmark", withConfiguration: configuration)
-        image = image?.withTintColor(.black)
+        image = image?.withTintColor(.red)
         dismissButton.setImage(image, for: .normal)
         
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
@@ -189,8 +188,10 @@ class NearbyPlaceView: UIView {
         addSubview(scrollView)
         addSubview(dismissButton)
         NSLayoutConstraint.activate([
-            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: topSafeArea + 20),
-            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -28)
+            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: topSafeArea + 8),
+            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            dismissButton.widthAnchor.constraint(equalToConstant: 44),
+            dismissButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         NSLayoutConstraint.activate([
