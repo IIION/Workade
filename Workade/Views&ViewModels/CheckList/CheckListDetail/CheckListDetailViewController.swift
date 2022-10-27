@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListDetailViewController: UIViewController {
     private var checkListDetailViewModel = CheckListDetailViewModel()
@@ -14,7 +13,6 @@ class CheckListDetailViewController: UIViewController {
     var selectedCheckList: CheckList? {
         didSet {
             checkListDetailViewModel.selectedCheckList = selectedCheckList
-            datePicker.date = selectedCheckList?.travelDate ?? Date()
             self.checklistTableView.reloadData()
         }
     }
@@ -31,11 +29,14 @@ class CheckListDetailViewController: UIViewController {
         return barButtonItem
     }()
     
-    private lazy var emojiLabel: UILabel = {
+    lazy var emojiLabel: UILabel = {
         let label = UILabel()
         label.text = selectedCheckList?.emoji ?? "⚽️"
         label.font = .systemFont(ofSize: 34)
         label.tintColor = .theme.primary
+        let tap = UITapGestureRecognizer(target: self, action: #selector(emojiLabelTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tap)
         
         return label
     }()
@@ -68,13 +69,15 @@ class CheckListDetailViewController: UIViewController {
         return label
     }()
     
-    private let datePicker: UIDatePicker = {
+    lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko-KR")
         datePicker.timeZone = .autoupdatingCurrent
         datePicker.tintColor = .theme.primary
+        datePicker.date = selectedCheckList?.travelDate ?? Date()
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
         return datePicker
     }()
@@ -199,16 +202,30 @@ class CheckListDetailViewController: UIViewController {
     }
     
     @objc private func deleteButtonPressed(_ sender: UIBarButtonItem) {
-        checkListDetailViewModel.deleteCheckList()
-        self.navigationController?.popViewController(animated: true)
+        let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.checkListDetailViewModel.deleteCheckList()
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+    
+        self.present(alert, animated: true)
     }
     
     @objc private func addButtonPressed(_ sender: UIButton) {
+        guard let targetCheckList = selectedCheckList else { return }
         let index = checkListDetailViewModel.todos.count
         
         checkListDetailViewModel.addTodo()
         updateCheckListTableViewConstant()
         self.checklistTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        let indexPathArray = stride(from: 0, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
+            IndexPath(row: index, section: 0)
+        }
+        self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
     }
     
     @objc private func templateButtonPressed(_ sender: UIButton) {
@@ -220,11 +237,34 @@ class CheckListDetailViewController: UIViewController {
     }
     
     @objc private func checkButtonPressed(_ sender: UIButton) {
+        guard let targetCheckList = selectedCheckList else { return }
         let todo = checkListDetailViewModel.todos[sender.tag]
         todo.done.toggle()
         checkListDetailViewModel.updateTodo(at: sender.tag, todo: todo)
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
         checklistTableView.reloadData()
     }
+    
+    @objc private func emojiLabelTapped() {
+        let emojiPickerViewController = EmojiPickerViewController()
+        func fetchEmoji(emoji: String) {
+            guard let targetCheckList = selectedCheckList else { return }
+            
+            self.emojiLabel.text = emoji
+            targetCheckList.emoji = emoji
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+            
+        }
+        emojiPickerViewController.emojiTapped = fetchEmoji
+        self.present(UINavigationController(rootViewController: emojiPickerViewController), animated: true)
+    }
+    
+    @objc private func dateChanged() {
+        guard let targetCheckList = selectedCheckList else { return }
+        targetCheckList.travelDate = datePicker.date
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+    }
+    
 }
 
 extension CheckListDetailViewController {
@@ -316,11 +356,14 @@ extension CheckListDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            guard let targetCheckList = selectedCheckList else { return }
             self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
             self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
-            for index in stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1) {
-                self.checklistTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            let indexPathArray = stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
+                IndexPath(row: index, section: 0)
             }
+            self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
             updateCheckListTableViewConstant()
         }
     }
@@ -338,22 +381,5 @@ extension CheckListDetailViewController: UITextFieldDelegate {
             checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
             checklistTableView.reloadData()
         }
-    }
-}
-
-struct CheckListDetailViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CheckListDetailViewController
-
-    func makeUIViewController(context: Context) -> CheckListDetailViewController {
-        return CheckListDetailViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: CheckListDetailViewController, context: Context) {}
-}
-
-struct CheckListDetailViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListDetailViewControllerRepresentable()
-            .ignoresSafeArea()
     }
 }
