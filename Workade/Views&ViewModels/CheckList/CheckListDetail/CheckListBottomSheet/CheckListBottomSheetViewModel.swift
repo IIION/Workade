@@ -25,7 +25,7 @@ final class CheckListBottomSheetViewModel {
     }
     
     private func fetchCheckListTemplateData<T: Codable>() async throws -> T {
-        guard let url = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/CheckList/checkList.json") else {
+        guard let url = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Checklist/checkList.json") else {
             throw NetworkError.invalidURL
         }
         
