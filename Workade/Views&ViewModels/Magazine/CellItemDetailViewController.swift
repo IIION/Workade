@@ -47,7 +47,7 @@ class CellItemDetailViewController: UIViewController {
     }()
     
     lazy var closeButton: UIButton = {
-        let button = UIButton().setCloseButton()
+        let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
         

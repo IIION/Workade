@@ -91,12 +91,16 @@ class MagazineDetailView: UIView {
         
         setupLayout()
         eventView.isHidden = !eventCheck
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    private func setupLayout() {
+        addSubview(testLabel)
+        setupLayout()
+    }
+
     private func setupLayout() {
         addSubview(testLabel)
         NSLayoutConstraint.activate([

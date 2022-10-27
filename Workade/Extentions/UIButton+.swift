@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIButton {
-    func setCloseButton() -> UIButton {
+    func closeButton() -> UIButton {
         let button = UIButton()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
         let xmarkImage = UIImage(systemName: "xmark", withConfiguration: imageConfig)
