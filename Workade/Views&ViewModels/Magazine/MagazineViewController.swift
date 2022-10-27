@@ -10,7 +10,7 @@ import UIKit
 class MagazineViewController: UIViewController {
     // total로 명시한 이유 -> 추후에는 여기서 Magazine의 category에 맞게 분류하는 작업이 이뤄져야할 것입니다.
     // 지금은 넘기는 형태이지만, 추후에는 매거진뷰컨의 뷰모델이 바로 이미지를 불러도됩니다. 그럼 적절히 캐시에 있는 매거진은 빠르게, 그렇지않으면 조금의 로딩 후에 들어올 것입니다.
-    var totalMagazine: [Magazine]?
+    var totalMagazine: [Magazine] = []
     
     // MARK: 컴포넌트 설정
     private let viewTitle: UILabel = {
@@ -40,7 +40,7 @@ class MagazineViewController: UIViewController {
     }()
     
     private let tapDetailViewContoller: TapDetailViewController = {
-        let viewController = TapDetailViewController()
+        let viewController = TapDetailViewController(magazineList: [])
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         return viewController
@@ -64,6 +64,15 @@ class MagazineViewController: UIViewController {
         return button
     }()
     
+    init(totalMagazine: [Magazine]) {
+        super.init(nibName: nil, bundle: nil)
+        self.totalMagazine = totalMagazine
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -71,6 +80,7 @@ class MagazineViewController: UIViewController {
         setupSegmentedControl()
         setupLayout()
         setupLayoutDetailView()
+        tapDetailViewContoller.magazineList = totalMagazine
     }
     
     // MARK: AutoLayout 설정

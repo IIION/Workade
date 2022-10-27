@@ -141,8 +141,8 @@ private extension HomeViewController {
     
     @objc
     func pushToMagazineVC() { // 요기
-        let viewController = MagazineViewController()
-        viewController.totalMagazine = viewModel.magazineResource.content
+        let viewController = MagazineViewController(totalMagazine: viewModel.magazineResource.content)
+//        viewController.totalMagazine = viewModel.magazineResource.content
         navigationController?.pushViewController(viewController, animated: true)
     }
     
