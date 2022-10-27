@@ -9,12 +9,7 @@ import NMapsMap
 import UIKit
 
 class MapViewController: UIViewController {
-    // Binding 객체
-    var latitude = 33.533054
-    var longitude = 126.630947
-    var officeName = "제주 O-PEACE"
-    // 임시 설정 주변 정보
-    var nearbySpots = [Spot]()
+    private var viewModel: MapViewModel
     
     private var currentPin: NMFMarker? = nil {
         willSet(newVal) {
@@ -42,7 +37,7 @@ class MapViewController: UIViewController {
     private lazy var officeNameLabel: BasePaddingLabel = {
         var label = BasePaddingLabel(padding: UIEdgeInsets(top: 12, left: 40, bottom: 12, right: 40))
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = self.officeName
+        label.text = viewModel.officeName
         label.textAlignment = .center
         label.backgroundColor = .theme.background
         label.layer.masksToBounds = true
@@ -81,16 +76,10 @@ class MapViewController: UIViewController {
     }()
     
     init(office: Office) {
+        viewModel = MapViewModel(office: office)
         super.init(nibName: nil, bundle: nil)
-        self.latitude = office.latitude
-        self.longitude = office.longitude
-        self.officeName = office.officeName
-        self.nearbySpots = office.spots
     }
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -165,7 +154,7 @@ extension MapViewController {
     
     /// 카메라를 입력 받은 위도 경도로 이동하는 함수
     private func setCameraMap() {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: viewModel.latitude, lng: viewModel.longitude))
         cameraUpdate.animation = .none
         cameraUpdate.animationDuration = 1
         map.moveCamera(cameraUpdate)
@@ -202,7 +191,7 @@ extension MapViewController {
             return true
         }
         
-        for spot in nearbySpots {
+        for spot in viewModel.spots {
             let marker = NMFMarker()
             marker.position = NMGLatLng(lat: spot.latitude, lng: spot.longitude)
             marker.captionText = spot.title
@@ -217,7 +206,6 @@ extension MapViewController {
             case .nature: marker.tag = Pin.nature.rawValue
             case .sea: marker.tag = Pin.sea.rawValue
             case .restaurant: marker.tag = Pin.restaurant.rawValue
-            default: marker.tag = UInt.init(-1)
             }
             
             marker.mapView = map
