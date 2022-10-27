@@ -71,7 +71,15 @@ class MapViewController: UIViewController {
         ]
       ]
     
-    private var currentPin: NMFMarker? = nil // 현재 선택된 핀(Marker)
+    private var currentPin: NMFMarker? = nil {
+        willSet(newVal) {
+            if newVal == nil {
+                naverMapButton.isHidden = true
+            } else {
+                naverMapButton.isHidden = false
+            }
+        }
+    }
     private var map = NMFMapView()
     private var setNMap = true // 지도가 중복되서 설정되는 것을 방지
 
@@ -110,6 +118,18 @@ class MapViewController: UIViewController {
         button.layer.cornerRadius = 22
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(backButtonDown), for: .touchDown)
+        
+        return button
+    }()
+    
+    private lazy var naverMapButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("네이버 맵으로 바로가기", for: .normal)
+        button.titleLabel?.font = .customFont(for: .title2)
+        button.layer.backgroundColor = CGColor(red: 94/255, green: 204/255, blue: 105/255, alpha: 1)
+        button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(touchedNaverButton), for: .touchUpInside)
         
         return button
     }()
@@ -155,6 +175,15 @@ class MapViewController: UIViewController {
             topInfoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topInfoStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44)
         ])
+        
+        view.addSubview(naverMapButton)
+        NSLayoutConstraint.activate([
+            naverMapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            naverMapButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            naverMapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            naverMapButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
+        naverMapButton.isHidden = true
         
         setupTopInfoViewLayout()
     }
@@ -214,10 +243,14 @@ extension MapViewController {
             case Pin.restaurant.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "restaurantpin")
             case Pin.sea.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "seapin")
             case Pin.nature.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "naturepin")
-            default: print(self?.currentPin?.tag)
+            default: break
             }
             
-            self?.currentPin = marker
+            if self?.currentPin != marker {
+                self?.currentPin = marker
+            } else {
+                self?.currentPin = nil
+            }
             
             return true
         }
@@ -243,7 +276,7 @@ extension MapViewController {
             case "restaurant": marker.tag = Pin.restaurant.rawValue
             default: marker.tag = UInt.init(-1)
             }
-    
+            
             marker.mapView = map
         }
         
@@ -260,5 +293,16 @@ extension MapViewController: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
         print(symbol.debugDescription)
         return true
+    }
+}
+
+extension MapViewController {
+    @objc private func touchedNaverButton() {
+        guard let title = currentPin?.captionText else { return }
+        let urlStr = "nmap://search?query=\(title)"
+        guard let encodedStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: encodedStr)
+        else { return }
+        UIApplication.shared.open(url, options: [:])
     }
 }
