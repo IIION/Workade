@@ -213,14 +213,13 @@ extension HomeViewController: UICollectionViewDelegate {
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         default:
-            print("default")
+            break
         }
     }
 }
 
 extension HomeViewController: OfficeCollectionViewCellDelegate {
     func didTapMapButton(office: Office) {
-        print("wow")
         let viewController = MapViewController()
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
