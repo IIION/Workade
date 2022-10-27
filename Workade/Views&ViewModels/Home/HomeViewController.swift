@@ -218,7 +218,7 @@ extension HomeViewController: UICollectionViewDelegate {
     }
 }
 
-extension HomeViewController: UICollectionViewCellDelegate {
+extension HomeViewController: OfficeCollectionViewCellDelegate {
     func didTapMapButton(office: Office) {
         print("wow")
         let viewController = MapViewController()
