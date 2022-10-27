@@ -10,7 +10,7 @@ import UIKit
 class LaunchScreenAnimationView: UIView {
     
     lazy var backgroundView: UIImageView = {
-        let view = UIImageView(image: UIImage(named: "GalleryTestImage2")!)
+        let view = UIImageView(image: UIImage(named: "launch")!)
         view.contentMode = .scaleAspectFill
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -68,7 +68,6 @@ class LaunchScreenAnimationView: UIView {
         
         endAnimator.addAnimations {
             self.backgroundView.alpha = 0
-            self.logoView.alpha = 0
         }
         
         endAnimator.addCompletion { _ in
