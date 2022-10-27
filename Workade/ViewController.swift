@@ -64,10 +64,10 @@ class LaunchScreenAnimationView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            logoView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            logoView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            logoView.widthAnchor.constraint(equalToConstant: 48),
-            logoView.heightAnchor.constraint(equalToConstant: 30)
+            logoView.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+            logoView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            logoView.widthAnchor.constraint(equalToConstant: 160),
+            logoView.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
     
