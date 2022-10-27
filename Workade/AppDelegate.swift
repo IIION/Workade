@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import NMapsMap
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
