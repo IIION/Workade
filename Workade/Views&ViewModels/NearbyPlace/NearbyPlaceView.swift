@@ -7,14 +7,32 @@
 
 import UIKit
 
+protocol InnerTouchPresentDelegate {
+    func touch(office: Office)
+}
+
 class NearbyPlaceView: UIView {
+    
+    var delegate: InnerTouchPresentDelegate?
+    
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
+    
+    var office: Office = Office(
+        officeName: "",
+        regionName: "",
+        imageURL: "",
+        introduceURL: "",
+        galleryURL: "",
+        latitude: 0.0,
+        longitude: 0.0,
+        spots: [])
     
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
@@ -58,24 +76,11 @@ class NearbyPlaceView: UIView {
     let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.text = "O-Peace"
-        // TODO: AccentTitle1 폰트와 background_Light 컬러가 없습니다. 추후 변경할 예정입니다.
         placeLabel.font = UIFont.customFont(for: .title1)
         placeLabel.textColor = .white
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return placeLabel
-    }()
-    
-    // TODO: 머지 이후 치콩이 작성한 dismissButton으로 수정 예정입니다.
-    let dismissButton: UIButton = {
-        let dismissButton = UIButton()
-        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 22, weight: .semibold))
-        var image = UIImage(systemName: "xmark", withConfiguration: configuration)
-        image = image?.withTintColor(.red)
-        dismissButton.setImage(image, for: .normal)
-        
-        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        return dismissButton
     }()
     
     lazy var mapButton: UIButton = {
@@ -95,6 +100,7 @@ class NearbyPlaceView: UIView {
         blur.layer.cornerRadius = 0.5 * mapButton.bounds.size.height
         blur.clipsToBounds = true
         mapButton.insertSubview(blur, belowSubview: mapButton.imageView!)
+        mapButton.addTarget(self, action: #selector(clickedMapButton(sender:)), for: .touchUpInside)
         
         return mapButton
     }()
@@ -148,7 +154,7 @@ class NearbyPlaceView: UIView {
         return detailContensContainer
     }()
     
-    private let introduceView: IntroduceView = {
+    let introduceView: IntroduceView = {
         let view = IntroduceView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -165,16 +171,28 @@ class NearbyPlaceView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
-        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
-        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
-        
-        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    init(office: Office) {
+        super.init(frame: .zero)
+        // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
+        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
+        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
+        setupOfficeData(office: office)
+        setupLayout()
+    }
+    
+    private func setupOfficeData(office: Office) {
+        self.office = office
+        placeLabel.text = office.officeName
+        locationLabel.text = office.regionName
+        Task {
+            await placeImageView.setImageURL(title: office.officeName, url: office.imageURL)
+        }
     }
     
     private func setupLayout() {
@@ -186,13 +204,6 @@ class NearbyPlaceView: UIView {
     
     private func setupScrollViewLayout() {
         addSubview(scrollView)
-        addSubview(dismissButton)
-        NSLayoutConstraint.activate([
-            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: topSafeArea + 8),
-            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            dismissButton.widthAnchor.constraint(equalToConstant: 44),
-            dismissButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -343,6 +354,11 @@ extension NearbyPlaceView {
         default:
             break
         }
+    }
+    
+    @objc
+    func clickedMapButton(sender: UIButton) {
+        delegate?.touch(office: office)
     }
 }
 

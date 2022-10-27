@@ -37,6 +37,8 @@ class EmojiPickerViewController: UIViewController, UICollectionViewDelegate {
 
     var dataSource: UICollectionViewDiffableDataSource<Section, String>?
     
+    var emojiTapped: ((_: String) -> Void)?
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .clear
@@ -189,7 +191,9 @@ extension EmojiPickerViewController {
             return
         }
         
-        print(emoji)
+        if let tapAction = self.emojiTapped {
+            tapAction(emoji)
+        }
         presentingViewController?.dismiss(animated: true)
     }
 }

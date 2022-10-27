@@ -44,6 +44,7 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
         var column: Int = 0
         
         collectionView.contentInset = .init(top: 20, left: 10, bottom: 20, right: 10)
+        collectionView.showsVerticalScrollIndicator = false
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)

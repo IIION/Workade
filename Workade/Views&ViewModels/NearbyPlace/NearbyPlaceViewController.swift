@@ -9,10 +9,15 @@ import UIKit
 
 class NearbyPlaceViewController: UIViewController {
     var office: Office
-    let nearbyPlaceView = NearbyPlaceView()
+    let nearbyPlaceView: NearbyPlaceView
+    let galleryVM: GalleryViewModel
+    let introduceVM: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
+        self.nearbyPlaceView = NearbyPlaceView(office: office)
+        self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL) ?? URL(string: "")!)
+        self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -20,12 +25,11 @@ class NearbyPlaceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var customNavigationBar: UIViewController!
+    private var customNavigationBar: CustomNavigationBar!
     private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     // Gallery 관련 프로퍼티
-    let galleryVM = GalleryViewModel(url: URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Office/opiecegallery.json")!)
     let transitionManager = CardTransitionMananger()
     var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
@@ -35,7 +39,6 @@ class NearbyPlaceViewController: UIViewController {
         label.text = "O - Peace"
         label.textColor = .theme.background
         label.font = .customFont(for: .title1)
-        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -53,11 +56,20 @@ class NearbyPlaceViewController: UIViewController {
         return button
     }()
     
+    lazy var closeButton: UIButton = {
+        let button = UIButton().closeButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         nearbyPlaceView.translatesAutoresizingMaskIntoConstraints = false
         nearbyPlaceView.scrollView.delegate = self
+        nearbyPlaceView.delegate = self
         nearbyPlaceView.detailScrollView.delegate = self
         navigationController?.isNavigationBarHidden = true
         
@@ -66,21 +78,82 @@ class NearbyPlaceViewController: UIViewController {
         nearbyPlaceView.galleryView.collectionView.delegate = self
         nearbyPlaceView.galleryView.layout.delegate = self
         
+        setupOfficeTitle()
         setupNearbyPlaceView()
         setupCustomNavigationBar()
-        
-        // GalleryView 패치
+        setupGalleryView()
+        setupIntroduceView()
+    }
+    
+    private func setupOfficeTitle() {
+        titleLabel.text = office.officeName
+    }
+    
+    private func setupGalleryView() {
         Task {
             await galleryVM.fetchImages()
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
     }
     
-    // TODO: 머지 이후 치콩이 작성한 네비게이션 바로 변경 예정입니다.
+    private func setupIntroduceView() {
+        Task {
+            await introduceVM.fetchData()
+        }
+        introduceVM.introductions.bind { contents in
+            for content in contents {
+                switch content.type {
+                case "Text":
+                    let label = UILabel()
+                    label.text = content.context
+                    if let font = content.font {
+                        label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
+                    }
+                    if let color = content.color {
+                        label.textColor = UIColor(named: color)
+                    }
+                    label.lineBreakMode = .byWordWrapping
+                    label.numberOfLines = 0
+                    label.setLineHeight(lineHeight: 12.0)
+                    self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(label)
+                case "Image":
+                    let imageView = UIImageView()
+                    let imageURL = content.context
+                    imageView.translatesAutoresizingMaskIntoConstraints = false
+                    Task {
+                        let image = await self.introduceVM.fetchImage(urlString: imageURL)
+                        imageView.image = image
+                        let width = image.size.width
+                        let height = image.size.height
+
+                        imageView.contentMode = .scaleToFill
+                        imageView.layer.cornerRadius = 20
+                        imageView.clipsToBounds = true
+
+                        imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
+                    }
+                    self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
     private func setupCustomNavigationBar() {
-        customNavigationBar = TempNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButton.currentImage)
+        // TODO: rightButtonImage에 지도 이미지 넣을 예정입니다. 현재 지도로 바로 이동이 힘들어 빈 이미지로 올립니다.
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.view.alpha = 0
         view.addSubview(customNavigationBar.view)
+        
+        view.addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
     
     private func setupNearbyPlaceView() {
@@ -99,7 +172,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    // 지도 뷰로 이동하는 로직 작성 예정
+    // TODO: 지도 뷰로 이동하는 로직 작성 예정
     @objc
     func clickedMapButton(sender: UIButton) {
         print("지도 클릭")
@@ -137,9 +210,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
             }
         default:
             break
-            
         }
-        
     }
 }
 
@@ -177,5 +248,13 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
         let aspectR = image.size.width / image.size.height
         
         return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
+    }
+}
+
+extension NearbyPlaceViewController: InnerTouchPresentDelegate {
+    func touch(office: Office) {
+        let viewController = MapViewController(office: office)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }

@@ -6,12 +6,10 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListCell: UICollectionViewCell {
-    var uncheckCount: Int = 0
-    var checkCount: Int = 0
-    var dDay: Int = 0
+    var checkListCellViewModel = CheckListCellViewModel()
+    
     var isDeleteMode = false {
         didSet {
             if isDeleteMode {
@@ -25,13 +23,17 @@ class CheckListCell: UICollectionViewCell {
         }
     }
     
+    private var uncheckLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .customFont(for: .footnote)
+        
+        return label
+    }()
+    
     private lazy var uncheckStack: UIStackView = {
         let uncheckImage = UIImageView(image: UIImage(systemName: "circle"))
-        let uncheckLabel = UILabel()
-        
         uncheckImage.tintColor = .black
-        uncheckLabel.text = "\(uncheckCount)"
-        uncheckLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [uncheckImage, uncheckLabel])
         stackView.axis = .horizontal
@@ -41,13 +43,17 @@ class CheckListCell: UICollectionViewCell {
         return stackView
     }()
     
+    private lazy var checkLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .customFont(for: .footnote)
+        
+        return label
+    }()
+    
     private lazy var checkStack: UIStackView = {
         let checkImage = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
-        let checkLabel = UILabel()
-        
         checkImage.tintColor = .black
-        checkLabel.text = "\(checkCount)"
-        checkLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [checkImage, checkLabel])
         stackView.axis = .horizontal
@@ -91,22 +97,26 @@ class CheckListCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "제목없음"
         label.font = .customFont(for: .subHeadline)
-        label.tintColor = .black
+        label.tintColor = .theme.primary
         
         return label
     }()
     
-    private lazy var dDayLabel: UILabel  = {
-        let label = UILabel()
-        label.text = "D - \(dDay)"
+    private lazy var dateLabel: UILabel  = {
+        let padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        let label = BasePaddingLabel(padding: padding)
+        label.text = "D - \(1)"
         label.font = .customFont(for: .caption)
-        label.tintColor = .black
+        label.tintColor = .theme.tertiary
+        label.backgroundColor = .theme.subGroupedBackground
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
         
         return label
     }()
     
     private lazy var labelStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, dDayLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
@@ -144,6 +154,32 @@ class CheckListCell: UICollectionViewCell {
     func setupCell(checkList: CheckList) {
         emojiLabel.text = checkList.emoji ?? "⚽️"
         titleLabel.text = checkList.title ?? "제목없음"
+        checkListCellViewModel.selectedCheckList = checkList
+        checkLabel.text = "\(checkListCellViewModel.checkCount)"
+        uncheckLabel.text = "\(checkListCellViewModel.uncheckCount)"
+        
+        if let targetDate = checkListCellViewModel.selectedCheckList?.travelDate {
+            dateLabel.text = generateDateLabelText(targetDate: targetDate)
+        }
+    }
+    
+    private func generateDateLabelText(targetDate: Date) -> String {
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        let date1 = calendar.startOfDay(for: Date())
+        let date2 = calendar.startOfDay(for: targetDate)
+        
+        if date1 == date2 {
+            return "D - day"
+        } else {
+            if let dDay = calendar.dateComponents([.day], from: date1, to: date2).day,
+               0 < dDay && dDay < 8 {
+                return "D - \(dDay)"
+            } else {
+                dateFormatter.dateFormat = "yyyy.MM.dd"
+                return dateFormatter.string(from: targetDate)
+            }
+        }
     }
 }
 
@@ -169,24 +205,5 @@ extension CheckListCell {
             verticalStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
             verticalStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -7)
         ])
-    }
-}
-
-struct CheckListCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = CheckListCell
-    
-    func makeUIView(context: Context) -> CheckListCell {
-        return CheckListCell()
-    }
-    
-    func updateUIView(_ uiView: CheckListCell, context: Context) {}
-}
-
-struct CheckListCellPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 165, height: 165)
-            .previewLayout(.sizeThatFits)
     }
 }

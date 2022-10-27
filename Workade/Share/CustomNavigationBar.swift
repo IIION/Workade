@@ -10,6 +10,7 @@ import UIKit
 class CustomNavigationBar: UIViewController {
     let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
+    var dismissAction: (() -> Void)?
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
@@ -100,14 +101,14 @@ class CustomNavigationBar: UIViewController {
     
     @objc
     func clickedCloseButton(sender: UIButton) {
-        // TODO: 버튼 활성화
-        print("Dissmiss View")
+        dismissAction?()
+        self.dismiss(animated: true)
     }
     
     @objc
     func clickedRightButton(sender: UIButton) {
         // TODO: 버튼 활성화
+        
         print("rightButton Clicked")
     }
-    
 }
