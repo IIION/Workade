@@ -49,10 +49,11 @@ struct Spot: Codable {
     }
 }
 
-enum SpotType {
+enum SpotType: String {
     case cafe
     case nature
     case restaurant
+    case sea
 }
 
 struct MagazineResource: Codable {
