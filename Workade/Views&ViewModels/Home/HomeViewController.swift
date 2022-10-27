@@ -54,8 +54,8 @@ final class HomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var officeCollectionView: HorizontalCollectionView = {
-        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
+    private lazy var officeCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(itemSize: CGSize(width: 280, height: 200), direction: .horizontal)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: OfficeCollectionViewCell.self)
@@ -80,8 +80,8 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var magazineCollectionView: HorizontalCollectionView = {
-        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 150, height: 200))
+    private lazy var magazineCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(itemSize: CGSize(width: 150, height: 200), direction: .horizontal)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
