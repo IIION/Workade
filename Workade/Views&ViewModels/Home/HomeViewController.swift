@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 final class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     
@@ -111,6 +112,7 @@ final class HomeViewController: UIViewController {
         setupStatusBar()
         
         observingFetchComplete()
+        observingChangedMagazineId()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,8 +164,21 @@ extension HomeViewController {
     private func observingFetchComplete() {
         viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
             guard let self = self else { return }
-            self.officeCollectionView.reloadData()
-            self.magazineCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.officeCollectionView.reloadData()
+                self.magazineCollectionView.reloadData()
+            }
+        }
+    }
+    
+    // 북마크
+    private func observingChangedMagazineId() {
+        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+            guard let self = self else { return }
+            guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
+            DispatchQueue.main.async {
+                self.magazineCollectionView.reloadItems(at: [.init(item: index, section: 0)])
+            }
         }
     }
 }
@@ -190,6 +205,7 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case magazineCollectionView:
             let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.delegate = self // 북마크
             cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
             return cell
         default:
@@ -218,11 +234,15 @@ extension HomeViewController: UICollectionViewDelegate {
     }
 }
 
-extension HomeViewController: OfficeCollectionViewCellDelegate {
+extension HomeViewController: CollectionViewCellDelegate {
     func didTapMapButton(office: Office) {
         let viewController = MapViewController()
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
+    }
+    
+    func didTapBookmarkButton(id: String) { // 북마크
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
     }
 }
 
