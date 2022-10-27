@@ -152,16 +152,28 @@ class NearbyPlaceView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
-        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
-        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
-        
-        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    init(office: Office) {
+        super.init(frame: .zero)
+        // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
+        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
+        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
+        
+        setupOfficeData(office: office)
+        setupLayout()
+    }
+    
+    private func setupOfficeData(office: Office) {
+        placeLabel.text = office.officeName
+        locationLabel.text = office.regionName
+        Task {
+            await placeImageView.setImageURL(title: office.officeName, url: office.imageURL)
+        }
     }
     
     private func setupLayout() {

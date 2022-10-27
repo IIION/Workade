@@ -9,12 +9,13 @@ import UIKit
 
 class NearbyPlaceViewController: UIViewController {
     var office: Office
-    let nearbyPlaceView = NearbyPlaceView()
+    let nearbyPlaceView: NearbyPlaceView
     let galleryVM: GalleryViewModel
     let introduceVM: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
+        self.nearbyPlaceView = NearbyPlaceView(office: office)
         self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL)!)
         self.introduceVM = IntroduceViewModel(url: URL(string: office.galleryURL)!)
         super.init(nibName: nil, bundle: nil)
