@@ -8,13 +8,20 @@
 import UIKit
 
 extension UIButton {
-    func setCloseButton() -> UIButton {
-        let config = UIImage.SymbolConfiguration(pointSize: 44, weight: .medium, scale: .default)
-
+    func closeButton() -> UIButton {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
-        button.tintColor = .theme.background
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
+        let xmarkImage = UIImage(systemName: "xmark", withConfiguration: imageConfig)
+        
+        button.setImage(xmarkImage, for: .normal)
+        button.tintColor = .theme.primary
+        button.backgroundColor = .theme.background
+        button.layer.cornerRadius = 22
 
+        if let imageView = button.imageView {
+            button.bringSubviewToFront(imageView)
+        }
+        
         return button
     }
 }

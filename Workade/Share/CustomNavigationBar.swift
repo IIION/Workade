@@ -31,7 +31,7 @@ class CustomNavigationBar: UIViewController {
     }()
     
     private lazy var closeButton: UIButton = {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .default)
         
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
