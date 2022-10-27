@@ -77,19 +77,21 @@ class NearbyPlaceViewController: UIViewController {
         nearbyPlaceView.galleryView.collectionView.delegate = self
         nearbyPlaceView.galleryView.layout.delegate = self
         
-        setupTitle()
+        setupOfficeTitle()
         setupNearbyPlaceView()
         setupCustomNavigationBar()
-        
-        // GalleryView 패치
+        setupGalleryView()
+    }
+    
+    private func setupOfficeTitle() {
+        titleLabel.text = office.officeName
+    }
+    
+    private func setupGalleryView() {
         Task {
             await galleryVM.fetchImages()
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
-    }
-    
-    private func setupTitle() {
-        titleLabel.text = office.officeName
     }
     
     private func setupCustomNavigationBar() {
