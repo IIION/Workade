@@ -9,9 +9,9 @@ import Foundation
 // MagazineDetailModel 모델
 struct MagazineDetailModel: Codable {
     let type: String
-    let font: String
+    let font: String?
     let context: String
-    let color: String
+    let color: String?
     
     enum CodingKeys: String, CodingKey {
         case type

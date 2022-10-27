@@ -32,6 +32,7 @@ class CellItemDetailViewController: UIViewController {
     
     let titleImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -76,7 +77,7 @@ class CellItemDetailViewController: UIViewController {
     }()
     
     private let magazineDetailView: MagazineDetailView = {
-        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""), magazineDetailContext: [])
+        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
