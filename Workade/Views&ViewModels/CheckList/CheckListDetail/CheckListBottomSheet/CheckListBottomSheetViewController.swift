@@ -156,36 +156,9 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let title = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row].title
-        let partialText = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row].tintString
-        let hexString = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row].tintColor
-        let attributedStr = NSMutableAttributedString(string: title)
-        attributedStr.addAttribute(.foregroundColor, value: hexStringToUIColor(hex: hexString), range: (title as NSString).range(of: partialText))
-        cell.titleLabel.attributedText = attributedStr
+        cell.setupCell(checkListTemplate: checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row])
         
         return cell
-    }
-    
-    func hexStringToUIColor (hex: String) -> UIColor {
-        var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
-        if cString.hasPrefix("#") {
-            cString.remove(at: cString.startIndex)
-        }
-
-        if (cString.count) != 6 {
-            return UIColor.gray
-        }
-
-        var rgbValue: UInt64 = 0
-        Scanner(string: cString).scanHexInt64(&rgbValue)
-
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
     }
 }
 
