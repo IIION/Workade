@@ -37,4 +37,3 @@ struct MagazineItemModel: Codable {
         case context
     }
 }
-
