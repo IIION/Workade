@@ -25,9 +25,7 @@ final class Binder<T: Equatable> {
     
     var value: T {
         didSet {
-            if oldValue != value {
-                block?(value)
-            }
+            block?(value)
         }
     }
     
