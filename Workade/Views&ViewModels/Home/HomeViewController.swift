@@ -94,6 +94,15 @@ class HomeViewController: UIViewController {
         return button
     }()
     
+    // 런치스크린
+    lazy var launchScreenView: LaunchScreenAnimationView = {
+        let view = LaunchScreenAnimationView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -101,6 +110,11 @@ class HomeViewController: UIViewController {
         setupScrollViewLayout()
         setupNavigationBar()
         setupLayout()
+    }
+}
+
+extension HomeViewController: LaunchScreenTimingDelegate {
+    func finishLaunchScreen() {
         setupStatusBar()
     }
 }
@@ -146,6 +160,9 @@ extension HomeViewController {
             contentView.addSubview($0)
         }
         
+        // 런치스크린
+        view.addSubview(launchScreenView)
+        
         NSLayoutConstraint.activate([
             navigationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             navigationView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
@@ -189,6 +206,14 @@ extension HomeViewController {
             checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+        ])
+        
+        // 런치스크린
+        NSLayoutConstraint.activate([
+            launchScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            launchScreenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            launchScreenView.topAnchor.constraint(equalTo: view.topAnchor),
+            launchScreenView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
