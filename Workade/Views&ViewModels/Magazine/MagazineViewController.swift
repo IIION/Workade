@@ -39,8 +39,34 @@ class MagazineViewController: UIViewController {
         return line
     }()
     
-    private let tapDetailViewContoller: TapDetailViewController = {
-        let viewController = TapDetailViewController()
+    // TODO: titleArray 값들 더미 -> 데이터 연결시 동적으로 적용
+    private let totalDetailViewContoller: TapDetailViewController = {
+        let viewController = TapDetailViewController(titleArray: ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소", "워케이션\n센터주변 맛집정보", "테스트\n입니다."])
+        viewController.view.isHidden = false
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewController
+    }()
+    
+    private let tipDetailViewContoller: TapDetailViewController = {
+        let viewController = TapDetailViewController(titleArray: ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소"])
+        viewController.view.isHidden = true
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewController
+    }()
+    
+    private let columnDetailViewContoller: TapDetailViewController = {
+        let viewController = TapDetailViewController(titleArray: ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언"])
+        viewController.view.isHidden = true
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewController
+    }()
+    
+    private let reviewDetailViewContoller: TapDetailViewController = {
+        let viewController = TapDetailViewController(titleArray: ["내 성격에 맞는\n장소 찾는 법"])
+        viewController.view.isHidden = true
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         return viewController
@@ -117,12 +143,36 @@ class MagazineViewController: UIViewController {
     }
     
     private func setupLayoutDetailView() {
-        view.addSubview(tapDetailViewContoller.view)
+        view.addSubview(totalDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            tapDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            tapDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tapDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tapDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
+            totalDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            totalDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            totalDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        view.addSubview(tipDetailViewContoller.view)
+        NSLayoutConstraint.activate([
+            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
+            tipDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tipDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        view.addSubview(columnDetailViewContoller.view)
+        NSLayoutConstraint.activate([
+            columnDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
+            columnDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            columnDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            columnDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        view.addSubview(reviewDetailViewContoller.view)
+        NSLayoutConstraint.activate([
+            reviewDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
+            reviewDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            reviewDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            reviewDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -147,13 +197,25 @@ class MagazineViewController: UIViewController {
     func tabClicked(tab: UISegmentedControl) {
         switch tab.selectedSegmentIndex {
         case 0:
-            tapDetailViewContoller.tapDetailCollectionView.reloadData()
+            totalDetailViewContoller.view.isHidden = false
+            tipDetailViewContoller.view.isHidden = true
+            columnDetailViewContoller.view.isHidden = true
+            reviewDetailViewContoller.view.isHidden = true
         case 1:
-            tapDetailViewContoller.tapDetailCollectionView.reloadData()
+            totalDetailViewContoller.view.isHidden = true
+            tipDetailViewContoller.view.isHidden = false
+            columnDetailViewContoller.view.isHidden = true
+            reviewDetailViewContoller.view.isHidden = true
         case 2:
-            tapDetailViewContoller.tapDetailCollectionView.reloadData()
+            totalDetailViewContoller.view.isHidden = true
+            tipDetailViewContoller.view.isHidden = true
+            columnDetailViewContoller.view.isHidden = false
+            reviewDetailViewContoller.view.isHidden = true
         case 3:
-            tapDetailViewContoller.tapDetailCollectionView.reloadData()
+            totalDetailViewContoller.view.isHidden = true
+            tipDetailViewContoller.view.isHidden = true
+            columnDetailViewContoller.view.isHidden = true
+            reviewDetailViewContoller.view.isHidden = false
         default:
             return
         }
