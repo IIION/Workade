@@ -10,8 +10,6 @@ import SwiftUI
 
 class CheckListTemplateCell: UICollectionViewCell {
     
-    let model: CheckListTemplateModel = CheckListTemplateModel.sample
-    
     lazy var plusButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.custom)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 13, weight: .bold)
@@ -41,7 +39,7 @@ class CheckListTemplateCell: UICollectionViewCell {
     }()
     
     lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: model.image)
+        let imageView = UIImageView(image:UIImage())
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,8 +53,8 @@ class CheckListTemplateCell: UICollectionViewCell {
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let attributedStr = NSMutableAttributedString(string: model.title)
-        attributedStr.addAttribute(.foregroundColor, value: model.color, range: (model.title as NSString).range(of: model.partialText))
+        let attributedStr = NSMutableAttributedString(string: "하이하이")
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.black, range: ("하이하이" as NSString).range(of: "하이"))
         label.attributedText = attributedStr
         
         return label
