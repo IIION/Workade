@@ -7,9 +7,26 @@
 
 import UIKit
 
+protocol InnerTouchPresentDelegate {
+    func touch(office: Office)
+}
+
 class NearbyPlaceView: UIView {
+    
+    var delegate: InnerTouchPresentDelegate?
+    
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
+    
+    var office: Office = Office(
+        officeName: "",
+        regionName: "",
+        imageURL: "",
+        introduceURL: "",
+        galleryURL: "",
+        latitude: 0.0,
+        longitude: 0.0,
+        spots: [])
     
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
@@ -83,6 +100,7 @@ class NearbyPlaceView: UIView {
         blur.layer.cornerRadius = 0.5 * mapButton.bounds.size.height
         blur.clipsToBounds = true
         mapButton.insertSubview(blur, belowSubview: mapButton.imageView!)
+        mapButton.addTarget(self, action: #selector(clickedMapButton(sender:)), for: .touchUpInside)
         
         return mapButton
     }()
@@ -169,6 +187,7 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupOfficeData(office: Office) {
+        self.office = office
         placeLabel.text = office.officeName
         locationLabel.text = office.regionName
         Task {
@@ -335,6 +354,11 @@ extension NearbyPlaceView {
         default:
             break
         }
+    }
+    
+    @objc
+    func clickedMapButton(sender: UIButton) {
+        delegate?.touch(office: office)
     }
 }
 

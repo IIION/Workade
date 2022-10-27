@@ -10,6 +10,7 @@ import UIKit
 
 class MapViewController: UIViewController {
     // Binding 객체
+    var office: Office
     var latitude = 33.533054
     var longitude = 126.630947
     var officeName = "제주 O-PEACE"
@@ -134,14 +135,16 @@ class MapViewController: UIViewController {
         return button
     }()
     
-    init(latitude: Double, longitude: Double, officeName: String) {
+    init(office: Office, latitude: Double, longitude: Double, officeName: String) {
+        self.office = office
         super.init(nibName: nil, bundle: nil)
         self.latitude = latitude
         self.longitude = longitude
         self.officeName = officeName
     }
     
-    init() {
+    init(office: Office) {
+        self.office = office
         super.init(nibName: nil, bundle: nil)
     }
     

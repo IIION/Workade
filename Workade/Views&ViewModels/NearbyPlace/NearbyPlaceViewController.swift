@@ -69,6 +69,7 @@ class NearbyPlaceViewController: UIViewController {
         view.backgroundColor = .white
         nearbyPlaceView.translatesAutoresizingMaskIntoConstraints = false
         nearbyPlaceView.scrollView.delegate = self
+        nearbyPlaceView.delegate = self
         nearbyPlaceView.detailScrollView.delegate = self
         navigationController?.isNavigationBarHidden = true
         
@@ -140,7 +141,8 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButton.currentImage)
+        // TODO: rightButtonImage에 지도 이미지 넣을 예정입니다. 현재 지도로 바로 이동이 힘들어 빈 이미지로 올립니다.
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.view.alpha = 0
         view.addSubview(customNavigationBar.view)
@@ -246,5 +248,13 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
         let aspectR = image.size.width / image.size.height
         
         return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
+    }
+}
+
+extension NearbyPlaceViewController: InnerTouchPresentDelegate {
+    func touch(office: Office) {
+        let viewController = MapViewController(office: office)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }
