@@ -98,22 +98,26 @@ class CheckListCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "제목없음"
         label.font = .customFont(for: .subHeadline)
-        label.tintColor = .black
+        label.tintColor = .theme.primary
         
         return label
     }()
     
-    private lazy var dDayLabel: UILabel  = {
-        let label = UILabel()
+    private lazy var dateLabel: UILabel  = {
+        let padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        let label = BasePaddingLabel(padding: padding)
         label.text = "D - \(1)"
         label.font = .customFont(for: .caption)
-        label.tintColor = .black
+        label.tintColor = .theme.tertiary
+        label.backgroundColor = .theme.subGroupedBackground
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
         
         return label
     }()
     
     private lazy var labelStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, dDayLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
@@ -154,6 +158,25 @@ class CheckListCell: UICollectionViewCell {
         checkListCellViewModel.selectedCheckList = checkList
         checkLabel.text = "\(checkListCellViewModel.checkCount)"
         uncheckLabel.text = "\(checkListCellViewModel.uncheckCount)"
+        
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        if let targetDate = checkListCellViewModel.selectedCheckList?.travelDate {
+            let date1 = calendar.startOfDay(for: Date())
+            let date2 = calendar.startOfDay(for: targetDate)
+            
+            if date1 == date2 {
+                dateLabel.text = "D - day"
+            } else {
+                if let dDay = calendar.dateComponents([.day], from: date1, to: date2).day,
+                   0 < dDay && dDay < 8 {
+                    dateLabel.text = "D - \(dDay)"
+                } else {
+                    dateFormatter.dateFormat = "yyyy.MM.dd"
+                    dateLabel.text = dateFormatter.string(from: targetDate)
+                }
+            }
+        }
     }
 }
 

@@ -38,6 +38,7 @@ struct CheckListViewModel {
         newCheckList.cid = UUID().uuidString
         newCheckList.title = "제목없음"
         newCheckList.emoji = generatRandomEmoji()
+        newCheckList.travelDate = Date()
         self.checkList.append(newCheckList)
         
         self.saveCheckList()

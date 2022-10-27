@@ -14,7 +14,6 @@ class CheckListDetailViewController: UIViewController {
     var selectedCheckList: CheckList? {
         didSet {
             checkListDetailViewModel.selectedCheckList = selectedCheckList
-            datePicker.date = selectedCheckList?.travelDate ?? Date()
             self.checklistTableView.reloadData()
         }
     }
@@ -71,13 +70,15 @@ class CheckListDetailViewController: UIViewController {
         return label
     }()
     
-    private let datePicker: UIDatePicker = {
+    lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko-KR")
         datePicker.timeZone = .autoupdatingCurrent
         datePicker.tintColor = .theme.primary
+        datePicker.date = selectedCheckList?.travelDate ?? Date()
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
         return datePicker
     }()
@@ -252,6 +253,13 @@ class CheckListDetailViewController: UIViewController {
         emojiPickerViewController.emojiTapped = fetchEmoji
         self.present(UINavigationController(rootViewController: emojiPickerViewController), animated: true)
     }
+    
+    @objc private func dateChanged() {
+        guard let targetCheckList = selectedCheckList else { return }
+        targetCheckList.travelDate = datePicker.date
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+    }
+    
 }
 
 extension CheckListDetailViewController {
