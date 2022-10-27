@@ -64,14 +64,13 @@ extension TapDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension TapDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cellItemDetailViewController = CellItemDetailViewController(label: self.magazineList[indexPath.row].title)
+        let cellItemDetailViewController = CellItemDetailViewController(magazine: self.magazineList[indexPath.row])
         
         cellItemDetailViewController.modalPresentationStyle = .overFullScreen
         present(cellItemDetailViewController, animated: true)
     }
 }
 
-// TODO: 추후 요청으로 처리
 extension TapDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return magazineList.count

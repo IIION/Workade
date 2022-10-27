@@ -8,8 +8,8 @@
 import UIKit
 
 class CellItemDetailViewController: UIViewController {
-    // Binding
-    var label: String?
+    var magazine: Magazine = Magazine(title: "", imageURL: "", introduceURL: "")
+    private var task: Task<Void, Error>?
     
     private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
@@ -33,8 +33,6 @@ class CellItemDetailViewController: UIViewController {
     let titleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        // TODO: 추후 데이터 연결하여 동적으로 이미지 받아오도록 수정
-        imageView.image = UIImage(named: "sampleTipImage") ?? UIImage()
         
         return imageView
     }()
@@ -86,9 +84,10 @@ class CellItemDetailViewController: UIViewController {
     
     private var customNavigationBar: UIViewController!
     
-    init(label: String?) {
+    init(magazine: Magazine) {
         super.init(nibName: nil, bundle: nil)
-        self.label = label
+        
+        self.magazine = magazine
     }
     
     required init?(coder: NSCoder) {
@@ -98,7 +97,10 @@ class CellItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        titleLabel.text = label ?? "정보를 불러올 수 없습니다."
+        titleLabel.text = magazine.title ?? "정보를 불러올 수 없습니다."
+        task = Task {
+            await titleImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
+        }
         
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
         scrollView.delegate = self

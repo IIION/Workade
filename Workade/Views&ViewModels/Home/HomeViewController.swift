@@ -209,7 +209,7 @@ extension HomeViewController: UICollectionViewDelegate {
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         case magazineCollectionView:
-            let viewController = CellItemDetailViewController(label: nil)
+            let viewController = CellItemDetailViewController(magazine: viewModel.magazineResource.content[indexPath.row])
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         default:
