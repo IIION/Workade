@@ -83,12 +83,20 @@ class CheckListViewController: UIViewController {
     }
     
     @objc private func deleteButtonPressed(_ sender: UIButton) {
-        guard let cid = self.checkListViewModel.checkList[sender.tag].cid else { return }
-        NotificationCenter.default.post(
-            name: NSNotification.Name("deleteCheckList"),
-            object: cid,
-            userInfo: nil
-        )
+        let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            guard let cid = self.checkListViewModel.checkList[sender.tag].cid else { return }
+            NotificationCenter.default.post(
+                name: NSNotification.Name("deleteCheckList"),
+                object: cid,
+                userInfo: nil
+            )
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(alert, animated: true)
     }
     
     @objc func deleteCheckListNotification(_ notification: Notification) {

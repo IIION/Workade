@@ -202,8 +202,16 @@ class CheckListDetailViewController: UIViewController {
     }
     
     @objc private func deleteButtonPressed(_ sender: UIBarButtonItem) {
-        checkListDetailViewModel.deleteCheckList()
-        self.navigationController?.popViewController(animated: true)
+        let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.checkListDetailViewModel.deleteCheckList()
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+    
+        self.present(alert, animated: true)
     }
     
     @objc private func addButtonPressed(_ sender: UIButton) {
