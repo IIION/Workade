@@ -13,7 +13,6 @@ class CheckListBottomSheetViewController: UIViewController {
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
