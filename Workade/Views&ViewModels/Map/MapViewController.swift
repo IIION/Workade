@@ -9,17 +9,75 @@ import NMapsMap
 import UIKit
 
 class MapViewController: UIViewController {
-    //Binding 객체
+    // Binding 객체
     var latitude = 33.533054
     var longitude = 126.630947
     var officeName = "제주 O-PEACE"
+    var nearbyPlaces = [
+        [
+          "title": "폴스키친",
+          "latitude": 33.5352183,
+          "longitude": 126.6279621,
+          "type": "restaurant"
+        ],
+        [
+          "title": "Ly-Rics",
+          "latitude": 33.5351693,
+          "longitude": 126.6283361,
+          "type": "restaurant"
+        ],
+        [
+          "title": "해오름가든",
+          "latitude": 33.5319835,
+          "longitude": 126.6265803,
+          "type": "restaurant"
+        ],
+        [
+          "title": "청우가든",
+          "latitude": 33.5306844,
+          "longitude": 126.6259431,
+          "type": "restaurant"
+        ],
+        [
+          "title": "신촌풍경",
+          "latitude": 33.5316173,
+          "longitude": 126.628933,
+          "type": "restaurant"
+        ],
+        [
+          "title": "별장가든",
+          "latitude": 33.5357333,
+          "longitude": 126.6314383,
+          "type": "restaurant"
+        ],
+        [
+          "title": "가베또롱",
+          "latitude": 33.5348947,
+          "longitude": 126.6294292,
+          "type": "cafe"
+        ],
+        [
+          "title": "딜레탕트",
+          "latitude": 33.5350575,
+          "longitude": 126.628334,
+          "type": "cafe"
+        ],
+        [
+          "title": "조천리 앞 바다",
+          "latitude": 33.5353119,
+          "longitude": 126.6290835,
+          "type": "nature"
+        ]
+      ]
+    
+    // 현재 선택된 핀(Marker)
+    private var currentPin: NMFMarker? = nil
     
     init(latitude: Double, longitude: Double, officeName: String) {
         super.init(nibName: nil, bundle: nil)
         self.latitude = latitude
         self.longitude = longitude
         self.officeName = officeName
-        
     }
     
     init() {
@@ -71,9 +129,19 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        map.frame = view.frame
+        map.touchDelegate = self
         
-        setupNMap()
         setupLayout()
+    }
+    
+    private var setNMap = true
+    override func viewDidLayoutSubviews() {
+        if setNMap {
+            setNMap = false
+            setupNMap()
+        }
+        setCameraMap()
     }
     
     private func setupLayout() {
@@ -107,60 +175,85 @@ class MapViewController: UIViewController {
     }
     
     @objc private func backButtonDown() {
-        var cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
-        cameraUpdate.animation = .fly
-        cameraUpdate.animationDuration = 1
-        map.moveCamera(cameraUpdate)
+        setCameraMap()
     }
 }
 
-//지도에 관한 Extention입니다.
+// 지도에 관한 Extention입니다.
 extension MapViewController {
     private func setupNMap() {
-        map.frame = view.frame
-        setCameraMap()
         setMarkOfficePlace()
+        setCameraMap()
     }
     
     private func setCameraMap() {
-        var cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
-        cameraUpdate.animation = .fly
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
+        cameraUpdate.animation = .none
         cameraUpdate.animationDuration = 1
         map.moveCamera(cameraUpdate)
     }
     
     private func setMarkOfficePlace() {
-        let officeMarker = NMFMarker()
-        
-        officeMarker.position = NMGLatLng(lat: latitude, lng: longitude)
-        officeMarker.captionText = officeName
-        
-        let closure: (NMFOverlay) -> Bool = { overlay in
-            print("Heeloooo")
+        let clickedMarker: (NMFOverlay) -> Bool = { [weak self] marker in
+            guard let marker = marker as? NMFMarker else { return false }
+            let cureentImage = marker.iconImage
+            switch marker.tag {
+            case Pin.cafe.rawValue: marker.iconImage = NMFOverlayImage(name: "selectedcafepin")
+            case Pin.restaurant.rawValue: marker.iconImage = NMFOverlayImage(name: "selectedrestaurantpin")
+            case Pin.sea.rawValue: marker.iconImage = NMFOverlayImage(name: "selectedseapin")
+            case Pin.nature.rawValue: marker.iconImage = NMFOverlayImage(name: "selectednaturepin")
+            default: marker.iconImage = cureentImage
+            }
+            
+            switch self?.currentPin?.tag {
+            case Pin.cafe.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "cafepin")
+            case Pin.restaurant.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "restaurantpin")
+            case Pin.sea.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "seapin")
+            case Pin.nature.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "naturepin")
+            default: print(self?.currentPin?.tag)
+            }
+            
+            self?.currentPin = marker
+            
             return true
         }
-        officeMarker.touchHandler = closure
         
-        let officeInfo = NMFInfoWindow()
-        let officeSource = NMFInfoWindowDefaultTextSource.data()
-        officeSource.title = "누르면 나오는 정보"
-        officeInfo.dataSource = officeSource
-        
-        officeInfo.open(with: officeMarker)
-
-        
-        officeMarker.mapView = map
-        
-        map.touchDelegate = self
+        nearbyPlaces.forEach { place in
+            let marker = NMFMarker()
+            
+            guard let latitude = place["latitude"] as? Double, let longitude = place["longitude"] as? Double else { return }
+            marker.position = NMGLatLng(lat: latitude, lng: longitude)
+            
+            guard let title = place["title"] as? String else { return }
+            marker.captionText = title
+            
+            marker.touchHandler = clickedMarker
+            
+            guard let type = place["type"] as? String, let pinImage = UIImage(named: "\(type)pin") else { return }
+            marker.iconImage = NMFOverlayImage(image: pinImage)
+            
+            switch type {
+            case "cafe": marker.tag = Pin.cafe.rawValue
+            case "nature": marker.tag = Pin.nature.rawValue
+            case "sea": marker.tag = Pin.sea.rawValue
+            case "restaurant": marker.tag = Pin.restaurant.rawValue
+            default: marker.tag = UInt.init(-1)
+            }
+    
+            marker.mapView = map
+            print(title)
+        }
         
     }
 }
 
 extension MapViewController: NMFMapViewTouchDelegate {
+    // 네이버 지도가 터치 되었을 때에 실행되는 함수
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         print(point.debugDescription)
     }
     
+    // 네이버 지도가 심볼을 터치 했을 때에 실행되는 함수
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
         print(symbol.debugDescription)
         return true
