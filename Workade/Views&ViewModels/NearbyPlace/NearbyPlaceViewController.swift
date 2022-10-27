@@ -53,6 +53,14 @@ class NearbyPlaceViewController: UIViewController {
         return button
     }()
     
+    lazy var closeButton: UIButton = {
+        let button = UIButton().closeButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -76,11 +84,18 @@ class NearbyPlaceViewController: UIViewController {
         }
     }
     
-    // TODO: 머지 이후 치콩이 작성한 네비게이션 바로 변경 예정입니다.
     private func setupCustomNavigationBar() {
         customNavigationBar = TempNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButton.currentImage)
         customNavigationBar.view.alpha = 0
         view.addSubview(customNavigationBar.view)
+        
+        view.addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
     
     private func setupNearbyPlaceView() {
@@ -137,9 +152,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
             }
         default:
             break
-            
         }
-        
     }
 }
 

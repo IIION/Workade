@@ -58,24 +58,11 @@ class NearbyPlaceView: UIView {
     let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.text = "O-Peace"
-        // TODO: AccentTitle1 폰트와 background_Light 컬러가 없습니다. 추후 변경할 예정입니다.
         placeLabel.font = UIFont.customFont(for: .title1)
         placeLabel.textColor = .white
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return placeLabel
-    }()
-    
-    // TODO: 머지 이후 치콩이 작성한 dismissButton으로 수정 예정입니다.
-    let dismissButton: UIButton = {
-        let dismissButton = UIButton()
-        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 22, weight: .semibold))
-        var image = UIImage(systemName: "xmark", withConfiguration: configuration)
-        image = image?.withTintColor(.red)
-        dismissButton.setImage(image, for: .normal)
-        
-        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        return dismissButton
     }()
     
     lazy var mapButton: UIButton = {
@@ -186,13 +173,6 @@ class NearbyPlaceView: UIView {
     
     private func setupScrollViewLayout() {
         addSubview(scrollView)
-        addSubview(dismissButton)
-        NSLayoutConstraint.activate([
-            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: topSafeArea + 8),
-            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            dismissButton.widthAnchor.constraint(equalToConstant: 44),
-            dismissButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
