@@ -7,18 +7,18 @@
 
 import UIKit
 
-class TipDetailViewController: UIViewController {
+class TapDetailViewController: UIViewController {
     // TODO: 임시 데이터 -> 추후 요청으로 수정
     let titleArray = ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소", "워케이션\n센터주변 맛집정보"]
     
-    private let tipDetailCollectionView: UICollectionView = {
+    let tapDetailCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = 20
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
-        collectionView.register(TipDetailCell.self, forCellWithReuseIdentifier: TipDetailCell.identifier)
+        collectionView.register(TapDetailCell.self, forCellWithReuseIdentifier: TapDetailCell.identifier)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -27,24 +27,24 @@ class TipDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tipDetailCollectionView.dataSource = self
-        tipDetailCollectionView.delegate = self
+        tapDetailCollectionView.dataSource = self
+        tapDetailCollectionView.delegate = self
         
         setupLayout()
     }
     
     func setupLayout() {
-        view.addSubview(tipDetailCollectionView)
+        view.addSubview(tapDetailCollectionView)
         NSLayoutConstraint.activate([
-            tipDetailCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tipDetailCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            tipDetailCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
-            tipDetailCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tapDetailCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tapDetailCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tapDetailCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+            tapDetailCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
 
-extension TipDetailViewController: UICollectionViewDelegateFlowLayout {
+extension TapDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -54,23 +54,23 @@ extension TipDetailViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension TipDetailViewController: UICollectionViewDelegate {
+extension TapDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tipItemDetailViewController = TipItemDetailViewController(label: self.titleArray[indexPath.row])
+        let cellItemDetailViewController = CellItemDetailViewController(label: self.titleArray[indexPath.row])
         
-        tipItemDetailViewController.modalPresentationStyle = .overFullScreen
-        present(tipItemDetailViewController, animated: true)
+        cellItemDetailViewController.modalPresentationStyle = .overFullScreen
+        present(cellItemDetailViewController, animated: true)
     }
 }
 
 // TODO: 추후 요청으로 처리
-extension TipDetailViewController: UICollectionViewDataSource {
+extension TapDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titleArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TipDetailCell.identifier, for: indexPath) as? TipDetailCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TapDetailCell.identifier, for: indexPath) as? TapDetailCell else {
             return UICollectionViewCell()
         }
         cell.titleLabel.text = titleArray[indexPath.row]

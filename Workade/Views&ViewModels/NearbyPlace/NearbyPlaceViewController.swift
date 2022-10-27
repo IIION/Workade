@@ -8,11 +8,27 @@
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
-    private let nearbyPlaceView = NearbyPlaceView()
+    var office: Office
+    let nearbyPlaceView = NearbyPlaceView()
+    
+    init(office: Office) {
+        self.office = office
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var customNavigationBar: UIViewController!
     private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    
+    // Gallery 관련 프로퍼티
+    let galleryVM = GalleryViewModel(url: URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Office/opiecegallery.json")!)
+    let transitionManager = CardTransitionMananger()
+    var columnSpacing: CGFloat = 20
+    var isLoading: Bool = false
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -45,9 +61,19 @@ class NearbyPlaceViewController: UIViewController {
         nearbyPlaceView.detailScrollView.delegate = self
         navigationController?.isNavigationBarHidden = true
         
+        // GalleryView 델리게이트 위임
+        nearbyPlaceView.galleryView.collectionView.dataSource = self
+        nearbyPlaceView.galleryView.collectionView.delegate = self
+        nearbyPlaceView.galleryView.layout.delegate = self
+        
         setupNearbyPlaceView()
         setupCustomNavigationBar()
         
+        // GalleryView 패치
+        Task {
+            await galleryVM.fetchImages()
+            nearbyPlaceView.galleryView.collectionView.reloadData()
+        }
     }
     
     // TODO: 머지 이후 치콩이 작성한 네비게이션 바로 변경 예정입니다.
@@ -82,7 +108,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let totalOffset = scrollView.contentOffset.y
         let detailOffset = nearbyPlaceView.detailScrollView.contentOffset.y
-       
+        
         switch scrollView {
         case nearbyPlaceView.scrollView:
             if totalOffset > 0 {
@@ -114,5 +140,42 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
             
         }
         
+    }
+}
+
+// GalleryView(collectionView 델리게이트 익스텐션)
+extension NearbyPlaceViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return galleryVM.images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let identifier = GalleryCollectionViewCell.identifier
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? GalleryCollectionViewCell
+        cell?.imageView.image = galleryVM.images[indexPath.row]
+        guard let cell = cell else { fatalError() }
+        
+        return cell
+    }
+}
+
+extension NearbyPlaceViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let image = galleryVM.images[indexPath.row]
+        let viewController = GalleryDetailViewController()
+        viewController.image = image
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.transitioningDelegate = transitionManager
+        self.present(viewController, animated: true)
+        return true
+    }
+}
+
+extension NearbyPlaceViewController: TwoLineLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let image = galleryVM.images[indexPath.row]
+        let aspectR = image.size.width / image.size.height
+        
+        return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
     }
 }

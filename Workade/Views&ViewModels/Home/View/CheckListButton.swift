@@ -14,9 +14,9 @@ import UIKit
 /// 이미지가 제목 앞에 없는 디자인의 경우 이미지에 nil주면 됩니다.
 /// 반대로 이미지가 있는 경우는 원하는 이미지를 넣어주면 됩니다.
 /// 이렇게 선언한 후, layer, 버튼 layout영역만 따로 정의해서 사용하면 됩니다.
-class NavigateButton: UIButton {
-    var image: UIImage?
-    let text: String
+final class NavigateButton: UIButton {
+    private var image: UIImage?
+    private let text: String
     
     private lazy var stackView: UIStackView = {
         let imageView = UIImageView(image: image)
@@ -53,7 +53,7 @@ class NavigateButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         addSubview(stackView)
         addSubview(chevronView)
         

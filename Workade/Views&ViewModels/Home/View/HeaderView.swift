@@ -10,7 +10,7 @@ import UIKit
 /// 컬렉션 뷰 상단의 제목 겸 네비게이션 푸시 기능을 하는 뷰입니다.
 ///
 /// 추후 비슷한 류의 가로 컬렉션뷰가 많아진다면 재사용할 일이 많을 듯하여 따로 뺐습니다.
-class HeaderView: UIStackView {
+final class HeaderView: UIStackView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .headline)
@@ -41,7 +41,7 @@ class HeaderView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         addArrangedSubview(titleLabel)
         addArrangedSubview(pushButton)
         

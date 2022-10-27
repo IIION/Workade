@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TipItemDetailViewController: UIViewController {
+class CellItemDetailViewController: UIViewController {
     // Binding
     var label: String?
     
@@ -47,7 +47,7 @@ class TipItemDetailViewController: UIViewController {
     }()
     
     lazy var closeButton: UIButton = {
-        let button = UIButton().setCloseButton()
+        let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
         
@@ -113,8 +113,10 @@ class TipItemDetailViewController: UIViewController {
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: titleImageView.topAnchor, constant: topSafeArea + 10),
-            closeButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20)
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         contentsContainer.addSubview(titleLabel)
@@ -182,7 +184,9 @@ class TipItemDetailViewController: UIViewController {
     }
     
     func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: bookmarkButton.currentImage)
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .default)
+        
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
         customNavigationBar.view.alpha = 0
     }
     
@@ -205,16 +209,18 @@ class TipItemDetailViewController: UIViewController {
     }
 }
 
-extension TipItemDetailViewController: UIScrollViewDelegate {
+extension CellItemDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentScrollYOffset = scrollView.contentOffset.y
         
         if currentScrollYOffset > defaultScrollYOffset {
             customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
+            closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
         } else {
             customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1
+            closeButton.alpha = 1
         }
     }
 }

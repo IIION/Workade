@@ -7,7 +7,9 @@
 
 import UIKit
 
-class MyPageViewController: UIViewController {
+final class MyPageViewController: UIViewController {
+    private let viewModel = MyPageViewModel()
+    
     private let titleView = TitleView(title: "매거진")
     
     private let wishLabel: UILabel = {
@@ -75,15 +77,15 @@ extension MyPageViewController: UICollectionViewDataSource {
 // MARK: Delegate
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = TipItemDetailViewController(label: nil)
+        let viewController = CellItemDetailViewController(label: nil)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }
 }
 
 // MARK: UI setup 관련 Methods
-extension MyPageViewController {
-    private func setupNavigationBar() {
+private extension MyPageViewController {
+    func setupNavigationBar() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
@@ -111,7 +113,7 @@ extension MyPageViewController {
         view.layer.addSublayer(layer)
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         view.addSubview(titleView)
         view.addSubview(wishLabel)
         view.addSubview(wishMagazineCollectionView)

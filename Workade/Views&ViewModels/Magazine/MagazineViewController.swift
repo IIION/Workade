@@ -8,6 +8,10 @@
 import UIKit
 
 class MagazineViewController: UIViewController {
+    // total로 명시한 이유 -> 추후에는 여기서 Magazine의 category에 맞게 분류하는 작업이 이뤄져야할 것입니다.
+    // 지금은 넘기는 형태이지만, 추후에는 매거진뷰컨의 뷰모델이 바로 이미지를 불러도됩니다. 그럼 적절히 캐시에 있는 매거진은 빠르게, 그렇지않으면 조금의 로딩 후에 들어올 것입니다.
+    var totalMagazine: [Magazine]?
+    
     // MARK: 컴포넌트 설정
     private let viewTitle: UILabel = {
         let label = UILabel()
@@ -35,33 +39,8 @@ class MagazineViewController: UIViewController {
         return line
     }()
     
-    private let totalDetailViewContoller: UIViewController = {
-        let viewController = TotalDetailViewController()
-        viewController.view.isHidden = false
-        viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return viewController
-    }()
-    
-    private let tipDetailViewContoller: UIViewController = {
-        let viewController = TipDetailViewController()
-        viewController.view.isHidden = true
-        viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return viewController
-    }()
-    
-    private let columnDetailViewController: UIViewController = {
-        let viewController = ColumnDetailViewController()
-        viewController.view.isHidden = true
-        viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return viewController
-    }()
-    
-    private let reviewDetailViewController: UIViewController = {
-        let viewController = ReviewDetailViewController()
-        viewController.view.isHidden = true
+    private let tapDetailViewContoller: TapDetailViewController = {
+        let viewController = TapDetailViewController()
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         return viewController
@@ -138,36 +117,12 @@ class MagazineViewController: UIViewController {
     }
     
     private func setupLayoutDetailView() {
-        view.addSubview(totalDetailViewContoller.view)
+        view.addSubview(tapDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            totalDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            totalDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            totalDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-        
-        view.addSubview(tipDetailViewContoller.view)
-        NSLayoutConstraint.activate([
-            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            tipDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tipDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        view.addSubview(columnDetailViewController.view)
-        NSLayoutConstraint.activate([
-            columnDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            columnDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            columnDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            columnDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-        
-        view.addSubview(reviewDetailViewController.view)
-        NSLayoutConstraint.activate([
-            reviewDetailViewController.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            reviewDetailViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            reviewDetailViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            reviewDetailViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tapDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
+            tapDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tapDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tapDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -187,33 +142,18 @@ class MagazineViewController: UIViewController {
         self.customTab.selectedSegmentIndex = 0
     }
     
+    // 전체, 팁, 칼럼, 후기 데이터에 따라 분기하여 리로드
     @objc
     func tabClicked(tab: UISegmentedControl) {
         switch tab.selectedSegmentIndex {
         case 0:
-            totalDetailViewContoller.view.isHidden = false
-            tipDetailViewContoller.view.isHidden = true
-            columnDetailViewController.view.isHidden = true
-            reviewDetailViewController.view.isHidden = true
-            
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         case 1:
-            totalDetailViewContoller.view.isHidden = true
-            tipDetailViewContoller.view.isHidden = false
-            columnDetailViewController.view.isHidden = true
-            reviewDetailViewController.view.isHidden = true
-            
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         case 2:
-            totalDetailViewContoller.view.isHidden = true
-            tipDetailViewContoller.view.isHidden = true
-            columnDetailViewController.view.isHidden = false
-            reviewDetailViewController.view.isHidden = true
-            
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         case 3:
-            totalDetailViewContoller.view.isHidden = true
-            tipDetailViewContoller.view.isHidden = true
-            columnDetailViewController.view.isHidden = true
-            reviewDetailViewController.view.isHidden = false
-            
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         default:
             return
         }
