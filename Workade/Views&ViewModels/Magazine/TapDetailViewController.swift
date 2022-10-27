@@ -9,7 +9,7 @@ import UIKit
 
 class TapDetailViewController: UIViewController {
     // TODO: 임시 데이터 -> 추후 요청으로 수정
-    let titleArray = ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소", "워케이션\n센터주변 맛집정보"]
+    var titleArray = ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소", "워케이션\n센터주변 맛집정보"]
     
     let tapDetailCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -24,6 +24,15 @@ class TapDetailViewController: UIViewController {
         
         return collectionView
     }()
+    
+    init(titleArray: [String]) {
+        super.init(nibName: nil, bundle: nil)
+        self.titleArray = titleArray
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

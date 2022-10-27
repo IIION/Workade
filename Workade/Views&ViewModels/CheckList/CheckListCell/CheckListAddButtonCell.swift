@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListAddButtonCell: UICollectionViewCell {
     private lazy var addImage: UIImageView = {
@@ -43,25 +42,5 @@ extension CheckListAddButtonCell {
             addImage.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
             addImage.centerYAnchor.constraint(equalTo: guide.centerYAnchor)
         ])
-    }
-}
-
-struct CheckListAddButtonCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = CheckListAddButtonCell
-    
-    func makeUIView(context: Context) -> CheckListAddButtonCell {
-        return CheckListAddButtonCell()
-    }
-    
-    func updateUIView(_ uiView: CheckListAddButtonCell, context: Context) {}
-}
-
-@available(iOS 13.0.0, *)
-struct CheckListAddButtonCellPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListAddButtonCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 165, height: 165)
-            .previewLayout(.sizeThatFits)
     }
 }
