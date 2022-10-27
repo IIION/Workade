@@ -150,5 +150,18 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
 }
 
 extension CheckListBottomSheetViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let checkListTemplateViewController = CheckListTemplateViewController()
+        checkListTemplateViewController.modalPresentationStyle = .overFullScreen
+        
+        let dimView = UIView(frame: UIScreen.main.bounds)
+        dimView.backgroundColor = .black.withAlphaComponent(0.7)
+        self.view.addSubview(dimView)
+        self.view.bringSubviewToFront(dimView)
+        checkListTemplateViewController.viewDidDissmiss = {
+            dimView.removeFromSuperview()
+        }
+        
+        self.present(checkListTemplateViewController, animated: true)
+    }
 }

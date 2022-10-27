@@ -11,6 +11,8 @@ class CheckListTemplateViewController: UIViewController {
     
     let viewModel = CheckListTemplateViewModel()
     
+    var viewDidDissmiss: (() -> Void)?
+    
     lazy var containerView: UIView = {
         let containerView = UIView(frame: .zero)
         containerView.backgroundColor = .theme.background
@@ -105,17 +107,30 @@ class CheckListTemplateViewController: UIViewController {
     @objc
     private func close() {
         presentingViewController?.dismiss(animated: true)
+        self.viewDidDissmiss?()
     }
     
     @objc
     private func add() {
         presentingViewController?.dismiss(animated: true)
+        self.viewDidDissmiss?()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundView = UIView(frame: view.frame)
+        view.addSubview(backgroundView)
+        let backgroundViewTap = UITapGestureRecognizer(target: self, action: #selector(backgroundViewTapped(_:)))
+        backgroundView.addGestureRecognizer(backgroundViewTap)
+        backgroundView.isUserInteractionEnabled = true
+        
         setupLayout()
-        self.view.backgroundColor = .black
+    }
+    
+    @objc private func backgroundViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        presentingViewController?.dismiss(animated: true)
+        self.viewDidDissmiss?()
     }
     
     func setupLayout() {
