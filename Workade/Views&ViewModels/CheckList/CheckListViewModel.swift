@@ -15,11 +15,18 @@ struct CheckListViewModel {
     
     var checkList = [CheckList]()
     
-    private func saveCheckList() {
+    private mutating func saveCheckList() {
         guard let context = context else { return }
         
         do {
             try context.save()
+            self.checkList.sort {
+                if let date1 = $0.travelDate,
+                   let date2 = $1.travelDate {
+                    return date1 < date2
+                }
+                return false
+            }
         } catch {
             print("Error saving context \(error)")
         }
@@ -49,6 +56,13 @@ struct CheckListViewModel {
         
         do {
             self.checkList = try context.fetch(request)
+            self.checkList.sort {
+                if let date1 = $0.travelDate,
+                   let date2 = $1.travelDate {
+                    return date1 < date2
+                }
+                return false
+            }
         } catch {
             print("Error fetching data context \(error)")
         }

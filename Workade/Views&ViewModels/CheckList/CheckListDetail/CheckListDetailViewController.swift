@@ -216,11 +216,17 @@ class CheckListDetailViewController: UIViewController {
     }
     
     @objc private func addButtonPressed(_ sender: UIButton) {
+        guard let targetCheckList = selectedCheckList else { return }
         let index = checkListDetailViewModel.todos.count
         
         checkListDetailViewModel.addTodo()
         updateCheckListTableViewConstant()
         self.checklistTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        let indexPathArray = stride(from: 0, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
+            IndexPath(row: index, section: 0)
+        }
+        self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
     }
     
     @objc private func templateButtonPressed(_ sender: UIButton) {
@@ -351,11 +357,14 @@ extension CheckListDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            guard let targetCheckList = selectedCheckList else { return }
             self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
             self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
-            for index in stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1) {
-                self.checklistTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            let indexPathArray = stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
+                IndexPath(row: index, section: 0)
             }
+            self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
             updateCheckListTableViewConstant()
         }
     }

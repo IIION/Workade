@@ -158,15 +158,17 @@ extension CheckListViewController: UICollectionViewDelegateFlowLayout {
 
 extension CheckListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == checkListViewModel.checkList.count {
-            checkListViewModel.addCheckList()
-            self.checklistCollectionView.insertItems(at: [indexPath])
+        if editState == .none {
+            if indexPath.row == checkListViewModel.checkList.count {
+                checkListViewModel.addCheckList()
+                self.checklistCollectionView.insertItems(at: [indexPath])
+            }
+            let detailViewController = CheckListDetailViewController()
+            
+            detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
+            
+            self.navigationController?.pushViewController(detailViewController, animated: true)
         }
-        let detailViewController = CheckListDetailViewController()
-        
-        detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
-        
-        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
