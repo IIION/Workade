@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
+    private let viewModel = HomeViewModel()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,6 +109,8 @@ class HomeViewController: UIViewController {
         setupNavigationBar()
         setupLayout()
         setupStatusBar()
+        
+        observingFetchComplete()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,7 +128,7 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: Navigates
-extension HomeViewController {
+private extension HomeViewController {
     @objc
     func pushToMyPageVC() {
         let viewController = MyPageViewController()
@@ -144,15 +148,30 @@ extension HomeViewController {
     }
 }
 
-// MARK: UI setup 관련 Methods
+// MARK: Binding with ViewModel
 extension HomeViewController {
-    private func setupNavigationBar() {
+    /// OfficeResource, MagazineResource 데이터 불러오는 과정이 완료가 되면 소식을 받을 수 있도록 binding
+    ///
+    /// 현재 HomeViewController가 로드될 때, 데이터를 불러오기 때문에 처음 컬렉션뷰가 그려질 때는 아직 데이터의 count가 0입니다.
+    /// 따라서, 모든 데이터를 불러온 직후 최초 1회 binding한 이 클로저를 호출시켜주면서 컬렉션뷰들을 정상적으로 reload합니다.
+    func observingFetchComplete() {
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+            guard let self = self else { return }
+            self.officeCollectionView.reloadData()
+            self.magazineCollectionView.reloadData()
+        }
+    }
+}
+
+// MARK: UI setup 관련 Methods
+private extension HomeViewController {
+    func setupNavigationBar() {
         // hide 안걸어주면 push할 때 backButton 잔상 남아버림
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = .theme.primary
     }
     
-    private func setupStatusBar() {
+    func setupStatusBar() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let bounds = windowScene?.statusBarManager?.statusBarFrame
         let blurredStatusBar = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -160,7 +179,7 @@ extension HomeViewController {
         view.addSubview(blurredStatusBar)
     }
     
-    private func setupScrollViewLayout() {
+    func setupScrollViewLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -181,7 +200,7 @@ extension HomeViewController {
         ])
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         [navigationView, welcomeLabel, officeCollectionView, divider,
          magazineHeaderView, magazineCollectionView, checkListButton].forEach {
             contentView.addSubview($0)
@@ -239,11 +258,11 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
         case officeCollectionView:
-            return 5
+            return viewModel.officeResource.context.count
         case magazineCollectionView:
-            return 20
+            return viewModel.magazineResource.content.count
         default:
-            return 1
+            return 0
         }
     }
     
@@ -251,17 +270,11 @@ extension HomeViewController: UICollectionViewDataSource {
         switch collectionView {
         case officeCollectionView:
             let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.configure(office: Office(officeName: "O-PIECE",
-                                          regionName: "제주도",
-                                          profileImage: UIImage(named: "WorkationTamna") ?? UIImage(),
-                                          latitude: 30,
-                                          longitude: 30))
+            cell.configure(office: viewModel.officeResource.context[indexPath.row])
             return cell
         case magazineCollectionView:
             let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.configure(magazine: Magazine(id: 1, // temp
-                                              title: "내 성격에 맞는\n장소 찾는 법",
-                                              profileImage: UIImage(named: "WorkationTamna") ?? UIImage()))
+            cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
             return cell
         default:
             return UICollectionViewCell()
@@ -269,6 +282,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: Delegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
