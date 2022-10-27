@@ -11,24 +11,12 @@ import CoreData
 struct CheckListDetailViewModel {
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
-    private var checkListViewModel = CheckListViewModel()
-    
     var todos = [Todo]()
-    
-    var selectedCheckListIndex: Int? {
-        didSet {
-            loadTodos()
-        }
-    }
 
     var selectedCheckList: CheckList? {
         didSet {
             loadTodos()
         }
-    }
-    
-    init() {
-        checkListViewModel.loadCheckList()
     }
     
     private func saveTodos() {
@@ -41,8 +29,17 @@ struct CheckListDetailViewModel {
         }
     }
     
-    mutating func addTodo() {
+    mutating func addTodo(content: String = "내용없음", done: Bool = false) {
+        guard let context = context else { return }
         
+        let newTodo = Todo(context: context)
+        newTodo.content = content
+        newTodo.done = done
+        newTodo.editedTime = Date()
+        newTodo.parentCheckList = self.selectedCheckList
+        self.todos.append(newTodo)
+        
+        self.saveTodos()
     }
     
     mutating func loadTodos(with request: NSFetchRequest<Todo> = Todo.fetchRequest()) {
@@ -69,12 +66,13 @@ struct CheckListDetailViewModel {
     }
     
     mutating func updateTodo(at index: Int, todo: Todo) {
+        self.todos[index] = todo
         
+        saveTodos()
     }
     
     mutating func deleteCheckList() {
-        guard let seletedIndex = selectedCheckListIndex else { return }
-        guard let cid = self.checkListViewModel.checkList[seletedIndex].cid else { return }
+        guard let cid = self.selectedCheckList?.cid else { return }
         NotificationCenter.default.post(
             name: NSNotification.Name("deleteCheckList"),
             object: cid,
