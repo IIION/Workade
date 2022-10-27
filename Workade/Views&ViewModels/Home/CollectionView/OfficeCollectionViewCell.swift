@@ -8,7 +8,7 @@
 import UIKit
 
 /// 오피스를 나열한 컬렉션뷰의 셀
-class OfficeCollectionViewCell: UICollectionViewCell {
+final class OfficeCollectionViewCell: UICollectionViewCell {
     var task: Task<Void, Error>?
     
     private lazy var backgroundImageView: CellImageView = {
@@ -86,12 +86,12 @@ class OfficeCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: UI setup 관련 Methods
-extension OfficeCollectionViewCell {
-    private func setupLayer() {
+private extension OfficeCollectionViewCell {
+    func setupLayer() {
         self.layer.cornerRadius = 12
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         contentView.addSubview(backgroundImageView)
         contentView.addSubview(mapButton)
         contentView.addSubview(titleStackView)

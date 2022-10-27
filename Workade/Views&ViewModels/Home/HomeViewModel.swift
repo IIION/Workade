@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class HomeViewModel {
+final class HomeViewModel {
     var officeResource = OfficeResource(context: [])
     var magazineResource = MagazineResource(content: [])
     
@@ -19,7 +19,7 @@ class HomeViewModel {
         fetchData()
     }
     
-    func fetchData() {
+    private func fetchData() {
         Task {
             officeResource = try await fetchHomeData("office")
             magazineResource = try await fetchHomeData("magazine")
@@ -27,7 +27,7 @@ class HomeViewModel {
         }
     }
     
-    func fetchHomeData<T: Codable>(_ type: String) async throws -> T {
+    private func fetchHomeData<T: Codable>(_ type: String) async throws -> T {
         guard let url = URL(string: Constants.homeURL + type + ".json") else {
             throw NetworkError.invalidURL
         }

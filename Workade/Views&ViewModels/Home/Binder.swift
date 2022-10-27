@@ -10,9 +10,9 @@ import Foundation
 /// **mvvm 비동기 흐름에 필요한 Binder 클래스**
 ///
 /// 상세설명은 Binder클래스가 있는 소스파일의 하단 참고.
-class Binder<T: Equatable> {
+final class Binder<T: Equatable> {
     typealias Block = (T) -> Void
-    var block: Block?
+    private var block: Block?
     
     func bind(_ block: Block?) {
         self.block = block

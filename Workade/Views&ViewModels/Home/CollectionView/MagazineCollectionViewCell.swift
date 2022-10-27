@@ -8,9 +8,9 @@
 import UIKit
 
 /// 매거진을 나열한 컬렉션뷰의 셀
-class MagazineCollectionViewCell: UICollectionViewCell {
-    var magazineId: String?
-    var task: Task<Void, Error>?
+final class MagazineCollectionViewCell: UICollectionViewCell {
+    private var magazineId: String?
+    private var task: Task<Void, Error>?
     
     private lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
@@ -72,12 +72,12 @@ class MagazineCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: UI setup 관련 Methods
-extension MagazineCollectionViewCell {
-    private func setupLayer() {
+private extension MagazineCollectionViewCell {
+    func setupLayer() {
         self.layer.cornerRadius = 12
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         addSubview(backgroundImageView)
         addSubview(bookmarkButton)
         addSubview(titleLabel)

@@ -13,7 +13,7 @@ import UIKit
 final class ImageCacheManager: NSObject { // 캐시를 저장할 싱글톤 클래스.
     static let shared = ImageCacheManager()
     
-    let storage = NSCache<NSString, UIImage>()
+    private let storage = NSCache<NSString, UIImage>()
     
     private override init() {
         super.init()

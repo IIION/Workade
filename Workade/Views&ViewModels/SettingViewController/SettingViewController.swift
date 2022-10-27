@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController {
     private let titleView = TitleView(title: "설정")
     
     private let infoButton: NavigateButton = {
@@ -34,7 +34,7 @@ class SettingViewController: UIViewController {
 }
 
 // MARK: UI setup 관련 Methods
-extension SettingViewController {
+private extension SettingViewController {
     func setupNavigationBar() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
