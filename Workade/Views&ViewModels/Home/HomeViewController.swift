@@ -157,8 +157,8 @@ private extension HomeViewController {
     
     @objc
     func pushToMagazineVC() { // 요기
-        let viewController = MagazineViewController()
-        viewController.totalMagazine = viewModel.magazineResource.content
+        let viewController = MagazineViewController(totalMagazine: viewModel.magazineResource.content)
+//        viewController.totalMagazine = viewModel.magazineResource.content
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -239,7 +239,7 @@ extension HomeViewController: UICollectionViewDelegate {
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         case magazineCollectionView:
-            let viewController = CellItemDetailViewController(label: nil)
+            let viewController = CellItemDetailViewController(magazine: viewModel.magazineResource.content[indexPath.row])
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         default:

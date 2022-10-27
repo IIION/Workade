@@ -8,8 +8,7 @@
 import UIKit
 
 class TapDetailViewController: UIViewController {
-    // TODO: 임시 데이터 -> 추후 요청으로 수정
-    var titleArray = ["내 성격에 맞는\n장소 찾는 법", "바다마을에서\n보낸 일주일", "워케이션\n경험자의 조언", "워케이션\n경험자의 꿀팁", "워케이션\n경험자의 특별한장소", "워케이션\n센터주변 맛집정보"]
+    var magazineList: [Magazine] = []
     
     let tapDetailCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -18,16 +17,16 @@ class TapDetailViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
-        collectionView.register(TapDetailCell.self, forCellWithReuseIdentifier: TapDetailCell.identifier)
+        collectionView.register(cell: MagazineCollectionViewCell.self)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
     
-    init(titleArray: [String]) {
+    init(magazineList: [Magazine]) {
         super.init(nibName: nil, bundle: nil)
-        self.titleArray = titleArray
+        self.magazineList = magazineList
     }
     
     required init?(coder: NSCoder) {
@@ -65,26 +64,21 @@ extension TapDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension TapDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cellItemDetailViewController = CellItemDetailViewController(label: self.titleArray[indexPath.row])
+        let cellItemDetailViewController = CellItemDetailViewController(magazine: self.magazineList[indexPath.row])
         
         cellItemDetailViewController.modalPresentationStyle = .overFullScreen
         present(cellItemDetailViewController, animated: true)
     }
 }
 
-// TODO: 추후 요청으로 처리
 extension TapDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titleArray.count
+        return magazineList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TapDetailCell.identifier, for: indexPath) as? TapDetailCell else {
-            return UICollectionViewCell()
-        }
-        cell.titleLabel.text = titleArray[indexPath.row]
-        cell.bookMarkButton.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
-        
+        let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+        cell.configure(magazine: magazineList[indexPath.row])
         return cell
     }
     
