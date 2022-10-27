@@ -75,7 +75,7 @@ extension MyPageViewController: UICollectionViewDataSource {
 // MARK: Delegate
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = TipItemDetailViewController(label: nil)
+        let viewController = CellItemDetailViewController(label: nil)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }
