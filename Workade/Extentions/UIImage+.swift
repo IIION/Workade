@@ -28,6 +28,27 @@ extension UIImage {
     }
 }
 
+// NSCashe의 기본 특성 상 앱이 background환경으로 가면 모든 캐시메모리가 비워집니다.
+// 캐시에 저장할 타입에 NSDiscardableContent(= 버려질 수 있는 컨텐츠) 프로토콜을 채택한 후, access를 true로 주고, discarded를 false로 주면, 캐시가 비워지지않도록 조절할 수 있습니다.
+// 공식문서 상의 내용을 보면, NSCashe는 메모리가 과해질 경우 알아서 초과되는 캐시를 비워나간다고 말하고 있으나, 명시적으로 하기위해 ImageCasheManager의 NSCashe의 countLimit을 200으로 세팅해두었습니다.
+extension UIImage: NSDiscardableContent {
+    // True if the content is still available and have been successfully accessed.
+    public func beginContentAccess() -> Bool {
+        return true
+    }
+
+    // Called when the content is no longer being accessed.
+    public func endContentAccess() {}
+
+    // If our counter is 0, we can discard the image.
+    public func discardContentIfPossible() {}
+
+    // True if the content has been discarded.
+    public func isContentDiscarded() -> Bool {
+        return false
+    }
+}
+
 enum SFSymbol {
     case info
     case mapInCell
@@ -35,6 +56,7 @@ enum SFSymbol {
     case chevronRight
     case bookmark
     case bookmarkFill
+    case gearshapeFill
 
     var image: UIImage {
         switch self {
@@ -50,6 +72,8 @@ enum SFSymbol {
             return .fromSystemImage(name: "bookmark", font: .customFont(for: .headline), color: .white)!
         case .bookmarkFill:
             return .fromSystemImage(name: "bookmark.fill", font: .customFont(for: .headline), color: .white)!
+        case .gearshapeFill:
+            return .fromSystemImage(name: "gearshape.fill", font: .customFont(for: .subHeadline))!
         }
     }
 }

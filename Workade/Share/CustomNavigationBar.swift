@@ -10,6 +10,7 @@ import UIKit
 class CustomNavigationBar: UIViewController {
     let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
+    var dismissAction: (() -> Void)?
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
@@ -31,7 +32,7 @@ class CustomNavigationBar: UIViewController {
     }()
     
     private lazy var closeButton: UIButton = {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .default)
         
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
@@ -100,8 +101,8 @@ class CustomNavigationBar: UIViewController {
     
     @objc
     func clickedCloseButton(sender: UIButton) {
-        // TODO: 버튼 활성화
-        print("Dissmiss View")
+        dismissAction?()
+        self.dismiss(animated: true)
     }
     
     @objc
@@ -109,5 +110,4 @@ class CustomNavigationBar: UIViewController {
         // TODO: 버튼 활성화
         print("rightButton Clicked")
     }
-    
 }

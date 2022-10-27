@@ -21,7 +21,7 @@ extension UIFont {
         case .headline:
             return UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
         case .subHeadline:
-            return UIFont(name: CustomFont.pretendardRegular.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
+            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
         case .articleBody:
             return UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .semibold)
         case .footnote:
@@ -39,7 +39,7 @@ enum CustomFont: String {
     case pretendardRegular = "Pretendard-Regular"
 }
 
-enum CustomTextStyle {
+enum CustomTextStyle: String {
     case title1
     case title2
     case title3

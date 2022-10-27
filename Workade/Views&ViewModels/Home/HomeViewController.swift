@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
+    private let viewModel = HomeViewModel()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +31,7 @@ class HomeViewController: UIViewController {
         logoImageView.contentMode = .left
         let profileButton = UIButton()
         profileButton.setImage(UIImage(named: "ProfileTamna")?.setOriginal(), for: .normal)
+        profileButton.addTarget(self, action: #selector(pushToMyPageVC), for: .touchUpInside)
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -53,6 +56,7 @@ class HomeViewController: UIViewController {
     
     private lazy var officeCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: OfficeCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,8 +72,9 @@ class HomeViewController: UIViewController {
         return view
     }()
     
-    private let magazineHeaderView: HeaderView = {
+    private lazy var magazineHeaderView: HeaderView = {
         let stackView = HeaderView(title: "매거진")
+        stackView.pushButton.addTarget(self, action: #selector(pushToMagazineVC), for: .touchUpInside)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -77,6 +82,7 @@ class HomeViewController: UIViewController {
     
     private lazy var magazineCollectionView: HorizontalCollectionView = {
         let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 150, height: 200))
+        collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,11 +90,12 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var checkListButton: CheckListButton = {
-        let button = CheckListButton()
+    private lazy var checkListButton: NavigateButton = {
+        let button = NavigateButton(image: nil, text: "체크리스트")
         button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(pushToCheckListVC), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -116,16 +123,132 @@ class HomeViewController: UIViewController {
 extension HomeViewController: LaunchScreenTimingDelegate {
     func finishLaunchScreen() {
         setupStatusBar()
+        
+        observingFetchComplete()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // HomeVC에서는 네비게이션 영역 쓰지않음
+        // viewDidAppear로 하면, 홈화면 돌아올 때 backButton의 잔상이 순간 보이게 되버림
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // viewDidDisappear로 하면, 다음 화면에서 backButton이 다소 늦게 나타나버림
+        navigationController?.navigationBar.isHidden = false
+    }
+}
+
+// MARK: Navigates
+private extension HomeViewController {
+    // 변수에 접근해서 할당하는 방식을 사용.
+    // 초기화 구문의 매개변수를 통해 전달하는 방식은 이동 전 뷰컨트롤러가 이동할 뷰턴이 요구하는 매거진 배열을 다 넘길 수 있는 뷰컨인 상황에서만 가능합니다.
+    // 혹은 이동된 뷰컨트롤러가 자신이 init될 때, 자신의 viewModel로부터 매거진을 가져오는 방식 등이 될 것으로 예상됩니다.
+    // 그렇기에 당장은 init구문이 아닌 변수 접근 및 할당 방식을 현재 채택했습니다.
+    @objc
+    func pushToMyPageVC() {
+        let viewController = MyPageViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc
+    func pushToMagazineVC() { // 요기
+        let viewController = MagazineViewController()
+        viewController.totalMagazine = viewModel.magazineResource.content
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc
+    func pushToCheckListVC() {
+        let viewController = CheckListViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+// MARK: Binding with ViewModel
+extension HomeViewController {
+    /// OfficeResource, MagazineResource 데이터 불러오는 과정이 완료가 되면 소식을 받을 수 있도록 binding
+    ///
+    /// 현재 HomeViewController가 로드될 때, 데이터를 불러오기 때문에 처음 컬렉션뷰가 그려질 때는 아직 데이터의 count가 0입니다.
+    /// 따라서, 모든 데이터를 불러온 직후 최초 1회 binding한 이 클로저를 호출시켜주면서 컬렉션뷰들을 정상적으로 reload합니다.
+    private func observingFetchComplete() {
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+            guard let self = self else { return }
+            self.officeCollectionView.reloadData()
+            self.magazineCollectionView.reloadData()
+        }
+    }
+}
+
+// MARK: DataSource
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
+        case officeCollectionView:
+            return viewModel.officeResource.context.count
+        case magazineCollectionView:
+            return viewModel.magazineResource.content.count
+        default:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch collectionView {
+        case officeCollectionView:
+            let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.delegate = self
+            cell.configure(office: viewModel.officeResource.context[indexPath.row])
+            return cell
+        case magazineCollectionView:
+            let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
+    }
+}
+
+// MARK: Delegate
+extension HomeViewController: UICollectionViewDelegate {
+    // 반드시 office 혹은 magazine이 있어야하는 요소는 init으로 넘깁니다.
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case officeCollectionView:
+            let office = viewModel.officeResource.context[indexPath.row]
+            let viewController = NearbyPlaceViewController(office: office)
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true)
+        case magazineCollectionView:
+            let viewController = CellItemDetailViewController(label: nil)
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true)
+        default:
+            break
+        }
+    }
+}
+
+extension HomeViewController: OfficeCollectionViewCellDelegate {
+    func didTapMapButton(office: Office) {
+        let viewController = MapViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }
 
 // MARK: UI setup 관련 Methods
-extension HomeViewController {
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
+private extension HomeViewController {
+    func setupNavigationBar() {
+        // hide 안걸어주면 push할 때 backButton 잔상 남아버림
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = .theme.primary
     }
     
-    private func setupStatusBar() {
+    func setupStatusBar() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let bounds = windowScene?.statusBarManager?.statusBarFrame
         let blurredStatusBar = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -133,7 +256,7 @@ extension HomeViewController {
         view.addSubview(blurredStatusBar)
     }
     
-    private func setupScrollViewLayout() {
+    func setupScrollViewLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -154,7 +277,7 @@ extension HomeViewController {
         ])
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         [navigationView, welcomeLabel, officeCollectionView, divider,
          magazineHeaderView, magazineCollectionView, checkListButton].forEach {
             contentView.addSubview($0)
@@ -215,40 +338,5 @@ extension HomeViewController {
             launchScreenView.topAnchor.constraint(equalTo: view.topAnchor),
             launchScreenView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-}
-
-// MARK: DataSource
-extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
-        case officeCollectionView:
-            return 5
-        case magazineCollectionView:
-            return 20
-        default:
-            return 1
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch collectionView {
-        case officeCollectionView:
-            let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.configure(office: Office(officeName: "O-PIECE",
-                                          regionName: "제주도",
-                                          profileImage: UIImage(named: "WorkationTamna") ?? UIImage(),
-                                          latitude: 30,
-                                          longitude: 30))
-            return cell
-        case magazineCollectionView:
-            let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.configure(magazine: Magazine(id: 1, // temp
-                                              title: "내 성격에 맞는\n장소 찾는 법",
-                                              profileImage: UIImage(named: "WorkationTamna") ?? UIImage()))
-            return cell
-        default:
-            return UICollectionViewCell()
-        }
     }
 }

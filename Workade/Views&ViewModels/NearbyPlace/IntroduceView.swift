@@ -8,37 +8,37 @@
 import UIKit
 
 class IntroduceView: UIView {
-    private let testLabel: UILabel = {
-        let label = UILabel()
-        label.text = "소개 뷰"
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
+    let bottomSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 44
+    
+    var stackView: UIStackView = {
+        let stackView = UIStackView()
         
-        return label
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupLayout()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupLayout()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupLayout() {
-        addSubview(testLabel)
+        addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            testLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            testLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            testLabel.topAnchor.constraint(equalTo: topAnchor),
-            testLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            testLabel.heightAnchor.constraint(equalToConstant: 500)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomSafeArea - 20)
         ])
     }
 }
