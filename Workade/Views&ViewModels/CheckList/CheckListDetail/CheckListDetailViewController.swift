@@ -9,23 +9,22 @@ import UIKit
 import SwiftUI
 
 class CheckListDetailViewController: UIViewController {
-    // test 모델
-    private var taskList = [
-        Todo(content: "녹음기", done: false),
-        Todo(content: "나만의 루틴 세워가기", done: true),
-        Todo(content: "DSLR 카메라", done: true)
-    ]
+    private var checkListDetailViewModel = CheckListDetailViewModel()
     
-    var emoji: String = "⚽️"
-    var checklistTitle: String = "제목없음"
-    var date: Date = Date()
+    var selectedCheckList: CheckList? {
+        didSet {
+            checkListDetailViewModel.selectedCheckList = selectedCheckList
+            datePicker.date = selectedCheckList?.travelDate ?? Date()
+            self.checklistTableView.reloadData()
+        }
+    }
     
-    private let deleteButton: UIBarButtonItem = {
+    private lazy var deleteButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "trash.fill"),
             style: .plain,
-            target: nil,
-            action: nil
+            target: self,
+            action: #selector(deleteButtonPressed(_:))
         )
         barButtonItem.tintColor = .theme.primary
         
@@ -34,20 +33,20 @@ class CheckListDetailViewController: UIViewController {
     
     private lazy var emojiLabel: UILabel = {
         let label = UILabel()
-        label.text = emoji
+        label.text = selectedCheckList?.emoji ?? "⚽️"
         label.font = .systemFont(ofSize: 34)
         label.tintColor = .theme.primary
         
         return label
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = checklistTitle
-        label.font = .customFont(for: .title2)
-        label.tintColor = .theme.primary
+    private lazy var titleLabel: UITextField = {
+        let textField = UITextField()
+        textField.text = selectedCheckList?.title ?? "제목없음"
+        textField.font = .customFont(for: .title2)
+        textField.tintColor = .theme.primary
         
-        return label
+        return textField
     }()
     
     private lazy var titleStack: UIStackView = {
@@ -60,7 +59,7 @@ class CheckListDetailViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var dateLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.text = "워케이션 날짜"
         label.font = .customFont(for: .footnote)
@@ -81,7 +80,7 @@ class CheckListDetailViewController: UIViewController {
     }()
     
     private lazy var dateStack: UIStackView = {
-       let stackView = UIStackView(arrangedSubviews: [dateLabel, datePicker])
+       let stackView = UIStackView(arrangedSubviews: [subtitleLabel, datePicker])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 4
@@ -134,44 +133,38 @@ class CheckListDetailViewController: UIViewController {
         return scrollView
     }()
     
-    private let addButton: UIButton = {
-        let button = UIButton()
+    private lazy var addButton: UIButton = {
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 9
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
         
-        let image = UIImage(systemName: "plus.circle.fill")
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .theme.primary
-        imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 26)
+        button.setTitle("탭해서 추가", for: .normal)
+        button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        button.setTitleColor(.theme.primary, for: .normal)
+        button.configuration = config
+        button.tintColor = .theme.primary
+    
+        button.titleLabel?.font = .customFont(for: .subHeadline)
         
-        let label = UILabel()
-        label.text = "탭해서 추가"
-        label.font = .customFont(for: .subHeadline)
-        label.tintColor = .theme.primary
-        
-        let stack = UIStackView(arrangedSubviews: [imageView, label])
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 9
-        stack.alignment = .center
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.addSubview(stack)
+        button.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    private let templateButton: UIButton = {
+    private lazy var templateButton: UIButton = {
         let button = UIButton(type: .custom)
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
-        let image = UIImage(systemName: "list.bullet.clipboard.fill", withConfiguration: imageConfig)
+        var config = UIButton.Configuration.filled()
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 13, leading: 13, bottom: 13, trailing: 13)
+        config.cornerStyle = .capsule
+        config.buttonSize = .large
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 10)
         
-        button.setImage(image, for: .normal)
-        button.contentMode = .scaleAspectFit
-        button.tintColor = .white
-        button.backgroundColor = .theme.primary
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 22
-        button.layer.masksToBounds = true
+        button.setImage(UIImage(systemName: "list.bullet.clipboard.fill", withConfiguration: imageConfig), for: .normal)
+        button.configuration = config
+        button.tintColor = .theme.primary
+        button.addTarget(self, action: #selector(templateButtonPressed(_:)), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -188,12 +181,49 @@ class CheckListDetailViewController: UIViewController {
         return stack
     }()
     
+    private var checkListTableViewHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        self.titleLabel.delegate = self
         
         self.setupNavigationBar()
         self.setupLayout()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc private func deleteButtonPressed(_ sender: UIBarButtonItem) {
+        checkListDetailViewModel.deleteCheckList()
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func addButtonPressed(_ sender: UIButton) {
+        let index = checkListDetailViewModel.todos.count
+        
+        checkListDetailViewModel.addTodo()
+        updateCheckListTableViewConstant()
+        self.checklistTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    }
+    
+    @objc private func templateButtonPressed(_ sender: UIButton) {
+        let bottomSheetViewController = CheckListBottomSheetViewController()
+        
+        bottomSheetViewController.modalPresentationStyle = .overFullScreen
+        
+        self.present(bottomSheetViewController, animated: false, completion: nil)
+    }
+    
+    @objc private func checkButtonPressed(_ sender: UIButton) {
+        let todo = checkListDetailViewModel.todos[sender.tag]
+        todo.done.toggle()
+        checkListDetailViewModel.updateTodo(at: sender.tag, todo: todo)
+        checklistTableView.reloadData()
     }
 }
 
@@ -230,13 +260,16 @@ extension CheckListDetailViewController {
             dashedLine.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
         ])
         
+        checkListTableViewHeightConstraint = checklistTableView
+            .heightAnchor
+            .constraint(equalToConstant: CGFloat(52 * (checkListDetailViewModel.todos.count + 1)))
         NSLayoutConstraint.activate([
             checklistTableView.topAnchor.constraint(equalTo: dashedLine.bottomAnchor, constant: 20),
             checklistTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             checklistTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             checklistTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             checklistTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            checklistTableView.heightAnchor.constraint(equalToConstant: CGFloat(52 * taskList.count))
+            checkListTableViewHeightConstraint
         ])
         
         NSLayoutConstraint.activate([
@@ -246,6 +279,10 @@ extension CheckListDetailViewController {
             buttonStack.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10)
         ])
     }
+    
+    func updateCheckListTableViewConstant() {
+        checkListTableViewHeightConstraint.constant = CGFloat(52 * (checkListDetailViewModel.todos.count + 1))
+    }
 }
 
 extension CheckListDetailViewController: UITableViewDelegate {
@@ -254,7 +291,7 @@ extension CheckListDetailViewController: UITableViewDelegate {
 
 extension CheckListDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskList.count
+        return checkListDetailViewModel.todos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -262,7 +299,45 @@ extension CheckListDetailViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.checkButton.tag = indexPath.row
+        cell.checkButton.addTarget(self, action: #selector(checkButtonPressed(_:)), for: .touchUpInside)
+        cell.contentText.tag = indexPath.row
+        cell.contentText.delegate = self
+        
+        let todo = checkListDetailViewModel.todos[indexPath.row]
+        cell.setupCell(todo: todo)
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        "삭제"
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
+            self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
+            for index in stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1) {
+                self.checklistTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            }
+            updateCheckListTableViewConstant()
+        }
+    }
+}
+
+extension CheckListDetailViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == titleLabel {
+            guard let targetCheckList = selectedCheckList else { return }
+            targetCheckList.title = textField.text
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+        } else {
+            let todo = checkListDetailViewModel.todos[textField.tag]
+            todo.content = textField.text
+            checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
+            checklistTableView.reloadData()
+        }
     }
 }
 
