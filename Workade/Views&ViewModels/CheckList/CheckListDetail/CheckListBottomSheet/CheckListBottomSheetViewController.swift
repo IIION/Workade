@@ -32,9 +32,7 @@ class CheckListBottomSheetViewController: UIViewController {
     private lazy var bottomSheetView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.labelBackground
-        
         view.addSubview(radiusView)
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
