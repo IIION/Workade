@@ -8,5 +8,4 @@
 import UIKit
 
 class CheckListTemplateViewModel {
-    let template: CheckListTemplateModel = .sample
 }

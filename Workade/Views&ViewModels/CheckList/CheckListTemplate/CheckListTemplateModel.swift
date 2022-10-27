@@ -7,20 +7,20 @@
 
 import UIKit
 
-struct CheckListTemplateModel {
-    var id: Int = 0
-    var image: UIImage
-    var title: String
-    var color: UIColor
-    var partialText: String
-    var checklist: [String]
+struct CheckListTemplateResource: Codable {
+    let context: [CheckListTemplateModel]
 }
 
-extension CheckListTemplateModel {
-    static let sample = CheckListTemplateModel(id: 0,
-                                          image: UIImage(named: "folder") ?? UIImage(),
-                                          title: "개발자라면 필수로\n챙겨야 할 물건 리스트",
-                                          color: .systemYellow,
-                                          partialText: "개발자",
-                                          checklist: [])
+struct CheckListTemplateModel: Codable {
+    let imageURL: String
+    let title: String
+    let tintColor: String
+    let tintString: String
+    let listURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case imageURL = "imageurl"
+        case listURL = "listurl"
+        case title, tintColor, tintString
+    }
 }

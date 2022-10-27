@@ -10,6 +10,8 @@ import UIKit
 class CheckListBottomSheetViewController: UIViewController {
     var defaultHeight: CGFloat = 200
     
+    private let checkListBottomSheetViewModel = CheckListBottomSheetViewModel()
+    
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -59,6 +61,8 @@ class CheckListBottomSheetViewController: UIViewController {
         dimmedView.isUserInteractionEnabled = true
         
         setupLayout()
+        
+        observingFetchComplete()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,11 +136,18 @@ class CheckListBottomSheetViewController: UIViewController {
     @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         hideBottomSheetAndGoBack()
     }
+    
+    private func observingFetchComplete() {
+        checkListBottomSheetViewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+            guard let self = self else { return }
+            self.templateCollectionView.reloadData()
+        }
+    }
 }
 
 extension CheckListBottomSheetViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return checkListBottomSheetViewModel.checkListTemplateResource.context.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
