@@ -36,7 +36,7 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
         
         let numberOfColumns: Int = 2
         let cellPadding: CGFloat = (delegate?.columnSpacing ?? 20) / 2
-        let cellWidth: CGFloat = (contentWidth - cellPadding * 2) / CGFloat(numberOfColumns)
+        let cellWidth: CGFloat = (contentWidth) / CGFloat(numberOfColumns)
         
         let xOffSet: [CGFloat] = [0, cellWidth]
         var yOffSet: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
@@ -49,6 +49,7 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
             let indexPath = IndexPath(item: item, section: 0)
             
             let imageHeight = delegate?.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath) ?? 180
+
             let height = cellPadding * 2 + imageHeight
             
             let frame = CGRect(x: xOffSet[column],
@@ -83,4 +84,4 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
     -> UICollectionViewLayoutAttributes? {
         return cache[indexPath.item]
     }
-}
+    }
