@@ -46,6 +46,7 @@ class CheckListDetailViewController: UIViewController {
         textField.text = selectedCheckList?.title ?? "제목없음"
         textField.font = .customFont(for: .title2)
         textField.tintColor = .theme.primary
+        textField.addTarget(self, action: #selector(titleLabelDidChange(_:)), for: .editingChanged)
         
         return textField
     }()
@@ -265,6 +266,11 @@ class CheckListDetailViewController: UIViewController {
         checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
     }
     
+    @objc private func titleLabelDidChange(_ textField: UITextField) {
+        if (textField.text?.count ?? 4) >= 12 {
+            self.presentPopOver()
+        }
+    }
 }
 
 extension CheckListDetailViewController {
@@ -326,7 +332,23 @@ extension CheckListDetailViewController {
 }
 
 extension CheckListDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        "삭제"
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let targetCheckList = selectedCheckList else { return }
+            self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
+            self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
+            let indexPathArray = stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
+                IndexPath(row: index, section: 0)
+            }
+            self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+            updateCheckListTableViewConstant()
+        }
+    }
 }
 
 extension CheckListDetailViewController: UITableViewDataSource {
@@ -349,24 +371,6 @@ extension CheckListDetailViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        "삭제"
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let targetCheckList = selectedCheckList else { return }
-            self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
-            self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
-            let indexPathArray = stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
-                IndexPath(row: index, section: 0)
-            }
-            self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
-            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
-            updateCheckListTableViewConstant()
-        }
-    }
 }
 
 extension CheckListDetailViewController: UITextFieldDelegate {
@@ -380,6 +384,9 @@ extension CheckListDetailViewController: UITextFieldDelegate {
             checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
         } else {
             let todo = checkListDetailViewModel.todos[textField.tag]
+            if textField.text == "" {
+                textField.text = "내용없음"
+            }
             todo.content = textField.text
             checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
             checklistTableView.reloadData()
@@ -396,5 +403,28 @@ extension CheckListDetailViewController: UITextFieldDelegate {
         } else {
             return true
         }
+    }
+}
+
+extension CheckListDetailViewController: UIPopoverPresentationControllerDelegate {
+    private func presentPopOver() {
+        let titlePopOverViewController = TitlePopOverViewController()
+        titlePopOverViewController.modalPresentationStyle = .popover
+        titlePopOverViewController.preferredContentSize = CGSize(width: 200, height: 45)
+        
+        let popover = titlePopOverViewController.popoverPresentationController
+        popover?.delegate = self
+        popover?.permittedArrowDirections = .down
+        popover?.sourceView = self.titleLabel
+        popover?.sourceRect = self.titleLabel.bounds
+        self.present(titlePopOverViewController, animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.dismiss(animated: true)
+            }
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }
