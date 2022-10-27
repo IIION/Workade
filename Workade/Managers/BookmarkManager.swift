@@ -7,8 +7,15 @@
 
 import Foundation
 
+@MainActor
 final class BookmarkManager {
     static let shared = BookmarkManager()
     
-    var clickedMagazineId = MultiBinder("")
+    var clickedMagazineId = MultiBinder("") // manager - viewModel
+    
+    // MARK: ViewModels -> Manager
+    func notifyClickedMagazineId(title id: String, key: String) {
+        clickedMagazineId.value = id
+        UserDefaultsManager.shared.updateUserDefaults(id: id, key: key)
+    }
 }
