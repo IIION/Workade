@@ -115,15 +115,3 @@ struct CheckListTemplateCellRepresentable: UIViewRepresentable {
     
     func updateUIView(_ uiView: CheckListTemplateCell, context: Context) {}
 }
-
-@available(iOS 13.0.0, *)
-struct CheckListTemplateCellPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListTemplateCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 240, height: 140)
-            .padding(20)
-            .background(.black)
-            .previewLayout(.sizeThatFits)
-    }
-}
