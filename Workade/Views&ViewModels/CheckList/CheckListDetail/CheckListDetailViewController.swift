@@ -231,9 +231,11 @@ class CheckListDetailViewController: UIViewController {
     }
     
     @objc private func checkButtonPressed(_ sender: UIButton) {
+        guard let targetCheckList = selectedCheckList else { return }
         let todo = checkListDetailViewModel.todos[sender.tag]
         todo.done.toggle()
         checkListDetailViewModel.updateTodo(at: sender.tag, todo: todo)
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
         checklistTableView.reloadData()
     }
     

@@ -9,9 +9,8 @@ import UIKit
 import SwiftUI
 
 class CheckListCell: UICollectionViewCell {
-    var uncheckCount: Int = 0
-    var checkCount: Int = 0
-    var dDay: Int = 0
+    var checkListCellViewModel = CheckListCellViewModel()
+    
     var isDeleteMode = false {
         didSet {
             if isDeleteMode {
@@ -25,13 +24,17 @@ class CheckListCell: UICollectionViewCell {
         }
     }
     
+    private var uncheckLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .customFont(for: .footnote)
+        
+        return label
+    }()
+    
     private lazy var uncheckStack: UIStackView = {
         let uncheckImage = UIImageView(image: UIImage(systemName: "circle"))
-        let uncheckLabel = UILabel()
-        
         uncheckImage.tintColor = .black
-        uncheckLabel.text = "\(uncheckCount)"
-        uncheckLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [uncheckImage, uncheckLabel])
         stackView.axis = .horizontal
@@ -41,13 +44,17 @@ class CheckListCell: UICollectionViewCell {
         return stackView
     }()
     
+    private lazy var checkLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .customFont(for: .footnote)
+        
+        return label
+    }()
+    
     private lazy var checkStack: UIStackView = {
         let checkImage = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
-        let checkLabel = UILabel()
-        
         checkImage.tintColor = .black
-        checkLabel.text = "\(checkCount)"
-        checkLabel.font = .customFont(for: .footnote)
         
         let stackView = UIStackView(arrangedSubviews: [checkImage, checkLabel])
         stackView.axis = .horizontal
@@ -98,7 +105,7 @@ class CheckListCell: UICollectionViewCell {
     
     private lazy var dDayLabel: UILabel  = {
         let label = UILabel()
-        label.text = "D - \(dDay)"
+        label.text = "D - \(1)"
         label.font = .customFont(for: .caption)
         label.tintColor = .black
         
@@ -144,6 +151,9 @@ class CheckListCell: UICollectionViewCell {
     func setupCell(checkList: CheckList) {
         emojiLabel.text = checkList.emoji ?? "⚽️"
         titleLabel.text = checkList.title ?? "제목없음"
+        checkListCellViewModel.selectedCheckList = checkList
+        checkLabel.text = "\(checkListCellViewModel.checkCount)"
+        uncheckLabel.text = "\(checkListCellViewModel.uncheckCount)"
     }
 }
 
