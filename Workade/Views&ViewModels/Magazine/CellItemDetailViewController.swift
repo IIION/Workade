@@ -76,7 +76,7 @@ class CellItemDetailViewController: UIViewController {
     }()
     
     private let magazineDetailView: MagazineDetailView = {
-        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
+        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""), magazineDetailContext: [])
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view

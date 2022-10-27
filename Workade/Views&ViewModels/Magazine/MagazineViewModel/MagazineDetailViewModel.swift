@@ -27,7 +27,7 @@ class MagazineDetailViewModel {
         } catch {
             print(error)
         }
-        print(magazineDetailData)
+        
         return magazineDetailData
     }
     
