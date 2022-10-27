@@ -155,8 +155,8 @@ class NearbyPlaceView: UIView {
         return view
     }()
     
-    private let galleryView: TempGalleryView = {
-        let view = TempGalleryView()
+    let galleryView: GalleryView = {
+        let view = GalleryView()
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -308,9 +308,10 @@ class NearbyPlaceView: UIView {
         
         detailContensContainer.addSubview(galleryView)
         NSLayoutConstraint.activate([
-            galleryView.topAnchor.constraint(equalTo: detailContensContainer.topAnchor, constant: 20),
-            galleryView.leadingAnchor.constraint(equalTo: detailContensContainer.leadingAnchor, constant: 20),
-            galleryView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: -20)
+            galleryView.topAnchor.constraint(equalTo: detailContensContainer.topAnchor, constant: 0),
+            galleryView.leadingAnchor.constraint(equalTo: detailContensContainer.leadingAnchor, constant: 0),
+            galleryView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: 0),
+            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - topSafeArea - 50)
         ])
     }
 }
@@ -329,7 +330,7 @@ extension NearbyPlaceView {
             introduceBottomConstraints.isActive = true
         case 1:
             // 갤러리 누르면 세그먼트 위치로 스크롤 이동.
-            detailScrollView.isScrollEnabled = true
+            detailScrollView.isScrollEnabled = false
             detailScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             // 전체 뷰의 스크롤은 멈춰야함.
             scrollView.isScrollEnabled = false
