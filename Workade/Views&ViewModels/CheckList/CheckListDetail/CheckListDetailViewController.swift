@@ -373,6 +373,9 @@ extension CheckListDetailViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == titleLabel {
             guard let targetCheckList = selectedCheckList else { return }
+            if textField.text == "" {
+                textField.text = "제목없음"
+            }
             targetCheckList.title = textField.text
             checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
         } else {
@@ -380,6 +383,18 @@ extension CheckListDetailViewController: UITextFieldDelegate {
             todo.content = textField.text
             checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
             checklistTableView.reloadData()
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == titleLabel {
+            let maxLength = 12
+            let currentString = (textField.text ?? "제목없음") as NSString
+            let newString = currentString.replacingCharacters(in: range, with: string)
+            
+            return newString.count <= maxLength
+        } else {
+            return true
         }
     }
 }
