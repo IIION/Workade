@@ -57,6 +57,7 @@
 		961C56212902BF77003E238F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C56202902BF77003E238F /* HeaderView.swift */; };
 		961CC481290AE69700921F24 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961CC480290AE69700921F24 /* UserDefaultsManager.swift */; };
 		961CC483290AF34600921F24 /* MultiBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961CC482290AF34600921F24 /* MultiBinder.swift */; };
+		961CC485290AF80500921F24 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961CC484290AF80500921F24 /* BookmarkManager.swift */; };
 		9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643322C290A602F00FBECAF /* NetworkManager.swift */; };
 		96433231290A746400FBECAF /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96433230290A746400FBECAF /* UIImageView+.swift */; };
 		96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96433232290A74C600FBECAF /* ImageCacheManager.swift */; };
@@ -142,6 +143,7 @@
 		961C56202902BF77003E238F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		961CC480290AE69700921F24 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		961CC482290AF34600921F24 /* MultiBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBinder.swift; sourceTree = "<group>"; };
+		961CC484290AF80500921F24 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		9643322C290A602F00FBECAF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		96433230290A746400FBECAF /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		96433232290A74C600FBECAF /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				9643322C290A602F00FBECAF /* NetworkManager.swift */,
 				96433232290A74C600FBECAF /* ImageCacheManager.swift */,
 				961CC480290AE69700921F24 /* UserDefaultsManager.swift */,
+				961CC484290AF80500921F24 /* BookmarkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				96972ED12903011500197DEE /* CellImageView.swift in Sources */,
 				21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */,
 				21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */,
+				961CC485290AF80500921F24 /* BookmarkManager.swift in Sources */,
 				21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */,
 				16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */,
 				2163F30B290958A0007CB6DC /* CheckListTemplateModel.swift in Sources */,
