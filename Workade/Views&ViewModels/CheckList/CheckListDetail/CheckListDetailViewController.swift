@@ -31,11 +31,14 @@ class CheckListDetailViewController: UIViewController {
         return barButtonItem
     }()
     
-    private lazy var emojiLabel: UILabel = {
+    lazy var emojiLabel: UILabel = {
         let label = UILabel()
         label.text = selectedCheckList?.emoji ?? "⚽️"
         label.font = .systemFont(ofSize: 34)
         label.tintColor = .theme.primary
+        let tap = UITapGestureRecognizer(target: self, action: #selector(emojiLabelTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tap)
         
         return label
     }()
@@ -224,6 +227,20 @@ class CheckListDetailViewController: UIViewController {
         todo.done.toggle()
         checkListDetailViewModel.updateTodo(at: sender.tag, todo: todo)
         checklistTableView.reloadData()
+    }
+    
+    @objc private func emojiLabelTapped() {
+        let emojiPickerViewController = EmojiPickerViewController()
+        func fetchEmoji(emoji: String) {
+            guard let targetCheckList = selectedCheckList else { return }
+            
+            self.emojiLabel.text = emoji
+            targetCheckList.emoji = emoji
+            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+            
+        }
+        emojiPickerViewController.emojiTapped = fetchEmoji
+        self.present(UINavigationController(rootViewController: emojiPickerViewController), animated: true)
     }
 }
 

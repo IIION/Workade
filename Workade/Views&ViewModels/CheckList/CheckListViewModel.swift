@@ -25,13 +25,19 @@ struct CheckListViewModel {
         }
     }
     
-    mutating func addCheckList(title: String = "제목없음", emoji: String = "⚽️") {
+    private func generatRandomEmoji() -> String {
+        let item = Int.random(in: 128512...128591)
+        let emoji = String(UnicodeScalar(item)!)
+        return emoji
+    }
+    
+    mutating func addCheckList() {
         guard let context = context else { return }
         
         let newCheckList = CheckList(context: context)
         newCheckList.cid = UUID().uuidString
-        newCheckList.title = title
-        newCheckList.emoji = emoji
+        newCheckList.title = "제목없음"
+        newCheckList.emoji = generatRandomEmoji()
         self.checkList.append(newCheckList)
         
         self.saveCheckList()
