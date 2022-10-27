@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
     var latitude = 33.533054
     var longitude = 126.630947
     var officeName = "제주 O-PEACE"
+    // 임시 설정 주변 정보
     var nearbyPlaces = [
         [
           "title": "폴스키친",
@@ -70,25 +71,10 @@ class MapViewController: UIViewController {
         ]
       ]
     
-    // 현재 선택된 핀(Marker)
-    private var currentPin: NMFMarker? = nil
-    
-    init(latitude: Double, longitude: Double, officeName: String) {
-        super.init(nibName: nil, bundle: nil)
-        self.latitude = latitude
-        self.longitude = longitude
-        self.officeName = officeName
-    }
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    var map = NMFMapView()
+    private var currentPin: NMFMarker? = nil // 현재 선택된 핀(Marker)
+    private var map = NMFMapView()
+    private var setNMap = true // 지도가 중복되서 설정되는 것을 방지
+
     private var topInfoStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.backgroundColor = .clear
@@ -98,6 +84,7 @@ class MapViewController: UIViewController {
         
         return stackView
     }()
+    
     private lazy var officeNameLabel: BasePaddingLabel = {
         var label = BasePaddingLabel(padding: UIEdgeInsets(top: 12, left: 40, bottom: 12, right: 40))
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -127,6 +114,21 @@ class MapViewController: UIViewController {
         return button
     }()
     
+    init(latitude: Double, longitude: Double, officeName: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.latitude = latitude
+        self.longitude = longitude
+        self.officeName = officeName
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         map.frame = view.frame
@@ -135,7 +137,6 @@ class MapViewController: UIViewController {
         setupLayout()
     }
     
-    private var setNMap = true
     override func viewDidLayoutSubviews() {
         if setNMap {
             setNMap = false
@@ -175,7 +176,7 @@ class MapViewController: UIViewController {
     }
     
     @objc private func backButtonDown() {
-        setCameraMap()
+        setCameraMap() // MARK: 버튼 작동 여부를 위한 테스트
     }
 }
 
@@ -186,6 +187,7 @@ extension MapViewController {
         setCameraMap()
     }
     
+    /// 카메라를 입력 받은 위도 경도로 이동하는 함수
     private func setCameraMap() {
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
         cameraUpdate.animation = .none
@@ -193,7 +195,9 @@ extension MapViewController {
         map.moveCamera(cameraUpdate)
     }
     
+    /// 지도 위에 주변 정보 마커 표시하기 위한 함수
     private func setMarkOfficePlace() {
+        // 클릭 되었다면 클릭된 마크 표시를 - 클릭이 해제되었다면 클릭 해제된 마크 표시
         let clickedMarker: (NMFOverlay) -> Bool = { [weak self] marker in
             guard let marker = marker as? NMFMarker else { return false }
             let cureentImage = marker.iconImage
@@ -241,7 +245,6 @@ extension MapViewController {
             }
     
             marker.mapView = map
-            print(title)
         }
         
     }
