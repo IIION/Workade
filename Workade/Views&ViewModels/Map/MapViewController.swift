@@ -9,68 +9,7 @@ import NMapsMap
 import UIKit
 
 class MapViewController: UIViewController {
-    // Binding 객체
-    var office: Office
-    var latitude = 33.533054
-    var longitude = 126.630947
-    var officeName = "제주 O-PEACE"
-    // 임시 설정 주변 정보
-    var nearbyPlaces = [
-        [
-          "title": "폴스키친",
-          "latitude": 33.5352183,
-          "longitude": 126.6279621,
-          "type": "restaurant"
-        ],
-        [
-          "title": "Ly-Rics",
-          "latitude": 33.5351693,
-          "longitude": 126.6283361,
-          "type": "restaurant"
-        ],
-        [
-          "title": "해오름가든",
-          "latitude": 33.5319835,
-          "longitude": 126.6265803,
-          "type": "restaurant"
-        ],
-        [
-          "title": "청우가든",
-          "latitude": 33.5306844,
-          "longitude": 126.6259431,
-          "type": "restaurant"
-        ],
-        [
-          "title": "신촌풍경",
-          "latitude": 33.5316173,
-          "longitude": 126.628933,
-          "type": "restaurant"
-        ],
-        [
-          "title": "별장가든",
-          "latitude": 33.5357333,
-          "longitude": 126.6314383,
-          "type": "restaurant"
-        ],
-        [
-          "title": "가베또롱",
-          "latitude": 33.5348947,
-          "longitude": 126.6294292,
-          "type": "cafe"
-        ],
-        [
-          "title": "딜레탕트",
-          "latitude": 33.5350575,
-          "longitude": 126.628334,
-          "type": "cafe"
-        ],
-        [
-          "title": "조천리 앞 바다",
-          "latitude": 33.5353119,
-          "longitude": 126.6290835,
-          "type": "nature"
-        ]
-      ]
+    private var viewModel: MapViewModel
     
     private var currentPin: NMFMarker? = nil {
         willSet(newVal) {
@@ -81,6 +20,7 @@ class MapViewController: UIViewController {
             }
         }
     }
+    
     private var map = NMFMapView()
     private var setNMap = true // 지도가 중복되서 설정되는 것을 방지
 
@@ -97,7 +37,7 @@ class MapViewController: UIViewController {
     private lazy var officeNameLabel: BasePaddingLabel = {
         var label = BasePaddingLabel(padding: UIEdgeInsets(top: 12, left: 40, bottom: 12, right: 40))
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = self.officeName
+        label.text = viewModel.officeName
         label.textAlignment = .center
         label.backgroundColor = .theme.background
         label.layer.masksToBounds = true
@@ -118,7 +58,7 @@ class MapViewController: UIViewController {
         button.setTitleColor(UIColor.black, for: .normal)
         button.layer.cornerRadius = 22
         button.clipsToBounds = true
-        button.addTarget(self, action: #selector(backButtonDown), for: .touchDown)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -130,21 +70,13 @@ class MapViewController: UIViewController {
         button.titleLabel?.font = .customFont(for: .title2)
         button.layer.backgroundColor = CGColor(red: 94/255, green: 204/255, blue: 105/255, alpha: 1)
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(touchedNaverButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(naverButtonTapped), for: .touchUpInside)
         
         return button
     }()
     
-    init(office: Office, latitude: Double, longitude: Double, officeName: String) {
-        self.office = office
-        super.init(nibName: nil, bundle: nil)
-        self.latitude = latitude
-        self.longitude = longitude
-        self.officeName = officeName
-    }
-    
     init(office: Office) {
-        self.office = office
+        viewModel = MapViewModel(office: office)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -207,8 +139,8 @@ class MapViewController: UIViewController {
         ])
     }
     
-    @objc private func backButtonDown() {
-        setCameraMap() // MARK: 버튼 작동 여부를 위한 테스트
+    @objc private func backButtonTapped() {
+        dismiss(animated: true)
     }
 }
 
@@ -221,7 +153,7 @@ extension MapViewController {
     
     /// 카메라를 입력 받은 위도 경도로 이동하는 함수
     private func setCameraMap() {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude))
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: viewModel.latitude, lng: viewModel.longitude))
         cameraUpdate.animation = .none
         cameraUpdate.animationDuration = 1
         map.moveCamera(cameraUpdate)
@@ -258,31 +190,25 @@ extension MapViewController {
             return true
         }
         
-        nearbyPlaces.forEach { place in
+        for spot in viewModel.spots {
             let marker = NMFMarker()
-            
-            guard let latitude = place["latitude"] as? Double, let longitude = place["longitude"] as? Double else { return }
-            marker.position = NMGLatLng(lat: latitude, lng: longitude)
-            
-            guard let title = place["title"] as? String else { return }
-            marker.captionText = title
+            marker.position = NMGLatLng(lat: spot.latitude, lng: spot.longitude)
+            marker.captionText = spot.title
             
             marker.touchHandler = clickedMarker
             
-            guard let type = place["type"] as? String, let pinImage = UIImage(named: "\(type)pin") else { return }
+            guard let pinImage = UIImage(named: "\(spot.spotType.rawValue)pin") else { return }
             marker.iconImage = NMFOverlayImage(image: pinImage)
             
-            switch type {
-            case "cafe": marker.tag = Pin.cafe.rawValue
-            case "nature": marker.tag = Pin.nature.rawValue
-            case "sea": marker.tag = Pin.sea.rawValue
-            case "restaurant": marker.tag = Pin.restaurant.rawValue
-            default: marker.tag = UInt.init(-1)
+            switch spot.spotType {
+            case .cafe: marker.tag = Pin.cafe.rawValue
+            case .nature: marker.tag = Pin.nature.rawValue
+            case .sea: marker.tag = Pin.sea.rawValue
+            case .restaurant: marker.tag = Pin.restaurant.rawValue
             }
             
             marker.mapView = map
         }
-        
     }
 }
 
@@ -300,7 +226,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
 }
 
 extension MapViewController {
-    @objc private func touchedNaverButton() {
+    @objc private func naverButtonTapped() {
         guard let title = currentPin?.captionText else { return }
         let urlStr = "nmap://search?query=\(title)"
         guard let encodedStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),

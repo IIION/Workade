@@ -9,6 +9,8 @@ import UIKit
 
 @MainActor
 final class HomeViewModel {
+    var bookmarkManager = BookmarkManager.shared
+    
     var officeResource = OfficeResource(context: [])
     var magazineResource = MagazineResource(content: [])
     
@@ -17,29 +19,32 @@ final class HomeViewModel {
     
     init() {
         fetchData()
+        bindingBookmarkManager() // 북마크
     }
     
     private func fetchData() {
         Task {
-            officeResource = try await fetchHomeData("office")
-            magazineResource = try await fetchHomeData("magazine")
+            officeResource = try await NetworkManager.shared.fetchHomeData("office")
+            magazineResource = try await NetworkManager.shared.fetchHomeData("magazine")
             isCompleteFetch.value = true
         }
     }
     
-    private func fetchHomeData<T: Codable>(_ type: String) async throws -> T {
-        guard let url = URL(string: Constants.homeURL + type + ".json") else {
-            throw NetworkError.invalidURL
-        }
-        
-        guard let data = await NetworkManager.shared.request(url: url) else {
-            throw NetworkError.invalidResponse
-        }
+    // MARK: 북마크 Logic in ViewModel (init시에 bindingBookmarkManager()호출)
     
-        do {
-            return try JSONDecoder().decode(T.self, from: data)
-        } catch {
-            fatalError("Failed json parsing")
+    /// 눌린 북마크의 id를 cell - viewController - viewModel - bookmarkManager 흐름으로 알립니다.
+    var clickedMagazineId = Binder("")
+    
+    /// Manager -> ViewModel -> ViewController
+    private func bindingBookmarkManager() {
+        bookmarkManager.clickedMagazineId.bindAndFire(at: .home) { [weak self] id in
+            guard let self = self else { return }
+            self.clickedMagazineId.value = id
         }
+    }
+    
+    /// ViewController -> ViewModel -> Manager
+    func notifyClickedMagazineId(title id: String, key: String) {
+        bookmarkManager.notifyClickedMagazineId(title: id, key: key)
     }
 }

@@ -7,17 +7,12 @@
 
 import UIKit
 
-// 원래 있는 프로토콜 아님 주의.
-protocol OfficeCollectionViewCellDelegate: AnyObject {
-    func didTapMapButton(office: Office)
-}
-
 /// 오피스를 나열한 컬렉션뷰의 셀
 final class OfficeCollectionViewCell: UICollectionViewCell {
     var office: Office?
     var task: Task<Void, Error>?
     
-    weak var delegate: OfficeCollectionViewCellDelegate?
+    weak var delegate: CollectionViewCellDelegate?
     
     private lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
