@@ -86,8 +86,8 @@ class CheckListBottomSheetViewController: UIViewController {
     }
     
     private func showBottomSheet() {
-        let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
-        let bottomPadding: CGFloat = view.safeAreaInsets.bottom
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding = view.safeAreaInsets.bottom
         
         bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - defaultHeight
         
