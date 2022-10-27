@@ -37,6 +37,7 @@ final class MultiBinder<T> {
         listeners = listeners.filter { $0.place != place }
         listeners.append(Listener(place: place, block: block))
         fire()
+        print(listeners)
     }
 
     func remove(at place: Place) {
