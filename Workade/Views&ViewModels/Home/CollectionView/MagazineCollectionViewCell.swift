@@ -8,8 +8,9 @@
 import UIKit
 
 /// 매거진을 나열한 컬렉션뷰의 셀
-class MagazineCollectionViewCell: UICollectionViewCell {
-    var magazineId: Int?
+final class MagazineCollectionViewCell: UICollectionViewCell {
+    private var magazineId: String?
+    private var task: Task<Void, Error>?
     
     private lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
@@ -29,13 +30,20 @@ class MagazineCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.font = .customFont(for: .subHeadline)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
+    
+    // 이미지를 nil로 처리해도 빠른 스크롤의 경우 이미지 꼬임 현상을 완벽하게 해결하진 못합니다.
+    // 재사용 셀 큐를 지난후 prepare단계 때 task를 취소시켜줌으로써, 이미지 꼬임 현상을 완벽하게 막을 수 있습니다.
+    // 주의 - prepareForReuse 안에는 셀을 구성하는 컨텐트(컴포넌트 등)의 값은 핸들링하지않는 것을 공식문서에서 권장합니다.
+    override func prepareForReuse() {
+        task?.cancel()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,9 +56,13 @@ class MagazineCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(magazine: Magazine) {
-        magazineId = magazine.id
+        magazineId = magazine.title
         titleLabel.text = magazine.title
-        backgroundImageView.image = magazine.profileImage
+        backgroundImageView.image = nil
+        // 이렇게 최초 구성 이미지를 nil로 해주면, 빠른 스크롤 시에 이전 이미지가 들어가있는 이미지 꼬임 현상을 다소 막아줄 수 있습니다. 그 후 불러와진 이미지가 정상적으로 자리잡게 됩니다.
+        task = Task {
+            await backgroundImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
+        }
     }
     
     @objc func bookmarkButtonTapped() {
@@ -60,12 +72,12 @@ class MagazineCollectionViewCell: UICollectionViewCell {
 }
 
 // MARK: UI setup 관련 Methods
-extension MagazineCollectionViewCell {
-    private func setupLayer() {
+private extension MagazineCollectionViewCell {
+    func setupLayer() {
         self.layer.cornerRadius = 12
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         addSubview(backgroundImageView)
         addSubview(bookmarkButton)
         addSubview(titleLabel)
@@ -84,6 +96,7 @@ extension MagazineCollectionViewCell {
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
     }

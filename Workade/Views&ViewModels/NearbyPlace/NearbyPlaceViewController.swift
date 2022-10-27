@@ -8,7 +8,17 @@
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
+    var office: Office
     let nearbyPlaceView = NearbyPlaceView()
+    
+    init(office: Office) {
+        self.office = office
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var customNavigationBar: UIViewController!
     private var defaultScrollYOffset: CGFloat = 0

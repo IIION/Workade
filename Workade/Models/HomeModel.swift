@@ -7,21 +7,66 @@
 
 import UIKit
 
-struct Office {
-    let officeName: String
-    let regionName: String
-    let profileImage: UIImage
-    let latitude: Double
-    let longitude: Double
+struct OfficeResource: Codable {
+    let context: [Office]
 }
 
-/// **매거진 모델**
-/// - id: 북마크 상태 추적, 이미지 불러오기, 이미지 캐싱 등에 사용
-/// - title: 매거진의 제목
-/// - profileImage: 프로필의 이미지 (추후 없어질 수도 있음)
-struct Magazine {
-    let id: Int
-    let title: String
-    let profileImage: UIImage
+struct Office: Codable {
+    let officeName: String
+    let regionName: String
+    let imageURL: String
+    let introduceURL: String
+    let latitude: Double
+    let longitude: Double
+    let spots: [Spot]
+    
+    enum CodingKeys: String, CodingKey {
+        case officeName = "officename"
+        case regionName = "regionname"
+        case imageURL = "imageurl"
+        case introduceURL = "introduceurl"
+        case latitude, longitude, spots
+    }
 }
-// 다른 프로퍼티는 필요한 시점에 추가하겠습니다.
+
+struct Spot: Codable {
+    let title: String
+    let latitude: Double
+    let longitude: Double
+    let type: String
+    
+    var spotType: SpotType {
+        switch self.type {
+        case "cafe":
+            return .cafe
+        case "nature":
+            return .nature
+        case "restaurant":
+            return .restaurant
+        default:
+            return .cafe
+        }
+    }
+}
+
+enum SpotType {
+    case cafe
+    case nature
+    case restaurant
+}
+
+struct MagazineResource: Codable {
+    let content: [Magazine]
+}
+
+struct Magazine: Codable {
+    let title: String
+    let imageURL: String
+    let introduceURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case imageURL = "imageurl"
+        case introduceURL = "introduceurl"
+    }
+}

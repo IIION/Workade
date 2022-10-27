@@ -11,7 +11,7 @@ import UIKit
 /// - itemSize: 셀의 사이즈
 /// - spacing: 줄 간 간격. 가로 스크롤이기에 좌우 간격이라고 생각하면 된다.
 /// - inset: 컬렉션뷰의 크기로부터 내부 컨텐츠들의 inset.
-class HorizontalCollectionView: UICollectionView {
+final class HorizontalCollectionView: UICollectionView {
     init(itemSize: CGSize, spacing: CGFloat = 20, inset: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)) {
         super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         let layout = UICollectionViewFlowLayout()

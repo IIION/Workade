@@ -55,6 +55,12 @@
 		5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */; };
 		5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */; };
 		961C56212902BF77003E238F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C56202902BF77003E238F /* HeaderView.swift */; };
+		9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643322C290A602F00FBECAF /* NetworkManager.swift */; };
+		96433231290A746400FBECAF /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96433230290A746400FBECAF /* UIImageView+.swift */; };
+		96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96433232290A74C600FBECAF /* ImageCacheManager.swift */; };
+		96433235290A776600FBECAF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96433234290A776600FBECAF /* Constants.swift */; };
+		96433239290A783100FBECAF /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96433238290A783100FBECAF /* Binder.swift */; };
+		9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643323A290A9B2000FBECAF /* MyPageViewModel.swift */; };
 		9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763729092D4A0047ED34 /* MyPageViewController.swift */; };
 		9646763A29092EBF0047ED34 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763929092EBF0047ED34 /* TitleView.swift */; };
 		9646763C290932010047ED34 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763B290932010047ED34 /* UINavigationController.swift */; };
@@ -132,6 +138,12 @@
 		5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961C56202902BF77003E238F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		9643322C290A602F00FBECAF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		96433230290A746400FBECAF /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		96433232290A74C600FBECAF /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		96433234290A776600FBECAF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		96433238290A783100FBECAF /* Binder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binder.swift; sourceTree = "<group>"; };
+		9643323A290A9B2000FBECAF /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		9646763729092D4A0047ED34 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9646763929092EBF0047ED34 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		9646763B290932010047ED34 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
@@ -288,6 +300,7 @@
 				5F5C074728FE803C0089DD4B /* UIColor+.swift */,
 				21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
+				96433230290A746400FBECAF /* UIImageView+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
 				A33835272903E03A009882BF /* UIButton+.swift */,
@@ -373,6 +386,10 @@
 			children = (
 				5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */,
 				5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */,
+				96433238290A783100FBECAF /* Binder.swift */,
+				96433234290A776600FBECAF /* Constants.swift */,
+				9643322C290A602F00FBECAF /* NetworkManager.swift */,
+				96433232290A74C600FBECAF /* ImageCacheManager.swift */,
 				961C56242902FFF0003E238F /* View */,
 				961C56222902FF81003E238F /* CollectionView */,
 			);
@@ -411,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				9646763729092D4A0047ED34 /* MyPageViewController.swift */,
+				9643323A290A9B2000FBECAF /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -606,8 +624,11 @@
 				2120F566290130870035D36E /* UICollectionViewTwoLineLayout.swift in Sources */,
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
+				96433239290A783100FBECAF /* Binder.swift in Sources */,
+				2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */,
+				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
@@ -616,6 +637,7 @@
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
 				9646763A29092EBF0047ED34 /* TitleView.swift in Sources */,
+				9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */,
 				9646763C290932010047ED34 /* UINavigationController.swift in Sources */,
 				A393992629081628000E129A /* CustomNavigationBar.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
@@ -635,14 +657,17 @@
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
 				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
+				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A374B8562902856B003C7390 /* TapDetailCell.swift in Sources */,
 				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
+				9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				0ED6D420290946B1000DF27B /* TempNavigationBar.swift in Sources */,
+				96433235290A776600FBECAF /* Constants.swift in Sources */,
 				16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */,
 				A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */,
 				5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */,
@@ -802,7 +827,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B2RV52W8G3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -834,7 +859,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B2RV52W8G3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
