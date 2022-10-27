@@ -24,15 +24,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTransperent" translatesAutoresizingMaskIntoConstraints="NO" id="tS2-8p-JYx">
+                                <rect key="frame" x="30" y="67" width="48" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="Fof-Oe-hZP"/>
+                                    <constraint firstAttribute="height" constant="30" id="stG-E9-2jG"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="tS2-8p-JYx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="9LD-Nv-Nju"/>
                             <constraint firstItem="aB6-We-lC7" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="CLM-wh-O24"/>
                             <constraint firstItem="qRi-m1-Kkb" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="JUd-VW-GEe"/>
                             <constraint firstAttribute="top" secondItem="qRi-m1-Kkb" secondAttribute="top" id="Yut-lq-EZt"/>
                             <constraint firstItem="aB6-We-lC7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-120" id="cYs-Gb-oml"/>
                             <constraint firstItem="qRi-m1-Kkb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="dmp-Vd-8vG"/>
+                            <constraint firstItem="tS2-8p-JYx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="dxt-Tj-Bh9"/>
                             <constraint firstAttribute="trailing" secondItem="aB6-We-lC7" secondAttribute="trailing" id="kJG-uD-caA"/>
                             <constraint firstAttribute="trailing" secondItem="qRi-m1-Kkb" secondAttribute="trailing" id="sZ7-QA-Xdz"/>
                             <constraint firstAttribute="top" secondItem="aB6-We-lC7" secondAttribute="top" id="yTD-fW-qg5"/>
@@ -45,6 +54,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="iconTransperent" width="210" height="137"/>
         <image name="launch" width="1080" height="1080"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

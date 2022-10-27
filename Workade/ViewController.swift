@@ -17,6 +17,14 @@ class LaunchScreenAnimationView: UIView {
         return view
     }()
     
+    lazy var logoView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "iconTransperent")!)
+        view.contentMode = .scaleAspectFit
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     lazy var dimmingView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = .black
@@ -39,6 +47,7 @@ class LaunchScreenAnimationView: UIView {
     private func setupLayout() {
         self.addSubview(backgroundView)
         self.addSubview(dimmingView)
+        self.addSubview(logoView)
         
         NSLayoutConstraint.activate([
             backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120),
@@ -52,6 +61,13 @@ class LaunchScreenAnimationView: UIView {
             dimmingView.topAnchor.constraint(equalTo: self.topAnchor),
             dimmingView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             dimmingView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            logoView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            logoView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
+            logoView.widthAnchor.constraint(equalToConstant: 48),
+            logoView.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -68,6 +84,7 @@ class LaunchScreenAnimationView: UIView {
         
         endAnimator.addAnimations {
             self.backgroundView.alpha = 0
+            self.logoView.alpha = 0
         }
         
         endAnimator.addCompletion { _ in
