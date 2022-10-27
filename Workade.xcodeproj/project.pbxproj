@@ -75,8 +75,8 @@
 		96CFBE2629044E9200A4B488 /* CheckListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBE2529044E9200A4B488 /* CheckListButton.swift */; };
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
-		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
-        A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
+		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };
+		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
 		A374B8562902856B003C7390 /* TapDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A374B8552902856B003C7390 /* TapDetailCell.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
@@ -159,7 +159,6 @@
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A35559A728FED2B2001E4254 /* TapDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailViewController.swift; sourceTree = "<group>"; };
-		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
 		A374B8552902856B003C7390 /* TapDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailCell.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -352,6 +351,7 @@
 				A3947B2129013ECA00DA4E0D /* Share */,
 				5F5C074F28FE81F20089DD4B /* Delegate */,
 				5F5C074C28FE81BD0089DD4B /* Extentions */,
+				961CC47F290AE65900921F24 /* Managers */,
 				5F5C074B28FE81B40089DD4B /* Models */,
 				5FDC17D928FE7C720060DBB7 /* Views&ViewModels */,
 				21F6DE5628FFED2000ED72C6 /* Fonts */,
@@ -388,8 +388,6 @@
 				5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */,
 				96433238290A783100FBECAF /* Binder.swift */,
 				96433234290A776600FBECAF /* Constants.swift */,
-				9643322C290A602F00FBECAF /* NetworkManager.swift */,
-				96433232290A74C600FBECAF /* ImageCacheManager.swift */,
 				961C56242902FFF0003E238F /* View */,
 				961C56222902FF81003E238F /* CollectionView */,
 			);
@@ -424,6 +422,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		961CC47F290AE65900921F24 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9643322C290A602F00FBECAF /* NetworkManager.swift */,
+				96433232290A74C600FBECAF /* ImageCacheManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		9646763629092D340047ED34 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,7 +448,7 @@
 			path = SettingViewController;
 			sourceTree = "<group>";
 		};
-        A35BD48028FE85A800D1FA7C /* Magazine */ = {
+		A35BD48028FE85A800D1FA7C /* Magazine */ = {
 			isa = PBXGroup;
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
@@ -625,7 +632,6 @@
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
-				2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
