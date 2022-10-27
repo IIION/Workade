@@ -11,21 +11,32 @@ final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     
     // load
-    func loadUserDefaults<T: Codable>(key: String) -> Set<T> {
+    func loadUserDefaults(key: String) -> Set<String> {
         if UserDefaults.standard.dictionaryRepresentation().keys.contains(key) {
-            let value: Set<T> = decode(UserDefaults.standard.data(forKey: key) ?? Data())
+            let value: Set<String> = decode(UserDefaults.standard.data(forKey: key) ?? Data())
             return value
         } else {
-            let data = encode(Set<T>())
+            let data = encode(Set<String>())
             UserDefaults.standard.set(data, forKey: key)
-            return Set<T>()
+            return Set<String>()
         }
     }
     
     // save
-    func saveUserDefaults(_ value: Set<Int>, forKey: String) {
+    func saveUserDefaults(_ value: Set<String>, forKey: String) {
         let data = encode(value)
         UserDefaults.standard.set(data, forKey: forKey)
+    }
+    
+    // update
+    func updateUserDefaults(id: String, key: String) { // update
+        var bookmarks: Set<String> = loadUserDefaults(key: key)
+        if !bookmarks.contains(id) {
+            bookmarks.insert(id)
+        } else {
+            bookmarks.remove(id)
+        }
+        saveUserDefaults(bookmarks, forKey: key)
     }
     
     // encoding
