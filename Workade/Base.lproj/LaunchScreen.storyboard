@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="aB6-We-lC7">
-                                <rect key="frame" x="-120" y="0.0" width="510" height="844"/>
+                                <rect key="frame" x="-40" y="0.0" width="430" height="844"/>
                             </imageView>
                             <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRi-m1-Kkb">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
@@ -40,7 +40,7 @@
                             <constraint firstItem="tS2-8p-JYx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KOy-q9-5bD"/>
                             <constraint firstItem="tS2-8p-JYx" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Oey-5U-XTX"/>
                             <constraint firstAttribute="top" secondItem="qRi-m1-Kkb" secondAttribute="top" id="Yut-lq-EZt"/>
-                            <constraint firstItem="aB6-We-lC7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-120" id="cYs-Gb-oml"/>
+                            <constraint firstItem="aB6-We-lC7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-40" id="cYs-Gb-oml"/>
                             <constraint firstItem="qRi-m1-Kkb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="dmp-Vd-8vG"/>
                             <constraint firstAttribute="trailing" secondItem="aB6-We-lC7" secondAttribute="trailing" id="kJG-uD-caA"/>
                             <constraint firstAttribute="trailing" secondItem="qRi-m1-Kkb" secondAttribute="trailing" id="sZ7-QA-Xdz"/>
