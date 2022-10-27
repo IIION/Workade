@@ -6,32 +6,63 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8E049F5F4E3BDC647F924FEF22D49D90 /* NMapsMap */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A1B213981E68CAFF0A1F18AAD44F4839 /* Build configuration list for PBXAggregateTarget "NMapsMap" */;
+			buildPhases = (
+				ED4155E71C3B4448F7BAFEA64A58DBE8 /* [CP] Copy XCFrameworks */,
+			);
+			dependencies = (
+			);
+			name = NMapsMap;
+			productName = NMapsMap;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		73D74ABA35A9C5D9AF446D2CEDB015CB /* Pods-Workade-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DE037EBEE7F4A84C3E455B868BB6CD9 /* Pods-Workade-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7AF6E827E4214A1C265A9C98CD5D463F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		F0E1E74B4C434C989E7CECFA6E893A10 /* Pods-Workade-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869D53BB5DEE6AD9796999E469FC4AF /* Pods-Workade-dummy.m */; };
+		2CE26EF9437281F9D2FC6323844996DB /* Pods-Workade-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D84950082F8819B9B350418C782BE02C /* Pods-Workade-dummy.m */; };
+		312CBC6F354C611BD88E71CCC17B48E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		568A5BD96400ECF5B401B52F599280EE /* Pods-Workade-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E1093F3BF88C50B67E2C8BA319328C3C /* Pods-Workade-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C8AF2B76270863BA1A404D08291BE535 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E049F5F4E3BDC647F924FEF22D49D90;
+			remoteInfo = NMapsMap;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		1E1C7FF8E4FA4E0618DAE023D3A0C1D4 /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2869D53BB5DEE6AD9796999E469FC4AF /* Pods-Workade-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Workade-dummy.m"; sourceTree = "<group>"; };
-		358BDD3082A35FE85A3D4C28F8F015C5 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
-		362CDCB7057DEAE0B526569A7B2371D5 /* Pods-Workade.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Workade.modulemap"; sourceTree = "<group>"; };
-		40474C1D84F1136A47DC1998289178AD /* Pods-Workade-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Workade-acknowledgements.plist"; sourceTree = "<group>"; };
-		4649BC3B72AE3A8F33CF977EB78C5DF5 /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
+
+		1E1C7FF8E4FA4E0618DAE023D3A0C1D4 /* Pods-Workade */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Workade"; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20BEEEB7F2F5BFF3346E15906C53EA8D /* NMapsMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NMapsMap.debug.xcconfig; sourceTree = "<group>"; };
+		30F3D0CB70ED4332835571E22C83E4C4 /* Pods-Workade.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Workade.modulemap"; sourceTree = "<group>"; };
+		3B58982A6753EB0DE41AA99DB73B4943 /* NMapsMap.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = NMapsMap.xcframework; path = framework/NMapsMap.xcframework; sourceTree = "<group>"; };
+		4E9EE5B1B93DD2F06C692330A4A5738C /* Pods-Workade-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Workade-acknowledgements.plist"; sourceTree = "<group>"; };
+		5F25BF3AF494B34C54F1E554B790C64B /* NMapsMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NMapsMap.release.xcconfig; sourceTree = "<group>"; };
+		66DE283A038C1DC698B90AF6597F2832 /* Pods-Workade-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Workade-frameworks.sh"; sourceTree = "<group>"; };
+		72EC44C747D7C5CA53422C2CE1DF0D3B /* Pods-Workade-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Workade-acknowledgements.markdown"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		8DE037EBEE7F4A84C3E455B868BB6CD9 /* Pods-Workade-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Workade-umbrella.h"; sourceTree = "<group>"; };
+		7B8643704CF7AE32E97A525A3C137DA4 /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
+		8DDC1A240832539FA0C656E9DB48EDB6 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
+		9A5A746E71D25CD4B6EA8831464383EB /* Pods-Workade-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Workade-Info.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BFD7FD2B38AFC0121E81DD5017BBABFB /* Pods-Workade-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Workade-acknowledgements.markdown"; sourceTree = "<group>"; };
-		FFA58010425605888BA4B9179C60D01D /* Pods-Workade-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Workade-Info.plist"; sourceTree = "<group>"; };
+		CC36C9CBF5D2D40AF8D86DF9B96D6CA3 /* NMapsMap-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "NMapsMap-xcframeworks.sh"; sourceTree = "<group>"; };
+		D84950082F8819B9B350418C782BE02C /* Pods-Workade-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Workade-dummy.m"; sourceTree = "<group>"; };
+		E1093F3BF88C50B67E2C8BA319328C3C /* Pods-Workade-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Workade-umbrella.h"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		39B3821A1B5A437341405D6791EC6F4C /* Frameworks */ = {
+		37296F1191BB78CE6452848C1FEA604B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AF6E827E4214A1C265A9C98CD5D463F /* Foundation.framework in Frameworks */,
+				312CBC6F354C611BD88E71CCC17B48E2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,28 +77,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		23011131FC7C173DB3477A4A9209C03F /* Targets Support Files */ = {
+		3E3ACA4AD3E5AB238CFE4719D767637F /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				47FA18A70DE50DEE8EC4E5299C590F26 /* Pods-Workade */,
+				6F6FBFFD6948B4C9610632AB7202BD83 /* Pods-Workade */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		47FA18A70DE50DEE8EC4E5299C590F26 /* Pods-Workade */ = {
-			isa = PBXGroup;
-			children = (
-				362CDCB7057DEAE0B526569A7B2371D5 /* Pods-Workade.modulemap */,
-				BFD7FD2B38AFC0121E81DD5017BBABFB /* Pods-Workade-acknowledgements.markdown */,
-				40474C1D84F1136A47DC1998289178AD /* Pods-Workade-acknowledgements.plist */,
-				2869D53BB5DEE6AD9796999E469FC4AF /* Pods-Workade-dummy.m */,
-				FFA58010425605888BA4B9179C60D01D /* Pods-Workade-Info.plist */,
-				8DE037EBEE7F4A84C3E455B868BB6CD9 /* Pods-Workade-umbrella.h */,
-				4649BC3B72AE3A8F33CF977EB78C5DF5 /* Pods-Workade.debug.xcconfig */,
-				358BDD3082A35FE85A3D4C28F8F015C5 /* Pods-Workade.release.xcconfig */,
-			);
-			name = "Pods-Workade";
-			path = "Target Support Files/Pods-Workade";
 			sourceTree = "<group>";
 		};
 		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
@@ -78,13 +93,56 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		6F6FBFFD6948B4C9610632AB7202BD83 /* Pods-Workade */ = {
+			isa = PBXGroup;
+			children = (
+				30F3D0CB70ED4332835571E22C83E4C4 /* Pods-Workade.modulemap */,
+				72EC44C747D7C5CA53422C2CE1DF0D3B /* Pods-Workade-acknowledgements.markdown */,
+				4E9EE5B1B93DD2F06C692330A4A5738C /* Pods-Workade-acknowledgements.plist */,
+				D84950082F8819B9B350418C782BE02C /* Pods-Workade-dummy.m */,
+				66DE283A038C1DC698B90AF6597F2832 /* Pods-Workade-frameworks.sh */,
+				9A5A746E71D25CD4B6EA8831464383EB /* Pods-Workade-Info.plist */,
+				E1093F3BF88C50B67E2C8BA319328C3C /* Pods-Workade-umbrella.h */,
+				7B8643704CF7AE32E97A525A3C137DA4 /* Pods-Workade.debug.xcconfig */,
+				8DDC1A240832539FA0C656E9DB48EDB6 /* Pods-Workade.release.xcconfig */,
+			);
+			name = "Pods-Workade";
+			path = "Target Support Files/Pods-Workade";
+			sourceTree = "<group>";
+		};
+		7453819D9A6489588C2ABC2D5CB7E00F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C0F3F3C3E4EC46DA6CB2F554D5A220C3 /* NMapsMap */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C0F3F3C3E4EC46DA6CB2F554D5A220C3 /* NMapsMap */ = {
+			isa = PBXGroup;
+			children = (
+				C50F67E714F076DBE11F69F7E1F86553 /* Frameworks */,
+				D420C0625323EABF8B7CD6DE4B68D71E /* Support Files */,
+			);
+			path = NMapsMap;
+			sourceTree = "<group>";
+		};
+		C50F67E714F076DBE11F69F7E1F86553 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B58982A6753EB0DE41AA99DB73B4943 /* NMapsMap.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				7453819D9A6489588C2ABC2D5CB7E00F /* Pods */,
 				15409ED6CC9B104E6D3915EABE57B32B /* Products */,
-				23011131FC7C173DB3477A4A9209C03F /* Targets Support Files */,
+				3E3ACA4AD3E5AB238CFE4719D767637F /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,14 +154,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D420C0625323EABF8B7CD6DE4B68D71E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC36C9CBF5D2D40AF8D86DF9B96D6CA3 /* NMapsMap-xcframeworks.sh */,
+				20BEEEB7F2F5BFF3346E15906C53EA8D /* NMapsMap.debug.xcconfig */,
+				5F25BF3AF494B34C54F1E554B790C64B /* NMapsMap.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/NMapsMap";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		8D9DA68D8BE7ED58EA979F18BEC54A38 /* Headers */ = {
+		66946BF4FDBAE231BC01B1CCD5C20E18 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73D74ABA35A9C5D9AF446D2CEDB015CB /* Pods-Workade-umbrella.h in Headers */,
+				568A5BD96400ECF5B401B52F599280EE /* Pods-Workade-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,16 +181,17 @@
 /* Begin PBXNativeTarget section */
 		5599ED6CC32CCDF7D8EEA97D1E808E5F /* Pods-Workade */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C8021E0EBBBDF926AD3412897F1F5BC2 /* Build configuration list for PBXNativeTarget "Pods-Workade" */;
+			buildConfigurationList = 8B7D785C3009D8867F797F943ACE4104 /* Build configuration list for PBXNativeTarget "Pods-Workade" */;
 			buildPhases = (
-				8D9DA68D8BE7ED58EA979F18BEC54A38 /* Headers */,
-				A0E4C5B53CF902551F426873A7A42402 /* Sources */,
-				39B3821A1B5A437341405D6791EC6F4C /* Frameworks */,
-				6AAAC15096CDD165D7574C52B204FA8E /* Resources */,
+				66946BF4FDBAE231BC01B1CCD5C20E18 /* Headers */,
+				2A911822FAE9D3908DC0395F2371DE9D /* Sources */,
+				37296F1191BB78CE6452848C1FEA604B /* Frameworks */,
+				828B4E019A64E5768FEEE6A08699351A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				12F3C0CBD13A897F023335D19082DCA1 /* PBXTargetDependency */,
 			);
 			name = "Pods-Workade";
 			productName = Pods_Workade;
@@ -135,7 +205,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1400;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -150,13 +220,14 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				8E049F5F4E3BDC647F924FEF22D49D90 /* NMapsMap */,
 				5599ED6CC32CCDF7D8EEA97D1E808E5F /* Pods-Workade */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6AAAC15096CDD165D7574C52B204FA8E /* Resources */ = {
+		828B4E019A64E5768FEEE6A08699351A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -165,21 +236,223 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		ED4155E71C3B4448F7BAFEA64A58DBE8 /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/NMapsMap/NMapsMap-xcframeworks-input-files.xcfilelist",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/NMapsMap/NMapsMap-xcframeworks-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/NMapsMap/NMapsMap-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		A0E4C5B53CF902551F426873A7A42402 /* Sources */ = {
+		2A911822FAE9D3908DC0395F2371DE9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0E1E74B4C434C989E7CECFA6E893A10 /* Pods-Workade-dummy.m in Sources */,
+				2CE26EF9437281F9D2FC6323844996DB /* Pods-Workade-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		12F3C0CBD13A897F023335D19082DCA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NMapsMap;
+			target = 8E049F5F4E3BDC647F924FEF22D49D90 /* NMapsMap */;
+			targetProxy = C8AF2B76270863BA1A404D08291BE535 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		442C3A5F6A8EC7AA256904ABC29B7E1F /* Release */ = {
+		23D40494AA4C44B2B496532B44F79289 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 358BDD3082A35FE85A3D4C28F8F015C5 /* Pods-Workade.release.xcconfig */;
+			baseConfigurationReference = 5F25BF3AF494B34C54F1E554B790C64B /* NMapsMap.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Workade/Pods-Workade-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F9B1FBCC57DCB9D3488C59AE31399CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20BEEEB7F2F5BFF3346E15906C53EA8D /* NMapsMap.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		9553C89E183877A5CB2F3C6801BEC129 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		A349039ABDD345B2FFFE288C0929CF78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DDC1A240832539FA0C656E9DB48EDB6 /* Pods-Workade.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -215,137 +488,9 @@
 			};
 			name = Release;
 		};
-		4BC7450F9457737EE3E637BA155B56F7 /* Debug */ = {
+		E1D7180539A11E3B2DB3A6F32422BBF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_DEBUG=1",
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		8B5A46FF8D3C1289CDEE3BAFACABCD2A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		AF24613D85CD14AF4A0029CBE34D42FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4649BC3B72AE3A8F33CF977EB78C5DF5 /* Pods-Workade.debug.xcconfig */;
+			baseConfigurationReference = 7B8643704CF7AE32E97A525A3C137DA4 /* Pods-Workade.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -386,17 +531,26 @@
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4BC7450F9457737EE3E637BA155B56F7 /* Debug */,
-				8B5A46FF8D3C1289CDEE3BAFACABCD2A /* Release */,
+				90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */,
+				9553C89E183877A5CB2F3C6801BEC129 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C8021E0EBBBDF926AD3412897F1F5BC2 /* Build configuration list for PBXNativeTarget "Pods-Workade" */ = {
+		8B7D785C3009D8867F797F943ACE4104 /* Build configuration list for PBXNativeTarget "Pods-Workade" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AF24613D85CD14AF4A0029CBE34D42FF /* Debug */,
-				442C3A5F6A8EC7AA256904ABC29B7E1F /* Release */,
+				E1D7180539A11E3B2DB3A6F32422BBF4 /* Debug */,
+				A349039ABDD345B2FFFE288C0929CF78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1B213981E68CAFF0A1F18AAD44F4839 /* Build configuration list for PBXAggregateTarget "NMapsMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F9B1FBCC57DCB9D3488C59AE31399CE /* Debug */,
+				23D40494AA4C44B2B496532B44F79289 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

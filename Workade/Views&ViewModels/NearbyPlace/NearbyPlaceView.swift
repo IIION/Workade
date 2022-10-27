@@ -11,6 +11,8 @@ class NearbyPlaceView: UIView {
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
     
+    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,14 +27,14 @@ class NearbyPlaceView: UIView {
         return contentsContainer
     }()
     
-    private let placeImageContainer: UIView = {
+    let placeImageContainer: UIView = {
         let placeImageContainer = UIView()
         placeImageContainer.translatesAutoresizingMaskIntoConstraints = false
         
         return placeImageContainer
     }()
     
-    private let placeImageView: UIImageView = {
+    let placeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
         imageView.image = UIImage(named: "officeImage_test")
@@ -43,11 +45,71 @@ class NearbyPlaceView: UIView {
         return imageView
     }()
     
-    // TODO: 치콩이 통합으로 쓸 수 있는 환경을 구축해 놓았습니다. 머지 이후 통합시키겠습니다.
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["소개", "갤러리"])
+    let locationLabel: UILabel = {
+        let locationLabel = UILabel()
+        locationLabel.text = "제주도"
+        locationLabel.font = UIFont.customFont(for: .title3)
+        locationLabel.textColor = .white
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return locationLabel
+    }()
+    
+    let placeLabel: UILabel = {
+        let placeLabel = UILabel()
+        placeLabel.text = "O-Peace"
+        // TODO: AccentTitle1 폰트와 background_Light 컬러가 없습니다. 추후 변경할 예정입니다.
+        placeLabel.font = UIFont.customFont(for: .title1)
+        placeLabel.textColor = .white
+        placeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return placeLabel
+    }()
+    
+    // TODO: 머지 이후 치콩이 작성한 dismissButton으로 수정 예정입니다.
+    let dismissButton: UIButton = {
+        let dismissButton = UIButton()
+        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 22, weight: .semibold))
+        var image = UIImage(systemName: "xmark", withConfiguration: configuration)
+        image = image?.withTintColor(.red)
+        dismissButton.setImage(image, for: .normal)
+        
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        return dismissButton
+    }()
+    
+    lazy var mapButton: UIButton = {
+        let mapButton = UIButton()
+        let blur = UIVisualEffectView(effect:
+                                        UIBlurEffect(style: UIBlurEffect.Style.light))
+        mapButton.frame.size = CGSize(width: 48, height: 48)
+        mapButton.layer.cornerRadius = mapButton.bounds.height / 2
+        
+        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 17, weight: .semibold))
+        var image = UIImage(systemName: "map", withConfiguration: configuration)
+        image = image?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        mapButton.setImage(image, for: .normal)
+        
+        blur.frame = mapButton.bounds
+        blur.isUserInteractionEnabled = false
+        blur.layer.cornerRadius = 0.5 * mapButton.bounds.size.height
+        blur.clipsToBounds = true
+        mapButton.insertSubview(blur, belowSubview: mapButton.imageView!)
+        
+        return mapButton
+    }()
+    
+    let mapButtonContainer: UIView = {
+        let mapButtonContainer = UIView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+        mapButtonContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        return mapButtonContainer
+    }()
+    
+    lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.rgb(0xD1D1D6),
+            NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .normal)
         segmentedControl.setTitleTextAttributes([
@@ -55,7 +117,7 @@ class NearbyPlaceView: UIView {
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .selected)
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentedControl
@@ -63,10 +125,27 @@ class NearbyPlaceView: UIView {
     
     private let segmentUnderLine: UIView = {
         let segmentUnderLine = UIView()
-        segmentUnderLine.backgroundColor = UIColor.rgb(0xF2F2F7)
+        segmentUnderLine.backgroundColor = UIColor.theme.quaternary
         segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentUnderLine
+    }()
+    
+    let detailScrollView: UIScrollView = {
+        let detailScrollView = UIScrollView()
+        detailScrollView.alwaysBounceVertical = true
+        detailScrollView.isScrollEnabled = false
+        detailScrollView.showsVerticalScrollIndicator = false
+        detailScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return detailScrollView
+    }()
+    
+    let detailContensContainer: UIView = {
+        let detailContensContainer = UIView()
+        detailContensContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        return detailContensContainer
     }()
     
     private let introduceView: IntroduceView = {
@@ -88,8 +167,8 @@ class NearbyPlaceView: UIView {
         super.init(frame: frame)
         
         // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
-        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
-        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
+        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
+        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
         
         setupLayout()
     }
@@ -99,20 +178,21 @@ class NearbyPlaceView: UIView {
     }
     
     private func setupLayout() {
-        removeSegmentDefaultEffect()
-        
         setupScrollViewLayout()
+        setupPlaceInfoLayout()
+        setupSegmentedControl()
         setupNearbyPlaceDetailLayout()
     }
     
     private func setupScrollViewLayout() {
         addSubview(scrollView)
-        let scrollViewGuide = scrollView.contentLayoutGuide
-        
-        // priority 설정을 통해,
-        let placeImageViewTopConstraint = placeImageView.topAnchor.constraint(equalTo: topAnchor)
-        // layout이 깨지는 것을 방지하기 위한 우선순위 설정
-        placeImageViewTopConstraint.priority = .defaultHigh
+        addSubview(dismissButton)
+        NSLayoutConstraint.activate([
+            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: topSafeArea + 8),
+            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            dismissButton.widthAnchor.constraint(equalToConstant: 44),
+            dismissButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -121,6 +201,7 @@ class NearbyPlaceView: UIView {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
+        let scrollViewGuide = scrollView.contentLayoutGuide
         scrollView.addSubview(contentsContainer)
         NSLayoutConstraint.activate([
             contentsContainer.topAnchor.constraint(equalTo: scrollViewGuide.topAnchor),
@@ -129,15 +210,18 @@ class NearbyPlaceView: UIView {
             contentsContainer.trailingAnchor.constraint(equalTo: scrollViewGuide.trailingAnchor),
             contentsContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-        
+
         contentsContainer.addSubview(placeImageContainer)
         NSLayoutConstraint.activate([
             placeImageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             placeImageContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
             placeImageContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            placeImageContainer.heightAnchor.constraint(equalToConstant: 420)
+            placeImageContainer.heightAnchor.constraint(equalToConstant: topSafeArea + 375)
         ])
         
+        let placeImageViewTopConstraint = placeImageView.topAnchor.constraint(equalTo: topAnchor)
+        // layout이 깨지는 것을 방지하기 위한 우선순위 설정
+        placeImageViewTopConstraint.priority = .defaultHigh
         contentsContainer.addSubview(placeImageView)
         NSLayoutConstraint.activate([
             placeImageViewTopConstraint,
@@ -149,7 +233,7 @@ class NearbyPlaceView: UIView {
         ])
     }
     
-    private func setupNearbyPlaceDetailLayout() {
+    private func setupSegmentedControl() {
         contentsContainer.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: placeImageContainer.bottomAnchor),
@@ -165,32 +249,92 @@ class NearbyPlaceView: UIView {
             segmentUnderLine.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor),
             segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
+    }
+    
+    private func setupPlaceInfoLayout() {
         
-        contentsContainer.addSubview(introduceView)
+        contentsContainer.addSubview(placeLabel)
         NSLayoutConstraint.activate([
-            introduceView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 20),
-            introduceView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
-            introduceView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
-            introduceBottomConstraints
+            placeLabel.bottomAnchor.constraint(equalTo: placeImageContainer.bottomAnchor, constant: -20),
+            placeLabel.leadingAnchor.constraint(equalTo: placeImageContainer.leadingAnchor, constant: 20)
         ])
         
-        contentsContainer.addSubview(galleryView)
+        contentsContainer.addSubview(locationLabel)
         NSLayoutConstraint.activate([
-            galleryView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 20),
-            galleryView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
-            galleryView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20)
+            locationLabel.bottomAnchor.constraint(equalTo: placeLabel.topAnchor, constant: -5),
+            locationLabel.leadingAnchor.constraint(equalTo: placeImageContainer.leadingAnchor, constant: 20)
+        ])
+        
+        contentsContainer.addSubview(mapButtonContainer)
+        NSLayoutConstraint.activate([
+            mapButtonContainer.trailingAnchor.constraint(equalTo: placeImageContainer.trailingAnchor, constant: -17),
+            mapButtonContainer.bottomAnchor.constraint(equalTo: placeImageContainer.bottomAnchor, constant: -17)
+        ])
+        
+        mapButtonContainer.addSubview(mapButton)
+        NSLayoutConstraint.activate([
+            mapButton.centerXAnchor.constraint(equalTo: mapButtonContainer.centerXAnchor),
+            mapButton.centerYAnchor.constraint(equalTo: mapButtonContainer.centerYAnchor)
         ])
     }
     
+    private func setupNearbyPlaceDetailLayout() {
+        contentsContainer.addSubview(detailScrollView)
+        detailScrollView.addSubview(detailContensContainer)
+        NSLayoutConstraint.activate([
+            detailScrollView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor),
+            detailScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            detailScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            detailScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentsContainer.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: 375)
+        ])
+        
+        let detailScrollViewGuide = detailScrollView.contentLayoutGuide
+        NSLayoutConstraint.activate([
+            detailContensContainer.topAnchor.constraint(equalTo: detailScrollViewGuide.topAnchor),
+            detailContensContainer.bottomAnchor.constraint(equalTo: detailScrollViewGuide.bottomAnchor),
+            detailContensContainer.leadingAnchor.constraint(equalTo: detailScrollViewGuide.leadingAnchor),
+            detailContensContainer.trailingAnchor.constraint(equalTo: detailScrollViewGuide.trailingAnchor),
+            detailContensContainer.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor)
+        ])
+        
+        detailContensContainer.addSubview(introduceView)
+        NSLayoutConstraint.activate([
+            introduceView.topAnchor.constraint(equalTo: detailContensContainer.topAnchor, constant: 20),
+            introduceView.leadingAnchor.constraint(equalTo: detailContensContainer.leadingAnchor, constant: 20),
+            introduceView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: -20),
+            introduceBottomConstraints
+        ])
+        
+        detailContensContainer.addSubview(galleryView)
+        NSLayoutConstraint.activate([
+            galleryView.topAnchor.constraint(equalTo: detailContensContainer.topAnchor, constant: 20),
+            galleryView.leadingAnchor.constraint(equalTo: detailContensContainer.leadingAnchor, constant: 20),
+            galleryView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: -20)
+        ])
+    }
+}
+
+extension NearbyPlaceView {
     @objc
     private func indexChanged(_ segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
+            detailScrollView.isScrollEnabled = true
+            detailScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            scrollView.isScrollEnabled = true
             introduceView.isHidden = false
             galleryView.isHidden = true
             galleryBottomConstraints.isActive = false
             introduceBottomConstraints.isActive = true
         case 1:
+            // 갤러리 누르면 세그먼트 위치로 스크롤 이동.
+            detailScrollView.isScrollEnabled = true
+            detailScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            // 전체 뷰의 스크롤은 멈춰야함.
+            scrollView.isScrollEnabled = false
+            // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
+            scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
             introduceView.isHidden = true
             galleryView.isHidden = false
             introduceBottomConstraints.isActive = false
@@ -199,17 +343,13 @@ class NearbyPlaceView: UIView {
             break
         }
     }
-    
-    // TODO: 머지 이후 치콩이 작성한 뷰와 합치며 삭제될 함수입니다.
-    private func removeSegmentDefaultEffect() {
-        let image = UIImage()
-        segmentedControl.setBackgroundImage(image, for: .normal, barMetrics: .default)
-        segmentedControl.setBackgroundImage(image, for: .selected, barMetrics: .default)
-        segmentedControl.setBackgroundImage(image, for: .highlighted, barMetrics: .default)
-        segmentedControl.setDividerImage(
-            image,
-            forLeftSegmentState: .selected,
-            rightSegmentState: .normal,
-            barMetrics: .default)
+}
+
+extension UIView {
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
     }
 }
