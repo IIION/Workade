@@ -46,12 +46,15 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
         let fromViewController = transitionContext.viewController(forKey: .from)
         let toViewController = transitionContext.viewController(forKey: .to)
 
-        guard let galleryDetailViewController = (transition == .dismissal) ? (fromViewController as? GalleryDetailViewController) : (toViewController as? GalleryDetailViewController) else { return }
-
-        guard let nearbyPlaceViewController = (transition == .presentation) ? (fromViewController as? NearbyPlaceViewController) : (toViewController as? NearbyPlaceViewController) else { return }
-        
-        guard let indexPath = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.indexPathsForSelectedItems?.first else { return }
-        guard let item = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell else { return }
+        guard let galleryDetailViewController = (transition == .dismissal) ? (fromViewController as? GalleryDetailViewController) : (toViewController as? GalleryDetailViewController),
+              
+              let nearbyPlaceViewController = (transition == .presentation) ? (fromViewController as? NearbyPlaceViewController) : (toViewController as? NearbyPlaceViewController),
+              
+              let indexPath = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.indexPathsForSelectedItems?.first,
+              
+              let item = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell
+                
+        else { return }
         
         let imageViewCopy = makeimageView(by: item.imageView.image ?? UIImage())
         containerView.addSubview(imageViewCopy)
@@ -76,14 +79,11 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
             }
             animator.startAnimation()
         } else { // transition == .dismissal
-//            imageViewCopy.frame = galleryDetailViewController.imageView.convert(galleryDetailViewController.imageView.frame, to: nil)
             imageViewCopy.isHidden = true
             item.isHidden = false
             self.dimmingView.alpha = 0.8
             animator.addAnimations {
                 self.dimmingView.alpha = 0
-//                self.makeCellSize(for: imageViewCopy, item: item)
-//                containerView.layoutIfNeeded()
             }
             animator.addCompletion { _ in
                 transitionContext.completeTransition(true)

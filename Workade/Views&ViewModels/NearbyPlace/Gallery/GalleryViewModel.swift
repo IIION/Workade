@@ -5,7 +5,6 @@
 //  Created by 김예훈 on 2022/10/24.
 //
 
-import Foundation
 import UIKit
 
 enum NetworkingError: LocalizedError {
