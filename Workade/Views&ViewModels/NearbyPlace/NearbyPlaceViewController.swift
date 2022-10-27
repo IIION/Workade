@@ -10,9 +10,13 @@ import UIKit
 class NearbyPlaceViewController: UIViewController {
     var office: Office
     let nearbyPlaceView = NearbyPlaceView()
+    let galleryVM: GalleryViewModel
+    let introduceVM: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
+        self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL)!)
+        self.introduceVM = IntroduceViewModel(url: URL(string: office.galleryURL)!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,7 +29,6 @@ class NearbyPlaceViewController: UIViewController {
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     // Gallery 관련 프로퍼티
-    let galleryVM = GalleryViewModel(url: URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Office/opiecegallery.json")!)
     let transitionManager = CardTransitionMananger()
     var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
@@ -35,7 +38,6 @@ class NearbyPlaceViewController: UIViewController {
         label.text = "O - Peace"
         label.textColor = .theme.background
         label.font = .customFont(for: .title1)
-        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -74,6 +76,7 @@ class NearbyPlaceViewController: UIViewController {
         nearbyPlaceView.galleryView.collectionView.delegate = self
         nearbyPlaceView.galleryView.layout.delegate = self
         
+        setupTitle()
         setupNearbyPlaceView()
         setupCustomNavigationBar()
         
@@ -82,6 +85,10 @@ class NearbyPlaceViewController: UIViewController {
             await galleryVM.fetchImages()
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
+    }
+    
+    private func setupTitle() {
+        titleLabel.text = office.officeName
     }
     
     private func setupCustomNavigationBar() {
