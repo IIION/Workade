@@ -190,7 +190,6 @@ extension CheckListTemplateViewController: UITableViewDataSource {
 }
 
 class CheckListTemplateDetailCell: UITableViewCell {
-    
     lazy var label: UILabel = {
         let label = UILabel()
         label.text = ""
