@@ -39,7 +39,7 @@ enum CustomFont: String {
     case pretendardRegular = "Pretendard-Regular"
 }
 
-enum CustomTextStyle {
+enum CustomTextStyle: String {
     case title1
     case title2
     case title3
