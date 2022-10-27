@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 final class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     
@@ -54,8 +55,8 @@ final class HomeViewController: UIViewController {
         return label
     }()
     
-    private lazy var officeCollectionView: HorizontalCollectionView = {
-        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 280, height: 200))
+    private lazy var officeCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(itemSize: CGSize(width: 280, height: 200), direction: .horizontal)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: OfficeCollectionViewCell.self)
@@ -80,8 +81,8 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var magazineCollectionView: HorizontalCollectionView = {
-        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 150, height: 200))
+    private lazy var magazineCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(itemSize: CGSize(width: 150, height: 200), direction: .horizontal)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
@@ -101,6 +102,15 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
+    // 런치스크린
+    lazy var launchScreenView: LaunchScreenAnimationView = {
+        let view = LaunchScreenAnimationView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -108,9 +118,15 @@ final class HomeViewController: UIViewController {
         setupScrollViewLayout()
         setupNavigationBar()
         setupLayout()
+    }
+}
+
+extension HomeViewController: LaunchScreenTimingDelegate {
+    func finishLaunchScreen() {
         setupStatusBar()
         
         observingFetchComplete()
+        observingChangedMagazineId()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,8 +178,21 @@ extension HomeViewController {
     private func observingFetchComplete() {
         viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
             guard let self = self else { return }
-            self.officeCollectionView.reloadData()
-            self.magazineCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.officeCollectionView.reloadData()
+                self.magazineCollectionView.reloadData()
+            }
+        }
+    }
+    
+    // 북마크
+    private func observingChangedMagazineId() {
+        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+            guard let self = self else { return }
+            guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
+            DispatchQueue.main.async {
+                self.magazineCollectionView.reloadItems(at: [.init(item: index, section: 0)])
+            }
         }
     }
 }
@@ -190,6 +219,7 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         case magazineCollectionView:
             let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.delegate = self // 북마크
             cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
             return cell
         default:
@@ -218,11 +248,15 @@ extension HomeViewController: UICollectionViewDelegate {
     }
 }
 
-extension HomeViewController: OfficeCollectionViewCellDelegate {
+extension HomeViewController: CollectionViewCellDelegate {
     func didTapMapButton(office: Office) {
         let viewController = MapViewController()
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
+    }
+    
+    func didTapBookmarkButton(id: String) { // 북마크
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
     }
 }
 
@@ -269,6 +303,9 @@ private extension HomeViewController {
             contentView.addSubview($0)
         }
         
+        // 런치스크린
+        view.addSubview(launchScreenView)
+        
         NSLayoutConstraint.activate([
             navigationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             navigationView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
@@ -312,6 +349,14 @@ private extension HomeViewController {
             checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+        ])
+        
+        // 런치스크린
+        NSLayoutConstraint.activate([
+            launchScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            launchScreenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            launchScreenView.topAnchor.constraint(equalTo: view.topAnchor),
+            launchScreenView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
