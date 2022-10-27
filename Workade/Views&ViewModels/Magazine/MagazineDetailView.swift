@@ -8,7 +8,8 @@
 import UIKit
 
 class MagazineDetailView: UIView {
-    // true / false 에 따라 Event View 여부
+    var magazine: Magazine = Magazine(title: "", imageURL: "", introduceURL: "")
+
     private let testLabel: UILabel = {
         let label = UILabel()
         label.text = "Magazine 내용 뷰"
@@ -21,8 +22,15 @@ class MagazineDetailView: UIView {
         return label
     }()
     
+    init(magazine: Magazine) {
+        super.init(frame: .zero)
+        
+        setupLayout()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupLayout()
     }
     
@@ -30,8 +38,12 @@ class MagazineDetailView: UIView {
         super.init(coder: coder)
         setupLayout()
     }
+    
+    func setupMagazineDetailData(magazine: Magazine) {
+        self.magazine = magazine
+    }
 
-    private func setupLayout() {
+    func setupLayout() {
         addSubview(testLabel)
 
         NSLayoutConstraint.activate([

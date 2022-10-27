@@ -76,7 +76,7 @@ class CellItemDetailViewController: UIViewController {
     }()
     
     private let magazineDetailView: MagazineDetailView = {
-        let view = MagazineDetailView()
+        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -87,6 +87,7 @@ class CellItemDetailViewController: UIViewController {
     init(magazine: Magazine) {
         super.init(nibName: nil, bundle: nil)
         
+        magazineDetailView.setupMagazineDetailData(magazine: magazine)
         self.magazine = magazine
     }
     
@@ -97,7 +98,7 @@ class CellItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        titleLabel.text = magazine.title ?? "정보를 불러올 수 없습니다."
+        titleLabel.text = magazine.title
         task = Task {
             await titleImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
         }
