@@ -9,7 +9,7 @@ import UIKit
 
 class MagazineDetailView: UIView {
     // TODO: true / false 에 따라 Event View 여부
-    let eventCheck = false
+    var eventCheck = true
     
     private let testLabel: UILabel = {
         let label = UILabel()
@@ -90,7 +90,7 @@ class MagazineDetailView: UIView {
         super.init(frame: frame)
         
         setupLayout()
-        eventView.isHidden = eventCheck
+        eventView.isHidden = !eventCheck
     }
     
     required init?(coder: NSCoder) {
