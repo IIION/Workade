@@ -96,7 +96,9 @@ class CheckListViewController: UIViewController {
         guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
         self.checkListViewModel.deleteCheckList(at: index)
         self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-        self.checklistCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+        for trailingIndex in stride(from: index, through: checkListViewModel.checkList.count-1, by: 1) {
+            self.checklistCollectionView.reloadItems(at: [IndexPath(row: trailingIndex, section: 0)])
+        }
     }
     
     @objc func editCheckListNotification(_ notification: Notification) {
@@ -151,11 +153,9 @@ extension CheckListViewController: UICollectionViewDelegate {
         if indexPath.row == checkListViewModel.checkList.count {
             checkListViewModel.addCheckList()
             self.checklistCollectionView.insertItems(at: [indexPath])
-            self.checklistCollectionView.reloadItems(at: [indexPath])
         }
         let detailViewController = CheckListDetailViewController()
         
-        detailViewController.selectedCheckListIndex = indexPath.row
         detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
         
         self.navigationController?.pushViewController(detailViewController, animated: true)
