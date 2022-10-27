@@ -193,7 +193,7 @@ class CheckListTemplateDetailCell: UITableViewCell {
     
     lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "어쩌구저쩌구"
+        label.text = ""
         label.textColor = .theme.primary
         label.font = .customFont(for: .footnote)
         label.translatesAutoresizingMaskIntoConstraints = false
