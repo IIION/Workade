@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E1E8870290AE5EB0021E788 /* NearbyPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E886F290AE5EB0021E788 /* NearbyPlaceViewModel.swift */; };
 		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
+		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
 		0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* DetailDataModel.swift */; };
 		0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E467660290272C100556C41 /* NearbyPlaceView.swift */; };
 		0ED6D420290946B1000DF27B /* TempNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		0E1E886F290AE5EB0021E788 /* NearbyPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
+		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* DetailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataModel.swift; sourceTree = "<group>"; };
 		0E467660290272C100556C41 /* NearbyPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceView.swift; sourceTree = "<group>"; };
 		0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigationBar.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				5F5C074728FE803C0089DD4B /* UIColor+.swift */,
 				21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
+				0E1E8873290AFCEF0021E788 /* UILabel+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
@@ -657,6 +660,7 @@
 				96B1836C2901458F009F2BC6 /* HorizontalCollectionView.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
+				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
