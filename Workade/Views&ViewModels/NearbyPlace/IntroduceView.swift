@@ -8,6 +8,8 @@
 import UIKit
 
 class IntroduceView: UIView {
+    let bottomSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 44
+    
     var stackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -115,7 +117,7 @@ class IntroduceView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomSafeArea - 20)
         ])
     }
 

@@ -16,8 +16,8 @@ class NearbyPlaceViewController: UIViewController {
     init(office: Office) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
-        self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL)!)
-        self.introduceVM = IntroduceViewModel(url: URL(string: office.galleryURL)!)
+        self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL) ?? URL(string: "")!)
+        self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -81,6 +81,7 @@ class NearbyPlaceViewController: UIViewController {
         setupNearbyPlaceView()
         setupCustomNavigationBar()
         setupGalleryView()
+        setupIntroduceView()
     }
     
     private func setupOfficeTitle() {
@@ -91,6 +92,50 @@ class NearbyPlaceViewController: UIViewController {
         Task {
             await galleryVM.fetchImages()
             nearbyPlaceView.galleryView.collectionView.reloadData()
+        }
+    }
+    
+    private func setupIntroduceView() {
+        Task {
+            await introduceVM.fetchData()
+        }
+        introduceVM.introductions.bind { contents in
+            for content in contents {
+                switch content.type {
+                case "Text":
+                    let label = UILabel()
+                    label.text = content.context
+                    if let font = content.font {
+                        label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
+                    }
+                    if let color = content.color {
+                        label.textColor = UIColor(named: color)
+                    }
+                    label.lineBreakMode = .byWordWrapping
+                    label.numberOfLines = 0
+                    label.setLineHeight(lineHeight: 12.0)
+                    self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(label)
+                case "Image":
+                    let imageView = UIImageView()
+                    let imageURL = content.context
+                    imageView.translatesAutoresizingMaskIntoConstraints = false
+                    Task {
+                        let image = await self.introduceVM.fetchImage(urlString: imageURL)
+                        imageView.image = image
+                        let width = image.size.width
+                        let height = image.size.height
+
+                        imageView.contentMode = .scaleToFill
+                        imageView.layer.cornerRadius = 20
+                        imageView.clipsToBounds = true
+
+                        imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
+                    }
+                    self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
+                default:
+                    break
+                }
+            }
         }
     }
     

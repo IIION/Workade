@@ -135,7 +135,7 @@ class NearbyPlaceView: UIView {
         return detailContensContainer
     }()
     
-    private let introduceView: IntroduceView = {
+    let introduceView: IntroduceView = {
         let view = IntroduceView()
         view.translatesAutoresizingMaskIntoConstraints = false
         

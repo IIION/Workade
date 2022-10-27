@@ -11,6 +11,7 @@ import UIKit
 class IntroduceViewModel {
     let networkManager = NetworkingManager.shared
     let url: URL
+    // 데이터가 받아 진 후, stackView에 데이터를 쌓아주기 위해 다이나믹으로 선언했습니다.
     var introductions: IntroduceViewDynamic<[Content]> = IntroduceViewDynamic([])
     
     init(url: URL) {
@@ -35,8 +36,17 @@ class IntroduceViewModel {
                 }
             }
             introductions.value = articles
-            print(introductions)
         }
+    }
+    
+    func fetchImage(urlString: String) async -> UIImage {
+        guard let imageURL = URL(string: urlString) else { return UIImage()}
+        
+        let result = await networkManager.request(url: imageURL)
+        guard let result = result else { return  UIImage()}
+        guard let image = UIImage(data: result) else { return UIImage()}
+        
+        return image
     }
 }
 
