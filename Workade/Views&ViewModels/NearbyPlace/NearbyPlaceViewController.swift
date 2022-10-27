@@ -25,7 +25,7 @@ class NearbyPlaceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var customNavigationBar: UIViewController!
+    private var customNavigationBar: CustomNavigationBar!
     private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
@@ -140,7 +140,8 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = TempNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButton.currentImage)
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButton.currentImage)
+        customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.view.alpha = 0
         view.addSubview(customNavigationBar.view)
         
@@ -169,7 +170,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    // 지도 뷰로 이동하는 로직 작성 예정
+    // TODO: 지도 뷰로 이동하는 로직 작성 예정
     @objc
     func clickedMapButton(sender: UIButton) {
         print("지도 클릭")

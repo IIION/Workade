@@ -164,7 +164,6 @@ class NearbyPlaceView: UIView {
         // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
         galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
-        
         setupOfficeData(office: office)
         setupLayout()
     }

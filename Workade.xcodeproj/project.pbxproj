@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E1E8870290AE5EB0021E788 /* NearbyPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E886F290AE5EB0021E788 /* NearbyPlaceViewModel.swift */; };
 		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
 		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
 		0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* DetailDataModel.swift */; };
@@ -88,7 +87,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E1E886F290AE5EB0021E788 /* NearbyPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* DetailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataModel.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */,
-				0E1E886F290AE5EB0021E788 /* NearbyPlaceViewModel.swift */,
 				0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */,
 				0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */,
 				0E467660290272C100556C41 /* NearbyPlaceView.swift */,
@@ -676,7 +673,6 @@
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				0ED6D420290946B1000DF27B /* TempNavigationBar.swift in Sources */,
 				96433235290A776600FBECAF /* Constants.swift in Sources */,
-				0E1E8870290AE5EB0021E788 /* NearbyPlaceViewModel.swift in Sources */,
 				16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */,
 				A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */,
 				5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */,
