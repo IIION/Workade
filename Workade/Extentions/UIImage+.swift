@@ -35,6 +35,7 @@ enum SFSymbol {
     case chevronRight
     case bookmark
     case bookmarkFill
+    case gearshapeFill
 
     var image: UIImage {
         switch self {
@@ -50,6 +51,8 @@ enum SFSymbol {
             return .fromSystemImage(name: "bookmark", font: .customFont(for: .headline), color: .white)!
         case .bookmarkFill:
             return .fromSystemImage(name: "bookmark.fill", font: .customFont(for: .headline), color: .white)!
+        case .gearshapeFill:
+            return .fromSystemImage(name: "gearshape.fill", font: .customFont(for: .subHeadline))!
         }
     }
 }

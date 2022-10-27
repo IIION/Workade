@@ -8,122 +8,164 @@
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["소개", "갤러리"])
-        // TODO: 폰트 컬러, 폰트 사이즈는 머지 이후 작업 하도록 하겠습니다.
-        segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.gray,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
-                                                for: .normal)
-        segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)],
-                                                for: .selected)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+    let nearbyPlaceView = NearbyPlaceView()
+    
+    private var customNavigationBar: UIViewController!
+    private var defaultScrollYOffset: CGFloat = 0
+    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    
+    // Gallery 관련 프로퍼티
+    let galleryVM = GalleryViewModel(url: URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Office/opiecegallery.json")!)
+    let transitionManager = CardTransitionMananger()
+    var columnSpacing: CGFloat = 20
+    var isLoading: Bool = false
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "O - Peace"
+        label.textColor = .theme.background
+        label.font = .customFont(for: .title1)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
         
-        return segmentedControl
+        return label
     }()
     
-    private let introduceView: IntroduceView = {
-        let view = IntroduceView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var mapButton: UIButton = {
+        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
         
-        return view
-    }()
-    
-    private let galleryView: TempGalleryView = {
-        let view = TempGalleryView()
-        view.alpha = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "map", withConfiguration: config), for: .normal)
+        button.tintColor = .theme.background
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(clickedMapButton(sender:)), for: .touchUpInside)
         
-        return view
-    }()
-    
-    private let segmentUnderLine: UIView = {
-        let segmentUnderLine = UIView()
-        segmentUnderLine.backgroundColor = .systemGray5
-        segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
-        
-        return segmentUnderLine
+        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupLayout()
-    }
-    
-    // 레이아웃 설정.
-    private func setupLayout() {
-        view.addSubview(segmentedControl)
-        view.addSubview(segmentUnderLine)
-        view.addSubview(galleryView)
-        view.addSubview(introduceView)
+        nearbyPlaceView.translatesAutoresizingMaskIntoConstraints = false
+        nearbyPlaceView.scrollView.delegate = self
+        nearbyPlaceView.detailScrollView.delegate = self
+        navigationController?.isNavigationBarHidden = true
         
-        removeSegmentBackground()
-        removeSegmentDivider()
+        // GalleryView 델리게이트 위임
+        nearbyPlaceView.galleryView.collectionView.dataSource = self
+        nearbyPlaceView.galleryView.collectionView.delegate = self
+        nearbyPlaceView.galleryView.layout.delegate = self
         
-        NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        setupNearbyPlaceView()
+        setupCustomNavigationBar()
         
-        NSLayoutConstraint.activate([
-            segmentUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            segmentUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
-        ])
-        
-        NSLayoutConstraint.activate([
-            introduceView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 10),
-            introduceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            introduceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            introduceView.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        NSLayoutConstraint.activate([
-            galleryView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor, constant: 10),
-            galleryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            galleryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            galleryView.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
-    
-    // segmented controller 액션.
-    @objc
-    private func indexChanged(_ segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            introduceView.alpha = 1
-            galleryView.alpha = 0
-            
-        case 1:
-            introduceView.alpha = 0
-            galleryView.alpha = 1
-            
-        default:
-            break
+        // GalleryView 패치
+        Task {
+            await galleryVM.fetchImages()
+            nearbyPlaceView.galleryView.collectionView.reloadData()
         }
     }
     
-    private func removeSegmentBackground() {
-        let image = UIImage()
-        segmentedControl.setBackgroundImage(image, for: .normal, barMetrics: .default)
-        segmentedControl.setBackgroundImage(image, for: .selected, barMetrics: .default)
-        segmentedControl.setBackgroundImage(image, for: .highlighted, barMetrics: .default)
+    // TODO: 머지 이후 치콩이 작성한 네비게이션 바로 변경 예정입니다.
+    private func setupCustomNavigationBar() {
+        customNavigationBar = TempNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButton.currentImage)
+        customNavigationBar.view.alpha = 0
+        view.addSubview(customNavigationBar.view)
     }
     
-    private func removeSegmentDivider() {
-        let image = UIImage()
-        segmentedControl.setDividerImage(
-            image,
-            forLeftSegmentState: .selected,
-            rightSegmentState: .normal,
-            barMetrics: .default)
+    private func setupNearbyPlaceView() {
+        view.addSubview(nearbyPlaceView)
+        NSLayoutConstraint.activate([
+            nearbyPlaceView.topAnchor.constraint(equalTo: view.topAnchor),
+            nearbyPlaceView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            nearbyPlaceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nearbyPlaceView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+}
+
+extension NearbyPlaceViewController: UIScrollViewDelegate {
+    @objc
+    func clickedCloseButton(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    // 지도 뷰로 이동하는 로직 작성 예정
+    @objc
+    func clickedMapButton(sender: UIButton) {
+        print("지도 클릭")
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let totalOffset = scrollView.contentOffset.y
+        let detailOffset = nearbyPlaceView.detailScrollView.contentOffset.y
+        
+        switch scrollView {
+        case nearbyPlaceView.scrollView:
+            if totalOffset > 0 {
+                if totalOffset > 315 {
+                    scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+                    // 전체 스크롤 뷰를 막고, 디테일 뷰의 스크롤 뷰를 활성화 시킴.
+                    nearbyPlaceView.scrollView.isScrollEnabled = false
+                    nearbyPlaceView.detailScrollView.isScrollEnabled = true
+                } else {
+                    if nearbyPlaceView.segmentedControl.selectedSegmentIndex == 0 {
+                        nearbyPlaceView.detailScrollView.isScrollEnabled = false
+                    }
+                    customNavigationBar.view.alpha = totalOffset / (topSafeArea + 259)
+                    nearbyPlaceView.placeImageView.alpha = 1 - (totalOffset / (topSafeArea + 259))
+                }
+            } else {
+                customNavigationBar.view.alpha = 0
+                nearbyPlaceView.placeImageView.alpha = 1
+            }
+        case nearbyPlaceView.detailScrollView:
+            if detailOffset <= 0 {
+                nearbyPlaceView.detailScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                if nearbyPlaceView.segmentedControl.selectedSegmentIndex == 0 {
+                    nearbyPlaceView.scrollView.isScrollEnabled = true
+                }
+            }
+        default:
+            break
+            
+        }
+        
+    }
+}
+
+// GalleryView(collectionView 델리게이트 익스텐션)
+extension NearbyPlaceViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return galleryVM.images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let identifier = GalleryCollectionViewCell.identifier
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? GalleryCollectionViewCell
+        cell?.imageView.image = galleryVM.images[indexPath.row]
+        guard let cell = cell else { fatalError() }
+        
+        return cell
+    }
+}
+
+extension NearbyPlaceViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let image = galleryVM.images[indexPath.row]
+        let viewController = GalleryDetailViewController()
+        viewController.image = image
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.transitioningDelegate = transitionManager
+        self.present(viewController, animated: true)
+        return true
+    }
+}
+
+extension NearbyPlaceViewController: TwoLineLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        let image = galleryVM.images[indexPath.row]
+        let aspectR = image.size.width / image.size.height
+        
+        return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
     }
 }

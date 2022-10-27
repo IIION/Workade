@@ -13,7 +13,6 @@ class CheckListBottomSheetViewController: UIViewController {
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -33,9 +32,7 @@ class CheckListBottomSheetViewController: UIViewController {
     private lazy var bottomSheetView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.labelBackground
-        
         view.addSubview(radiusView)
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -89,8 +86,8 @@ class CheckListBottomSheetViewController: UIViewController {
     }
     
     private func showBottomSheet() {
-        let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
-        let bottomPadding: CGFloat = view.safeAreaInsets.bottom
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding = view.safeAreaInsets.bottom
         
         bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - defaultHeight
         
