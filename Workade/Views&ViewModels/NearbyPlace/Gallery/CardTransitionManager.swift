@@ -5,7 +5,6 @@
 //  Created by 김예훈 on 2022/10/21.
 //
 
-import Foundation
 import UIKit
 
 enum CardTransitionType {
