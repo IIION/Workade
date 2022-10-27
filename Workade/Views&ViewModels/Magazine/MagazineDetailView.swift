@@ -8,6 +8,7 @@
 import UIKit
 
 class MagazineDetailView: UIView {
+    // true / false 에 따라 Event View 여부
     private let testLabel: UILabel = {
         let label = UILabel()
         label.text = "Magazine 내용 뷰"
