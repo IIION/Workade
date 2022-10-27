@@ -92,36 +92,12 @@ class MagazineViewController: UIViewController {
     }
     
     private func setupLayoutDetailView() {
-        view.addSubview(totalDetailViewContoller.view)
+        view.addSubview(tapDetailViewContoller.view)
         NSLayoutConstraint.activate([
-            totalDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            totalDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            totalDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            totalDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        view.addSubview(tipDetailViewContoller.view)
-        NSLayoutConstraint.activate([
-            tipDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            tipDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tipDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tipDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        view.addSubview(columnDetailViewContoller.view)
-        NSLayoutConstraint.activate([
-            columnDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            columnDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            columnDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            columnDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        view.addSubview(reviewDetailViewContoller.view)
-        NSLayoutConstraint.activate([
-            reviewDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
-            reviewDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            reviewDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            reviewDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tapDetailViewContoller.view.topAnchor.constraint(equalTo: line.bottomAnchor),
+            tapDetailViewContoller.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tapDetailViewContoller.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tapDetailViewContoller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -145,25 +121,13 @@ class MagazineViewController: UIViewController {
     func tabClicked(tab: UISegmentedControl) {
         switch tab.selectedSegmentIndex {
         case 0:
-            totalDetailViewContoller.view.isHidden = false
-            tipDetailViewContoller.view.isHidden = true
-            columnDetailViewContoller.view.isHidden = true
-            reviewDetailViewContoller.view.isHidden = true
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         case 1:
-            totalDetailViewContoller.view.isHidden = true
-            tipDetailViewContoller.view.isHidden = false
-            columnDetailViewContoller.view.isHidden = true
-            reviewDetailViewContoller.view.isHidden = true
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         case 2:
-            totalDetailViewContoller.view.isHidden = true
-            tipDetailViewContoller.view.isHidden = true
-            columnDetailViewContoller.view.isHidden = false
-            reviewDetailViewContoller.view.isHidden = true
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         case 3:
-            totalDetailViewContoller.view.isHidden = true
-            tipDetailViewContoller.view.isHidden = true
-            columnDetailViewContoller.view.isHidden = true
-            reviewDetailViewContoller.view.isHidden = false
+            tapDetailViewContoller.tapDetailCollectionView.reloadData()
         default:
             return
         }

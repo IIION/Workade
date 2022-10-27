@@ -31,13 +31,12 @@ class MagazineDetailView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupLayout()
-        eventView.isHidden = !eventCheck
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setupLayout()
     }
     
     func setupMagazineDetailData(magazine: Magazine) {
@@ -119,52 +118,5 @@ class MagazineDetailView: UIView {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
-        addSubview(eventView)
-        NSLayoutConstraint.activate([
-            eventView.topAnchor.constraint(equalTo: testLabel.bottomAnchor, constant: 30),
-            eventView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            eventView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            eventView.heightAnchor.constraint(equalToConstant: 110)
-        ])
-        
-        eventView.addSubview(moreEventLabel)
-        NSLayoutConstraint.activate([
-            moreEventLabel.topAnchor.constraint(equalTo: eventView.topAnchor),
-            moreEventLabel.leadingAnchor.constraint(equalTo: eventView.leadingAnchor)
-        ])
-        
-        eventView.addSubview(ticketView)
-        NSLayoutConstraint.activate([
-            ticketView.topAnchor.constraint(equalTo: moreEventLabel.bottomAnchor, constant: 10),
-            ticketView.leadingAnchor.constraint(equalTo: eventView.leadingAnchor),
-            ticketView.trailingAnchor.constraint(equalTo: eventView.trailingAnchor),
-            ticketView.bottomAnchor.constraint(equalTo: eventView.bottomAnchor)
-        ])
-        
-        ticketView.addSubview(eventTitleLabel)
-        NSLayoutConstraint.activate([
-            eventTitleLabel.topAnchor.constraint(equalTo: ticketView.topAnchor, constant: 20),
-            eventTitleLabel.leadingAnchor.constraint(equalTo: ticketView.leadingAnchor, constant: 20)
-        ])
-        
-        ticketView.addSubview(eventSubTitleLabel)
-        NSLayoutConstraint.activate([
-            eventSubTitleLabel.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor, constant: 4),
-            eventSubTitleLabel.leadingAnchor.constraint(equalTo: eventTitleLabel.leadingAnchor)
-        ])
-        
-        ticketView.addSubview(eventButton)
-        NSLayoutConstraint.activate([
-            eventButton.centerYAnchor.constraint(equalTo: ticketView.centerYAnchor),
-            eventButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            eventButton.widthAnchor.constraint(equalToConstant: 90),
-            eventButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
-    @objc
-    func clickedEventButton(sender: UIButton) {
-        print("Event Button Clicked Not Working")
     }
 }
