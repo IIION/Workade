@@ -9,7 +9,7 @@ import UIKit
 
 class GalleryViewController: UIViewController {
     
-    let viewModel = GalleryViewModel()
+    let viewModel = GalleryViewModel(url: URL(string: "")!)
     let transitionManager = CardTransitionMananger()
     var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
@@ -31,7 +31,9 @@ class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        viewModel.fetchImages()
+        Task {
+            await viewModel.fetchImages()
+        }
     }
     
     private func setupLayout() {
