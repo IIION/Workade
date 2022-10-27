@@ -318,7 +318,7 @@ extension CheckListDetailViewController: UITableViewDataSource {
         if editingStyle == .delete {
             self.checkListDetailViewModel.deleteTodo(at: indexPath.row)
             self.checklistTableView.deleteRows(at: [indexPath], with: .automatic)
-            for index in indexPath.row...checkListDetailViewModel.todos.count-1 {
+            for index in stride(from: indexPath.row, to: checkListDetailViewModel.todos.count-1, by: 1) {
                 self.checklistTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
             updateCheckListTableViewConstant()
