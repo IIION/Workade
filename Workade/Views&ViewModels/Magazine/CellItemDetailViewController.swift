@@ -107,13 +107,13 @@ class CellItemDetailViewController: UIViewController {
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -200)
         scrollView.delegate = self
         
-        setupCustomNavigationBar()
+//        setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
     }
     
     func setupLayout() {
-        view.addSubview(customNavigationBar.view)
+//        view.addSubview(customNavigationBar.view)
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
@@ -218,11 +218,11 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         let currentScrollYOffset = scrollView.contentOffset.y
         
         if currentScrollYOffset > defaultScrollYOffset {
-            customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
+//            customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
             closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
         } else {
-            customNavigationBar.view.alpha = 0
+//            customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1
             closeButton.alpha = 1
         }
