@@ -43,6 +43,9 @@ final class MyPageViewController: UIViewController {
         setupNavigationBar()
         setupLayout()
         setupGradientLayer()
+        
+        observingFetchComplete()
+        observingChangedMagazineId()
     }
 }
 
@@ -60,16 +63,39 @@ extension MyPageViewController {
     }
 }
 
+// MARK: Binding
+extension MyPageViewController {
+    private func observingFetchComplete() {
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.wishMagazineCollectionView.reloadData()
+            }
+        }
+    }
+    
+    private func observingChangedMagazineId() {
+        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+            print("호출은 되냐")
+            guard let self = self else { return }
+            guard let index = self.viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
+            DispatchQueue.main.async {
+                self.wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
+            }
+        }
+    }
+}
+
 // MARK: DataSource
 extension MyPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // 임시 UI 보여주기용 수치입니다.
-        // UI먼저 PR쏘고, 다음 PR에 ViewModel 및 각종 Manager 클래스들 순서대로 PR하겠습니다.
-        return 10
+        return viewModel.wishMagazines.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+        cell.delegate = self
+        cell.configure(magazine: viewModel.wishMagazines[indexPath.row])
         return cell
     }
 }
@@ -80,6 +106,13 @@ extension MyPageViewController: UICollectionViewDelegate {
         let viewController = CellItemDetailViewController(label: nil)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
+    }
+}
+
+extension MyPageViewController: CollectionViewCellDelegate {
+    func didTapBookmarkButton(id: String) { // 북마크
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
+        viewModel.wishMagazines = viewModel.wishMagazines.filter { $0.title != id }
     }
 }
 

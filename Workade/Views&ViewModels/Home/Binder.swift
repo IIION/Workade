@@ -10,7 +10,7 @@ import Foundation
 /// **mvvm 비동기 흐름에 필요한 Binder 클래스**
 ///
 /// 상세설명은 Binder클래스가 있는 소스파일의 하단 참고.
-final class Binder<T: Equatable> {
+@MainActor final class Binder<T: Equatable> {
     typealias Block = (T) -> Void
     private var block: Block?
     
@@ -25,9 +25,7 @@ final class Binder<T: Equatable> {
     
     var value: T {
         didSet {
-            if oldValue != value {
-                block?(value)
-            }
+            block?(value)
         }
     }
     
