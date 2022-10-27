@@ -9,7 +9,7 @@ import UIKit
 
 class MagazineDetailView: UIView {
     // TODO: true / false 에 따라 Event View 여부
-    var eventCheck = true
+    var eventCheck = false
     
     private let testLabel: UILabel = {
         let label = UILabel()
@@ -91,16 +91,12 @@ class MagazineDetailView: UIView {
         
         setupLayout()
         eventView.isHidden = !eventCheck
+    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func setupLayout() {
-        addSubview(testLabel)
-        setupLayout()
-    }
-
     private func setupLayout() {
         addSubview(testLabel)
         NSLayoutConstraint.activate([
@@ -109,7 +105,7 @@ class MagazineDetailView: UIView {
             testLabel.topAnchor.constraint(equalTo: topAnchor),
             testLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-
+        
         addSubview(eventView)
         NSLayoutConstraint.activate([
             eventView.topAnchor.constraint(equalTo: testLabel.bottomAnchor, constant: 30),
@@ -117,13 +113,13 @@ class MagazineDetailView: UIView {
             eventView.trailingAnchor.constraint(equalTo: trailingAnchor),
             eventView.heightAnchor.constraint(equalToConstant: 110)
         ])
-
+        
         eventView.addSubview(moreEventLabel)
         NSLayoutConstraint.activate([
             moreEventLabel.topAnchor.constraint(equalTo: eventView.topAnchor),
             moreEventLabel.leadingAnchor.constraint(equalTo: eventView.leadingAnchor)
         ])
-
+        
         eventView.addSubview(ticketView)
         NSLayoutConstraint.activate([
             ticketView.topAnchor.constraint(equalTo: moreEventLabel.bottomAnchor, constant: 10),
@@ -131,19 +127,19 @@ class MagazineDetailView: UIView {
             ticketView.trailingAnchor.constraint(equalTo: eventView.trailingAnchor),
             ticketView.bottomAnchor.constraint(equalTo: eventView.bottomAnchor)
         ])
-
+        
         ticketView.addSubview(eventTitleLabel)
         NSLayoutConstraint.activate([
             eventTitleLabel.topAnchor.constraint(equalTo: ticketView.topAnchor, constant: 20),
             eventTitleLabel.leadingAnchor.constraint(equalTo: ticketView.leadingAnchor, constant: 20)
         ])
-
+        
         ticketView.addSubview(eventSubTitleLabel)
         NSLayoutConstraint.activate([
             eventSubTitleLabel.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor, constant: 4),
             eventSubTitleLabel.leadingAnchor.constraint(equalTo: eventTitleLabel.leadingAnchor)
         ])
-
+        
         ticketView.addSubview(eventButton)
         NSLayoutConstraint.activate([
             eventButton.centerYAnchor.constraint(equalTo: ticketView.centerYAnchor),
