@@ -46,26 +46,9 @@ class MagazineViewController: UIViewController {
         return viewController
     }()
     
-    // TODO: 추후 내비게이션 연동시 삭제할 프로퍼티
-    private let tempView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    private let tempBackButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        button.tintColor = .theme.primary
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
-    
     init(totalMagazine: [Magazine]) {
         super.init(nibName: nil, bundle: nil)
+        
         self.totalMagazine = totalMagazine
     }
     
@@ -85,27 +68,9 @@ class MagazineViewController: UIViewController {
     
     // MARK: AutoLayout 설정
     private func setupLayout() {
-        // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
-        view.addSubview(tempView)
-        NSLayoutConstraint.activate([
-            tempView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            tempView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            tempView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            tempView.heightAnchor.constraint(equalToConstant: 20)
-        ])
-        
-        // TODO: 추후 네비게이션 연결 시 삭제될 레이아웃
-        tempView.addSubview(tempBackButton)
-        NSLayoutConstraint.activate([
-            tempBackButton.leadingAnchor.constraint(equalTo: tempView.leadingAnchor)
-        ])
-        
         view.addSubview(viewTitle)
         NSLayoutConstraint.activate([
-            //            viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            
-            // TODO: 추후 네비게이션 연결시 바로위 주석코드가 작성됩니다.
-            viewTitle.topAnchor.constraint(equalTo: tempView.bottomAnchor, constant: 20),
+            viewTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
         
@@ -152,7 +117,6 @@ class MagazineViewController: UIViewController {
         self.customTab.selectedSegmentIndex = 0
     }
     
-    // 전체, 팁, 칼럼, 후기 데이터에 따라 분기하여 리로드
     @objc
     func tabClicked(tab: UISegmentedControl) {
         switch tab.selectedSegmentIndex {
