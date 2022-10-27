@@ -16,6 +16,7 @@ struct Office: Codable {
     let regionName: String
     let imageURL: String
     let introduceURL: String
+    let galleryURL: String
     let latitude: Double
     let longitude: Double
     let spots: [Spot]
@@ -25,6 +26,7 @@ struct Office: Codable {
         case regionName = "regionname"
         case imageURL = "imageurl"
         case introduceURL = "introduceurl"
+        case galleryURL = "galleryurl"
         case latitude, longitude, spots
     }
 }
@@ -49,10 +51,11 @@ struct Spot: Codable {
     }
 }
 
-enum SpotType {
+enum SpotType: String {
     case cafe
     case nature
     case restaurant
+    case sea
 }
 
 struct MagazineResource: Codable {

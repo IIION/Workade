@@ -6,7 +6,10 @@
 //
 
 import UIKit
-import SwiftUI
+
+enum EditState {
+    case edit, none
+}
 
 class CheckListViewController: UIViewController {
     private var checkListViewModel = CheckListViewModel()
@@ -83,12 +86,20 @@ class CheckListViewController: UIViewController {
     }
     
     @objc private func deleteButtonPressed(_ sender: UIButton) {
-        guard let cid = self.checkListViewModel.checkList[sender.tag].cid else { return }
-        NotificationCenter.default.post(
-            name: NSNotification.Name("deleteCheckList"),
-            object: cid,
-            userInfo: nil
-        )
+        let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            guard let cid = self.checkListViewModel.checkList[sender.tag].cid else { return }
+            NotificationCenter.default.post(
+                name: NSNotification.Name("deleteCheckList"),
+                object: cid,
+                userInfo: nil
+            )
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(alert, animated: true)
     }
     
     @objc func deleteCheckListNotification(_ notification: Notification) {
@@ -150,15 +161,17 @@ extension CheckListViewController: UICollectionViewDelegateFlowLayout {
 
 extension CheckListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == checkListViewModel.checkList.count {
-            checkListViewModel.addCheckList()
-            self.checklistCollectionView.insertItems(at: [indexPath])
+        if editState == .none {
+            if indexPath.row == checkListViewModel.checkList.count {
+                checkListViewModel.addCheckList()
+                self.checklistCollectionView.insertItems(at: [indexPath])
+            }
+            let detailViewController = CheckListDetailViewController()
+            
+            detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
+            
+            self.navigationController?.pushViewController(detailViewController, animated: true)
         }
-        let detailViewController = CheckListDetailViewController()
-        
-        detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
-        
-        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
@@ -199,26 +212,5 @@ extension CheckListViewController: UICollectionViewDataSource {
             
             return cell
         }
-    }
-}
-
-enum EditState {
-    case edit, none
-}
-
-struct CheckListViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CheckListViewController
-
-    func makeUIViewController(context: Context) -> CheckListViewController {
-        return CheckListViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: CheckListViewController, context: Context) {}
-}
-
-struct CheckListViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListViewControllerRepresentable()
-            .ignoresSafeArea()
     }
 }

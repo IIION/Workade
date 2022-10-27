@@ -104,7 +104,7 @@ class CellItemDetailViewController: UIViewController {
             await titleImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
         }
         
-        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -20)
+        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -200)
         scrollView.delegate = self
         
         setupCustomNavigationBar()

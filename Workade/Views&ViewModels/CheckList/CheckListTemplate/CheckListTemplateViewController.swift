@@ -11,6 +11,8 @@ class CheckListTemplateViewController: UIViewController {
     
     let viewModel = CheckListTemplateViewModel()
     
+    var viewDidDissmiss: (() -> Void)?
+    
     lazy var containerView: UIView = {
         let containerView = UIView(frame: .zero)
         containerView.backgroundColor = .theme.background
@@ -23,7 +25,7 @@ class CheckListTemplateViewController: UIViewController {
     }()
     
     lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: viewModel.template.image)
+        let imageView = UIImageView(image: UIImage())
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -36,8 +38,8 @@ class CheckListTemplateViewController: UIViewController {
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let attributedStr = NSMutableAttributedString(string: viewModel.template.title)
-        attributedStr.addAttribute(.foregroundColor, value: viewModel.template.color, range: (viewModel.template.title as NSString).range(of: viewModel.template.partialText))
+        let attributedStr = NSMutableAttributedString(string: "하이하이")
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.yellow, range: ("하이하이" as NSString).range(of: "하이"))
         label.attributedText = attributedStr
         
         return label
@@ -45,7 +47,7 @@ class CheckListTemplateViewController: UIViewController {
     
     lazy var countLabel: UILabel = {
         let label = UILabel()
-        let text = "\(viewModel.template.checklist.count)개의 체크리스트"
+        let text = "\(2)개의 체크리스트"
         label.font = .customFont(for: .caption)
         label.textColor = .theme.primary
         
@@ -105,17 +107,30 @@ class CheckListTemplateViewController: UIViewController {
     @objc
     private func close() {
         presentingViewController?.dismiss(animated: true)
+        self.viewDidDissmiss?()
     }
     
     @objc
     private func add() {
         presentingViewController?.dismiss(animated: true)
+        self.viewDidDissmiss?()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundView = UIView(frame: view.frame)
+        view.addSubview(backgroundView)
+        let backgroundViewTap = UITapGestureRecognizer(target: self, action: #selector(backgroundViewTapped(_:)))
+        backgroundView.addGestureRecognizer(backgroundViewTap)
+        backgroundView.isUserInteractionEnabled = true
+        
         setupLayout()
-        self.view.backgroundColor = .black
+    }
+    
+    @objc private func backgroundViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        presentingViewController?.dismiss(animated: true)
+        self.viewDidDissmiss?()
     }
     
     func setupLayout() {

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListDetailCell: UITableViewCell {
     lazy var checkButton: UIButton = {
@@ -66,24 +65,5 @@ extension CheckListDetailCell {
             checkStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             checkStack.trailingAnchor.constraint(lessThanOrEqualTo: guide.trailingAnchor, constant: -10)
         ])
-    }
-}
-
-struct CheckListDetailCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = CheckListDetailCell
-    
-    func makeUIView(context: Context) -> CheckListDetailCell {
-        return CheckListDetailCell()
-    }
-    
-    func updateUIView(_ uiView: CheckListDetailCell, context: Context) {}
-}
-
-struct CheckListDetailCellPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListDetailCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 350, height: 52)
-            .previewLayout(.sizeThatFits)
     }
 }
