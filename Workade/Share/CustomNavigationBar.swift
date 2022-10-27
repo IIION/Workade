@@ -108,6 +108,7 @@ class CustomNavigationBar: UIViewController {
     @objc
     func clickedRightButton(sender: UIButton) {
         // TODO: 버튼 활성화
+        
         print("rightButton Clicked")
     }
 }
