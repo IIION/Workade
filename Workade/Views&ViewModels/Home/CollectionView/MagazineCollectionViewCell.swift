@@ -30,7 +30,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.font = .customFont(for: .subHeadline)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +96,7 @@ private extension MagazineCollectionViewCell {
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
     }

@@ -8,6 +8,8 @@
 import UIKit
 
 final class MyPageViewController: UIViewController {
+    private let viewModel = MyPageViewModel()
+    
     private let titleView = TitleView(title: "매거진")
     
     private let wishLabel: UILabel = {

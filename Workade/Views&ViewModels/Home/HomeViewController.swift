@@ -129,6 +129,10 @@ final class HomeViewController: UIViewController {
 
 // MARK: Navigates
 private extension HomeViewController {
+    // 변수에 접근해서 할당하는 방식을 사용.
+    // 초기화 구문의 매개변수를 통해 전달하는 방식은 이동 전 뷰컨트롤러가 이동할 뷰턴이 요구하는 매거진 배열을 다 넘길 수 있는 뷰컨인 상황에서만 가능합니다.
+    // 혹은 이동된 뷰컨트롤러가 자신이 init될 때, 자신의 viewModel로부터 매거진을 가져오는 방식 등이 될 것으로 예상됩니다.
+    // 그렇기에 당장은 init구문이 아닌 변수 접근 및 할당 방식을 현재 채택했습니다.
     @objc
     func pushToMyPageVC() {
         let viewController = MyPageViewController()
@@ -138,6 +142,7 @@ private extension HomeViewController {
     @objc
     func pushToMagazineVC() { // 요기
         let viewController = MagazineViewController()
+        viewController.totalMagazine = viewModel.magazineResource.content
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -160,6 +165,65 @@ extension HomeViewController {
             self.officeCollectionView.reloadData()
             self.magazineCollectionView.reloadData()
         }
+    }
+}
+
+// MARK: DataSource
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
+        case officeCollectionView:
+            return viewModel.officeResource.context.count
+        case magazineCollectionView:
+            return viewModel.magazineResource.content.count
+        default:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch collectionView {
+        case officeCollectionView:
+            let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.delegate = self
+            cell.configure(office: viewModel.officeResource.context[indexPath.row])
+            return cell
+        case magazineCollectionView:
+            let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+            cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
+    }
+}
+
+// MARK: Delegate
+extension HomeViewController: UICollectionViewDelegate {
+    // 반드시 office 혹은 magazine이 있어야하는 요소는 init으로 넘깁니다.
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case officeCollectionView:
+            let office = viewModel.officeResource.context[indexPath.row]
+            let viewController = NearbyPlaceViewController(office: office)
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true)
+        case magazineCollectionView:
+            let viewController = TipItemDetailViewController(label: nil)
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true)
+        default:
+            print("default")
+        }
+    }
+}
+
+extension HomeViewController: UICollectionViewCellDelegate {
+    func didTapMapButton(office: Office) {
+        print("wow")
+        let viewController = MapViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }
 
@@ -250,52 +314,5 @@ private extension HomeViewController {
             checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
-    }
-}
-
-// MARK: DataSource
-extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
-        case officeCollectionView:
-            return viewModel.officeResource.context.count
-        case magazineCollectionView:
-            return viewModel.magazineResource.content.count
-        default:
-            return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch collectionView {
-        case officeCollectionView:
-            let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.configure(office: viewModel.officeResource.context[indexPath.row])
-            return cell
-        case magazineCollectionView:
-            let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
-            return cell
-        default:
-            return UICollectionViewCell()
-        }
-    }
-}
-
-// MARK: Delegate
-extension HomeViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case officeCollectionView:
-            let viewController = NearbyPlaceViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            present(viewController, animated: true)
-        case magazineCollectionView:
-            let viewController = TipItemDetailViewController(label: nil)
-            viewController.modalPresentationStyle = .fullScreen
-            present(viewController, animated: true)
-        default:
-            print("default")
-        }
     }
 }

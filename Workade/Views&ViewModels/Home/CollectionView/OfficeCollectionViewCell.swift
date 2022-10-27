@@ -7,9 +7,17 @@
 
 import UIKit
 
+// 원래 있는 프로토콜 아님 주의.
+protocol UICollectionViewCellDelegate: AnyObject {
+    func didTapMapButton(office: Office)
+}
+
 /// 오피스를 나열한 컬렉션뷰의 셀
 final class OfficeCollectionViewCell: UICollectionViewCell {
+    var office: Office?
     var task: Task<Void, Error>?
+    
+    weak var delegate: UICollectionViewCellDelegate?
     
     private lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
@@ -18,12 +26,13 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let mapButton: UIButton = {
+    private lazy var mapButton: UIButton = {
         let button = UIButton()
         let image = SFSymbol.mapInCell.image
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 18
         button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.4).cgColor
+        button.addTarget(self, action: #selector(tapMapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -75,6 +84,7 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(office: Office) {
+        self.office = office
         regionNameLabel.text = office.regionName
         officeNameLabel.text = office.officeName
         // 이렇게 최초 구성 이미지를 nil로 해주면, 빠른 스크롤 시에 이전 이미지가 들어가있는 이미지 꼬임 현상을 다소 막아줄 수 있습니다. 그 후 불러와진 이미지가 정상적으로 자리잡게 됩니다.
@@ -82,6 +92,12 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         task = Task {
             await backgroundImageView.setImageURL(title: office.officeName, url: office.imageURL)
         }
+    }
+    
+    @objc
+    func tapMapButton() {
+        guard let office = office else { return }
+        delegate?.didTapMapButton(office: office)
     }
 }
 
