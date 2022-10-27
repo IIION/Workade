@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListDetailViewController: UIViewController {
     private var checkListDetailViewModel = CheckListDetailViewModel()
@@ -382,22 +381,5 @@ extension CheckListDetailViewController: UITextFieldDelegate {
             checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
             checklistTableView.reloadData()
         }
-    }
-}
-
-struct CheckListDetailViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CheckListDetailViewController
-
-    func makeUIViewController(context: Context) -> CheckListDetailViewController {
-        return CheckListDetailViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: CheckListDetailViewController, context: Context) {}
-}
-
-struct CheckListDetailViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListDetailViewControllerRepresentable()
-            .ignoresSafeArea()
     }
 }

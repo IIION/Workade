@@ -5,8 +5,8 @@
 //  Created by Wonhyuk Choi on 2022/10/22.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 // TODO: Coredata Manager 분리 예정
 
@@ -20,13 +20,7 @@ struct CheckListViewModel {
         
         do {
             try context.save()
-            self.checkList.sort {
-                if let date1 = $0.travelDate,
-                   let date2 = $1.travelDate {
-                    return date1 < date2
-                }
-                return false
-            }
+            self.sortCheckList()
         } catch {
             print("Error saving context \(error)")
         }
@@ -56,13 +50,7 @@ struct CheckListViewModel {
         
         do {
             self.checkList = try context.fetch(request)
-            self.checkList.sort {
-                if let date1 = $0.travelDate,
-                   let date2 = $1.travelDate {
-                    return date1 < date2
-                }
-                return false
-            }
+            self.sortCheckList()
         } catch {
             print("Error fetching data context \(error)")
         }
@@ -81,5 +69,15 @@ struct CheckListViewModel {
         self.checkList.remove(at: index)
         
         saveCheckList()
+    }
+    
+    mutating func sortCheckList() {
+        self.checkList.sort {
+            if let date1 = $0.travelDate,
+               let date2 = $1.travelDate {
+                return date1 < date2
+            }
+            return false
+        }
     }
 }

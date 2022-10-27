@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListCell: UICollectionViewCell {
     var checkListCellViewModel = CheckListCellViewModel()
@@ -159,22 +158,26 @@ class CheckListCell: UICollectionViewCell {
         checkLabel.text = "\(checkListCellViewModel.checkCount)"
         uncheckLabel.text = "\(checkListCellViewModel.uncheckCount)"
         
+        if let targetDate = checkListCellViewModel.selectedCheckList?.travelDate {
+            dateLabel.text = generateDateLabelText(targetDate: targetDate)
+        }
+    }
+    
+    private func generateDateLabelText(targetDate: Date) -> String {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
-        if let targetDate = checkListCellViewModel.selectedCheckList?.travelDate {
-            let date1 = calendar.startOfDay(for: Date())
-            let date2 = calendar.startOfDay(for: targetDate)
-            
-            if date1 == date2 {
-                dateLabel.text = "D - day"
+        let date1 = calendar.startOfDay(for: Date())
+        let date2 = calendar.startOfDay(for: targetDate)
+        
+        if date1 == date2 {
+            return "D - day"
+        } else {
+            if let dDay = calendar.dateComponents([.day], from: date1, to: date2).day,
+               0 < dDay && dDay < 8 {
+                return "D - \(dDay)"
             } else {
-                if let dDay = calendar.dateComponents([.day], from: date1, to: date2).day,
-                   0 < dDay && dDay < 8 {
-                    dateLabel.text = "D - \(dDay)"
-                } else {
-                    dateFormatter.dateFormat = "yyyy.MM.dd"
-                    dateLabel.text = dateFormatter.string(from: targetDate)
-                }
+                dateFormatter.dateFormat = "yyyy.MM.dd"
+                return dateFormatter.string(from: targetDate)
             }
         }
     }
@@ -202,24 +205,5 @@ extension CheckListCell {
             verticalStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
             verticalStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -7)
         ])
-    }
-}
-
-struct CheckListCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = CheckListCell
-    
-    func makeUIView(context: Context) -> CheckListCell {
-        return CheckListCell()
-    }
-    
-    func updateUIView(_ uiView: CheckListCell, context: Context) {}
-}
-
-struct CheckListCellPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListCellRepresentable()
-            .ignoresSafeArea()
-            .frame(width: 165, height: 165)
-            .previewLayout(.sizeThatFits)
     }
 }

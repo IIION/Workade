@@ -5,8 +5,8 @@
 //  Created by Wonhyuk Choi on 2022/10/23.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 struct CheckListDetailViewModel {
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
@@ -24,17 +24,7 @@ struct CheckListDetailViewModel {
         
         do {
             try context.save()
-            self.todos.sort {
-                if $0.done == $1.done {
-                    if let date1 = $0.editedTime,
-                       let date2 = $1.editedTime {
-                        return date1 > date2
-                    }
-                    return false
-                } else {
-                    return Int(truncating: NSNumber(value: $0.done)) < Int(truncating: NSNumber(value: $1.done))
-                }
-            }
+            self.sortTodos()
         } catch {
             print("Error saving context \(error)")
         }
@@ -63,17 +53,7 @@ struct CheckListDetailViewModel {
         
         do {
             self.todos = try context.fetch(request)
-            self.todos.sort {
-                if $0.done == $1.done {
-                    if let date1 = $0.editedTime,
-                       let date2 = $1.editedTime {
-                        return date1 > date2
-                    }
-                    return false
-                } else {
-                    return Int(truncating: NSNumber(value: $0.done)) < Int(truncating: NSNumber(value: $1.done))
-            }
-        }
+            self.sortTodos()
         } catch {
             print("Error fetching data context \(error)")
         }
@@ -110,5 +90,19 @@ struct CheckListDetailViewModel {
         self.todos.remove(at: index)
         
         saveTodos()
+    }
+    
+    private mutating func sortTodos() {
+        self.todos.sort {
+            if $0.done == $1.done {
+                if let date1 = $0.editedTime,
+                   let date2 = $1.editedTime {
+                    return date1 > date2
+                }
+                return false
+            } else {
+                return Int(truncating: NSNumber(value: $0.done)) < Int(truncating: NSNumber(value: $1.done))
+            }
+        }
     }
 }

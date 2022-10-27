@@ -6,7 +6,10 @@
 //
 
 import UIKit
-import SwiftUI
+
+enum EditState {
+    case edit, none
+}
 
 class CheckListViewController: UIViewController {
     private var checkListViewModel = CheckListViewModel()
@@ -209,26 +212,5 @@ extension CheckListViewController: UICollectionViewDataSource {
             
             return cell
         }
-    }
-}
-
-enum EditState {
-    case edit, none
-}
-
-struct CheckListViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CheckListViewController
-
-    func makeUIViewController(context: Context) -> CheckListViewController {
-        return CheckListViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: CheckListViewController, context: Context) {}
-}
-
-struct CheckListViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        CheckListViewControllerRepresentable()
-            .ignoresSafeArea()
     }
 }

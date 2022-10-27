@@ -5,8 +5,8 @@
 //  Created by Wonhyuk Choi on 2022/10/27.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 struct CheckListCellViewModel {
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
