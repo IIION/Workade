@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
+		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
 		0E370E6529091B3A009C69BB /* DetailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* DetailDataModel.swift */; };
 		0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E467660290272C100556C41 /* NearbyPlaceView.swift */; };
 		0ED6D420290946B1000DF27B /* TempNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */; };
@@ -78,10 +80,7 @@
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };
-		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
-		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
-    A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
 		A374B8562902856B003C7390 /* TapDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A374B8552902856B003C7390 /* TapDetailCell.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
@@ -90,6 +89,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
+		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* DetailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataModel.swift; sourceTree = "<group>"; };
 		0E467660290272C100556C41 /* NearbyPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceView.swift; sourceTree = "<group>"; };
 		0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigationBar.swift; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A35559A728FED2B2001E4254 /* TapDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailViewController.swift; sourceTree = "<group>"; };
-		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
 		A374B8552902856B003C7390 /* TapDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailCell.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -190,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */,
+				0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */,
 				0ED6D41F290946B1000DF27B /* TempNavigationBar.swift */,
 				0E467660290272C100556C41 /* NearbyPlaceView.swift */,
 				0EFB5BCA29017FBB00174291 /* GalleryView.swift */,
@@ -309,6 +310,7 @@
 				5F5C074728FE803C0089DD4B /* UIColor+.swift */,
 				21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
+				0E1E8873290AFCEF0021E788 /* UILabel+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
@@ -450,7 +452,7 @@
 			path = SettingViewController;
 			sourceTree = "<group>";
 		};
-    A35BD48028FE85A800D1FA7C /* Magazine */ = {
+		A35BD48028FE85A800D1FA7C /* Magazine */ = {
 			isa = PBXGroup;
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
@@ -634,7 +636,6 @@
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
-				2120F5682901331B0035D36E /* GalleryViewController.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				0E467661290272C100556C41 /* NearbyPlaceView.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
@@ -663,6 +664,7 @@
 				96B1836C2901458F009F2BC6 /* HorizontalCollectionView.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
+				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
@@ -698,6 +700,7 @@
 				5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
+				0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
