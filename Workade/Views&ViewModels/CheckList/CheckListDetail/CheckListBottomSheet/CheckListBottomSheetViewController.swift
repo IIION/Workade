@@ -8,7 +8,7 @@
 import UIKit
 
 class CheckListBottomSheetViewController: UIViewController {
-    var defaultHeight: CGFloat = 280
+    var defaultHeight: CGFloat = 200
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -38,6 +38,17 @@ class CheckListBottomSheetViewController: UIViewController {
         return view
     }()
     
+    private lazy var templateCollectionView: HorizontalCollectionView = {
+        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 240, height: 144))
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CheckListTemplateCell.self, forCellWithReuseIdentifier: CheckListTemplateCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
+    
     private var bottomSheetViewTopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -58,6 +69,7 @@ class CheckListBottomSheetViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(bottomSheetView)
         view.addSubview(dimmedView)
+        view.addSubview(templateCollectionView)
         
         let guide = view.safeAreaLayoutGuide
         let topConstant: CGFloat = view.safeAreaInsets.bottom + guide.layoutFrame.height
@@ -82,6 +94,13 @@ class CheckListBottomSheetViewController: UIViewController {
             radiusView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
             radiusView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
             radiusView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
+            templateCollectionView.topAnchor.constraint(equalTo: radiusView.bottomAnchor, constant: 22.25),
+            templateCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 20),
+            templateCollectionView.widthAnchor.constraint(equalTo: guide.widthAnchor, constant: -20),
+            templateCollectionView.heightAnchor.constraint(equalToConstant: 150)
         ])
     }
     
@@ -113,4 +132,23 @@ class CheckListBottomSheetViewController: UIViewController {
     @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         hideBottomSheetAndGoBack()
     }
+}
+
+extension CheckListBottomSheetViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckListTemplateCell.identifier, for: indexPath)
+                as? CheckListTemplateCell else {
+            return UICollectionViewCell()
+        }
+        
+        return cell
+    }
+}
+
+extension CheckListBottomSheetViewController: UICollectionViewDelegate {
+    
 }
