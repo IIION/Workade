@@ -60,6 +60,7 @@ class MagazineViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
+        setupNavigationBar()
         setupSegmentedControl()
         setupLayout()
         setupLayoutDetailView()
@@ -131,5 +132,23 @@ class MagazineViewController: UIViewController {
         default:
             return
         }
+    }
+    
+    
+    @objc
+    func popToHomeVC() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+private extension MagazineViewController {
+    func setupNavigationBar() {
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.chevronLeft.image,
+            style: .done,
+            target: self,
+            action: #selector(popToHomeVC)
+        )
     }
 }
