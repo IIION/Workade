@@ -33,6 +33,7 @@ class CellItemDetailViewController: UIViewController {
     let titleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -104,9 +105,9 @@ class CellItemDetailViewController: UIViewController {
             await titleImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
         }
         
-        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -200)
+        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
-        
+                
         setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
@@ -183,7 +184,7 @@ class CellItemDetailViewController: UIViewController {
             titleImageView.heightAnchor.constraint(greaterThanOrEqualTo: imageContainer.heightAnchor),
             titleImageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
-            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
+            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor),
         ])
     }
     
