@@ -84,7 +84,7 @@ class CellItemDetailViewController: UIViewController {
         return view
     }()
     
-    private var customNavigationBar: UIViewController!
+    private var customNavigationBar: CustomNavigationBar!
     
     init(magazine: Magazine) {
         super.init(nibName: nil, bundle: nil)
@@ -107,7 +107,7 @@ class CellItemDetailViewController: UIViewController {
         
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
-                
+        
         setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
@@ -193,6 +193,7 @@ class CellItemDetailViewController: UIViewController {
         
         customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
         customNavigationBar.view.alpha = 0
+        customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
     }
     
     @objc
