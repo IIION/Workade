@@ -9,14 +9,17 @@ import UIKit
 
 class TapDetailViewController: UIViewController {
     var magazineList: [Magazine] = []
+    let viewModel = MagazineDetailViewModel()
     
-    let tapDetailCollectionView: UICollectionView = {
+    lazy var tapDetailCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = 20
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.register(cell: MagazineCollectionViewCell.self)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,10 +38,9 @@ class TapDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tapDetailCollectionView.dataSource = self
-        tapDetailCollectionView.delegate = self
         
         setupLayout()
+        observingChangedMagazineId()
     }
     
     func setupLayout() {
@@ -78,22 +80,27 @@ extension TapDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
+        cell.delegate = self
         cell.configure(magazine: magazineList[indexPath.row])
+       
         return cell
     }
-    
-    // TODO: 추후 데이터 로직과 연결하여 수정
-    @objc
-    func clickedBookmarkButton(sender: UIButton) {
-        var image: UIImage?
-        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold)
-        
-        if sender.currentImage == UIImage(systemName: "bookmark", withConfiguration: config) {
-            image = UIImage(systemName: "bookmark.fill", withConfiguration: config)
-            sender.setImage(image, for: .normal)
-        } else {
-            image = UIImage(systemName: "bookmark", withConfiguration: config)
-            sender.setImage(image, for: .normal)
+}
+
+extension TapDetailViewController: CollectionViewCellDelegate {
+    func didTapBookmarkButton(id: String) {
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
+    }
+}
+
+extension TapDetailViewController {
+    private func observingChangedMagazineId() {
+        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+            guard let self = self else { return }
+            guard let index = self.magazineList.firstIndex(where: { $0.title == id }) else { return }
+            DispatchQueue.main.async {
+                self.tapDetailCollectionView.reloadItems(at: [.init(item: index, section: 0)])
+            }
         }
     }
 }

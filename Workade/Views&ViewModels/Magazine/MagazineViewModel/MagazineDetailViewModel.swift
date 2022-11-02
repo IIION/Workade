@@ -10,8 +10,13 @@ import UIKit
 @MainActor
 class MagazineDetailViewModel {
     private let manager = NetworkingManager.shared
-        
-    var data: MagazineBinder<[MagazineDetailModel]> = MagazineBinder([])
+    private let bookmarkManager = BookmarkManager.shared
+    
+    var data: Binder<[MagazineDetailModel]> = Binder([])
+    
+    init() {
+        bindingBookmarkManager()
+    }
     
     func fetchMagazine(url: URL?) async {
         var magazineDetailData: [MagazineDetailModel] = []
@@ -38,30 +43,18 @@ class MagazineDetailViewModel {
         
         return url
     }
-}
-
-class MagazineBinder<T> {
-    typealias Listener = (T) -> Void
-    var listener: Listener?
     
-    func bind(_ listener: Listener?) {
-        self.listener = listener
-        
-    }
+    var clickedMagazineId = Binder("")
     
-    func bindAndFire(_ listener: Listener?) {
-        self.listener = listener
-        listener?(value)
-        
-    }
-    
-    var value: T {
-        didSet {
-            listener?(value)
+    /// Manager -> ViewModel -> ViewController
+    private func bindingBookmarkManager() {
+        bookmarkManager.clickedMagazineId.bindAndFire(at: .magazine) { [weak self] id in
+            guard let self = self else { return }
+            self.clickedMagazineId.value = id
         }
     }
     
-    init(_ val: T) {
-        value = val
+    func notifyClickedMagazineId(title id: String, key: String) {
+        bookmarkManager.notifyClickedMagazineId(title: id, key: key)
     }
 }
