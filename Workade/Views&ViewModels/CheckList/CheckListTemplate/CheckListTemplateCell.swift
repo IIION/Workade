@@ -106,7 +106,6 @@ class CheckListTemplateCell: UICollectionViewCell {
         let partialText = checkListTemplate.tintString
         let hexString = checkListTemplate.tintColor
         let imageUrl = checkListTemplate.imageURL
-        print(imageUrl)
         let attributedStr = NSMutableAttributedString(string: title)
         attributedStr.addAttribute(.foregroundColor, value: hexStringToUIColor(hex: hexString), range: (title as NSString).range(of: partialText))
         self.titleLabel.attributedText = attributedStr
