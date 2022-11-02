@@ -19,6 +19,7 @@ class NearbyPlaceViewController: UIViewController {
         self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL) ?? URL(string: "")!)
         self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
+        setupTopSafeArea()
     }
     
     required init?(coder: NSCoder) {
@@ -27,7 +28,7 @@ class NearbyPlaceViewController: UIViewController {
     
     private var customNavigationBar: CustomNavigationBar!
     private var defaultScrollYOffset: CGFloat = 0
-    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    var topSafeArea = CGFloat(44)
     
     // Gallery 관련 프로퍼티
     let transitionManager = CardTransitionMananger()
@@ -94,6 +95,12 @@ class NearbyPlaceViewController: UIViewController {
             await galleryVM.fetchImages()
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
+    }
+    
+    private func setupTopSafeArea() {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let window = scene.windows.first else { return }
+        topSafeArea = window.safeAreaInsets.top
     }
     
     private func setupIntroduceView() {

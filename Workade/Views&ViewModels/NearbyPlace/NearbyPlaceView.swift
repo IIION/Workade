@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol InnerTouchPresentDelegate {
+protocol InnerTouchPresentDelegate: AnyObject {
     func touch(office: Office)
 }
 
 class NearbyPlaceView: UIView {
     
-    var delegate: InnerTouchPresentDelegate?
+    weak var delegate: InnerTouchPresentDelegate?
     
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
@@ -28,7 +28,7 @@ class NearbyPlaceView: UIView {
         longitude: 0.0,
         spots: [])
     
-    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    var topSafeArea = CGFloat(44)
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -180,10 +180,17 @@ class NearbyPlaceView: UIView {
     init(office: Office) {
         super.init(frame: .zero)
         // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
+        setupTopSafeArea()
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
         galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
         setupOfficeData(office: office)
         setupLayout()
+    }
+    
+    private func setupTopSafeArea() {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let window = scene.windows.first else { return }
+        topSafeArea = window.safeAreaInsets.top
     }
     
     private func setupOfficeData(office: Office) {
