@@ -80,8 +80,8 @@ class CheckListTemplateCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
         ])
         
         NSLayoutConstraint.activate([
