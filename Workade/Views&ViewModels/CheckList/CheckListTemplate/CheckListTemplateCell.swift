@@ -54,10 +54,6 @@ class CheckListTemplateCell: UICollectionViewCell {
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let attributedStr = NSMutableAttributedString(string: "하이하이")
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.black, range: ("하이하이" as NSString).range(of: "하이"))
-        label.attributedText = attributedStr
-        
         return label
     }()
     
