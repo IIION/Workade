@@ -45,18 +45,6 @@ class NearbyPlaceViewController: UIViewController {
         return label
     }()
     
-    private lazy var mapButton: UIButton = {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "map", withConfiguration: config), for: .normal)
-        button.tintColor = .theme.background
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(clickedMapButton(sender:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
     lazy var closeButton: UIButton = {
         let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -178,11 +166,6 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     @objc
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
-    }
-    // TODO: 지도 뷰로 이동하는 로직 작성 예정
-    @objc
-    func clickedMapButton(sender: UIButton) {
-        print("지도 클릭")
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
