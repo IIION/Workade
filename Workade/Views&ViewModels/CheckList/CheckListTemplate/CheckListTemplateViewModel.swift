@@ -8,4 +8,5 @@
 import UIKit
 
 class CheckListTemplateViewModel {
+    var todos = [String]()
 }

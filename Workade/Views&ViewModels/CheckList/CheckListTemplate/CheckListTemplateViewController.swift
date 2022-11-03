@@ -8,8 +8,8 @@
 import UIKit
 
 class CheckListTemplateViewController: UIViewController {
-    
-    let viewModel = CheckListTemplateViewModel()
+    private var task: Task<Void, Error>?
+    private let viewModel = CheckListTemplateViewModel()
     
     var viewDidDissmiss: (() -> Void)?
     
@@ -38,22 +38,13 @@ class CheckListTemplateViewController: UIViewController {
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let attributedStr = NSMutableAttributedString(string: "하이하이")
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.yellow, range: ("하이하이" as NSString).range(of: "하이"))
-        label.attributedText = attributedStr
-        
         return label
     }()
     
     lazy var countLabel: UILabel = {
         let label = UILabel()
-        let text = "\(2)개의 체크리스트"
         label.font = .customFont(for: .caption)
         label.textColor = .theme.primary
-        
-        let attributedStr = NSMutableAttributedString(string: text)
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.theme.quaternary, range: (text as NSString).range(of: "개의 체크리스트"))
-        label.attributedText = attributedStr
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -133,6 +124,32 @@ class CheckListTemplateViewController: UIViewController {
         self.viewDidDissmiss?()
     }
     
+    func setupData(checkListTemplate: CheckListTemplateModel) {
+        let title = checkListTemplate.title
+        let partialText = checkListTemplate.tintString
+        let hexString = checkListTemplate.tintColor
+        let imageUrl = checkListTemplate.imageURL
+        let attributedStr = NSMutableAttributedString(string: title)
+        attributedStr.addAttribute(.foregroundColor,
+                                   value: UIColor.hexStringToUIColor(hex: hexString),
+                                   range: (title as NSString).range(of: partialText)
+        )
+        
+        let text = "\(checkListTemplate.list.count)개의 체크리스트"
+        viewModel.todos = checkListTemplate.list
+        checkListTableView.reloadData()
+        
+        let attributedText = NSMutableAttributedString(string: text)
+        attributedText.addAttribute(.foregroundColor, value: UIColor.theme.quaternary, range: (text as NSString).range(of: "개의 체크리스트"))
+        
+        self.titleLabel.attributedText = attributedStr
+        self.countLabel.attributedText = attributedText
+        self.imageView.image = nil
+        task = Task {
+            await self.imageView.setImageURL(title: title, url: imageUrl)
+        }
+    }
+    
     func setupLayout() {
         let views = [
             containerView, imageView, titleLabel, countLabel,
@@ -192,13 +209,15 @@ class CheckListTemplateViewController: UIViewController {
 
 extension CheckListTemplateViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel.todos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueCell(withType: CheckListTemplateDetailCell.self, for: indexPath) as? CheckListTemplateDetailCell else {
             return UITableViewCell()
         }
+        
+        cell.label.text = viewModel.todos[indexPath.row]
         
         return cell
     }

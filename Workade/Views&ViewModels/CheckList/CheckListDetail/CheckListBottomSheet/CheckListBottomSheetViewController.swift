@@ -172,6 +172,10 @@ extension CheckListBottomSheetViewController: UICollectionViewDelegate {
         let checkListTemplateViewController = CheckListTemplateViewController()
         checkListTemplateViewController.modalPresentationStyle = .overFullScreen
         
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        
+        checkListTemplateViewController.setupData(checkListTemplate: template)
+        
         let dimView = UIView(frame: UIScreen.main.bounds)
         dimView.backgroundColor = .black.withAlphaComponent(0.7)
         self.view.addSubview(dimView)
