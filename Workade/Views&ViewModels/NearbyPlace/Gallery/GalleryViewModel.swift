@@ -55,6 +55,8 @@ struct GalleryImage: Codable {
     private(set) var content: GalleryContent?
     private(set) var images: [UIImage] = []
     
+    var paginationUnit: Int = 10
+    
     init() { }
     
     func fetchContent(by url: URL) async {
@@ -68,13 +70,16 @@ struct GalleryImage: Codable {
     }
     
     func fetchImages() async {
-        guard let content = content else { return }
+        guard
+            let content = content,
+            images.count < content.items.count
+        else { return }
         
         let fetchedImages = await withTaskGroup(of: Data?.self) { group in
             var tempImages = [UIImage]()
-            
-            for item in content.items {
-                guard let url = URL(string: item.context) else { continue }
+            let paginationEndPoint = min(images.count + paginationUnit, content.items.count)
+            for index in images.count..<paginationEndPoint {
+                guard let url = URL(string: content.items[index].context) else { continue }
                 group.addTask {
                     return await self.manager.request(url: url)
                 }
