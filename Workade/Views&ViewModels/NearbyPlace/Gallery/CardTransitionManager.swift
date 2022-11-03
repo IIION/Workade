@@ -53,7 +53,10 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
               
               let item = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell
                 
-        else { return }
+        else {
+            transitionContext.completeTransition(true)
+            return
+        }
         
         let imageViewCopy = makeimageView(by: item.imageView.image ?? UIImage())
         containerView.addSubview(imageViewCopy)
@@ -64,7 +67,6 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
         if transition == .presentation {
             imageViewCopy.translatesAutoresizingMaskIntoConstraints = false
             makeCellSize(for: imageViewCopy, item: item)
-            item.isHidden = true
             animator.addAnimations {
                 self.dimmingView.alpha = 0.8
                 imageViewCopy.layer.cornerRadius = 0
