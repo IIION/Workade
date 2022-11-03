@@ -12,7 +12,8 @@ excluded:
 
 #Defualt Rules
 line_length:
-  warning: 150
+  warning: 200
+  error: 300
 file_length:
   warning: 400
   ignore_comment_only_lines: true
