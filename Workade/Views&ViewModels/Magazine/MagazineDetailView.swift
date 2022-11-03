@@ -8,7 +8,7 @@
 import UIKit
 
 class MagazineDetailView: UIView {
-    var magazine: Magazine = Magazine(title: "", imageURL: "", introduceURL: "")
+    var magazine: Magazine
     
     let magazineViewModel = MagazineDetailViewModel()
     var introduceURL: URL?
@@ -24,23 +24,18 @@ class MagazineDetailView: UIView {
     }()
     
     init(magazine: Magazine) {
+        self.magazine = magazine
         super.init(frame: .zero)
         
-        setupLayout()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+        setupMagazineDetailData()
         setupLayout()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupLayout()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func setupMagazineDetailData(magazine: Magazine) {
-        self.magazine = magazine
+    func setupMagazineDetailData() {
         introduceURL = magazineViewModel.fetchURL(urlString: magazine.introduceURL)
         Task {
             await magazineViewModel.fetchMagazine(url: introduceURL)

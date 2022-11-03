@@ -8,7 +8,6 @@
 import UIKit
 
 class TapDetailViewController: UIViewController {
-    var magazineList: [Magazine] = []
     let viewModel = MagazineDetailViewModel()
     
     lazy var tapDetailCollectionView: UICollectionView = {
@@ -27,19 +26,11 @@ class TapDetailViewController: UIViewController {
         return collectionView
     }()
     
-    init(magazineList: [Magazine]) {
-        super.init(nibName: nil, bundle: nil)
-        self.magazineList = magazineList
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
+        observingFetchComplete()
         observingChangedMagazineId()
     }
     
@@ -66,7 +57,8 @@ extension TapDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension TapDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cellItemDetailViewController = CellItemDetailViewController(magazine: self.magazineList[indexPath.row])
+        let magazine = viewModel.magazineData.magazineContent[indexPath.row]
+        let cellItemDetailViewController = CellItemDetailViewController(magazine: magazine)
         
         cellItemDetailViewController.modalPresentationStyle = .overFullScreen
         present(cellItemDetailViewController, animated: true)
@@ -75,13 +67,13 @@ extension TapDetailViewController: UICollectionViewDelegate {
 
 extension TapDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return magazineList.count
+        return viewModel.magazineData.magazineContent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
         cell.delegate = self
-        cell.configure(magazine: magazineList[indexPath.row])
+        cell.configure(magazine: viewModel.magazineData.magazineContent[indexPath.row])
        
         return cell
     }
@@ -94,10 +86,19 @@ extension TapDetailViewController: CollectionViewCellDelegate {
 }
 
 extension TapDetailViewController {
+    private func observingFetchComplete() {
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.tapDetailCollectionView.reloadData()
+            }
+        }
+    }
+    
     private func observingChangedMagazineId() {
         viewModel.clickedMagazineId.bindAndFire { [weak self] id in
             guard let self = self else { return }
-            guard let index = self.magazineList.firstIndex(where: { $0.title == id }) else { return }
+            guard let index = self.viewModel.magazineData.magazineContent.firstIndex(where: { $0.title == id }) else { return }
             DispatchQueue.main.async {
                 self.tapDetailCollectionView.reloadItems(at: [.init(item: index, section: 0)])
             }

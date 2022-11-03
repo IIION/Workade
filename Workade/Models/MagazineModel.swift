@@ -30,10 +30,10 @@ struct MagazineDataModel: Codable {
     }
 }
 
-struct MagazineItemModel: Codable {
-    let context: String
+struct MagazineModel: Codable {
+    let magazineContent: [Magazine]
     
     enum CodingKeys: String, CodingKey {
-        case context
+        case magazineContent = "content"
     }
 }

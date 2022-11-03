@@ -9,13 +9,24 @@ import UIKit
 
 @MainActor
 class MagazineDetailViewModel {
-    private let manager = NetworkingManager.shared
+    private let networkManager = NetworkingManager.shared
     private let bookmarkManager = BookmarkManager.shared
     
+    var magazineData = MagazineModel(magazineContent: [])
+    
     var data: Binder<[MagazineDetailModel]> = Binder([])
+    var isCompleteFetch = Binder(false)
     
     init() {
+        fetchData()
         bindingBookmarkManager()
+    }
+    
+    func fetchData() {
+        Task {
+            magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
+            isCompleteFetch.value = true
+        }
     }
     
     func fetchMagazine(url: URL?) async {
@@ -23,7 +34,7 @@ class MagazineDetailViewModel {
         
         guard let dataUrl = url else { return }
         
-        let result = await manager.request(url: dataUrl)
+        let result = await networkManager.request(url: dataUrl)
         guard let result = result else { return }
         
         do {
