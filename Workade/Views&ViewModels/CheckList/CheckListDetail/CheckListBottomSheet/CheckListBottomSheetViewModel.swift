@@ -23,4 +23,12 @@ final class CheckListBottomSheetViewModel {
             isCompleteFetch.value = true
         }
     }
+    
+    @objc func addTemplateTodo(_ todoList: [String]) {
+        NotificationCenter.default.post(
+            name: NSNotification.Name("addTodoList"),
+            object: todoList,
+            userInfo: nil
+        )
+    }
 }

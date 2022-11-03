@@ -9,7 +9,8 @@ import UIKit
 import SwiftUI
 
 class CheckListTemplateCell: UICollectionViewCell {
-    var task: Task<Void, Error>?
+    private var task: Task<Void, Error>?
+    var addTemplate: (() -> Void)?
     
     lazy var plusButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.custom)
@@ -119,7 +120,9 @@ class CheckListTemplateCell: UICollectionViewCell {
     }
     
     @objc
-    private func add() { }
+    private func add() {
+        addTemplate?()
+    }
 }
 
 struct CheckListTemplateCellRepresentable: UIViewRepresentable {

@@ -196,6 +196,13 @@ class CheckListDetailViewController: UIViewController {
         
         self.setupNavigationBar()
         self.setupLayout()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addTodolistNotification(_:)),
+            name: NSNotification.Name("addTodoList"),
+            object: nil
+        )
     }
     
     @objc func dismissKeyboard() {
@@ -217,12 +224,12 @@ class CheckListDetailViewController: UIViewController {
     
     @objc private func addButtonPressed(_ sender: UIButton) {
         guard let targetCheckList = selectedCheckList else { return }
-        let index = checkListDetailViewModel.todos.count
+        let todosCount = checkListDetailViewModel.todos.count
         
         checkListDetailViewModel.addTodo()
         updateCheckListTableViewConstant()
-        self.checklistTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-        let indexPathArray = stride(from: 0, to: checkListDetailViewModel.todos.count-1, by: 1).map { index in
+        self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
+        let indexPathArray = stride(from: 0, to: todosCount-1, by: 1).map { index in
             IndexPath(row: index, section: 0)
         }
         self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
@@ -270,6 +277,24 @@ class CheckListDetailViewController: UIViewController {
         if (textField.text?.count ?? 4) >= 12 {
             self.presentPopOver()
         }
+    }
+    
+    @objc func addTodolistNotification(_ notification: Notification) {
+        guard let todoList = notification.object as? [String] else { return }
+        guard let targetCheckList = selectedCheckList else { return }
+        let todosCount = checkListDetailViewModel.todos.count
+        
+        for todo in todoList {
+            checkListDetailViewModel.addTodo(todo)
+            updateCheckListTableViewConstant()
+            self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
+            
+        }
+        let indexPathArray = stride(from: 0, to: todosCount-1, by: 1).map { index in
+            IndexPath(row: index, section: 0)
+        }
+        self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
     }
 }
 

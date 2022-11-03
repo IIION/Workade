@@ -156,7 +156,12 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setupCell(checkListTemplate: checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row])
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        
+        cell.setupCell(checkListTemplate: template)
+        cell.addTemplate = {
+            self.checkListBottomSheetViewModel.addTemplateTodo(template.list)
+        }
         
         return cell
     }
