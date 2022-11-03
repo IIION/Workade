@@ -44,6 +44,7 @@ class NearbyPlaceViewController: UIViewController {
         return label
     }()
     
+    // FIXME: 현재 안 쓰는 버튼처럼 보이는데 일단 주석 남깁니다.
     private lazy var mapButton: UIButton = {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
         
