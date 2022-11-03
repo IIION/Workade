@@ -17,17 +17,17 @@ extension UIImageView {
     /// 캐시에 없다면 url을 가공하고, NetworkManager의 request메서드에 url을 전달하여 data를 받습니다.
     ///
     /// 받은 data를 기반으로 이미지뷰 자기 자신의 image에 바로 비동기적으로 image를 넣어주고, 불러오는데 성공한 해당 이미지를 ImageCacheManager의 setObject 메서드를 이용하여 캐시에 저장합니다.
-    func setImageURL(title id: String, url: String) async {
-        if let cachedImage = ImageCacheManager.shared.object(id: id) {
+    func setImageURL(_ urlString: String) async {
+        if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
             self.image = cachedImage
             return
         }
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: urlString) else { return }
         guard let data = await NetworkManager.shared.request(url: url) else { return }
         if let image = UIImage(data: data) {
             DispatchQueue.main.async { [weak self] in
                 self?.image = image
-                ImageCacheManager.shared.setObject(image: image, id: id)
+                ImageCacheManager.shared.setObject(image: image, id: urlString)
             }
         }
     }

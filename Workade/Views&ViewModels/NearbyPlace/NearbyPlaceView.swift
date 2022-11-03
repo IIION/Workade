@@ -191,7 +191,7 @@ class NearbyPlaceView: UIView {
         placeLabel.text = office.officeName
         locationLabel.text = office.regionName
         Task {
-            await placeImageView.setImageURL(title: office.officeName, url: office.imageURL)
+            await placeImageView.setImageURL(office.imageURL)
         }
     }
     

@@ -41,7 +41,6 @@ class IntroduceViewModel {
     
     func fetchImage(urlString: String) async -> UIImage {
         guard let imageURL = URL(string: urlString) else { return UIImage()}
-        
         let result = await networkManager.request(url: imageURL)
         guard let result = result else { return  UIImage()}
         guard let image = UIImage(data: result) else { return UIImage()}
