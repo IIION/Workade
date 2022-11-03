@@ -118,15 +118,14 @@ final class HomeViewController: UIViewController {
         setupScrollViewLayout()
         setupNavigationBar()
         setupLayout()
+        observingFetchComplete()
+        observingChangedMagazineId()
     }
 }
 
 extension HomeViewController: LaunchScreenTimingDelegate {
     func finishLaunchScreen() {
         setupStatusBar()
-        
-        observingFetchComplete()
-        observingChangedMagazineId()
     }
     
     override func viewWillAppear(_ animated: Bool) {
