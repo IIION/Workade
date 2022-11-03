@@ -57,6 +57,13 @@ struct GalleryImage: Codable {
     private(set) var images: [UIImage] = []
     
     var paginationUnit: Int = 10
+    var isCanLoaded: Bool {
+        if let items = content?.items {
+            return images.count < items.count
+        } else {
+            return false
+        }
+    }
     
     init() { }
     
