@@ -52,36 +52,43 @@ struct GalleryImage: Codable {
 @MainActor class GalleryViewModel {
     
     private let manager = NetworkingManager.shared
-    private let url: URL
-    var images: [UIImage] = []
+    private(set) var content: GalleryContent?
+    private(set) var images: [UIImage] = []
     
-    init(url: URL) {
-        self.url = url
-    }
+    init() { }
     
-    func fetchImages() async {
+    func fetchContent(by url: URL) async {
         let result = await manager.request(url: url)
         guard let result = result else { return }
         let searchResult = try? JSONDecoder().decode(GalleryContent.self, from: result)
         guard let searchResult = searchResult else { return }
+        self.content = searchResult
         
-        self.images = await withTaskGroup(of: Data?.self) { group in
+        await fetchImages()
+    }
+    
+    func fetchImages() async {
+        guard let content = content else { return }
+        
+        let fetchedImages = await withTaskGroup(of: Data?.self) { group in
+            var tempImages = [UIImage]()
             
-            var images = [UIImage]()
-            
-            for item in searchResult.items {
+            for item in content.items {
+                guard let url = URL(string: item.context) else { continue }
                 group.addTask {
-                    return await self.manager.request(url: URL(string: item.context)!)
+                    return await self.manager.request(url: url)
                 }
             }
             
             for await data in group {
                 if let data = data, let image = UIImage(data: data) {
-                    images.append(image)
+                    tempImages.append(image)
                 }
             }
             
-            return images
+            return tempImages
         }
+        
+        self.images.append(contentsOf: fetchedImages)
     }
 }

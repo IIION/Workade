@@ -16,7 +16,7 @@ class NearbyPlaceViewController: UIViewController {
     init(office: Office) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
-        self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL) ?? URL(string: "")!)
+        self.galleryVM = GalleryViewModel()
         self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
@@ -91,7 +91,8 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupGalleryView() {
         Task {
-            await galleryVM.fetchImages()
+            guard let url = URL(string: office.galleryURL) else { return }
+            await galleryVM.fetchContent(by: url)
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
     }
