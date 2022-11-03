@@ -52,6 +52,7 @@ struct GalleryImage: Codable {
 @MainActor class GalleryViewModel {
     
     private let manager = NetworkingManager.shared
+    private(set) var isLoading = false
     private(set) var content: GalleryContent?
     private(set) var images: [UIImage] = []
     
@@ -72,8 +73,11 @@ struct GalleryImage: Codable {
     func fetchImages() async {
         guard
             let content = content,
+            isLoading == false,
             images.count < content.items.count
         else { return }
+        
+        isLoading = true
         
         let fetchedImages = await withTaskGroup(of: Data?.self) { group in
             var tempImages = [UIImage]()
@@ -95,5 +99,7 @@ struct GalleryImage: Codable {
         }
         
         self.images.append(contentsOf: fetchedImages)
+        
+        isLoading = false
     }
 }

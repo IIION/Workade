@@ -241,6 +241,15 @@ extension NearbyPlaceViewController: UICollectionViewDelegate {
         self.present(viewController, animated: true)
         return true
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == galleryVM.images.count - 1 {
+            Task {
+                await galleryVM.fetchImages()
+                nearbyPlaceView.galleryView.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 extension NearbyPlaceViewController: TwoLineLayoutDelegate {
