@@ -8,12 +8,13 @@
 import UIKit
 
 class CustomNavigationBar: UIViewController {
-    let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
+    var topSafeArea = CGFloat(44)
     
     var dismissAction: (() -> Void)?
     // Binding
-    private var titleText: String?
-    private var rightButtonImage: UIImage?
+    var titleText: String?
+    var rightButtonImage: UIImage?
+    var office: Office?
     
     private let navigationBar: UIView = {
         let view = UIView()
@@ -60,6 +61,14 @@ class CustomNavigationBar: UIViewController {
         setupLayout()
     }
     
+    init(titleText: String?, rightButtonImage: UIImage?, office: Office?) {
+        super.init(nibName: nil, bundle: nil)
+        self.titleText = titleText
+        self.rightButtonImage = rightButtonImage
+        self.office = office
+        setupTopSafeArea()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -67,7 +76,7 @@ class CustomNavigationBar: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: safaAreaTop + 60)
+        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: topSafeArea + 60)
         self.rightButton.setImage(rightButtonImage, for: .normal)
         self.titleLabel.text = titleText?.components(separatedBy: ["\n"]).joined(separator: " ")
         
@@ -99,6 +108,12 @@ class CustomNavigationBar: UIViewController {
         ])
     }
     
+    private func setupTopSafeArea() {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let window = scene.windows.first else { return }
+        topSafeArea = window.safeAreaInsets.top
+    }
+    
     @objc
     func clickedCloseButton(sender: UIButton) {
         dismissAction?()
@@ -107,8 +122,17 @@ class CustomNavigationBar: UIViewController {
     
     @objc
     func clickedRightButton(sender: UIButton) {
-        // TODO: 버튼 활성화
-        
-        print("rightButton Clicked")
+        print("right button push")
+    }
+}
+
+class NearbyPlaceViewNavigationBar: CustomNavigationBar {
+    weak var delegate: InnerTouchPresentDelegate?
+    
+    @objc
+    override func clickedRightButton(sender: UIButton) {
+        if let office = self.office {
+            delegate?.touch(office: office)
+        }
     }
 }

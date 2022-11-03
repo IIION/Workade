@@ -26,7 +26,7 @@ class NearbyPlaceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var customNavigationBar: CustomNavigationBar!
+    private var customNavigationBar: NearbyPlaceViewNavigationBar!
     private var defaultScrollYOffset: CGFloat = 0
     var topSafeArea = CGFloat(44)
     
@@ -43,6 +43,13 @@ class NearbyPlaceViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
+    }()
+    
+    lazy var mapButtonImage: UIImage = {
+        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+        let image = UIImage(systemName: "map", withConfiguration: config) ?? UIImage()
+        
+        return image
     }()
     
     lazy var closeButton: UIButton = {
@@ -136,12 +143,12 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        // TODO: rightButtonImage에 지도 이미지 넣을 예정입니다. 현재 지도로 바로 이동이 힘들어 빈 이미지로 올립니다.
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        customNavigationBar = NearbyPlaceViewNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButtonImage, office: office)
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
+        customNavigationBar.delegate = self
         customNavigationBar.view.alpha = 0
-        view.addSubview(customNavigationBar.view)
         
+        view.addSubview(customNavigationBar.view)
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
@@ -228,6 +235,7 @@ extension NearbyPlaceViewController: UICollectionViewDelegate {
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.transitioningDelegate = transitionManager
         self.present(viewController, animated: true)
+        
         return true
     }
 }
