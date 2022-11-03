@@ -12,12 +12,10 @@ protocol InnerTouchPresentDelegate: AnyObject {
 }
 
 class NearbyPlaceView: UIView {
-    
     weak var delegate: InnerTouchPresentDelegate?
-    
+    var topSafeArea = CGFloat(44)
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
-    
     var office: Office = Office(
         officeName: "",
         regionName: "",
@@ -27,8 +25,6 @@ class NearbyPlaceView: UIView {
         latitude: 0.0,
         longitude: 0.0,
         spots: [])
-    
-    var topSafeArea = CGFloat(44)
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
