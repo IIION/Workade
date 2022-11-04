@@ -246,8 +246,6 @@ extension NearbyPlaceViewController: UICollectionViewDelegate {
         if indexPath.row == galleryVM.images.count - 1, galleryVM.isCanLoaded {
             Task {
                 await galleryVM.fetchImages()
-                
-                let selectedItem = collectionView.indexPathsForSelectedItems
                 nearbyPlaceView.galleryView.collectionView.reloadData()
             }
         }

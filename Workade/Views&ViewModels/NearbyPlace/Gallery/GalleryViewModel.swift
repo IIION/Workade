@@ -65,8 +65,6 @@ struct GalleryImage: Codable {
         }
     }
     
-    init() { }
-    
     func fetchContent(by url: URL) async {
         let result = await manager.request(url: url)
         guard let result = result else { return }
@@ -81,7 +79,7 @@ struct GalleryImage: Codable {
         guard
             let content = content,
             isLoading == false,
-            images.count < content.items.count
+            isCanLoaded
         else { return }
         
         isLoading = true
