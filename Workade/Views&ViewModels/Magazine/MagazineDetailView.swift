@@ -10,7 +10,7 @@ import UIKit
 class MagazineDetailView: UIView {
     var magazine: Magazine
     
-    let magazineViewModel = MagazineDetailViewModel()
+    let magazineViewModel = MagazineViewModel()
     var introduceURL: URL?
     
     private var stackView: UIStackView = {

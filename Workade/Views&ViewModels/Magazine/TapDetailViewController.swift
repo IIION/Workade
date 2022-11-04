@@ -8,7 +8,7 @@
 import UIKit
 
 class TapDetailViewController: UIViewController {
-    let viewModel = MagazineDetailViewModel()
+    let viewModel = MagazineViewModel()
         
     lazy var tapDetailCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()

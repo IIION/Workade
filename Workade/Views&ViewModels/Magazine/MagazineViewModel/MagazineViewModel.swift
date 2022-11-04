@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class MagazineDetailViewModel {
+class MagazineViewModel {
     private let networkManager = NetworkingManager.shared
     private let bookmarkManager = BookmarkManager.shared
     
