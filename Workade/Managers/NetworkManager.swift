@@ -47,7 +47,7 @@ final class NetworkManager {
         }
     }
     
-    func fetchCheckListTemplateData<T: Codable>() async throws -> T {
+    func requestCheckListTemplateData<T: Codable>() async throws -> T {
         guard let url = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Checklist/checkList.json") else {
             throw NetworkError.invalidURL
         }
