@@ -14,6 +14,10 @@ class MagazineDetailViewModel {
         
     var data: Binder<[MagazineDetailModel]> = Binder([])
     
+    init() {
+        bindingBookmarkManager()
+    }
+    
     func fetchMagazine(url: URL?) async {
         var magazineDetailData: [MagazineDetailModel] = []
         
@@ -38,5 +42,19 @@ class MagazineDetailViewModel {
         guard let url = URL(string: urlString) else { return nil }
         
         return url
+    }
+    
+    var clickedMagazineId = Binder("")
+    
+    /// Manager -> ViewModel -> ViewController
+    private func bindingBookmarkManager() {
+        bookmarkManager.clickedMagazineId.bindAndFire(at: .detail) { [weak self] id in
+            guard let self = self else { return }
+            self.clickedMagazineId.value = id
+        }
+    }
+    
+    func notifyClickedMagazineId(title id: String, key: String) {
+        bookmarkManager.notifyClickedMagazineId(title: id, key: key)
     }
 }

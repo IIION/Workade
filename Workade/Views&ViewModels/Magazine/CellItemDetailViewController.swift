@@ -10,6 +10,7 @@ import UIKit
 class CellItemDetailViewController: UIViewController {
     var magazine: Magazine
     private var task: Task<Void, Error>?
+    let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
@@ -68,8 +69,6 @@ class CellItemDetailViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
         
         let button = UIButton()
-        // TODO: 추후 Bookmark 정보 가져올때 북마크 true / false 정보에 따라 갱신
-        button.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
         button.tintColor = .theme.background
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
@@ -106,6 +105,7 @@ class CellItemDetailViewController: UIViewController {
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
         
+        setupBookmarkImage()
         setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
@@ -182,7 +182,7 @@ class CellItemDetailViewController: UIViewController {
             titleImageView.heightAnchor.constraint(greaterThanOrEqualTo: imageContainer.heightAnchor),
             titleImageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
-            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor),
+            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
         ])
     }
     
@@ -194,6 +194,12 @@ class CellItemDetailViewController: UIViewController {
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
     }
     
+    private func setupBookmarkImage() {
+        
+        let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
+        bookmarkButton.setImage(isBookmark ? SFSymbol.bookmarkFillInDetail.image : SFSymbol.bookmarkInDetail.image, for: .normal)
+    }
+    
     @objc
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -201,15 +207,8 @@ class CellItemDetailViewController: UIViewController {
     
     @objc
     func clickedBookmarkButton(sender: UIButton) {
-        // TODO: 추후 북마크 버튼 눌렀을때 북마크 해제, 추가 로직 구현부
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        
-        if sender.currentImage
-            == UIImage(systemName: "bookmark", withConfiguration: config) {
-            sender.setImage(UIImage(systemName: "bookmark.fill", withConfiguration: config), for: .normal)
-        } else {
-            sender.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
-        }
+        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.wishMagazine)
+        setupBookmarkImage()
     }
 }
 
