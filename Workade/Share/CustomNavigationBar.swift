@@ -12,8 +12,8 @@ class CustomNavigationBar: UIViewController {
     
     var dismissAction: (() -> Void)?
     // Binding
-    var titleText: String?
-    var rightButtonImage: UIImage?
+    private var titleText: String?
+    private var rightButtonImage: UIImage?
     var office: Office?
     
     private let navigationBar: UIView = {
@@ -122,7 +122,8 @@ class CustomNavigationBar: UIViewController {
     
     @objc
     func clickedRightButton(sender: UIButton) {
-        print("right button push")
+        // TODO: 버튼 활성화
+        print("rightButton Clicked")
     }
 }
 
