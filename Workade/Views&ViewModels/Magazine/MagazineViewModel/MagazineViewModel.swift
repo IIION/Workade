@@ -14,7 +14,6 @@ class MagazineViewModel {
     
     var magazineData = MagazineModel(magazineContent: [])
     
-    var data: Binder<[MagazineDetailModel]> = Binder([])
     var isCompleteFetch = Binder(false)
     
     init() {
@@ -27,32 +26,6 @@ class MagazineViewModel {
             magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
             isCompleteFetch.value = true
         }
-    }
-    
-    func fetchMagazine(url: URL?) async {
-        var magazineDetailData: [MagazineDetailModel] = []
-        
-        guard let dataUrl = url else { return }
-        
-        let result = await networkManager.request(url: dataUrl)
-        guard let result = result else { return }
-        
-        do {
-            let magazineData = try JSONDecoder().decode(MagazineDataModel.self, from: result)
-            magazineData.magazineData.forEach { detailData in
-                magazineDetailData.append(detailData)
-            }
-        } catch {
-            print(error)
-        }
-        
-        data.value = magazineDetailData
-    }
-    
-    func fetchURL(urlString: String) -> URL? {
-        guard let url = URL(string: urlString) else { return nil }
-        
-        return url
     }
     
     var clickedMagazineId = Binder("")
