@@ -195,7 +195,6 @@ class CellItemDetailViewController: UIViewController {
     }
     
     private func setupBookmarkImage() {
-        
         let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
         bookmarkButton.setImage(isBookmark ? SFSymbol.bookmarkFillInDetail.image : SFSymbol.bookmarkInDetail.image, for: .normal)
     }
