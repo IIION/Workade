@@ -188,6 +188,7 @@ class CellItemDetailViewController: UIViewController {
     
     func setupCustomNavigationBar() {
         customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        customNavigationBar.magazine = magazine
         setupCustomNavigationRightItem()
         customNavigationBar.view.alpha = 0
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
@@ -225,11 +226,11 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         
         if currentScrollYOffset > defaultScrollYOffset {
             setupCustomNavigationRightItem()
+            setupBookmarkImage()
             customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
             closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
         } else {
-            
             customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1
             closeButton.alpha = 1

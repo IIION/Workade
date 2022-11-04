@@ -8,12 +8,15 @@
 import UIKit
 
 class CustomNavigationBar: UIViewController {
+    let detailViewModel = MagazineDetailViewModel()
+    
     let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     var dismissAction: (() -> Void)?
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
+    var magazine: Magazine?
     
     private let navigationBar: UIView = {
         let view = UIView()
@@ -107,8 +110,18 @@ class CustomNavigationBar: UIViewController {
     
     @objc
     func clickedRightButton(sender: UIButton) {
-        // TODO: 버튼 활성화
-        
-        print("rightButton Clicked")
+        switch sender.currentImage {
+        case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image :
+            detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.wishMagazine)
+            setupBookmarkImage()
+        // TODO: 빅썬과 코드 합치면서 지도 버튼일때 별도 처리
+        default:
+            print("지도 버튼")
+        }
+    }
+    
+    private func setupBookmarkImage() {
+        let userDefault = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine?.title ?? "")
+        rightButton.setImage(userDefault ? SFSymbol.bookmarkFillInNavigation.image : SFSymbol.bookmarkInNavigation.image, for: .normal)
     }
 }
