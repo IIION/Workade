@@ -187,16 +187,24 @@ class CellItemDetailViewController: UIViewController {
     }
     
     func setupCustomNavigationBar() {
-        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .default)
-        
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        setupCustomNavigationRightItem()
         customNavigationBar.view.alpha = 0
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
     }
     
+    private func setupCustomNavigationRightItem() {
+        let rightImage = userDefaultsCheck() ? SFSymbol.bookmarkFillInNavigation.image : SFSymbol.bookmarkInNavigation.image
+        
+        customNavigationBar.rightButton.setImage(rightImage, for: .normal)
+    }
+    
     private func setupBookmarkImage() {
-        let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
-        bookmarkButton.setImage(isBookmark ? SFSymbol.bookmarkFillInDetail.image : SFSymbol.bookmarkInDetail.image, for: .normal)
+        bookmarkButton.setImage(userDefaultsCheck() ? SFSymbol.bookmarkFillInDetail.image : SFSymbol.bookmarkInDetail.image, for: .normal)
+    }
+    
+    private func userDefaultsCheck() -> Bool {
+        return UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
     }
     
     @objc
@@ -216,10 +224,12 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         let currentScrollYOffset = scrollView.contentOffset.y
         
         if currentScrollYOffset > defaultScrollYOffset {
+            setupCustomNavigationRightItem()
             customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
             closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
         } else {
+            
             customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1
             closeButton.alpha = 1

@@ -43,7 +43,7 @@ class CustomNavigationBar: UIViewController {
         return button
     }()
     
-    private lazy var rightButton: UIButton = {
+    lazy var rightButton: UIButton = {
         let button = UIButton()
         button.tintColor = .theme.primary
         button.translatesAutoresizingMaskIntoConstraints = false
