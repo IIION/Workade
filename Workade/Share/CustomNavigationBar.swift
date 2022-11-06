@@ -8,7 +8,11 @@
 import UIKit
 
 class CustomNavigationBar: UIViewController {
-    var topSafeArea = CGFloat(44)
+    private var topSafeArea: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
+        guard let window = scene.windows.first else { return CGFloat(44) }
+        return window.safeAreaInsets.top
+    }
     
     var dismissAction: (() -> Void)?
     // Binding
@@ -66,7 +70,6 @@ class CustomNavigationBar: UIViewController {
         self.titleText = titleText
         self.rightButtonImage = rightButtonImage
         self.office = office
-        setupTopSafeArea()
     }
     
     required init?(coder: NSCoder) {
@@ -106,12 +109,6 @@ class CustomNavigationBar: UIViewController {
             rightButton.heightAnchor.constraint(equalToConstant: 44),
             rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
-    }
-    
-    private func setupTopSafeArea() {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        guard let window = scene.windows.first else { return }
-        topSafeArea = window.safeAreaInsets.top
     }
     
     @objc

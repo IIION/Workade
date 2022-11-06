@@ -8,8 +8,11 @@
 import UIKit
 
 class GalleryView: UIView {
-    
-    var bottomSafeArea = CGFloat(44)
+    private var bottomSafeArea: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
+        guard let window = scene.windows.first else { return CGFloat(44) }
+        return window.safeAreaInsets.top
+    }
     let layout = UICollectionViewTwoLineLayout()
     
     lazy var collectionView: UICollectionView = {
@@ -24,21 +27,13 @@ class GalleryView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupBottomSafeArea()
         setupLayout()
-//        viewModel.fetchImages()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    private func setupBottomSafeArea() {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        guard let window = scene.windows.first else { return }
-        bottomSafeArea = window.safeAreaInsets.top
-    }
-    
+
     private func setupLayout() {
         self.addSubview(collectionView)
         

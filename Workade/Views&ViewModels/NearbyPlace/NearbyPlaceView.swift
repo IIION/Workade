@@ -13,7 +13,11 @@ protocol InnerTouchPresentDelegate: AnyObject {
 
 class NearbyPlaceView: UIView {
     weak var delegate: InnerTouchPresentDelegate?
-    var topSafeArea = CGFloat(44)
+    private var topSafeArea: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
+        guard let window = scene.windows.first else { return CGFloat(44) }
+        return window.safeAreaInsets.top
+    }
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
     var office: Office = Office(
@@ -173,17 +177,10 @@ class NearbyPlaceView: UIView {
     init(office: Office) {
         super.init(frame: .zero)
         // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
-        setupTopSafeArea()
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
         galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
         setupOfficeData(office: office)
         setupLayout()
-    }
-    
-    private func setupTopSafeArea() {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        guard let window = scene.windows.first else { return }
-        topSafeArea = window.safeAreaInsets.top
     }
     
     private func setupOfficeData(office: Office) {

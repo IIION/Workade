@@ -19,7 +19,6 @@ class NearbyPlaceViewController: UIViewController {
         self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL) ?? URL(string: "")!)
         self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
-        setupTopSafeArea()
     }
     
     required init?(coder: NSCoder) {
@@ -28,7 +27,11 @@ class NearbyPlaceViewController: UIViewController {
     
     private var customNavigationBar: NearbyPlaceViewNavigationBar!
     private var defaultScrollYOffset: CGFloat = 0
-    var topSafeArea = CGFloat(44)
+    private var topSafeArea: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
+        guard let window = scene.windows.first else { return CGFloat(44) }
+        return window.safeAreaInsets.top
+    }
     
     // Gallery 관련 프로퍼티
     let transitionManager = CardTransitionMananger()
@@ -92,12 +95,6 @@ class NearbyPlaceViewController: UIViewController {
         }
     }
     
-    private func setupTopSafeArea() {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        guard let window = scene.windows.first else { return }
-        topSafeArea = window.safeAreaInsets.top
-    }
-    
     private func setupIntroduceView() {
         Task {
             await introduceVM.fetchData()
@@ -127,11 +124,11 @@ class NearbyPlaceViewController: UIViewController {
                         imageView.image = image
                         let width = image.size.width
                         let height = image.size.height
-
+                        
                         imageView.contentMode = .scaleToFill
                         imageView.layer.cornerRadius = 20
                         imageView.clipsToBounds = true
-
+                        
                         imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
                     }
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
@@ -177,10 +174,9 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let totalOffset = scrollView.contentOffset.y
-        if totalOffset < -44 {
+        if totalOffset < -topSafeArea {
             self.dismiss(animated: true, completion: nil)
         }
-        print(totalOffset)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
