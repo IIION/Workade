@@ -175,6 +175,14 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let totalOffset = scrollView.contentOffset.y
+        if totalOffset < -44 {
+            self.dismiss(animated: true, completion: nil)
+        }
+        print(totalOffset)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let totalOffset = scrollView.contentOffset.y
         let detailOffset = nearbyPlaceView.detailScrollView.contentOffset.y

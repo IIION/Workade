@@ -51,7 +51,6 @@ class NearbyPlaceView: UIView {
     let placeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
-        imageView.image = UIImage(named: "officeImage_test")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +60,6 @@ class NearbyPlaceView: UIView {
     
     let locationLabel: UILabel = {
         let locationLabel = UILabel()
-        locationLabel.text = "제주도"
         locationLabel.font = UIFont.customFont(for: .title3)
         locationLabel.textColor = .white
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +69,6 @@ class NearbyPlaceView: UIView {
     
     let placeLabel: UILabel = {
         let placeLabel = UILabel()
-        placeLabel.text = "O-Peace"
         placeLabel.font = UIFont.customFont(for: .title1)
         placeLabel.textColor = .white
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
