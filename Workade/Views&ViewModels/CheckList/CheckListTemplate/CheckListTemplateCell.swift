@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListTemplateCell: UICollectionViewCell {
     private var task: Task<Void, Error>?
