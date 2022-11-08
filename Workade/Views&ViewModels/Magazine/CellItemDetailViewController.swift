@@ -86,10 +86,8 @@ class CellItemDetailViewController: UIViewController {
     private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: Magazine) {
-        super.init(nibName: nil, bundle: nil)
-        
-        magazineDetailView.setupMagazineDetailData(magazine: magazine)
         self.magazine = magazine
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
