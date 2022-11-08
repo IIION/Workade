@@ -186,7 +186,7 @@ class CellItemDetailViewController: UIViewController {
             titleImageView.heightAnchor.constraint(greaterThanOrEqualTo: imageContainer.heightAnchor),
             titleImageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
-            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor),
+            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
         ])
     }
     
