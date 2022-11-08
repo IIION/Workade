@@ -103,8 +103,8 @@ extension MyPageViewController: UICollectionViewDataSource {
 // MARK: Delegate
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 탐나 데이터 연결할때 수정
-        let viewController = CellItemDetailViewController(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
+        let magazine = viewModel.wishMagazines[indexPath.row]
+        let viewController = CellItemDetailViewController(magazine: magazine)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }
