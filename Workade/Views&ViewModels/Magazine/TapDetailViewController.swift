@@ -74,7 +74,7 @@ extension TapDetailViewController: UICollectionViewDataSource {
         let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
         cell.delegate = self
         cell.configure(magazine: viewModel.magazineData.magazineContent[indexPath.row])
-       
+        
         return cell
     }
 }
@@ -97,8 +97,11 @@ extension TapDetailViewController {
     
     private func observingChangedMagazineId() {
         viewModel.clickedMagazineId.bindAndFire { [weak self] id in
-            guard let self = self else { return }
-            guard let index = self.viewModel.magazineData.magazineContent.firstIndex(where: { $0.title == id }) else { return }
+            guard
+                let self = self,
+                let index = self.viewModel.magazineData.magazineContent.firstIndex(where: { $0.title == id })
+            else { return }
+            
             DispatchQueue.main.async {
                 self.tapDetailCollectionView.reloadItems(at: [.init(item: index, section: 0)])
             }
