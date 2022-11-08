@@ -136,7 +136,7 @@ class MagazineViewController: UIViewController {
     
     
     @objc
-    func popToHomeVC() {
+    func popToHomeViewController() {
         navigationController?.popViewController(animated: true)
     }
 }
@@ -148,7 +148,7 @@ private extension MagazineViewController {
             image: SFSymbol.chevronLeft.image,
             style: .done,
             target: self,
-            action: #selector(popToHomeVC)
+            action: #selector(popToHomeViewController)
         )
     }
 }
