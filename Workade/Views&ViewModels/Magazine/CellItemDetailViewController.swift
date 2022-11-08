@@ -84,11 +84,13 @@ class CellItemDetailViewController: UIViewController {
         return view
     }()
     
-    private var customNavigationBar: CustomNavigationBar!
+    private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: Magazine) {
-        self.magazine = magazine
         super.init(nibName: nil, bundle: nil)
+        
+        magazineDetailView.setupMagazineDetailData(magazine: magazine)
+        self.magazine = magazine
     }
     
     required init?(coder: NSCoder) {
@@ -113,6 +115,7 @@ class CellItemDetailViewController: UIViewController {
     
     func setupLayout() {
         view.addSubview(customNavigationBar.view)
+        
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
@@ -182,7 +185,7 @@ class CellItemDetailViewController: UIViewController {
             titleImageView.heightAnchor.constraint(greaterThanOrEqualTo: imageContainer.heightAnchor),
             titleImageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
-            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor),
+            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
         ])
     }
     
@@ -191,7 +194,9 @@ class CellItemDetailViewController: UIViewController {
         
         customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
         customNavigationBar.view.alpha = 0
-        customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
+        customNavigationBar.dismissAction = { [weak self] in
+            self?.presentingViewController?.dismiss(animated: true)
+        }
     }
     
     @objc
