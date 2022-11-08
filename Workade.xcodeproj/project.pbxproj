@@ -89,10 +89,11 @@
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };
 		A35A982C290ADE1300220755 /* MagazineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982B290ADE1300220755 /* MagazineModel.swift */; };
-		A35A982F290ADE1F00220755 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineDetailViewModel.swift */; };
+		A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineViewModel.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
+		A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */; };
 		A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */; };
 		BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C25E273370A5639B8396DFB /* Pods_Workade.framework */; };
 /* End PBXBuildFile section */
@@ -185,10 +186,11 @@
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A35559A728FED2B2001E4254 /* TapDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailViewController.swift; sourceTree = "<group>"; };
 		A35A982B290ADE1300220755 /* MagazineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineModel.swift; sourceTree = "<group>"; };
-		A35A982E290ADE1F00220755 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
+		A35A982E290ADE1F00220755 /* MagazineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewModel.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
 		A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -490,7 +492,8 @@
 		A35A982D290ADE1F00220755 /* MagazineViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A35A982E290ADE1F00220755 /* MagazineDetailViewModel.swift */,
+				A35A982E290ADE1F00220755 /* MagazineViewModel.swift */,
+				A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */,
 			);
 			path = MagazineViewModel;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
+				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				0ED6D420290946B1000DF27B /* TempNavigationBar.swift in Sources */,
 				96433235290A776600FBECAF /* Constants.swift in Sources */,
@@ -738,7 +742,7 @@
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,
-				A35A982F290ADE1F00220755 /* MagazineDetailViewModel.swift in Sources */,
+				A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */,

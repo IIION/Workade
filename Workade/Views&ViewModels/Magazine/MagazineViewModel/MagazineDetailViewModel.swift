@@ -1,8 +1,8 @@
 //
-//  MagazineListViewModel.swift
+//  MagazineDetailViewModel.swift
 //  Workade
 //
-//  Created by Hong jeongmin on 2022/10/27.
+//  Created by Hong jeongmin on 2022/11/04.
 //
 
 import UIKit
@@ -12,10 +12,8 @@ class MagazineDetailViewModel {
     var magazineData = MagazineModel(magazineContent: [])
     
     var data: Binder<[MagazineDetailModel]> = Binder([])
-    var isCompleteFetch = Binder(false)
     
     init() {
-        fetchData()
         bindingBookmarkManager()
     }
     
@@ -23,7 +21,6 @@ class MagazineDetailViewModel {
     func fetchData() {
         Task {
             magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
-            isCompleteFetch.value = true
         }
     }
     

@@ -8,8 +8,8 @@
 import UIKit
 
 class TapDetailViewController: UIViewController {
-    let viewModel = MagazineDetailViewModel()
-    
+    let viewModel = MagazineViewModel()
+        
     lazy var tapDetailCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -60,8 +60,8 @@ extension TapDetailViewController: UICollectionViewDelegate {
         let magazine = viewModel.magazineData.magazineContent[indexPath.row]
         let cellItemDetailViewController = CellItemDetailViewController(magazine: magazine)
         
-        cellItemDetailViewController.modalPresentationStyle = .overFullScreen
-        present(cellItemDetailViewController, animated: true)
+        cellItemDetailViewController.modalPresentationStyle = .fullScreen
+        self.view.window?.rootViewController?.present(cellItemDetailViewController, animated: true)
     }
 }
 
