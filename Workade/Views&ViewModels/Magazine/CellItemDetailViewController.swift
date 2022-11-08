@@ -208,6 +208,7 @@ class CellItemDetailViewController: UIViewController {
     
     private func userDefaultsCheck() -> Bool {
         return UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
+
     }
     
     @objc

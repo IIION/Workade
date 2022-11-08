@@ -88,6 +88,9 @@ enum SFSymbol {
             return .fromSystemImage(name: "bookmark", font: .systemFont(ofSize: 17, weight: .bold), color: .theme.primary)!
         case .bookmarkFillInNavigation:
             return .fromSystemImage(name: "bookmark.fill", font: .systemFont(ofSize: 17, weight: .bold), color: .theme.primary)!
+            return UIImage(systemName: "bookmark", withConfiguration: config)!
+        case .bookmarkFillInDetail:
+            return UIImage(systemName: "bookmark.fill", withConfiguration: config)!
         }
     }
 }

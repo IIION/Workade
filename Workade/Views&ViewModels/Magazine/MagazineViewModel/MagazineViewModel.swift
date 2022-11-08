@@ -9,8 +9,6 @@ import UIKit
 
 @MainActor
 class MagazineViewModel {
-    private let networkManager = NetworkingManager.shared
-    private let bookmarkManager = BookmarkManager.shared
     
     var magazineData = MagazineModel(magazineContent: [])
     
@@ -32,13 +30,13 @@ class MagazineViewModel {
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {
-        bookmarkManager.clickedMagazineId.bindAndFire(at: .detail) { [weak self] id in
+        BookmarkManager.shared.clickedMagazineId.bindAndFire(at: .detail) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
     }
     
     func notifyClickedMagazineId(title id: String, key: String) {
-        bookmarkManager.notifyClickedMagazineId(title: id, key: key)
+        BookmarkManager.shared.notifyClickedMagazineId(title: id, key: key)
     }
 }
