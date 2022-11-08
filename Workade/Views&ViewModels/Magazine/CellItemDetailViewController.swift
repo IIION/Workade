@@ -84,13 +84,14 @@ class CellItemDetailViewController: UIViewController {
         return view
     }()
     
-    private var customNavigationBar: CustomNavigationBar!
+    private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: Magazine) {
         super.init(nibName: nil, bundle: nil)
         
         magazineDetailView.setupMagazineDetailData(magazine: magazine)
         self.magazine = magazine
+        
     }
     
     required init?(coder: NSCoder) {
@@ -115,6 +116,7 @@ class CellItemDetailViewController: UIViewController {
     
     func setupLayout() {
         view.addSubview(customNavigationBar.view)
+        
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
