@@ -21,7 +21,6 @@ class MagazineDetailViewModel {
     func fetchData() {
         Task {
             magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
-            isCompleteFetch.value = true
         }
     }
     

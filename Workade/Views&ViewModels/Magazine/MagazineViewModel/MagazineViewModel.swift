@@ -32,7 +32,7 @@ class MagazineViewModel {
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {
-        bookmarkManager.clickedMagazineId.bindAndFire(at: .magazine) { [weak self] id in
+        bookmarkManager.clickedMagazineId.bindAndFire(at: .detail) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
