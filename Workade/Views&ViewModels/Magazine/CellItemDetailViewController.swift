@@ -33,6 +33,7 @@ class CellItemDetailViewController: UIViewController {
     let titleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -83,13 +84,14 @@ class CellItemDetailViewController: UIViewController {
         return view
     }()
     
-    private var customNavigationBar: UIViewController!
+    private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: Magazine) {
         super.init(nibName: nil, bundle: nil)
         
         magazineDetailView.setupMagazineDetailData(magazine: magazine)
         self.magazine = magazine
+        
     }
     
     required init?(coder: NSCoder) {
@@ -104,16 +106,17 @@ class CellItemDetailViewController: UIViewController {
             await titleImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
         }
         
-        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -200)
+        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
         
-//        setupCustomNavigationBar()
+        setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
     }
     
     func setupLayout() {
-//        view.addSubview(customNavigationBar.view)
+        view.addSubview(customNavigationBar.view)
+        
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
@@ -183,7 +186,7 @@ class CellItemDetailViewController: UIViewController {
             titleImageView.heightAnchor.constraint(greaterThanOrEqualTo: imageContainer.heightAnchor),
             titleImageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor),
-            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)
+            titleImageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor),
         ])
     }
     
@@ -192,6 +195,9 @@ class CellItemDetailViewController: UIViewController {
         
         customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
         customNavigationBar.view.alpha = 0
+        customNavigationBar.dismissAction = { [weak self] in
+            self?.presentingViewController?.dismiss(animated: true)
+        }
     }
     
     @objc
@@ -218,11 +224,11 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         let currentScrollYOffset = scrollView.contentOffset.y
         
         if currentScrollYOffset > defaultScrollYOffset {
-//            customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
+            customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
             closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
         } else {
-//            customNavigationBar.view.alpha = 0
+            customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1
             closeButton.alpha = 1
         }
