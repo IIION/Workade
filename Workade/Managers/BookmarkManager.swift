@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 final class BookmarkManager {
     static let shared = BookmarkManager()
     
