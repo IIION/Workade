@@ -104,7 +104,7 @@ class CheckListTemplateViewController: UIViewController {
     @objc
     private func add() {
         presentingViewController?.dismiss(animated: true)
-        viewModel.addTemplateTodo()
+        viewModel.addTemplateContents()
         self.viewDidDissmiss?()
     }
     

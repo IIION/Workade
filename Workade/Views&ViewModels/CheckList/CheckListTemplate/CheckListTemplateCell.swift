@@ -123,13 +123,3 @@ class CheckListTemplateCell: UICollectionViewCell {
         addTemplate?()
     }
 }
-
-struct CheckListTemplateCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = CheckListTemplateCell
-    
-    func makeUIView(context: Context) -> CheckListTemplateCell {
-        return CheckListTemplateCell()
-    }
-    
-    func updateUIView(_ uiView: CheckListTemplateCell, context: Context) {}
-}
