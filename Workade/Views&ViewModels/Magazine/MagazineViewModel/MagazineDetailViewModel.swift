@@ -8,14 +8,21 @@
 import UIKit
 
 @MainActor
-class MagazineDetailViewModel {
-    private let networkManager = NetworkingManager.shared
-    private let bookmarkManager = BookmarkManager.shared
-        
+class MagazineDetailViewModel {    
+    var magazineData = MagazineModel(magazineContent: [])
+    
     var data: Binder<[MagazineDetailModel]> = Binder([])
     
     init() {
         bindingBookmarkManager()
+    }
+    
+    // Magazine의 전체 내용을 가져오는 함수
+    func fetchData() {
+        Task {
+            magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
+            isCompleteFetch.value = true
+        }
     }
     
     func fetchMagazine(url: URL?) async {
@@ -23,7 +30,7 @@ class MagazineDetailViewModel {
         
         guard let dataUrl = url else { return }
         
-        let result = await networkManager.request(url: dataUrl)
+        let result = await NetworkManager.shared.request(url: dataUrl)
         guard let result = result else { return }
         
         do {
@@ -48,13 +55,13 @@ class MagazineDetailViewModel {
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {
-        bookmarkManager.clickedMagazineId.bindAndFire(at: .detail) { [weak self] id in
+        BookmarkManager.shared.clickedMagazineId.bindAndFire(at: .magazine) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
     }
     
     func notifyClickedMagazineId(title id: String, key: String) {
-        bookmarkManager.notifyClickedMagazineId(title: id, key: key)
+        BookmarkManager.shared.notifyClickedMagazineId(title: id, key: key)
     }
 }
