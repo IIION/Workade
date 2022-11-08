@@ -19,6 +19,7 @@ class MagazineDetailViewModel {
         bindingBookmarkManager()
     }
     
+    // Magazine의 전체 내용을 가져오는 함수
     func fetchData() {
         Task {
             magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
