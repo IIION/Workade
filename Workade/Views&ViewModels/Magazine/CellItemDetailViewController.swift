@@ -208,7 +208,7 @@ class CellItemDetailViewController: UIViewController {
     
     private func userDefaultsCheck() -> Bool {
         return UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
-
+        
     }
     
     @objc
@@ -224,6 +224,13 @@ class CellItemDetailViewController: UIViewController {
 }
 
 extension CellItemDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let totalOffset = scrollView.contentOffset.y
+        if totalOffset < -topSafeArea {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentScrollYOffset = scrollView.contentOffset.y
         
