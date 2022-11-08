@@ -8,7 +8,7 @@
 import UIKit
 
 class CellItemDetailViewController: UIViewController {
-    var magazine: Magazine = Magazine(title: "", imageURL: "", introduceURL: "")
+    var magazine: Magazine
     private var task: Task<Void, Error>?
     
     private var defaultScrollYOffset: CGFloat = 0
@@ -77,8 +77,8 @@ class CellItemDetailViewController: UIViewController {
         return button
     }()
     
-    private let magazineDetailView: MagazineDetailView = {
-        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
+    private lazy var magazineDetailView: MagazineDetailView = {
+        let view = MagazineDetailView(magazine: self.magazine)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -91,7 +91,6 @@ class CellItemDetailViewController: UIViewController {
         
         magazineDetailView.setupMagazineDetailData(magazine: magazine)
         self.magazine = magazine
-        
     }
     
     required init?(coder: NSCoder) {
