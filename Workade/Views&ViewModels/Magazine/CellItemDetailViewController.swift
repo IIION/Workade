@@ -193,7 +193,9 @@ class CellItemDetailViewController: UIViewController {
         
         customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
         customNavigationBar.view.alpha = 0
-        customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
+        customNavigationBar.dismissAction = { [weak self] in
+            self?.presentingViewController?.dismiss(animated: true)
+        }
     }
     
     @objc
