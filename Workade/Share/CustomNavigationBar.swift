@@ -73,6 +73,12 @@ class CustomNavigationBar: UIViewController {
         setupLayout()
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.titleText = nil
+        self.rightButtonImage = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
