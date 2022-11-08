@@ -12,7 +12,6 @@ class MapViewController: UIViewController {
     private var viewModel: MapViewModel
     
     private var map = NMFMapView()
-    private var isMapCameraSetting = false // 지도가 중복되서 설정되는 것을 방지
 
     private var topInfoStackView: UIStackView = {
         var stackView = UIStackView()
@@ -80,14 +79,11 @@ class MapViewController: UIViewController {
         map.frame = view.frame
         map.touchDelegate = self
         
+        setupNMap()
         setupLayout()
     }
     
     override func viewDidLayoutSubviews() {
-        if !isMapCameraSetting {
-            isMapCameraSetting = true
-            setupNMap()
-        }
         setMapCamera()
     }
     
