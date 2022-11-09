@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import SwiftUI
 
 class CheckListTemplateCell: UICollectionViewCell {
-    var task: Task<Void, Error>?
+    private var task: Task<Void, Error>?
+    var addTemplate: (() -> Void)?
     
     lazy var plusButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.custom)
@@ -54,10 +54,6 @@ class CheckListTemplateCell: UICollectionViewCell {
         label.font = .customFont(for: .subHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        let attributedStr = NSMutableAttributedString(string: "하이하이")
-        attributedStr.addAttribute(.foregroundColor, value: UIColor.black, range: ("하이하이" as NSString).range(of: "하이"))
-        label.attributedText = attributedStr
-        
         return label
     }()
     
@@ -84,8 +80,8 @@ class CheckListTemplateCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
         ])
         
         NSLayoutConstraint.activate([
@@ -106,9 +102,11 @@ class CheckListTemplateCell: UICollectionViewCell {
         let partialText = checkListTemplate.tintString
         let hexString = checkListTemplate.tintColor
         let imageUrl = checkListTemplate.imageURL
-        print(imageUrl)
         let attributedStr = NSMutableAttributedString(string: title)
-        attributedStr.addAttribute(.foregroundColor, value: hexStringToUIColor(hex: hexString), range: (title as NSString).range(of: partialText))
+        attributedStr.addAttribute(.foregroundColor,
+                                   value: UIColor.hexStringToUIColor(hex: hexString),
+                                   range: (title as NSString).range(of: partialText)
+        )
         self.titleLabel.attributedText = attributedStr
         self.imageView.image = nil
         task = Task {
@@ -120,38 +118,8 @@ class CheckListTemplateCell: UICollectionViewCell {
         task?.cancel()
     }
     
-    func hexStringToUIColor (hex: String) -> UIColor {
-        var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
-        if cString.hasPrefix("#") {
-            cString.remove(at: cString.startIndex)
-        }
-
-        if (cString.count) != 6 {
-            return UIColor.gray
-        }
-
-        var rgbValue: UInt64 = 0
-        Scanner(string: cString).scanHexInt64(&rgbValue)
-
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
-    }
-    
     @objc
-    private func add() { }
-}
-
-struct CheckListTemplateCellRepresentable: UIViewRepresentable {
-    typealias UIViewType = CheckListTemplateCell
-    
-    func makeUIView(context: Context) -> CheckListTemplateCell {
-        return CheckListTemplateCell()
+    private func add() {
+        addTemplate?()
     }
-    
-    func updateUIView(_ uiView: CheckListTemplateCell, context: Context) {}
 }

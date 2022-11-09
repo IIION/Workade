@@ -16,11 +16,10 @@ struct CheckListTemplateModel: Codable {
     let title: String
     let tintColor: String
     let tintString: String
-    let listURL: String
+    let list: [String]
     
     enum CodingKeys: String, CodingKey {
         case imageURL = "imageurl"
-        case listURL = "listurl"
-        case title, tintColor, tintString
+        case title, tintColor, tintString, list
     }
 }

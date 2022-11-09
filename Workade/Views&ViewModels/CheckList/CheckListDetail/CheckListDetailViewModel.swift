@@ -30,11 +30,11 @@ struct CheckListDetailViewModel {
         }
     }
     
-    mutating func addTodo() {
+    mutating func addTodo(_ content: String = "내용없음") {
         guard let context = context else { return }
         
         let newTodo = Todo(context: context)
-        newTodo.content = "내용없음"
+        newTodo.content = content
         newTodo.done = false
         newTodo.editedTime = Date()
         newTodo.parentCheckList = self.selectedCheckList

@@ -277,7 +277,6 @@
 				2154A8922909142E00486344 /* CheckListTemplateCell.swift */,
 				2154A89429091AE600486344 /* CheckListTemplateViewController.swift */,
 				2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */,
-				2163F30A290958A0007CB6DC /* CheckListTemplateModel.swift */,
 			);
 			path = CheckListTemplate;
 			sourceTree = "<group>";
@@ -323,6 +322,7 @@
 				5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */,
 				0E370E6429091B3A009C69BB /* DetailDataModel.swift */,
 				A35A982B290ADE1300220755 /* MagazineModel.swift */,
+				2163F30A290958A0007CB6DC /* CheckListTemplateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
