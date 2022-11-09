@@ -64,7 +64,37 @@ final class NetworkManager {
     }
 }
 
-enum NetworkError: String, Error {
-    case invalidURL = "유효하지 않은 url 주소입니다."
-    case invalidResponse = "유효하지 않은 response 입니다."
+enum NetworkError: Error {
+    case invalidStringForURL
+    case unsupportedURL(_ url: URL)
+    case notConnectedToInternet
+    case invalidResponse(_ url: URL)
+    case failedJsonParsing
+    case unknownError(_ errorCode: Int)
+    
+    var message: String {
+        switch self {
+        case .invalidStringForURL: return "url로 변환이 불가능한 문자열입니다."
+        case .unsupportedURL(let url): return "지원하지않는 url 주소입니다. URL: \(url)"
+        case .notConnectedToInternet: return "네트워크가 꺼져있습니다."
+        case .invalidResponse: return "유효하지 않은 response입니다."
+        case .failedJsonParsing: return "Json 파싱 작업에 실패했습니다."
+        case .unknownError(let errorCode): return "미확인 에러입니다. 에러 코드: \(errorCode)"
+        }
+    }
+    
+    static func throwError(url: URL, _ error: Error) -> NetworkError {
+        if let error = error as? URLError {
+            switch error.errorCode {
+            case -1002:
+                return NetworkError.unsupportedURL(url)
+            case -1009:
+                return NetworkError.notConnectedToInternet
+            default:
+                return NetworkError.unknownError(error.errorCode)
+            }
+        } else {
+            return NetworkError.invalidResponse(url)
+        }
+    }
 }
