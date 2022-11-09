@@ -16,15 +16,7 @@ class NearbyPlaceView: UIView {
   
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
-    var office: Office = Office(
-        officeName: "",
-        regionName: "",
-        imageURL: "",
-        introduceURL: "",
-        galleryURL: "",
-        latitude: 0.0,
-        longitude: 0.0,
-        spots: [])
+    var office: Office?
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -168,6 +160,7 @@ class NearbyPlaceView: UIView {
     }
     
     init(office: Office) {
+        self.office = office
         super.init(frame: .zero)
         // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
@@ -348,7 +341,8 @@ extension NearbyPlaceView {
     
     @objc
     func clickedMapButton(sender: UIButton) {
-        delegate?.touch(office: office)
+        guard let safetyOffice = self.office else { return }
+        delegate?.touch(office: safetyOffice)
     }
 }
 
