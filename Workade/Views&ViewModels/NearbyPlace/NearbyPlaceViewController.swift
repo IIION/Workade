@@ -10,13 +10,13 @@ import UIKit
 class NearbyPlaceViewController: UIViewController {
     var office: Office
     let nearbyPlaceView: NearbyPlaceView
-    let galleryVM: GalleryViewModel
+    let galleryViewModel: GalleryViewModel
     let introduceVM: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
-        self.galleryVM = GalleryViewModel(url: URL(string: office.galleryURL) ?? URL(string: "")!)
+        self.galleryViewModel = GalleryViewModel()
         self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,7 +90,8 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupGalleryView() {
         Task {
-            await galleryVM.fetchImages()
+            guard let url = URL(string: office.galleryURL) else { return }
+            await galleryViewModel.fetchContent(by: url)
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
     }
@@ -218,13 +219,13 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
 // GalleryView(collectionView 델리게이트 익스텐션)
 extension NearbyPlaceViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return galleryVM.images.count
+        return galleryViewModel.images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = GalleryCollectionViewCell.identifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? GalleryCollectionViewCell
-        cell?.imageView.image = galleryVM.images[indexPath.row]
+        cell?.imageView.image = galleryViewModel.images[indexPath.row]
         guard let cell = cell else { fatalError() }
         
         return cell
@@ -233,7 +234,7 @@ extension NearbyPlaceViewController: UICollectionViewDataSource {
 
 extension NearbyPlaceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let image = galleryVM.images[indexPath.row]
+        let image = galleryViewModel.images[indexPath.row]
         let viewController = GalleryDetailViewController()
         viewController.image = image
         viewController.modalPresentationStyle = .overCurrentContext
@@ -242,11 +243,20 @@ extension NearbyPlaceViewController: UICollectionViewDelegate {
         
         return true
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == galleryViewModel.images.count - 1, galleryViewModel.isCanLoaded {
+            Task { [weak self] in
+                await self?.galleryViewModel.fetchImages()
+                self?.nearbyPlaceView.galleryView.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 extension NearbyPlaceViewController: TwoLineLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let image = galleryVM.images[indexPath.row]
+        let image = galleryViewModel.images[indexPath.row]
         let aspectR = image.size.width / image.size.height
         
         return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR

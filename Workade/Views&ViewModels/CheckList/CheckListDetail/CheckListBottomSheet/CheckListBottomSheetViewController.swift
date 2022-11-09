@@ -156,7 +156,12 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setupCell(checkListTemplate: checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row])
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        
+        cell.setupCell(checkListTemplate: template)
+        cell.addTemplate = {
+            self.checkListBottomSheetViewModel.addTemplateTodo(template.list)
+        }
         
         return cell
     }
@@ -166,6 +171,10 @@ extension CheckListBottomSheetViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let checkListTemplateViewController = CheckListTemplateViewController()
         checkListTemplateViewController.modalPresentationStyle = .overFullScreen
+        
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        
+        checkListTemplateViewController.setupData(checkListTemplate: template)
         
         let dimView = UIView(frame: UIScreen.main.bounds)
         dimView.backgroundColor = .black.withAlphaComponent(0.7)

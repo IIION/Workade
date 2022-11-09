@@ -8,8 +8,8 @@
 import UIKit
 
 class CellItemDetailViewController: UIViewController {
-    var magazine: Magazine = Magazine(title: "", imageURL: "", introduceURL: "")
-    private var task: Task<Void, Error>?
+    var magazine: Magazine
+    let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
     let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
@@ -68,8 +68,6 @@ class CellItemDetailViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
         
         let button = UIButton()
-        // TODO: 추후 Bookmark 정보 가져올때 북마크 true / false 정보에 따라 갱신
-        button.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
         button.tintColor = .theme.background
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
@@ -77,8 +75,8 @@ class CellItemDetailViewController: UIViewController {
         return button
     }()
     
-    private let magazineDetailView: MagazineDetailView = {
-        let view = MagazineDetailView(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
+    private lazy var magazineDetailView: MagazineDetailView = {
+        let view = MagazineDetailView(magazine: self.magazine)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -87,11 +85,8 @@ class CellItemDetailViewController: UIViewController {
     private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: Magazine) {
-        super.init(nibName: nil, bundle: nil)
-        
-        magazineDetailView.setupMagazineDetailData(magazine: magazine)
         self.magazine = magazine
-        
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -102,13 +97,14 @@ class CellItemDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         titleLabel.text = magazine.title
-        task = Task {
-            await titleImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
+        Task {
+            await titleImageView.setImageURL(magazine.imageURL)
         }
         
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
         
+        setupBookmarkImage()
         setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
@@ -116,7 +112,6 @@ class CellItemDetailViewController: UIViewController {
     
     func setupLayout() {
         view.addSubview(customNavigationBar.view)
-        
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
@@ -191,13 +186,28 @@ class CellItemDetailViewController: UIViewController {
     }
     
     func setupCustomNavigationBar() {
-        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .default)
-        
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage(systemName: "bookmark", withConfiguration: config))
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        customNavigationBar.magazine = magazine
+        setupCustomNavigationRightItem()
         customNavigationBar.view.alpha = 0
         customNavigationBar.dismissAction = { [weak self] in
             self?.presentingViewController?.dismiss(animated: true)
         }
+    }
+    
+    private func setupCustomNavigationRightItem() {
+        let rightImage = userDefaultsCheck() ? SFSymbol.bookmarkFillInNavigation.image : SFSymbol.bookmarkInNavigation.image
+        
+        customNavigationBar.rightButton.setImage(rightImage, for: .normal)
+    }
+    
+    private func setupBookmarkImage() {
+        bookmarkButton.setImage(userDefaultsCheck() ? SFSymbol.bookmarkFillInDetail.image : SFSymbol.bookmarkInDetail.image, for: .normal)
+    }
+    
+    private func userDefaultsCheck() -> Bool {
+        return UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
+        
     }
     
     @objc
@@ -207,23 +217,25 @@ class CellItemDetailViewController: UIViewController {
     
     @objc
     func clickedBookmarkButton(sender: UIButton) {
-        // TODO: 추후 북마크 버튼 눌렀을때 북마크 해제, 추가 로직 구현부
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        
-        if sender.currentImage
-            == UIImage(systemName: "bookmark", withConfiguration: config) {
-            sender.setImage(UIImage(systemName: "bookmark.fill", withConfiguration: config), for: .normal)
-        } else {
-            sender.setImage(UIImage(systemName: "bookmark", withConfiguration: config), for: .normal)
-        }
+        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.wishMagazine)
+        setupBookmarkImage()
     }
 }
 
 extension CellItemDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let totalOffset = scrollView.contentOffset.y
+        if totalOffset < -topSafeArea {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentScrollYOffset = scrollView.contentOffset.y
         
         if currentScrollYOffset > defaultScrollYOffset {
+            setupCustomNavigationRightItem()
+            setupBookmarkImage()
             customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
             closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))

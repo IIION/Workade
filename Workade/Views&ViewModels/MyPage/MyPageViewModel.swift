@@ -42,4 +42,8 @@ final class MyPageViewModel {
             isCompleteFetch.value = true
         }
     }
+    
+    deinit {
+        bookmarkManager.clickedMagazineId.remove(at: .myPage)
+    }
 }

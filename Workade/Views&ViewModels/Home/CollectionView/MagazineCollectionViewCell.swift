@@ -69,7 +69,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
         setupBookmarkImage()
         // 이렇게 최초 구성 이미지를 nil로 해주면, 빠른 스크롤 시에 이전 이미지가 들어가있는 이미지 꼬임 현상을 다소 막아줄 수 있습니다. 그 후 불러와진 이미지가 정상적으로 자리잡게 됩니다.
         task = Task {
-            await backgroundImageView.setImageURL(title: magazine.title, url: magazine.imageURL)
+            await backgroundImageView.setImageURL(magazine.imageURL)
         }
     }
     

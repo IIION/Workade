@@ -118,15 +118,14 @@ final class HomeViewController: UIViewController {
         setupScrollViewLayout()
         setupNavigationBar()
         setupLayout()
+        observingFetchComplete()
+        observingChangedMagazineId()
     }
 }
 
 extension HomeViewController: LaunchScreenTimingDelegate {
     func finishLaunchScreen() {
         setupStatusBar()
-        
-        observingFetchComplete()
-        observingChangedMagazineId()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,8 +156,7 @@ private extension HomeViewController {
     
     @objc
     func pushToMagazineVC() { // 요기
-        let viewController = MagazineViewController(totalMagazine: viewModel.magazineResource.content)
-//        viewController.totalMagazine = viewModel.magazineResource.content
+        let viewController = MagazineViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -239,7 +237,8 @@ extension HomeViewController: UICollectionViewDelegate {
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         case magazineCollectionView:
-            let viewController = CellItemDetailViewController(magazine: viewModel.magazineResource.content[indexPath.row])
+            let magazine = viewModel.magazineResource.content[indexPath.row]
+            let viewController = CellItemDetailViewController(magazine: magazine)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         default:

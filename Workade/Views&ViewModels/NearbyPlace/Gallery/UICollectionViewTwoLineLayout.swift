@@ -32,7 +32,7 @@ class UICollectionViewTwoLineLayout: UICollectionViewFlowLayout {
     }
     
     override func prepare() {
-        guard let collectionView = collectionView, cache.isEmpty else { return }
+        guard let collectionView = collectionView else { return }
         
         let numberOfColumns: Int = 2
         let cellPadding: CGFloat = (delegate?.columnSpacing ?? 20) / 2

@@ -10,7 +10,7 @@ import Foundation
 /// **mvvm 비동기 흐름에 필요한 Binder 클래스**
 ///
 /// 상세설명은 Binder클래스가 있는 소스파일의 하단 참고.
-@MainActor final class Binder<T: Equatable> {
+@MainActor final class Binder<T> {
     typealias Block = (T) -> Void
     private var block: Block?
     

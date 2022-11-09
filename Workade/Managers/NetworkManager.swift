@@ -46,6 +46,22 @@ final class NetworkManager {
             fatalError("Failed json parsing")
         }
     }
+    
+    func requestCheckListTemplateData<T: Codable>() async throws -> T {
+        guard let url = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Checklist/checkList.json") else {
+            throw NetworkError.invalidURL
+        }
+        
+        guard let data = await NetworkManager.shared.request(url: url) else {
+            throw NetworkError.invalidResponse
+        }
+        
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            fatalError("Failed json parsing")
+        }
+    }
 }
 
 enum NetworkError: String, Error {

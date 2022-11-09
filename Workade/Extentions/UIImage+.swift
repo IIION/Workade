@@ -57,8 +57,14 @@ enum SFSymbol {
     case bookmark
     case bookmarkFill
     case gearshapeFill
+    case bookmarkInDetail
+    case bookmarkFillInDetail
+    case bookmarkInNavigation
+    case bookmarkFillInNavigation
 
     var image: UIImage {
+        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+        
         switch self {
         case .info:
             return .fromSystemImage(name: "info.circle.fill", font: .customFont(for: .headline), color: .theme.primary)!
@@ -74,6 +80,14 @@ enum SFSymbol {
             return .fromSystemImage(name: "bookmark.fill", font: .customFont(for: .headline), color: .white)!
         case .gearshapeFill:
             return .fromSystemImage(name: "gearshape.fill", font: .customFont(for: .subHeadline))!
+        case .bookmarkInDetail:
+            return .fromSystemImage(name: "bookmark", font: .systemFont(ofSize: 22, weight: .medium), color: .white)!
+        case .bookmarkFillInDetail:
+            return .fromSystemImage(name: "bookmark.fill", font: .systemFont(ofSize: 22, weight: .medium), color: .white)!
+        case .bookmarkInNavigation:
+            return .fromSystemImage(name: "bookmark", font: .systemFont(ofSize: 17, weight: .bold), color: .theme.primary)!
+        case .bookmarkFillInNavigation:
+            return .fromSystemImage(name: "bookmark.fill", font: .systemFont(ofSize: 17, weight: .bold), color: .theme.primary)!
         }
     }
 }

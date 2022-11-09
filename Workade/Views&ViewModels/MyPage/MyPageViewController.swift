@@ -76,7 +76,6 @@ extension MyPageViewController {
     
     private func observingChangedMagazineId() {
         viewModel.clickedMagazineId.bindAndFire { [weak self] id in
-            print("호출은 되냐")
             guard let self = self else { return }
             guard let index = self.viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
             DispatchQueue.main.async {
@@ -103,8 +102,8 @@ extension MyPageViewController: UICollectionViewDataSource {
 // MARK: Delegate
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 탐나 데이터 연결할때 수정
-        let viewController = CellItemDetailViewController(magazine: Magazine(title: "", imageURL: "", introduceURL: ""))
+        let magazine = viewModel.wishMagazines[indexPath.row]
+        let viewController = CellItemDetailViewController(magazine: magazine)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }

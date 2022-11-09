@@ -52,36 +52,59 @@ struct GalleryImage: Codable {
 @MainActor class GalleryViewModel {
     
     private let manager = NetworkingManager.shared
-    private let url: URL
-    var images: [UIImage] = []
+    private(set) var isLoading = false
+    private(set) var content: GalleryContent?
+    private(set) var images: [UIImage] = []
     
-    init(url: URL) {
-        self.url = url
+    var paginationUnit: Int = 10
+    var isCanLoaded: Bool {
+        if let items = content?.items {
+            return images.count < items.count
+        } else {
+            return false
+        }
     }
     
-    func fetchImages() async {
+    func fetchContent(by url: URL) async {
         let result = await manager.request(url: url)
         guard let result = result else { return }
         let searchResult = try? JSONDecoder().decode(GalleryContent.self, from: result)
         guard let searchResult = searchResult else { return }
+        self.content = searchResult
         
-        self.images = await withTaskGroup(of: Data?.self) { group in
-            
-            var images = [UIImage]()
-            
-            for item in searchResult.items {
-                group.addTask {
-                    return await self.manager.request(url: URL(string: item.context)!)
+        await fetchImages()
+    }
+    
+    func fetchImages() async {
+        guard
+            let content = content,
+            isLoading == false,
+            isCanLoaded
+        else { return }
+        
+        isLoading = true
+        
+        let fetchedImages = await withTaskGroup(of: Data?.self) { group in
+            var tempImages = [UIImage]()
+            let paginationEndPoint = min(images.count + paginationUnit, content.items.count)
+            for index in images.count..<paginationEndPoint {
+                guard let url = URL(string: content.items[index].context) else { continue }
+                group.addTask { [weak self] in
+                    return await self?.manager.request(url: url)
                 }
             }
             
             for await data in group {
                 if let data = data, let image = UIImage(data: data) {
-                    images.append(image)
+                    tempImages.append(image)
                 }
             }
             
-            return images
+            return tempImages
         }
+        
+        self.images.append(contentsOf: fetchedImages)
+        
+        isLoading = false
     }
 }
