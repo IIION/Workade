@@ -90,7 +90,8 @@ class GalleryDetailViewController: UIViewController {
     
     @objc func pinch(sender: UIPinchGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
-            guard let view = sender.view else {return}
+            guard let view = sender.view else { return }
+            
             let pinchCenter = CGPoint(x: sender.location(in: view).x - view.bounds.midX, y: sender.location(in: view).y - view.bounds.midY)
             
             let transform = view.transform.translatedBy(x: pinchCenter.x, y: pinchCenter.y)
@@ -99,6 +100,7 @@ class GalleryDetailViewController: UIViewController {
             
             let currentScale = self.imageView.frame.size.width / self.imageView.bounds.size.width
             var newScale = currentScale * sender.scale
+            
             if newScale < 1 {
                 newScale = 1
                 let transform = CGAffineTransform(scaleX: newScale, y: newScale)
@@ -108,15 +110,17 @@ class GalleryDetailViewController: UIViewController {
                 self.imageView.transform = transform
                 sender.scale = 1
             }
+            
             self.dismissButton.isHidden = true
+            
         } else if sender.state == .ended {
             let springTimingParameter = UISpringTimingParameters(dampingRatio: 0.8, initialVelocity: .init(dx: 0, dy: 4))
             let animator = UIViewPropertyAnimator(duration: 0.4, timingParameters: springTimingParameter)
             
             animator.addAnimations {
                 self.imageView.transform = CGAffineTransform.identity
-                self.dismissButton.transform = CGAffineTransform.identity
             }
+            
             self.dismissButton.isHidden = false
             animator.startAnimation()
         }
