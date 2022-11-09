@@ -137,7 +137,7 @@ class EmojiPickerViewController: UIViewController {
     }
 }
 
-//MARK: DiffableDataSource
+// MARK: DiffableDataSource
 extension EmojiPickerViewController {
     private func configureDataSource() {
         
@@ -152,7 +152,7 @@ extension EmojiPickerViewController {
         }
         
         let headerRegistration = UICollectionView.SupplementaryRegistration
-        <TitleHeaderSupplementaryView>(elementKind: EmojiPickerViewController.sectionHeaderElementKind) { (supplementaryView, string, indexPath) in
+        <TitleHeaderSupplementaryView>(elementKind: EmojiPickerViewController.sectionHeaderElementKind) { (supplementaryView, _, indexPath) in
             supplementaryView.label.text = Section(rawValue: indexPath.section)?.description
         }
         
