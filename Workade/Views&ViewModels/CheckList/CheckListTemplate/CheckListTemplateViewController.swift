@@ -8,7 +8,6 @@
 import UIKit
 
 class CheckListTemplateViewController: UIViewController {
-    private var task: Task<Void, Error>?
     private let viewModel = CheckListTemplateViewModel()
     
     var viewDidDissmiss: (() -> Void)?
@@ -67,7 +66,7 @@ class CheckListTemplateViewController: UIViewController {
         let button = UIButton(type: .custom)
         let config = UIImage.SymbolConfiguration(pointSize: 13, weight: .bold)
         let image = UIImage(systemName: "plus", withConfiguration: config)
-
+        
         button.setTitle("추가하기", for: .normal)
         button.setTitleColor(.theme.primary, for: .normal)
         button.titleLabel?.font = .customFont(for: .footnote)
@@ -146,8 +145,8 @@ class CheckListTemplateViewController: UIViewController {
         self.titleLabel.attributedText = attributedStr
         self.countLabel.attributedText = attributedText
         self.imageView.image = nil
-        task = Task {
-            await self.imageView.setImageURL(title: title, url: imageUrl)
+        Task {
+            await self.imageView.setImageURL(imageUrl)
         }
     }
     

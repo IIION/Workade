@@ -9,7 +9,6 @@ import UIKit
 
 class CellItemDetailViewController: UIViewController {
     var magazine: Magazine
-    private var task: Task<Void, Error>?
     let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
@@ -98,7 +97,7 @@ class CellItemDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         titleLabel.text = magazine.title
-        task = Task {
+        Task {
             await titleImageView.setImageURL(magazine.imageURL)
         }
         
