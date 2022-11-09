@@ -9,8 +9,6 @@ import UIKit
 
 @MainActor
 class MagazineViewModel {
-//    private let networkManager = NetworkingManager.shared
-//    private let bookmarkManager = BookmarkManager.shared
     
     var magazineData = MagazineModel(magazineContent: [])
     

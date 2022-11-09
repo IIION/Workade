@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class MagazineDetailViewModel {    
+class MagazineDetailViewModel {
     var magazineData = MagazineModel(magazineContent: [])
     
     var data: Binder<[MagazineDetailModel]> = Binder([])

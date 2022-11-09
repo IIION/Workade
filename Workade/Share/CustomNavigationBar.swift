@@ -8,12 +8,15 @@
 import UIKit
 
 class CustomNavigationBar: UIViewController {
+    let detailViewModel = MagazineDetailViewModel()
+    
     let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     var dismissAction: (() -> Void)?
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
+    var magazine: Magazine?
     
     private let navigationBar: UIView = {
         let view = UIView()
@@ -26,6 +29,8 @@ class CustomNavigationBar: UIViewController {
         let label = UILabel()
         label.font = .customFont(for: .title3)
         label.textColor = .theme.primary
+        label.lineBreakMode = .byCharWrapping
+        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -43,13 +48,21 @@ class CustomNavigationBar: UIViewController {
         return button
     }()
     
-    private lazy var rightButton: UIButton = {
+    lazy var rightButton: UIButton = {
         let button = UIButton()
         button.tintColor = .theme.primary
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedRightButton(sender:)), for: .touchUpInside)
         
         return button
+    }()
+    
+    lazy var gradientView: GradientView = {
+        let view = GradientView()
+        view.gradientLayerColors = [UIColor.theme.background.withAlphaComponent(0.01), .theme.background]
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
     }()
     
     init(titleText: String?, rightButtonImage: UIImage?) {
@@ -81,12 +94,6 @@ class CustomNavigationBar: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.heightAnchor.constraint(equalToConstant: 44),
-            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
-        ])
         
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
@@ -103,6 +110,23 @@ class CustomNavigationBar: UIViewController {
             rightButton.heightAnchor.constraint(equalToConstant: 44),
             rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
         ])
+        
+        view.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.heightAnchor.constraint(equalToConstant: 44),
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            titleLabel.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor)
+            
+        ])
+
+        view.addSubview(gradientView)
+        NSLayoutConstraint.activate([
+            gradientView.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+            gradientView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor, constant: 15)
+        ])
     }
     
     @objc
@@ -113,8 +137,18 @@ class CustomNavigationBar: UIViewController {
     
     @objc
     func clickedRightButton(sender: UIButton) {
-        // TODO: 버튼 활성화
-        
-        print("rightButton Clicked")
+        switch sender.currentImage {
+        case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image :
+            detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.wishMagazine)
+            setupBookmarkImage()
+            // TODO: 빅썬과 코드 합치면서 지도 버튼일때 별도 처리
+        default:
+            print("지도 버튼")
+        }
+    }
+    
+    private func setupBookmarkImage() {
+        let userDefault = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine?.title ?? "")
+        rightButton.setImage(userDefault ? SFSymbol.bookmarkFillInNavigation.image : SFSymbol.bookmarkInNavigation.image, for: .normal)
     }
 }
