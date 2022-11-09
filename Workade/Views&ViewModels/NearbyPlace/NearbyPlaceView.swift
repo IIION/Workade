@@ -13,11 +13,7 @@ protocol InnerTouchPresentDelegate: AnyObject {
 
 class NearbyPlaceView: UIView {
     weak var delegate: InnerTouchPresentDelegate?
-    private var topSafeArea: CGFloat {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
-        guard let window = scene.windows.first else { return CGFloat(44) }
-        return window.safeAreaInsets.top
-    }
+  
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
     var office: Office = Office(
@@ -224,7 +220,7 @@ class NearbyPlaceView: UIView {
             placeImageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             placeImageContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
             placeImageContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            placeImageContainer.heightAnchor.constraint(equalToConstant: topSafeArea + 375)
+            placeImageContainer.heightAnchor.constraint(equalToConstant: .topSafeArea + 375)
         ])
         
         let placeImageViewTopConstraint = placeImageView.topAnchor.constraint(equalTo: topAnchor)
@@ -319,7 +315,7 @@ class NearbyPlaceView: UIView {
             galleryView.topAnchor.constraint(equalTo: detailContensContainer.topAnchor, constant: 0),
             galleryView.leadingAnchor.constraint(equalTo: detailContensContainer.leadingAnchor, constant: 0),
             galleryView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: 0),
-            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - topSafeArea - 50)
+            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 50)
         ])
     }
 }

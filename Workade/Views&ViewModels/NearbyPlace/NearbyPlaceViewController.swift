@@ -27,11 +27,6 @@ class NearbyPlaceViewController: UIViewController {
     
     private var customNavigationBar = CustomNavigationBar()
     private var defaultScrollYOffset: CGFloat = 0
-    private var topSafeArea: CGFloat {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
-        guard let window = scene.windows.first else { return CGFloat(44) }
-        return window.safeAreaInsets.top
-    }
     
     // Gallery 관련 프로퍼티
     let transitionManager = CardTransitionMananger()
@@ -150,7 +145,7 @@ class NearbyPlaceViewController: UIViewController {
         view.addSubview(customNavigationBar.view)
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: .topSafeArea + 8),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             closeButton.widthAnchor.constraint(equalToConstant: 44),
             closeButton.heightAnchor.constraint(equalToConstant: 44)
@@ -176,7 +171,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let totalOffset = scrollView.contentOffset.y
-        if totalOffset < -topSafeArea {
+        if totalOffset < -.topSafeArea {
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -197,8 +192,8 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
                     if nearbyPlaceView.segmentedControl.selectedSegmentIndex == 0 {
                         nearbyPlaceView.detailScrollView.isScrollEnabled = false
                     }
-                    customNavigationBar.view.alpha = totalOffset / (topSafeArea + 259)
-                    nearbyPlaceView.placeImageView.alpha = 1 - (totalOffset / (topSafeArea + 259))
+                    customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
+                    nearbyPlaceView.placeImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
                 }
             } else {
                 customNavigationBar.view.alpha = 0
