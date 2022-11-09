@@ -65,11 +65,10 @@ class CustomNavigationBar: UIViewController {
         setupLayout()
     }
     
-    init(titleText: String?, rightButtonImage: UIImage?, office: Office?) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        self.titleText = titleText
-        self.rightButtonImage = rightButtonImage
-        self.office = office
+        self.titleText = nil
+        self.rightButtonImage = nil
     }
     
     required init?(coder: NSCoder) {

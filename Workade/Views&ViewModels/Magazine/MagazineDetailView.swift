@@ -86,10 +86,6 @@ class MagazineDetailView: UIView {
         stackView.addArrangedSubview(imageView)
     }
     
-    private func getImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
     private func appendTextToStackView(_ content: String, _ font: String?, _ color: String?) {
         let label = UILabel()
         label.text = content
