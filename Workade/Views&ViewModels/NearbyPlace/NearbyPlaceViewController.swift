@@ -25,9 +25,8 @@ class NearbyPlaceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var customNavigationBar: CustomNavigationBar!
+    private var customNavigationBar = CustomNavigationBar()
     private var defaultScrollYOffset: CGFloat = 0
-    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     // Gallery 관련 프로퍼티
     let transitionManager = CardTransitionMananger()
@@ -44,17 +43,11 @@ class NearbyPlaceViewController: UIViewController {
         return label
     }()
     
-    // FIXME: 현재 안 쓰는 버튼처럼 보이는데 일단 주석 남깁니다.
-    private lazy var mapButton: UIButton = {
+    lazy var mapButtonImage: UIImage = {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+        let image = UIImage(systemName: "map", withConfiguration: config) ?? UIImage()
         
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "map", withConfiguration: config), for: .normal)
-        button.tintColor = .theme.background
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(clickedMapButton(sender:)), for: .touchUpInside)
-        
-        return button
+        return image
     }()
     
     lazy var closeButton: UIButton = {
@@ -127,11 +120,11 @@ class NearbyPlaceViewController: UIViewController {
                         imageView.image = image
                         let width = image.size.width
                         let height = image.size.height
-
+                        
                         imageView.contentMode = .scaleToFill
                         imageView.layer.cornerRadius = 20
                         imageView.clipsToBounds = true
-
+                        
                         imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
                     }
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
@@ -143,15 +136,16 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        // TODO: rightButtonImage에 지도 이미지 넣을 예정입니다. 현재 지도로 바로 이동이 힘들어 빈 이미지로 올립니다.
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: SFSymbol.mapInNavigation.image)
+        customNavigationBar.office = office
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
+        customNavigationBar.delegate = self
         customNavigationBar.view.alpha = 0
-        view.addSubview(customNavigationBar.view)
         
+        view.addSubview(customNavigationBar.view)
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: .topSafeArea + 8),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             closeButton.widthAnchor.constraint(equalToConstant: 44),
             closeButton.heightAnchor.constraint(equalToConstant: 44)
@@ -174,10 +168,12 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     func clickedCloseButton(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    // TODO: 지도 뷰로 이동하는 로직 작성 예정
-    @objc
-    func clickedMapButton(sender: UIButton) {
-        print("지도 클릭")
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let totalOffset = scrollView.contentOffset.y
+        if totalOffset < -.topSafeArea {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -196,8 +192,8 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
                     if nearbyPlaceView.segmentedControl.selectedSegmentIndex == 0 {
                         nearbyPlaceView.detailScrollView.isScrollEnabled = false
                     }
-                    customNavigationBar.view.alpha = totalOffset / (topSafeArea + 259)
-                    nearbyPlaceView.placeImageView.alpha = 1 - (totalOffset / (topSafeArea + 259))
+                    customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
+                    nearbyPlaceView.placeImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
                 }
             } else {
                 customNavigationBar.view.alpha = 0
@@ -240,6 +236,7 @@ extension NearbyPlaceViewController: UICollectionViewDelegate {
         viewController.modalPresentationStyle = .overCurrentContext
         viewController.transitioningDelegate = transitionManager
         self.present(viewController, animated: true)
+        
         return true
     }
     

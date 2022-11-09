@@ -9,14 +9,14 @@ import UIKit
 
 class CustomNavigationBar: UIViewController {
     let detailViewModel = MagazineDetailViewModel()
-    
-    let safaAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
-    
+        
     var dismissAction: (() -> Void)?
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
     var magazine: Magazine?
+    var office: Office?
+    var delegate: InnerTouchPresentDelegate?
     
     private let navigationBar: UIView = {
         let view = UIView()
@@ -86,7 +86,7 @@ class CustomNavigationBar: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: safaAreaTop + 60)
+        self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: .topSafeArea + 60)
         self.rightButton.setImage(rightButtonImage, for: .normal)
         self.titleLabel.text = titleText?.components(separatedBy: ["\n"]).joined(separator: " ")
         
@@ -119,13 +119,13 @@ class CustomNavigationBar: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor)
             
         ])
-
+        
         view.addSubview(gradientView)
         NSLayoutConstraint.activate([
             gradientView.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             gradientView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             gradientView.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            gradientView.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor, constant: 15)
+            gradientView.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor, constant: 10)
         ])
     }
     
@@ -141,9 +141,13 @@ class CustomNavigationBar: UIViewController {
         case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image :
             detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.wishMagazine)
             setupBookmarkImage()
-            // TODO: 빅썬과 코드 합치면서 지도 버튼일때 별도 처리
+            
+        case SFSymbol.mapInNavigation.image:
+            guard let safetyOffice = office else { return }
+            delegate?.touch(office: safetyOffice)
+            
         default:
-            print("지도 버튼")
+            return
         }
     }
     
