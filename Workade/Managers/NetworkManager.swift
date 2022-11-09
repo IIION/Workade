@@ -11,8 +11,8 @@ import Foundation
 
 /// Network관련 최상위 매니저입니다.
 ///
-/// 추상화를 위해 현재는 모든 곳에서 동일하게 사용할 수 있을 정도의 request 메서드만 존재합니다.
-/// 좀 더 세부적인 로직은 각 ViewModel에서 View에 뿌리기위해 ViewModel에서 필요한만큼 메서드를 구현하는 방식입니다.
+/// 모든 곳에서 동일하게 사용할 수 있을 정도의 request 메서드가 존재합니다.
+/// 그 외에 일회성으로 요청하는데에 쓰이는 requestResourceData 메서드가 있는데 모델배열을 context 혹은 content라는 프로퍼티로 갖는 모델을 요청하고 parsing하는데 공통적으로 사용되는 메서드입니다.
 final class NetworkManager {
     static let shared = NetworkManager()
     
@@ -30,19 +30,17 @@ final class NetworkManager {
         }
     }
     
-    func requestCheckListTemplateData<T: Codable>() async throws -> T {
-        guard let url = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Checklist/checkList.json") else {
-            throw NetworkError.invalidURL
+    func requestResourceData<T: Codable>(urlString: String) async throws -> T {
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidStringForURL
         }
         
-        guard let data = await NetworkManager.shared.request(url: url) else {
-            throw NetworkError.invalidResponse
-        }
+        let data = try await request(url: url)
         
         do {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            fatalError("Failed json parsing")
+            throw NetworkError.failedJsonParsing
         }
     }
 }
