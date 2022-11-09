@@ -25,7 +25,7 @@ class NearbyPlaceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var customNavigationBar: NearbyPlaceViewNavigationBar!
+    private var customNavigationBar = CustomNavigationBar()
     private var defaultScrollYOffset: CGFloat = 0
     private var topSafeArea: CGFloat {
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
@@ -141,7 +141,8 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = NearbyPlaceViewNavigationBar(titleText: titleLabel.text, rightButtonImage: mapButtonImage, office: office)
+        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: SFSymbol.mapInNavigation.image)
+        customNavigationBar.office = office
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.delegate = self
         customNavigationBar.view.alpha = 0
