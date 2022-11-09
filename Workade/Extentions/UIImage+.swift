@@ -64,8 +64,6 @@ enum SFSymbol {
     case mapInNavigation
 
     var image: UIImage {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        
         switch self {
         case .info:
             return .fromSystemImage(name: "info.circle.fill", font: .customFont(for: .headline), color: .theme.primary)!
