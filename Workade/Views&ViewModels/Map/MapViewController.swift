@@ -11,18 +11,7 @@ import UIKit
 class MapViewController: UIViewController {
     private var viewModel: MapViewModel
     
-    private var currentPin: NMFMarker? = nil {
-        willSet(newVal) {
-            if newVal == nil {
-                naverMapButton.isHidden = true
-            } else {
-                naverMapButton.isHidden = false
-            }
-        }
-    }
-    
     private var map = NMFMapView()
-    private var setNMap = true // 지도가 중복되서 설정되는 것을 방지
 
     private var topInfoStackView: UIStackView = {
         var stackView = UIStackView()
@@ -71,6 +60,7 @@ class MapViewController: UIViewController {
         button.layer.backgroundColor = CGColor(red: 94/255, green: 204/255, blue: 105/255, alpha: 1)
         button.layer.cornerRadius = 20
         button.addTarget(self, action: #selector(naverButtonTapped), for: .touchUpInside)
+        button.isHidden = true
         
         return button
     }()
@@ -89,15 +79,12 @@ class MapViewController: UIViewController {
         map.frame = view.frame
         map.touchDelegate = self
         
+        setupNMap()
         setupLayout()
     }
     
     override func viewDidLayoutSubviews() {
-        if setNMap {
-            setNMap = false
-            setupNMap()
-        }
-        setCameraMap()
+        setMapCamera()
     }
     
     private func setupLayout() {
@@ -118,7 +105,6 @@ class MapViewController: UIViewController {
             naverMapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             naverMapButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
-        naverMapButton.isHidden = true
         
         setupTopInfoViewLayout()
     }
@@ -138,21 +124,17 @@ class MapViewController: UIViewController {
             backButton.leadingAnchor.constraint(equalTo: topInfoStackView.leadingAnchor, constant: UIScreen.main.bounds.width - 64)
         ])
     }
-    
-    @objc private func backButtonTapped() {
-        dismiss(animated: true)
-    }
 }
 
 // 지도에 관한 Extention입니다.
 extension MapViewController {
     private func setupNMap() {
         setMarkOfficePlace()
-        setCameraMap()
+        setMapCamera()
     }
     
     /// 카메라를 입력 받은 위도 경도로 이동하는 함수
-    private func setCameraMap() {
+    private func setMapCamera() {
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: viewModel.latitude, lng: viewModel.longitude))
         cameraUpdate.animation = .none
         cameraUpdate.animationDuration = 1
@@ -163,38 +145,21 @@ extension MapViewController {
     private func setMarkOfficePlace() {
         // 클릭 되었다면 클릭된 마크 표시를 - 클릭이 해제되었다면 클릭 해제된 마크 표시
         let clickedMarker: (NMFOverlay) -> Bool = { [weak self] marker in
-            guard let marker = marker as? NMFMarker else { return false }
-            let cureentImage = marker.iconImage
-            switch marker.tag {
-            case Pin.cafe.rawValue: marker.iconImage = NMFOverlayImage(name: "selectedcafepin")
-            case Pin.restaurant.rawValue: marker.iconImage = NMFOverlayImage(name: "selectedrestaurantpin")
-            case Pin.sea.rawValue: marker.iconImage = NMFOverlayImage(name: "selectedseapin")
-            case Pin.nature.rawValue: marker.iconImage = NMFOverlayImage(name: "selectednaturepin")
-            default: marker.iconImage = cureentImage
+            guard let marker = marker as? NMFMarker, let self = self else { return false }
+            marker.iconImage = self.viewModel.fetchSelectedIcon(marker)
+            if let pin = self.viewModel.currentPin {
+                self.viewModel.currentPin?.iconImage = self.viewModel.fetchUnselectedIcon(pin)
             }
             
-            switch self?.currentPin?.tag {
-            case Pin.cafe.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "cafepin")
-            case Pin.restaurant.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "restaurantpin")
-            case Pin.sea.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "seapin")
-            case Pin.nature.rawValue: self?.currentPin?.iconImage = NMFOverlayImage(name: "naturepin")
-            default: break
-            }
-            
-            if self?.currentPin != marker {
-                self?.currentPin = marker
-            } else {
-                self?.currentPin = nil
-            }
-            
+            self.viewModel.currentPin = (self.viewModel.currentPin == marker) ? nil : marker
+            self.naverMapButton.isHidden = (self.viewModel.currentPin == nil)
             return true
         }
-        
+    
         for spot in viewModel.spots {
             let marker = NMFMarker()
             marker.position = NMGLatLng(lat: spot.latitude, lng: spot.longitude)
             marker.captionText = spot.title
-            
             marker.touchHandler = clickedMarker
             
             guard let pinImage = UIImage(named: "\(spot.spotType.rawValue)pin") else { return }
@@ -226,8 +191,14 @@ extension MapViewController: NMFMapViewTouchDelegate {
 }
 
 extension MapViewController {
+    // TopInfoView에서 X버튼이 눌리면 작동하는 함수
+    @objc private func backButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    // 하단 네이버맵 바로가기 버튼이 눌리면 작동되는 함수
     @objc private func naverButtonTapped() {
-        guard let title = currentPin?.captionText else { return }
+        guard let title = viewModel.currentPin?.captionText else { return }
         let urlStr = "nmap://search?query=\(title)"
         guard let encodedStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: encodedStr)
