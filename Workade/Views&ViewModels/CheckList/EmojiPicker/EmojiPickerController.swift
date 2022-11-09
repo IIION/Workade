@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class EmojiPickerViewController: UIViewController, UICollectionViewDelegate {
+class EmojiPickerViewController: UIViewController {
 
     static let sectionHeaderElementKind = "section-header-element-kind"
     
@@ -43,29 +43,16 @@ class EmojiPickerViewController: UIViewController, UICollectionViewDelegate {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
         
         return collectionView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "이모지 선택"
-        self.navigationItem.largeTitleDisplayMode = .never
-        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
-        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: config)
         
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .theme.background
-        self.navigationController?.navigationBar.tintColor = .theme.quaternary
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-        let item = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(onClose))
-        self.navigationItem.setRightBarButtonItems([item], animated: true)
-        self.view.backgroundColor = .theme.groupedBackground
-        collectionView.delegate = self
         setupLayout()
+        setNavbar()
         configureDataSource()
     }
     
@@ -119,6 +106,7 @@ class EmojiPickerViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func setupLayout() {
+        view.backgroundColor = .theme.groupedBackground
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -128,27 +116,43 @@ class EmojiPickerViewController: UIViewController, UICollectionViewDelegate {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    private func setNavbar() {
+        self.navigationItem.title = "이모지 선택"
+        self.navigationItem.largeTitleDisplayMode = .never
+        
+        let appearance = UINavigationBarAppearance()
+        
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .theme.background
+        
+        self.navigationController?.navigationBar.tintColor = .theme.quaternary
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold)
+        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: config)
+        let item = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(onClose))
+        self.navigationItem.setRightBarButtonItems([item], animated: true)
+    }
 }
 
+// MARK: DiffableDataSource
 extension EmojiPickerViewController {
     private func configureDataSource() {
         
         let cellRegistration = UICollectionView.CellRegistration<EmojiCollectionViewCell, String> { (cell, _, identifier) in
-            // Populate the cell with our item description.
             cell.label.text = "\(identifier)"
             cell.label.sizeToFit()
             cell.label.textAlignment = .center
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: String) -> UICollectionViewCell? in
-            // Return the cell.
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, identifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
         
         let headerRegistration = UICollectionView.SupplementaryRegistration
-        <TitleHeaderSupplementaryView>(elementKind: EmojiPickerViewController.sectionHeaderElementKind) {
-            (supplementaryView, string, indexPath) in
+        <TitleHeaderSupplementaryView>(elementKind: EmojiPickerViewController.sectionHeaderElementKind) { (supplementaryView, _, indexPath) in
             supplementaryView.label.text = Section(rawValue: indexPath.section)?.description
         }
         
@@ -157,7 +161,6 @@ extension EmojiPickerViewController {
                 using: headerRegistration, for: index)
         }
 
-        // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         
         snapshot.appendSections([.smilely])
@@ -184,7 +187,9 @@ extension EmojiPickerViewController {
 
         return emojiArray
     }
-    
+}
+
+extension EmojiPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let emoji = self.dataSource?.itemIdentifier(for: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
