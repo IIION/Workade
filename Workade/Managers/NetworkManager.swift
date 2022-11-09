@@ -18,32 +18,15 @@ final class NetworkManager {
     
     private init() {}
     
-    func request(url: URL) async -> Data? {
+    func request(url: URL) async throws -> Data {
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return nil
+                throw NetworkError.invalidResponse(url)
             }
             return data
         } catch {
-            
-        }
-        return nil
-    }
-    
-    func fetchHomeData<T: Codable>(_ type: String) async throws -> T {
-        guard let url = URL(string: Constants.homeURL + type + ".json") else {
-            throw NetworkError.invalidURL
-        }
-        
-        guard let data = await NetworkManager.shared.request(url: url) else {
-            throw NetworkError.invalidResponse
-        }
-    
-        do {
-            return try JSONDecoder().decode(T.self, from: data)
-        } catch {
-            fatalError("Failed json parsing")
+            throw NetworkError.throwError(url: url, error)
         }
     }
     
