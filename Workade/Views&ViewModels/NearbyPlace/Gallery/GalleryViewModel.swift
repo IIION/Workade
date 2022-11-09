@@ -89,8 +89,8 @@ struct GalleryImage: Codable {
             let paginationEndPoint = min(images.count + paginationUnit, content.items.count)
             for index in images.count..<paginationEndPoint {
                 guard let url = URL(string: content.items[index].context) else { continue }
-                group.addTask {
-                    return await self.manager.request(url: url)
+                group.addTask { [weak self] in
+                    return await self?.manager.request(url: url)
                 }
             }
             
