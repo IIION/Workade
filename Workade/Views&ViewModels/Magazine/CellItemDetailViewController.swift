@@ -113,7 +113,6 @@ class CellItemDetailViewController: UIViewController {
     func setupLayout() {
         view.addSubview(customNavigationBar.view)
         
-        
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
