@@ -8,11 +8,6 @@
 import UIKit
 
 class GalleryView: UIView {
-    private var bottomSafeArea: CGFloat {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGFloat(44) }
-        guard let window = scene.windows.first else { return CGFloat(44) }
-        return window.safeAreaInsets.top
-    }
     let layout = UICollectionViewTwoLineLayout()
     
     lazy var collectionView: UICollectionView = {
@@ -41,7 +36,7 @@ class GalleryView: UIView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomSafeArea - 20)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.bottomSafeArea - 20)
         ])
     }
 }
