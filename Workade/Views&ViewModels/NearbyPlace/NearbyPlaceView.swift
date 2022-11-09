@@ -83,10 +83,7 @@ class NearbyPlaceView: UIView {
         mapButton.frame.size = CGSize(width: 48, height: 48)
         mapButton.layer.cornerRadius = mapButton.bounds.height / 2
         
-        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 17, weight: .semibold))
-        var image = UIImage(systemName: "map", withConfiguration: configuration)
-        image = image?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        mapButton.setImage(image, for: .normal)
+        mapButton.setImage(SFSymbol.map.image, for: .normal)
         
         blur.frame = mapButton.bounds
         blur.isUserInteractionEnabled = false
