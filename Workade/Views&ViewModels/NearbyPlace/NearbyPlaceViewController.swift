@@ -92,8 +92,13 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupGalleryView() {
         Task {
-            try await galleryViewModel.fetchGalleryData(urlString: office.galleryURL)
-            nearbyPlaceView.galleryView.collectionView.reloadData()
+            do {
+                try await galleryViewModel.requestGalleryData(urlString: office.galleryURL)
+                nearbyPlaceView.galleryView.collectionView.reloadData()
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     
@@ -120,16 +125,20 @@ class NearbyPlaceViewController: UIViewController {
                     let imageURL = content.content
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
-                        let image = try await self.introduceVM.fetchImage(urlString: imageURL)
-                        imageView.image = image
-                        let width = image.size.width
-                        let height = image.size.height
-
-                        imageView.contentMode = .scaleToFill
-                        imageView.layer.cornerRadius = 20
-                        imageView.clipsToBounds = true
-
-                        imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
+                        do {
+                            let image = try await NetworkManager.shared.fetchImage(urlString: imageURL)
+                            imageView.image = image
+                            let width = image.size.width
+                            let height = image.size.height
+                            
+                            imageView.contentMode = .scaleToFill
+                            imageView.layer.cornerRadius = 20
+                            imageView.clipsToBounds = true
+                            imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
+                        } catch {
+                            let error = error as? NetworkError ?? .unknownError
+                            print(error.message)
+                        }
                     }
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
                 default:

@@ -190,7 +190,12 @@ class NearbyPlaceView: UIView {
         placeLabel.text = office.officeName
         locationLabel.text = office.regionName
         Task {
-            try await placeImageView.setImageURL(office.imageURL)
+            do {
+                try await placeImageView.setImageURL(office.imageURL)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     

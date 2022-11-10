@@ -35,11 +35,16 @@ final class MyPageViewModel {
     
     private func fetchWishMagazines() {
         Task {
-            guard let resource: MagazineResource = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress) else { return }
-            wishMagazines = resource.content.filter {
-                userDefaultsManager.loadUserDefaults(key: Constants.wishMagazine).contains($0.title)
+            do {
+                guard let resource: MagazineResource = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress) else { return }
+                wishMagazines = resource.content.filter {
+                    userDefaultsManager.loadUserDefaults(key: Constants.wishMagazine).contains($0.title)
+                }
+                isCompleteFetch.value = true
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
             }
-            isCompleteFetch.value = true
         }
     }
     

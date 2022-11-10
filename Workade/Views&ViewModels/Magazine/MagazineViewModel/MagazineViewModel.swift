@@ -15,14 +15,19 @@ class MagazineViewModel {
     var isCompleteFetch = Binder(false)
     
     init() {
-        fetchData()
+        requestMagazineData()
         bindingBookmarkManager()
     }
     
-    func fetchData() {
+    func requestMagazineData() {
         Task {
-            magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
-            isCompleteFetch.value = true
+            do {
+                magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
+                isCompleteFetch.value = true
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     

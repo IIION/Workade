@@ -110,7 +110,12 @@ class CheckListTemplateCell: UICollectionViewCell {
         self.titleLabel.attributedText = attributedStr
         self.imageView.image = nil
         task = Task {
-            try await self.imageView.setImageURL(imageUrl)
+            do {
+                try await self.imageView.setImageURL(imageUrl)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     

@@ -56,14 +56,19 @@ class MagazineDetailView: UIView {
     private func appendImageToStackView(_ url: String) {
         let imageView = UIImageView()
         Task {
-            let image = try await setImageURL(url: url)
-            let width = image.size.width
-            let height = image.size.height
-            imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
-            imageView.contentMode = .scaleToFill
-            imageView.layer.cornerRadius = 20
-            imageView.clipsToBounds = true
-            imageView.image = image
+            do {
+                let image = try await NetworkManager.shared.fetchImage(urlString: url)
+                let width = image.size.width
+                let height = image.size.height
+                imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
+                imageView.contentMode = .scaleToFill
+                imageView.layer.cornerRadius = 20
+                imageView.clipsToBounds = true
+                imageView.image = image
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
         stackView.addArrangedSubview(imageView)
     }
