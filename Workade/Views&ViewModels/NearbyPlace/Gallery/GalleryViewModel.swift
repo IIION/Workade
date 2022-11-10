@@ -19,24 +19,7 @@ enum NetworkingError: LocalizedError {
     }
 }
 
-// TODO: 탐나의 NetworkManager와 기능은 일치합니다. 차후 통일 예정
-class NetworkingManager {
-    private init() { }
-    static let shared = NetworkingManager()
-    func request(url: URL) async -> Data? {
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return nil
-            }
-            return data
-        } catch {
-            print(error)
-        }
-        return nil
-    }
-}
-
+// TODO: 이거 GalleryModel file에 빼주세요.
 struct GalleryContent: Codable {
     let items: [GalleryImage]
     
@@ -51,7 +34,7 @@ struct GalleryImage: Codable {
 
 @MainActor class GalleryViewModel {
     
-    private let manager = NetworkingManager.shared
+    private let manager = NetworkManager.shared
     private(set) var isLoading = false
     private(set) var content: GalleryContent?
     private(set) var images: [UIImage] = []
@@ -65,13 +48,9 @@ struct GalleryImage: Codable {
         }
     }
     
-    func fetchContent(by url: URL) async {
-        let result = await manager.request(url: url)
-        guard let result = result else { return }
-        let searchResult = try? JSONDecoder().decode(GalleryContent.self, from: result)
-        guard let searchResult = searchResult else { return }
-        self.content = searchResult
-        
+    // TODO: 네이밍 임시로 짓고 다시생각해보기 - 타입 선언은 미리 정의된 프로퍼티 없을 때만.
+    func fetchGalleryData(urlString: String) async throws {
+        self.content = try await manager.requestResourceData(urlString: urlString)
         await fetchImages()
     }
     
