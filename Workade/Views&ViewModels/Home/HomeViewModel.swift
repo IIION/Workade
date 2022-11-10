@@ -18,15 +18,21 @@ final class HomeViewModel {
     var isCompleteFetch = Binder(false)
     
     init() {
-        fetchData()
+        fetchHomeData()
         bindingBookmarkManager() // 북마크
     }
     
-    private func fetchData() {
+    private func fetchHomeData() {
         Task {
-            officeResource = try await NetworkManager.shared.fetchHomeData("office")
-            magazineResource = try await NetworkManager.shared.fetchHomeData("magazine")
-            isCompleteFetch.value = true
+            do {
+                async let offices: OfficeResource = NetworkManager.shared.requestResourceData(urlString: Constants.officeResourceAddress)
+                async let magazines: MagazineResource = NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
+                (officeResource, magazineResource) = try await (offices, magazines)
+                isCompleteFetch.value = true
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     
