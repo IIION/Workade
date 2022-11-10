@@ -17,6 +17,8 @@ extension UIImageView {
     /// 캐시에 없다면 url을 가공하고, NetworkManager의 request메서드에 url을 전달하여 data를 받습니다.
     ///
     /// 받은 data를 기반으로 이미지뷰 자기 자신의 image에 바로 비동기적으로 image를 넣어주고, 불러오는데 성공한 해당 이미지를 ImageCacheManager의 setObject 메서드를 이용하여 캐시에 저장합니다.
+    ///
+    /// 문자열에서 URL로의 전환 실패했을 때, 데이터 요청에 실패했을 때, 데이터에서 이미지로의 전환 실패했을 때 에러를 던집니다.
     func setImageURL(_ urlString: String) async throws {
         if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
             self.image = cachedImage

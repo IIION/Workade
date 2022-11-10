@@ -74,6 +74,10 @@ extension MyPageViewController {
         }
     }
     
+    // TODO: 다음 PR 수정사항
+    // Detail Cell과 이어짐으로써 delete로직이 아닌 다른 로직으로 수정해야함.
+    // 비동기로 지속적으로 움직이는 방식이 아닌 viewWillAppear핸들링으로 수정.
+    // reload관련 이슈해결위해 diffableDataSource활용 예정.
     private func observingChangedMagazineId() {
         viewModel.clickedMagazineId.bindAndFire { [weak self] id in
             guard let self = self else { return }

@@ -26,6 +26,8 @@ class IntroduceViewModel {
     }
 }
 
+// TODO: 다음 PR 수정사항.
+// 기존 Binder class와 구조가 같아서 다음 PR에서 제거 예정.
 class IntroduceViewDynamic<T> {
     typealias Listener = (T) -> Void
     var listener: Listener?
