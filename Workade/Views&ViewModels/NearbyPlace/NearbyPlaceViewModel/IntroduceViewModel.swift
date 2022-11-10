@@ -9,7 +9,7 @@ import UIKit
 
 @MainActor
 class IntroduceViewModel {
-    let networkManager = NetworkingManager.shared
+    let networkManager = NetworkManager.shared
     let url: URL
     // 데이터가 받아 진 후, stackView에 데이터를 쌓아주기 위해 다이나믹으로 선언했습니다.
     var introductions: IntroduceViewDynamic<[Content]> = IntroduceViewDynamic([])
