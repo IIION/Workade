@@ -117,10 +117,10 @@ class NearbyPlaceViewController: UIViewController {
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(label)
                 case "Image":
                     let imageView = UIImageView()
-                    let imageURL = content.context
+                    let imageURL = content.content
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
-                        let image = await self.introduceVM.fetchImage(urlString: imageURL)
+                        let image = try await self.introduceVM.fetchImage(urlString: imageURL)
                         imageView.image = image
                         let width = image.size.width
                         let height = image.size.height

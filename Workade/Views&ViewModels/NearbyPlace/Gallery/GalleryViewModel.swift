@@ -59,35 +59,33 @@ struct GalleryImage: Codable {
     }
     
     func fetchImages() async {
-        guard
-            let content = content,
-            isLoading == false,
-            isCanLoaded
-        else { return }
-        
+        guard let content = content,
+              isLoading == false,
+              isCanLoaded else { return }
         isLoading = true
-        
         let fetchedImages = await withTaskGroup(of: Data?.self) { group in
             var tempImages = [UIImage]()
             let paginationEndPoint = min(images.count + paginationUnit, content.items.count)
+            
             for index in images.count..<paginationEndPoint {
-                guard let url = URL(string: content.items[index].context) else { continue }
+                guard let url = URL(string: content.items[index].content) else { continue }
                 group.addTask { [weak self] in
-                    return await self?.manager.request(url: url)
+                    guard let task = try? await self?.manager.request(url: url) else {
+                        return nil
+                    }
+                    return task
                 }
             }
             
-            for await data in group {
-                if let data = data, let image = UIImage(data: data) {
+            for await data in group.compactMap({$0}) {
+                if let image = UIImage(data: data) {
                     tempImages.append(image)
                 }
             }
             
             return tempImages
         }
-        
         self.images.append(contentsOf: fetchedImages)
-        
         isLoading = false
     }
 }
