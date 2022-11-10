@@ -69,7 +69,7 @@ class NearbyPlaceImageView: UIView {
         self.office = office
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        
+
         setupOfficeData()
         setupLayout()
     }
@@ -108,7 +108,7 @@ class NearbyPlaceImageView: UIView {
             locationLabel.leadingAnchor.constraint(equalTo: placeLabel.leadingAnchor)
         ])
         
-        imageView.addSubview(mapButtonContainer)
+        addSubview(mapButtonContainer)
         NSLayoutConstraint.activate([
             mapButtonContainer.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -17),
             mapButtonContainer.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -17)
@@ -124,7 +124,6 @@ class NearbyPlaceImageView: UIView {
     // Button 클릭 관련 함수
     @objc
     func clickedMapButton() {
-        print("ehllo")
         delegate?.touch(office: self.office)
     }
 }
