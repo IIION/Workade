@@ -11,7 +11,9 @@ import Foundation
 ///
 /// 실수 방지를 위해 따로 빼봤는데 현재는 homeURL만 있습니다.
 struct Constants {
-    static let homeURL = "https://raw.githubusercontent.com/IIION/WorkadeData/main/Home/"
+    static let officeResourceAddress = "https://raw.githubusercontent.com/IIION/WorkadeData/main/Home/office.json"
+    static let magazineResourceAddress = "https://raw.githubusercontent.com/IIION/WorkadeData/main/Home/magazine.json"
+    static let checkListResourceAddress = "https://raw.githubusercontent.com/IIION/WorkadeData/main/Checklist/checkList.json"
     
     static let wishMagazine = "wishMagazine"
 }

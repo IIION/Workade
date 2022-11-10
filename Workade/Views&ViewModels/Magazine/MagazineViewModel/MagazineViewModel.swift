@@ -21,7 +21,7 @@ class MagazineViewModel {
     
     func fetchData() {
         Task {
-            magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
+            magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
             isCompleteFetch.value = true
         }
     }

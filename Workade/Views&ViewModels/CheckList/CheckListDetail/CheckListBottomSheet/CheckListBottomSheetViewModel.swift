@@ -19,7 +19,7 @@ final class CheckListBottomSheetViewModel {
     
     private func fetchData() {
         Task {
-            checkListTemplateResource = try await NetworkManager.shared.requestCheckListTemplateData()
+            checkListTemplateResource = try await NetworkManager.shared.requestResourceData(urlString: Constants.checkListResourceAddress)
             isCompleteFetch.value = true
         }
     }

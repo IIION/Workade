@@ -35,7 +35,7 @@ final class MyPageViewModel {
     
     private func fetchWishMagazines() {
         Task {
-            let resource: MagazineResource = try await NetworkManager.shared.fetchHomeData("magazine")
+            guard let resource: MagazineResource = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress) else { return }
             wishMagazines = resource.content.filter {
                 userDefaultsManager.loadUserDefaults(key: Constants.wishMagazine).contains($0.title)
             }

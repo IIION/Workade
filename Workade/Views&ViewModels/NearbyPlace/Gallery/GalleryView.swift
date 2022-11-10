@@ -25,7 +25,6 @@ class GalleryView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-//        viewModel.fetchImages()
     }
     
     required init?(coder: NSCoder) {
