@@ -126,39 +126,3 @@ class NearbyPlaceImageView: UIView {
         delegate?.touch(office: self.office)
     }
 }
-
-import SwiftUI
-struct UIViewPreview<View: UIView>: UIViewRepresentable {
-    let view: View
-
-    init(_ builder: @escaping () -> View) {
-        view = builder()
-    }
-
-    // MARK: - UIViewRepresentable
-
-    func makeUIView(context: Context) -> UIView {
-        return view
-    }
-
-    func updateUIView(_ view: UIView, context: Context) {
-        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        view.setContentHuggingPriority(.defaultHigh, for: .vertical)
-    }
-}
-
-struct MyYellowButtonPreview: PreviewProvider{
-    static var previews: some View {
-        UIViewPreview {
-            let view = NearbyPlaceImageView(office: Office(officeName: "제주 O-PEACE",
-                                                           regionName: "제주도",
-                                                           imageURL: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Home/Image/Office/opiece.jpeg",
-                                                           introduceURL: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Office/opiece.json",
-                                                           galleryURL: "https://raw.githubusercontent.com/IIION/WorkadeData/main/Office/opiecegallery.json",
-                                                           latitude: 33.5328984,
-                                                           longitude: 126.6311401,
-                                                           spots: []))
-            return view
-        }.previewLayout(.sizeThatFits)
-    }
-}
