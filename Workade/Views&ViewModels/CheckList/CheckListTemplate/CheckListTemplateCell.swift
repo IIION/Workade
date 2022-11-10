@@ -97,7 +97,7 @@ class CheckListTemplateCell: UICollectionViewCell {
         ])
     }
     
-    func setupCell(checkListTemplate: CheckListTemplateModel) {
+    func setupCell(checkListTemplate: CheckListTemplate) {
         let title = checkListTemplate.title
         let partialText = checkListTemplate.tintString
         let hexString = checkListTemplate.tintColor

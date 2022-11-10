@@ -12,7 +12,7 @@ import Foundation
 /// Network관련 최상위 매니저입니다.
 ///
 /// 모든 곳에서 동일하게 사용할 수 있을 정도의 request 메서드가 존재합니다.
-/// 그 외에 일회성으로 요청하는데에 쓰이는 requestResourceData 메서드가 있는데 모델배열을 context 혹은 content라는 프로퍼티로 갖는 모델을 요청하고 parsing하는데 공통적으로 사용되는 메서드입니다.
+/// 그 외에 일회성으로 요청하는데에 쓰이는 requestResourceData 메서드가 있는데 모델배열을 content라는 프로퍼티로 갖는 모델을 요청하고 parsing하는데 공통적으로 사용되는 메서드입니다.
 final class NetworkManager {
     static let shared = NetworkManager()
     

@@ -200,7 +200,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
         case officeCollectionView:
-            return viewModel.officeResource.context.count
+            return viewModel.officeResource.content.count
         case magazineCollectionView:
             return viewModel.magazineResource.content.count
         default:
@@ -213,7 +213,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case officeCollectionView:
             let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
             cell.delegate = self
-            cell.configure(office: viewModel.officeResource.context[indexPath.row])
+            cell.configure(office: viewModel.officeResource.content[indexPath.row])
             return cell
         case magazineCollectionView:
             let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
@@ -232,7 +232,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case officeCollectionView:
-            let office = viewModel.officeResource.context[indexPath.row]
+            let office = viewModel.officeResource.content[indexPath.row]
             let viewController = NearbyPlaceViewController(office: office)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)

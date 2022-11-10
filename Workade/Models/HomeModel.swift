@@ -8,7 +8,11 @@
 import UIKit
 
 struct OfficeResource: Codable {
-    let context: [Office]
+    let content: [Office]
+    
+    enum CodingKeys: String, CodingKey {
+        case content = "context"
+    }
 }
 
 struct Office: Codable {

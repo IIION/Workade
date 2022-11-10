@@ -11,18 +11,18 @@ import UIKit
 final class HomeViewModel {
     var bookmarkManager = BookmarkManager.shared
     
-    var officeResource = OfficeResource(context: [])
+    var officeResource = OfficeResource(content: [])
     var magazineResource = MagazineResource(content: [])
     
     /// 모델 데이터 fetch가 완료되었을 때, HomeViewController에 알려주는 역할을 할 Binder 타입의 변수
     var isCompleteFetch = Binder(false)
     
     init() {
-        fetchHomeData()
+        requestHomeData()
         bindingBookmarkManager() // 북마크
     }
     
-    private func fetchHomeData() {
+    private func requestHomeData() {
         Task {
             do {
                 async let offices: OfficeResource = NetworkManager.shared.requestResourceData(urlString: Constants.officeResourceAddress)

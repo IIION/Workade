@@ -124,7 +124,7 @@ class CheckListTemplateViewController: UIViewController {
         self.viewDidDissmiss?()
     }
     
-    func setupData(checkListTemplate: CheckListTemplateModel) {
+    func setupData(checkListTemplate: CheckListTemplate) {
         let title = checkListTemplate.title
         let partialText = checkListTemplate.tintString
         let hexString = checkListTemplate.tintColor

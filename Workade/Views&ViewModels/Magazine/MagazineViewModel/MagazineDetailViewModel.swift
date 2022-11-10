@@ -9,9 +9,9 @@ import UIKit
 
 @MainActor
 class MagazineDetailViewModel {
-    var magazineData = MagazineModel(magazineContent: [])
+    var magazineData = MagazineResource(content: [])
     
-    var data: Binder<[MagazineDetailModel]> = Binder([])
+    var data: Binder<[MagazineDetail]> = Binder([])
     
     init() {
         bindingBookmarkManager()
@@ -25,14 +25,14 @@ class MagazineDetailViewModel {
     }
     
     func fetchMagazine(url: URL?) async {
-        var magazineDetailData: [MagazineDetailModel] = []
+        var magazineDetailData: [MagazineDetail] = []
         
         guard let dataUrl = url else { return }
         
         do {
             let result = try await NetworkManager.shared.request(url: dataUrl)
-            let magazineData = try JSONDecoder().decode(MagazineDataModel.self, from: result)
-            magazineData.magazineData.forEach { detailData in
+            let magazineData = try JSONDecoder().decode(MagazineDetailResource.self, from: result)
+            magazineData.content.forEach { detailData in
                 magazineDetailData.append(detailData)
             }
         } catch {

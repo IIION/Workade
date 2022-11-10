@@ -45,10 +45,10 @@ class MagazineDetailView: UIView {
             for data in content {
                 switch data.type {
                 case "Text":
-                    appendTextToStackView(data.context, data.font, data.color)
+                    appendTextToStackView(data.content, data.font, data.color)
                     
                 case "Image":
-                    appendImageToStackView(data.context)
+                    appendImageToStackView(data.content)
                     
                 default:
                     return

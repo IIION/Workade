@@ -9,7 +9,7 @@ import UIKit
 
 @MainActor
 final class CheckListBottomSheetViewModel {
-    var checkListTemplateResource = CheckListTemplateResource(context: [])
+    var checkListTemplateResource = CheckListTemplateResource(content: [])
     
     var isCompleteFetch = Binder(false)
     

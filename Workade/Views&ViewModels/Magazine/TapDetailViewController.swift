@@ -57,7 +57,7 @@ extension TapDetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension TapDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let magazine = viewModel.magazineData.magazineContent[indexPath.row]
+        let magazine = viewModel.magazineData.content[indexPath.row]
         let cellItemDetailViewController = CellItemDetailViewController(magazine: magazine)
         
         cellItemDetailViewController.modalPresentationStyle = .fullScreen
@@ -67,13 +67,13 @@ extension TapDetailViewController: UICollectionViewDelegate {
 
 extension TapDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.magazineData.magazineContent.count
+        return viewModel.magazineData.content.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
         cell.delegate = self
-        cell.configure(magazine: viewModel.magazineData.magazineContent[indexPath.row])
+        cell.configure(magazine: viewModel.magazineData.content[indexPath.row])
         
         return cell
     }
@@ -97,10 +97,10 @@ extension TapDetailViewController {
     
     private func observingChangedMagazineId() {
         viewModel.clickedMagazineId.bindAndFire { [weak self] id in
-            guard
-                let self = self,
-                let index = self.viewModel.magazineData.magazineContent.firstIndex(where: { $0.title == id })
-            else { return }
+            guard let self = self,
+                  let index = self.viewModel.magazineData.content.firstIndex(where: { $0.title == id }) else {
+                return
+            }
             
             DispatchQueue.main.async {
                 self.tapDetailCollectionView.reloadItems(at: [.init(item: index, section: 0)])

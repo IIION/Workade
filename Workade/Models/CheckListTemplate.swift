@@ -8,10 +8,14 @@
 import UIKit
 
 struct CheckListTemplateResource: Codable {
-    let context: [CheckListTemplateModel]
+    let content: [CheckListTemplate]
+    
+    enum CodingKeys: String, CodingKey {
+        case content = "context"
+    }
 }
 
-struct CheckListTemplateModel: Codable {
+struct CheckListTemplate: Codable {
     let imageURL: String
     let title: String
     let tintColor: String

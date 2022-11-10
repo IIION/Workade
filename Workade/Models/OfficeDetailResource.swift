@@ -1,19 +1,17 @@
 //
-//  MagazineModel.swift
+//  DetailDataModel.swift
 //  Workade
 //
-//  Created by Hong jeongmin on 2022/10/27.
+//  Created by ryu hyunsun on 2022/10/26.
 //
 
 import Foundation
 
-// Magazine 상세 뷰 모델
-struct MagazineDetailResource: Codable {
-    let content: [MagazineDetail]
+struct OfficeDetailResource: Codable {
+    let content: [OfficeDetail]
 }
 
-// MagazineDetailModel 모델
-struct MagazineDetail: Codable {
+struct OfficeDetail: Codable {
     let type: String
     let font: String?
     let content: String

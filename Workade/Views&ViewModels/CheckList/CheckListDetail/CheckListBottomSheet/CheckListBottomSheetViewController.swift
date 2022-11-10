@@ -147,7 +147,7 @@ class CheckListBottomSheetViewController: UIViewController {
 
 extension CheckListBottomSheetViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return checkListBottomSheetViewModel.checkListTemplateResource.context.count
+        return checkListBottomSheetViewModel.checkListTemplateResource.content.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -156,7 +156,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.content[indexPath.row]
         
         cell.setupCell(checkListTemplate: template)
         cell.addTemplate = {
@@ -172,7 +172,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDelegate {
         let checkListTemplateViewController = CheckListTemplateViewController()
         checkListTemplateViewController.modalPresentationStyle = .overFullScreen
         
-        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.content[indexPath.row]
         
         checkListTemplateViewController.setupData(checkListTemplate: template)
         

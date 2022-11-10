@@ -20,7 +20,7 @@ enum NetworkingError: LocalizedError {
 }
 
 // TODO: 이거 GalleryModel file에 빼주세요.
-struct GalleryContent: Codable {
+struct GalleryResource: Codable {
     let items: [GalleryImage]
     
     enum CodingKeys: String, CodingKey {
@@ -29,14 +29,18 @@ struct GalleryContent: Codable {
 }
 
 struct GalleryImage: Codable {
-    let context: String
+    let content: String
+    
+    enum CodingKeys: String, CodingKey {
+        case content = "context"
+    }
 }
 
 @MainActor class GalleryViewModel {
     
     private let manager = NetworkManager.shared
     private(set) var isLoading = false
-    private(set) var content: GalleryContent?
+    private(set) var content: GalleryResource?
     private(set) var images: [UIImage] = []
     
     var paginationUnit: Int = 10

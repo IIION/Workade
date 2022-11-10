@@ -10,7 +10,7 @@ import UIKit
 @MainActor
 class MagazineViewModel {
     
-    var magazineData = MagazineModel(magazineContent: [])
+    var magazineData = MagazineResource(content: [])
     
     var isCompleteFetch = Binder(false)
     
