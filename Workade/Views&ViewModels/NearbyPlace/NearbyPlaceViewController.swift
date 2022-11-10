@@ -43,13 +43,6 @@ class NearbyPlaceViewController: UIViewController {
         return label
     }()
     
-    lazy var mapButtonImage: UIImage = {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        let image = UIImage(systemName: "map", withConfiguration: config) ?? UIImage()
-        
-        return image
-    }()
-    
     lazy var closeButton: UIButton = {
         let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
