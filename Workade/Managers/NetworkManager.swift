@@ -52,17 +52,19 @@ enum NetworkError: Error {
     case notConnectedToInternet
     case invalidResponse(_ url: URL)
     case failedJsonParsing
-    case unknownError(_ errorCode: Int)
+    case unknownURLError(_ errorCode: Int)
+    case unknownError
     
     var message: String {
         switch self {
-        case .invalidStringForURL: return "url로 변환이 불가능한 문자열입니다."
-        case .invalidDataForImage: return "UIImage로 변환이 불가능한 Data입니다."
-        case .unsupportedURL(let url): return "지원하지않는 url 주소입니다. URL: \(url)"
-        case .notConnectedToInternet: return "네트워크가 꺼져있습니다."
-        case .invalidResponse: return "유효하지 않은 response입니다."
-        case .failedJsonParsing: return "Json 파싱 작업에 실패했습니다."
-        case .unknownError(let errorCode): return "미확인 에러입니다. 에러 코드: \(errorCode)"
+        case .invalidStringForURL: return "✍🏻 url로 변환이 불가능한 문자열입니다."
+        case .invalidDataForImage: return "🌁 UIImage로 변환이 불가능한 Data입니다."
+        case .unsupportedURL(let url): return "📪 지원하지않는 url 주소입니다. URL: \(url)"
+        case .notConnectedToInternet: return "💤 네트워크가 꺼져있습니다."
+        case .invalidResponse: return "👹 유효하지 않은 response입니다."
+        case .failedJsonParsing: return "📑 Json 파싱 작업에 실패했습니다."
+        case .unknownURLError(let errorCode): return "⁉️ 미확인 URL관련 에러입니다. 에러 코드: \(errorCode)"
+        case .unknownError: return "🤯 원인을 알 수 없는 에러입니다!"
         }
     }
     
@@ -74,7 +76,7 @@ enum NetworkError: Error {
             case -1009:
                 return NetworkError.notConnectedToInternet
             default:
-                return NetworkError.unknownError(error.errorCode)
+                return NetworkError.unknownURLError(error.errorCode)
             }
         } else {
             return NetworkError.invalidResponse(url)
