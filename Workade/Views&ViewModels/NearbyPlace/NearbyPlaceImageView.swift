@@ -68,6 +68,7 @@ class NearbyPlaceImageView: UIView {
     init(office: Office) {
         self.office = office
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         
         setupOfficeData()
         setupLayout()
@@ -123,6 +124,7 @@ class NearbyPlaceImageView: UIView {
     // Button 클릭 관련 함수
     @objc
     func clickedMapButton() {
+        print("ehllo")
         delegate?.touch(office: self.office)
     }
 }
