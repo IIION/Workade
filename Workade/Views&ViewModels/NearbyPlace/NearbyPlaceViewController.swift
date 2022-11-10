@@ -10,14 +10,13 @@ import UIKit
 class NearbyPlaceViewController: UIViewController {
     var office: Office
     let nearbyPlaceView: NearbyPlaceView
-    let galleryViewModel: GalleryViewModel
-    let introduceVM: IntroduceViewModel
+    let galleryViewModel = GalleryViewModel()
+    let introduceViewModel: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
-        self.galleryViewModel = GalleryViewModel()
-        self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
+        self.introduceViewModel = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -86,9 +85,9 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupIntroduceView() {
         Task {
-            await introduceVM.fetchData()
+            await introduceViewModel.fetchData()
         }
-        introduceVM.introductions.bind { contents in
+        introduceViewModel.introductions.bind { contents in
             for content in contents {
                 switch content.type {
                 case "Text":
@@ -109,7 +108,7 @@ class NearbyPlaceViewController: UIViewController {
                     let imageURL = content.context
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
-                        let image = await self.introduceVM.fetchImage(urlString: imageURL)
+                        let image = await self.introduceViewModel.fetchImage(urlString: imageURL)
                         imageView.image = image
                         let width = image.size.width
                         let height = image.size.height
