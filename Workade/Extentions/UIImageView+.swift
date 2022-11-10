@@ -24,13 +24,10 @@ extension UIImageView {
         }
         guard let url = URL(string: urlString) else { throw NetworkError.invalidStringForURL }
         let data = try await NetworkManager.shared.request(url: url)
-        if let image = UIImage(data: data) {
-            DispatchQueue.main.async { [weak self] in
-                self?.image = image
-                ImageCacheManager.shared.setObject(image: image, id: urlString)
-            }
-        } else {
-            throw NetworkError.invalidDataForImage
+        guard let image = UIImage(data: data) else { throw NetworkError.invalidDataForImage }
+        DispatchQueue.main.async { [weak self] in
+            self?.image = image
         }
+        ImageCacheManager.shared.setObject(image: image, id: urlString)
     }
 }
