@@ -9,43 +9,28 @@ import UIKit
 
 @MainActor
 class IntroduceViewModel {
-    let networkManager = NetworkingManager.shared
-    let url: URL
+    let networkManager = NetworkManager.shared
     // 데이터가 받아 진 후, stackView에 데이터를 쌓아주기 위해 다이나믹으로 선언했습니다.
-    var introductions: IntroduceViewDynamic<[Content]> = IntroduceViewDynamic([])
+    var introductions: IntroduceViewDynamic<[OfficeDetail]> = IntroduceViewDynamic([])
     
-    init(url: URL) {
-        self.url = url
-    }
-    
-    func fetchData() async {
-        let result = await networkManager.request(url: url)
-        guard let result = result else { return }
-        var articles: [Content] = []
-        do {
-            let searchResult = try? JSONDecoder().decode(DetailDataModel.self, from: result)
-            guard let searchResult = searchResult else { return }
-            for item in searchResult.content {
-                switch item.type {
-                case "Image":
-                    articles.append(Content(font: nil, type: item.type, context: item.context, color: nil))
-                case "Text":
-                    articles.append(Content(font: item.font, type: item.type, context: item.context, color: item.color))
-                default:
-                    break
-                }
+    func requestOfficeDetailData(urlString: String) {
+        Task {
+            do {
+                let detailDataModel: OfficeDetailResource = try await networkManager.requestResourceData(urlString: urlString)
+                introductions.value = detailDataModel.content
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
             }
-            introductions.value = articles
         }
     }
     
-    func fetchImage(urlString: String) async -> UIImage {
+    func fetchImage(urlString: String) async throws -> UIImage {
         if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
             return cachedImage
         }
         guard let imageURL = URL(string: urlString) else { return UIImage()}
-        let result = await networkManager.request(url: imageURL)
-        guard let result = result else { return  UIImage()}
+        let result = try await networkManager.request(url: imageURL)
         guard let image = UIImage(data: result) else { return UIImage()}
         ImageCacheManager.shared.setObject(image: image, id: urlString)
         return image

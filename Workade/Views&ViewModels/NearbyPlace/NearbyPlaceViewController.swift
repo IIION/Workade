@@ -17,7 +17,7 @@ class NearbyPlaceViewController: UIViewController {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
         self.galleryViewModel = GalleryViewModel()
-        self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
+        self.introduceVM = IntroduceViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -92,22 +92,19 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupGalleryView() {
         Task {
-            guard let url = URL(string: office.galleryURL) else { return }
-            await galleryViewModel.fetchContent(by: url)
+            try await galleryViewModel.fetchGalleryData(urlString: office.galleryURL)
             nearbyPlaceView.galleryView.collectionView.reloadData()
         }
     }
     
     private func setupIntroduceView() {
-        Task {
-            await introduceVM.fetchData()
-        }
+        introduceVM.requestOfficeDetailData(urlString: office.introduceURL)
         introduceVM.introductions.bind { contents in
             for content in contents {
                 switch content.type {
                 case "Text":
                     let label = UILabel()
-                    label.text = content.context
+                    label.text = content.content
                     if let font = content.font {
                         label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
                     }
