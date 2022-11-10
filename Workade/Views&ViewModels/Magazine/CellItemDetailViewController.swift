@@ -12,7 +12,6 @@ class CellItemDetailViewController: UIViewController {
     let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
-    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     private var bottomConstraints: NSLayoutConstraint!
     
     let scrollView: UIScrollView = {
@@ -120,7 +119,7 @@ class CellItemDetailViewController: UIViewController {
         
         contentsContainer.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topSafeArea + 8),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: .topSafeArea + 8),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             closeButton.widthAnchor.constraint(equalToConstant: 44),
             closeButton.heightAnchor.constraint(equalToConstant: 44)
@@ -176,7 +175,7 @@ class CellItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             imageContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageContainer.heightAnchor.constraint(equalToConstant: topSafeArea + 375),
+            imageContainer.heightAnchor.constraint(equalToConstant: .topSafeArea + 375),
             imageContainer.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
         
@@ -230,7 +229,7 @@ class CellItemDetailViewController: UIViewController {
 extension CellItemDetailViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let totalOffset = scrollView.contentOffset.y
-        if totalOffset < -topSafeArea {
+        if totalOffset < -.topSafeArea {
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -241,9 +240,9 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         if currentScrollYOffset > defaultScrollYOffset {
             setupCustomNavigationRightItem()
             setupBookmarkImage()
-            customNavigationBar.view.alpha = currentScrollYOffset / (topSafeArea + 259)
-            titleImageView.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
-            closeButton.alpha = 1 - (currentScrollYOffset / (topSafeArea + 259))
+            customNavigationBar.view.alpha = currentScrollYOffset / (.topSafeArea + 259)
+            titleImageView.alpha = 1 - (currentScrollYOffset / (.topSafeArea + 259))
+            closeButton.alpha = 1 - (currentScrollYOffset / (.topSafeArea + 259))
         } else {
             customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1

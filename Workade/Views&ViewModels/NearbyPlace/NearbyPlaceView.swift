@@ -7,16 +7,15 @@
 
 import UIKit
 
-protocol InnerTouchPresentDelegate {
+protocol InnerTouchPresentDelegate: AnyObject {
     func touch(office: Office)
 }
 
 class NearbyPlaceView: UIView {
-    var delegate: InnerTouchPresentDelegate?
-    
+    weak var delegate: InnerTouchPresentDelegate?
+ 
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
-    
     var office: Office = Office(
         officeName: "",
         regionName: "",
@@ -26,8 +25,6 @@ class NearbyPlaceView: UIView {
         latitude: 0.0,
         longitude: 0.0,
         spots: [])
-    
-    let topSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 44
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -54,7 +51,6 @@ class NearbyPlaceView: UIView {
     let placeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
-        imageView.image = UIImage(named: "officeImage_test")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +60,6 @@ class NearbyPlaceView: UIView {
     
     let locationLabel: UILabel = {
         let locationLabel = UILabel()
-        locationLabel.text = "제주도"
         locationLabel.font = UIFont.customFont(for: .title3)
         locationLabel.textColor = .white
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +69,6 @@ class NearbyPlaceView: UIView {
     
     let placeLabel: UILabel = {
         let placeLabel = UILabel()
-        placeLabel.text = "O-Peace"
         placeLabel.font = UIFont.customFont(for: .title1)
         placeLabel.textColor = .white
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -231,7 +225,7 @@ class NearbyPlaceView: UIView {
             placeImageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             placeImageContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
             placeImageContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            placeImageContainer.heightAnchor.constraint(equalToConstant: topSafeArea + 375)
+            placeImageContainer.heightAnchor.constraint(equalToConstant: .topSafeArea + 375)
         ])
         
         let placeImageViewTopConstraint = placeImageView.topAnchor.constraint(equalTo: topAnchor)
@@ -326,7 +320,7 @@ class NearbyPlaceView: UIView {
             galleryView.topAnchor.constraint(equalTo: detailContensContainer.topAnchor, constant: 0),
             galleryView.leadingAnchor.constraint(equalTo: detailContensContainer.leadingAnchor, constant: 0),
             galleryView.trailingAnchor.constraint(equalTo: detailContensContainer.trailingAnchor, constant: 0),
-            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - topSafeArea - 50)
+            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 50)
         ])
     }
 }

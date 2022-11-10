@@ -8,8 +8,6 @@
 import UIKit
 
 class GalleryView: UIView {
-    
-    let bottomSafeArea = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 44
     let layout = UICollectionViewTwoLineLayout()
     
     lazy var collectionView: UICollectionView = {
@@ -30,7 +28,7 @@ class GalleryView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private func setupLayout() {
         self.addSubview(collectionView)
         
@@ -38,7 +36,7 @@ class GalleryView: UIView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomSafeArea - 20)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.bottomSafeArea - 20)
         ])
     }
 }
