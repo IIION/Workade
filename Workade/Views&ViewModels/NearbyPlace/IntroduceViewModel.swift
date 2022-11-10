@@ -16,8 +16,8 @@ class IntroduceViewModel {
     func requestOfficeDetailData(urlString: String) {
         Task {
             do {
-                let detailDataModel: OfficeDetailResource = try await networkManager.requestResourceData(urlString: urlString)
-                introductions.value = detailDataModel.content
+                let detailResource: OfficeDetailResource = try await networkManager.requestResourceData(urlString: urlString)
+                introductions.value = detailResource.content
             } catch {
                 let error = error as? NetworkError ?? .unknownError
                 print(error.message)

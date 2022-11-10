@@ -18,34 +18,27 @@ class MagazineDetailViewModel {
     }
     
     // Magazine의 전체 내용을 가져오는 함수
-    func fetchData() {
+    func requestMagazineData() {
         Task {
-            magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
-        }
-    }
-    
-    func fetchMagazine(url: URL?) async {
-        var magazineDetailData: [MagazineDetail] = []
-        
-        guard let dataUrl = url else { return }
-        
-        do {
-            let result = try await NetworkManager.shared.request(url: dataUrl)
-            let magazineData = try JSONDecoder().decode(MagazineDetailResource.self, from: result)
-            magazineData.content.forEach { detailData in
-                magazineDetailData.append(detailData)
+            do {
+                magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
             }
-        } catch {
-            print(error)
         }
-        
-        data.value = magazineDetailData
     }
     
-    func fetchURL(urlString: String) -> URL? {
-        guard let url = URL(string: urlString) else { return nil }
-        
-        return url
+    func requestMagazineDetailData(urlString: String) {
+        Task {
+            do {
+                let detailResource: MagazineDetailResource = try await NetworkManager.shared.requestResourceData(urlString: "urlString")
+                data.value = detailResource.content
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
+        }
     }
     
     var clickedMagazineId = Binder("")

@@ -11,7 +11,6 @@ class MagazineDetailView: UIView {
     var magazine: Magazine
     
     let magazineViewModel = MagazineDetailViewModel()
-    var introduceURL: URL?
     
     private var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -36,10 +35,7 @@ class MagazineDetailView: UIView {
     }
     
     func setupMagazineDetailData() {
-        introduceURL = magazineViewModel.fetchURL(urlString: magazine.introduceURL)
-        Task {
-            await magazineViewModel.fetchMagazine(url: introduceURL)
-        }
+        magazineViewModel.requestMagazineDetailData(urlString: magazine.introduceURL)
         
         magazineViewModel.data.bind { [self] content in
             for data in content {
