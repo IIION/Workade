@@ -29,10 +29,8 @@ class MagazineDetailViewModel {
         
         guard let dataUrl = url else { return }
         
-        let result = await NetworkManager.shared.request(url: dataUrl)
-        guard let result = result else { return }
-        
         do {
+            let result = try await NetworkManager.shared.request(url: dataUrl)
             let magazineData = try JSONDecoder().decode(MagazineDataModel.self, from: result)
             magazineData.magazineData.forEach { detailData in
                 magazineDetailData.append(detailData)

@@ -12,7 +12,6 @@ protocol InnerTouchPresentDelegate {
 }
 
 class NearbyPlaceView: UIView {
-    
     var delegate: InnerTouchPresentDelegate?
     
     private var introduceBottomConstraints: NSLayoutConstraint!
@@ -191,7 +190,7 @@ class NearbyPlaceView: UIView {
         placeLabel.text = office.officeName
         locationLabel.text = office.regionName
         Task {
-            await placeImageView.setImageURL(office.imageURL)
+            try await placeImageView.setImageURL(office.imageURL)
         }
     }
     

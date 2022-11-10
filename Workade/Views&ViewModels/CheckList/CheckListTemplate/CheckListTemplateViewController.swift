@@ -146,7 +146,7 @@ class CheckListTemplateViewController: UIViewController {
         self.countLabel.attributedText = attributedText
         self.imageView.image = nil
         Task {
-            await self.imageView.setImageURL(imageUrl)
+            try await self.imageView.setImageURL(imageUrl)
         }
     }
     

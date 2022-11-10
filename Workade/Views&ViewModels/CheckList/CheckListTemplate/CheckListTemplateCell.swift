@@ -110,7 +110,7 @@ class CheckListTemplateCell: UICollectionViewCell {
         self.titleLabel.attributedText = attributedStr
         self.imageView.image = nil
         task = Task {
-            await self.imageView.setImageURL(imageUrl)
+            try await self.imageView.setImageURL(imageUrl)
         }
     }
     

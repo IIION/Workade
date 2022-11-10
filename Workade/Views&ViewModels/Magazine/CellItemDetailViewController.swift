@@ -98,7 +98,7 @@ class CellItemDetailViewController: UIViewController {
         view.backgroundColor = .theme.background
         titleLabel.text = magazine.title
         Task {
-            await titleImageView.setImageURL(magazine.imageURL)
+            try await titleImageView.setImageURL(magazine.imageURL)
         }
         
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
