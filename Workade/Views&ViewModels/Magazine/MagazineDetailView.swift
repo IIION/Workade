@@ -53,15 +53,6 @@ class MagazineDetailView: UIView {
         }
     }
     
-    func setImageURL(url: String) async throws -> UIImage {
-        guard let url = URL(string: url) else { return UIImage() }
-        let data = try await NetworkManager.shared.request(url: url)
-        if let image = UIImage(data: data) {
-            return image
-        }
-        return UIImage()
-    }
-    
     private func appendImageToStackView(_ url: String) {
         let imageView = UIImageView()
         Task {

@@ -24,17 +24,6 @@ class IntroduceViewModel {
             }
         }
     }
-    
-    func fetchImage(urlString: String) async throws -> UIImage {
-        if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
-            return cachedImage
-        }
-        guard let imageURL = URL(string: urlString) else { return UIImage()}
-        let result = try await networkManager.request(url: imageURL)
-        guard let image = UIImage(data: result) else { return UIImage()}
-        ImageCacheManager.shared.setObject(image: image, id: urlString)
-        return image
-    }
 }
 
 class IntroduceViewDynamic<T> {

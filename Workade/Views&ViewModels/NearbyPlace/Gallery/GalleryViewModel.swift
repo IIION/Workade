@@ -19,7 +19,7 @@ enum NetworkingError: LocalizedError {
     }
 }
 
-// TODO: 이거 GalleryModel file에 빼주세요.
+// TODO: 모델 GalleryModel file로 따로 빼주세요.
 struct GalleryResource: Codable {
     let items: [GalleryImage]
     
@@ -52,8 +52,7 @@ struct GalleryImage: Codable {
         }
     }
     
-    // TODO: 네이밍 임시로 짓고 다시생각해보기 - 타입 선언은 미리 정의된 프로퍼티 없을 때만.
-    func fetchGalleryData(urlString: String) async throws {
+    func requestGalleryData(urlString: String) async throws {
         self.content = try await manager.requestResourceData(urlString: urlString)
         await fetchImages()
     }

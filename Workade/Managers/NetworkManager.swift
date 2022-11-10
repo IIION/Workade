@@ -7,7 +7,7 @@
 
 // Manager라는 폴더를 다른 사람이 팠으면 폴더트리 conflict날 것 같아서 임시로 소스파일 형태로만 만듭니당.
 
-import Foundation
+import UIKit
 
 /// Network관련 최상위 매니저입니다.
 ///
@@ -42,6 +42,17 @@ final class NetworkManager {
         } catch {
             throw NetworkError.failedJsonParsing
         }
+    }
+    
+    func fetchImage(urlString: String) async throws -> UIImage {
+        if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
+            return cachedImage
+        }
+        guard let imageURL = URL(string: urlString) else { throw NetworkError.invalidStringForURL }
+        let result = try await request(url: imageURL)
+        guard let image = UIImage(data: result) else { throw NetworkError.invalidDataForImage }
+        ImageCacheManager.shared.setObject(image: image, id: urlString)
+        return image
     }
 }
 

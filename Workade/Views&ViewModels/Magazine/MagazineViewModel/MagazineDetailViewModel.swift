@@ -32,7 +32,7 @@ class MagazineDetailViewModel {
     func requestMagazineDetailData(urlString: String) {
         Task {
             do {
-                let detailResource: MagazineDetailResource = try await NetworkManager.shared.requestResourceData(urlString: "urlString")
+                let detailResource: MagazineDetailResource = try await NetworkManager.shared.requestResourceData(urlString: urlString)
                 data.value = detailResource.content
             } catch {
                 let error = error as? NetworkError ?? .unknownError
