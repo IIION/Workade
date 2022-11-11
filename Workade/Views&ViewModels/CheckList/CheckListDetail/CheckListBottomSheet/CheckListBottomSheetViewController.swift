@@ -40,8 +40,8 @@ class CheckListBottomSheetViewController: UIViewController {
         return view
     }()
     
-    private lazy var templateCollectionView: HorizontalCollectionView = {
-        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 240, height: 144))
+    private lazy var templateCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(itemSize: CGSize(width: 240, height: 144), direction: .horizontal)
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
