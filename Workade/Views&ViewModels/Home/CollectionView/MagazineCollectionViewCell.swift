@@ -62,7 +62,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(magazine: Magazine) {
+    func configure(magazine: MagazineModel) {
         magazineId = magazine.title
         titleLabel.text = magazine.title
         backgroundImageView.image = nil

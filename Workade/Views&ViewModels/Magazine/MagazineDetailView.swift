@@ -8,7 +8,7 @@
 import UIKit
 
 class MagazineDetailView: UIView {
-    var magazine: Magazine
+    var magazine: MagazineModel
     
     let magazineViewModel = MagazineDetailViewModel()
     
@@ -22,7 +22,7 @@ class MagazineDetailView: UIView {
         return stackView
     }()
     
-    init(magazine: Magazine) {
+    init(magazine: MagazineModel) {
         self.magazine = magazine
         super.init(frame: .zero)
         

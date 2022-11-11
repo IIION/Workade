@@ -21,7 +21,7 @@ enum NetworkingError: LocalizedError {
 
 // TODO: 모델 GalleryModel file로 따로 빼주세요.
 struct GalleryResource: Codable {
-    let items: [GalleryImage]
+    let items: [GalleryImageModel]
     
     init() {
         self.items = []
@@ -32,7 +32,7 @@ struct GalleryResource: Codable {
     }
 }
 
-struct GalleryImage: Codable {
+struct GalleryImageModel: Codable {
     let content: String
     
     enum CodingKeys: String, CodingKey {

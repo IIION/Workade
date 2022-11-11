@@ -9,7 +9,7 @@ import UIKit
 
 /// 오피스를 나열한 컬렉션뷰의 셀
 final class OfficeCollectionViewCell: UICollectionViewCell {
-    var office: Office?
+    var office: OfficeModel?
     var task: Task<Void, Error>?
     
     weak var delegate: CollectionViewCellDelegate?
@@ -78,7 +78,7 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(office: Office) {
+    func configure(office: OfficeModel) {
         self.office = office
         regionNameLabel.text = office.regionName
         officeNameLabel.text = office.officeName

@@ -8,7 +8,7 @@
 import UIKit
 
 class CellItemDetailViewController: UIViewController {
-    var magazine: Magazine
+    var magazine: MagazineModel
     let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
@@ -83,7 +83,7 @@ class CellItemDetailViewController: UIViewController {
     
     private var customNavigationBar = CustomNavigationBar()
     
-    init(magazine: Magazine) {
+    init(magazine: MagazineModel) {
         self.magazine = magazine
         super.init(nibName: nil, bundle: nil)
     }

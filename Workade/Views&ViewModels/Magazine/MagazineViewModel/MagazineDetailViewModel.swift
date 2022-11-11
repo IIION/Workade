@@ -11,7 +11,7 @@ import UIKit
 class MagazineDetailViewModel {
     var magazineData = MagazineResource()
     
-    var data: Binder<[MagazineDetail]> = Binder([])
+    var data: Binder<[MagazineDetailModel]> = Binder([])
     
     init() {
         bindingBookmarkManager()

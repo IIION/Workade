@@ -8,14 +8,14 @@
 import Foundation
 
 struct OfficeDetailResource: Codable {
-    let content: [OfficeDetail]
+    let content: [OfficeDetailModel]
     
     init() {
         self.content = []
     }
 }
 
-struct OfficeDetail: Codable {
+struct OfficeDetailModel: Codable {
     let type: String
     let font: String?
     let content: String

@@ -9,7 +9,7 @@ import Foundation
 
 // Magazine 상세 뷰 모델
 struct MagazineDetailResource: Codable {
-    let content: [MagazineDetail]
+    let content: [MagazineDetailModel]
     
     init() {
         self.content = []
@@ -17,7 +17,7 @@ struct MagazineDetailResource: Codable {
 }
 
 // MagazineDetailModel 모델
-struct MagazineDetail: Codable {
+struct MagazineDetailModel: Codable {
     let type: String
     let font: String?
     let content: String

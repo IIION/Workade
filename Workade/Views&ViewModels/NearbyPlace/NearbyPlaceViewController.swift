@@ -8,12 +8,12 @@
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
-    var office: Office
+    var office: OfficeModel
     let nearbyPlaceView: NearbyPlaceView
     let galleryViewModel: GalleryViewModel
     let introduceVM: IntroduceViewModel
     
-    init(office: Office) {
+    init(office: OfficeModel) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
         self.galleryViewModel = GalleryViewModel()
@@ -268,7 +268,7 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
 }
 
 extension NearbyPlaceViewController: InnerTouchPresentDelegate {
-    func touch(office: Office) {
+    func touch(office: OfficeModel) {
         let viewController = MapViewController(office: office)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)

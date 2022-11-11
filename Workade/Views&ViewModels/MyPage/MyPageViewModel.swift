@@ -12,7 +12,7 @@ final class MyPageViewModel {
     let bookmarkManager = BookmarkManager.shared
     let userDefaultsManager = UserDefaultsManager.shared
     var clickedMagazineId = Binder("")
-    var wishMagazines: [Magazine] = []
+    var wishMagazines: [MagazineModel] = []
     
     /// 모델 데이터 fetch가 완료되었을 때, HomeViewController에 알려주는 역할을 할 Binder 타입의 변수
     var isCompleteFetch = Binder(false)

@@ -14,8 +14,8 @@ class CustomNavigationBar: UIViewController {
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
-    var magazine: Magazine?
-    var office: Office?
+    var magazine: MagazineModel?
+    var office: OfficeModel?
     var delegate: InnerTouchPresentDelegate?
     
     private let navigationBar: UIView = {

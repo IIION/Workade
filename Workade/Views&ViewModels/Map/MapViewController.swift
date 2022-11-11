@@ -65,7 +65,7 @@ class MapViewController: UIViewController {
         return button
     }()
     
-    init(office: Office) {
+    init(office: OfficeModel) {
         viewModel = MapViewModel(office: office)
         super.init(nibName: nil, bundle: nil)
     }

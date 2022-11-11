@@ -33,7 +33,7 @@
 		2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A8922909142E00486344 /* CheckListTemplateCell.swift */; };
 		2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89429091AE600486344 /* CheckListTemplateViewController.swift */; };
 		2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */; };
-		2163F30B290958A0007CB6DC /* CheckListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2163F30A290958A0007CB6DC /* CheckListTemplate.swift */; };
+		2163F30B290958A0007CB6DC /* CheckListTemplateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2163F30A290958A0007CB6DC /* CheckListTemplateModel.swift */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
 		218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */; };
@@ -127,7 +127,7 @@
 		2154A8922909142E00486344 /* CheckListTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateCell.swift; sourceTree = "<group>"; };
 		2154A89429091AE600486344 /* CheckListTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewController.swift; sourceTree = "<group>"; };
 		2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewModel.swift; sourceTree = "<group>"; };
-		2163F30A290958A0007CB6DC /* CheckListTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplate.swift; sourceTree = "<group>"; };
+		2163F30A290958A0007CB6DC /* CheckListTemplateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateModel.swift; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenAnimationView.swift; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 				5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */,
 				0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */,
 				A35A982B290ADE1300220755 /* MagazineModel.swift */,
-				2163F30A290958A0007CB6DC /* CheckListTemplate.swift */,
+				2163F30A290958A0007CB6DC /* CheckListTemplateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -742,7 +742,7 @@
 				961CC485290AF80500921F24 /* BookmarkManager.swift in Sources */,
 				21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */,
 				16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */,
-				2163F30B290958A0007CB6DC /* CheckListTemplate.swift in Sources */,
+				2163F30B290958A0007CB6DC /* CheckListTemplateModel.swift in Sources */,
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,

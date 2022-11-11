@@ -8,7 +8,7 @@
 import UIKit
 
 struct CheckListTemplateResource: Codable {
-    let content: [CheckListTemplate]
+    let content: [CheckListTemplateModel]
     
     init() {
         self.content = []
@@ -19,7 +19,7 @@ struct CheckListTemplateResource: Codable {
     }
 }
 
-struct CheckListTemplate: Codable {
+struct CheckListTemplateModel: Codable {
     let imageURL: String
     let title: String
     let tintColor: String
