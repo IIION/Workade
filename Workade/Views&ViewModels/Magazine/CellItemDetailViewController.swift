@@ -101,7 +101,7 @@ class CellItemDetailViewController: UIViewController {
                 try await titleImageView.setImageURL(magazine.imageURL)
             } catch {
                 let error = error as? NetworkError ?? .unknownError
-                print(error)
+                print(error.message)
             }
         }
         
