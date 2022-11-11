@@ -73,10 +73,10 @@ struct GalleryImage: Codable {
             for index in images.count..<paginationEndPoint {
                 guard let url = URL(string: content.items[index].content) else { continue }
                 group.addTask { [weak self] in
-                    guard let task = try? await self?.manager.request(url: url) else {
+                    guard let data = try? await self?.manager.request(url: url) else {
                         return nil
                     }
-                    return task
+                    return data
                 }
             }
             
