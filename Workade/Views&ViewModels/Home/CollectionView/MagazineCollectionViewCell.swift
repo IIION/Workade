@@ -41,7 +41,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     }()
     
     private func setupBookmarkImage() {
-        let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazineId ?? "")
+        let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazineId ?? "")
         bookmarkButton.setImage(isBookmark ? SFSymbol.bookmarkFill.image : SFSymbol.bookmark.image, for: .normal)
     }
     

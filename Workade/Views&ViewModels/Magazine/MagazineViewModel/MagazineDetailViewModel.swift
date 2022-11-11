@@ -21,7 +21,7 @@ class MagazineDetailViewModel {
     func requestMagazineData() {
         Task {
             do {
-                magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
+                magazineData = try await NetworkManager.shared.requestResourceData(urlString: Constants.Address.magazineResource)
             } catch {
                 let error = error as? NetworkError ?? .unknownError
                 print(error.message)

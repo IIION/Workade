@@ -210,7 +210,7 @@ class CellItemDetailViewController: UIViewController {
     }
     
     private func userDefaultsCheck() -> Bool {
-        return UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
+        return UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine.title)
         
     }
     
@@ -221,7 +221,7 @@ class CellItemDetailViewController: UIViewController {
     
     @objc
     func clickedBookmarkButton(sender: UIButton) {
-        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.wishMagazine)
+        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.Key.wishMagazine)
         setupBookmarkImage()
     }
 }

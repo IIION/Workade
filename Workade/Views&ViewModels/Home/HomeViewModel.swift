@@ -25,8 +25,8 @@ final class HomeViewModel {
     private func requestHomeData() {
         Task {
             do {
-                async let offices: OfficeResource = NetworkManager.shared.requestResourceData(urlString: Constants.officeResourceAddress)
-                async let magazines: MagazineResource = NetworkManager.shared.requestResourceData(urlString: Constants.magazineResourceAddress)
+                async let offices: OfficeResource = NetworkManager.shared.requestResourceData(urlString: Constants.Address.officeResource)
+                async let magazines: MagazineResource = NetworkManager.shared.requestResourceData(urlString: Constants.Address.magazineResource)
                 (officeResource, magazineResource) = try await (offices, magazines)
                 isCompleteFetch.value = true
             } catch {

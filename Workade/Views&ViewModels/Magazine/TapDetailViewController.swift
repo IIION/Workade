@@ -81,7 +81,7 @@ extension TapDetailViewController: UICollectionViewDataSource {
 
 extension TapDetailViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) {
-        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
     }
 }
 
