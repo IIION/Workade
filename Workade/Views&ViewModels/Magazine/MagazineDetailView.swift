@@ -37,7 +37,7 @@ class MagazineDetailView: UIView {
     func setupMagazineDetailData() {
         magazineViewModel.requestMagazineDetailData(urlString: magazine.introduceURL)
         
-        magazineViewModel.data.bind { [self] content in
+        magazineViewModel.data.bindAndFire { [self] content in
             for data in content {
                 switch data.type {
                 case "Text":
