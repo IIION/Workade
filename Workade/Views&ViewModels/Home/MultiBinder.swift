@@ -14,10 +14,12 @@ enum Place {
     case detail
 }
 
-/// 여러 개의 클로저를 수용할 수 있는 Binder
-///
-/// value의 변화로 여러 클로저를 호출시킬 수 있습니다.
-/// 참조 관리와 맺고 끊음 컨트롤이 중요합니다.
+/**
+ 여러 개의 클로저를 수용할 수 있는 Binder
+
+ value의 변화로 여러 클로저를 호출시킬 수 있습니다.
+ 참조 관리와 맺고 끊음 컨트롤이 중요합니다.
+ */
 final class MultiBinder<T> {
     typealias Block = (T) -> Void
 

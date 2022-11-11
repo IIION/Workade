@@ -8,13 +8,15 @@
 import UIKit
 
 extension UIImage {
-    /// **System Image를 간편하게 구성하고 생성할 수 있도록 하는 메서드**
-    /// - name: 시스템 기본 이미지의 이름
-    /// - font: font에 정의된 size와 weight로 systemImage를 구성
-    /// - color: 색상을 설정. default UIColor.black
-    ///
-    /// **withTintColor** 및 **withConfiguration**의 경우 반환값을 이용하여 기존 값을 바꾸는 시스템으로 동작하기 때문에 static 타입 메서드로 정의
-    /// 인스턴스 메서드 사용 시 self는 불변값이 기에 이같은 방식을 사용하지 못함.
+    /**
+     **System Image를 간편하게 구성하고 생성할 수 있도록 하는 메서드**
+     - name: 시스템 기본 이미지의 이름
+     - font: font에 정의된 size와 weight로 systemImage를 구성
+     - color: 색상을 설정. default UIColor.black
+    
+     **withTintColor** 및 **withConfiguration**의 경우 반환값을 이용하여 기존 값을 바꾸는 시스템으로 동작하기 때문에 static 타입 메서드로 정의
+     인스턴스 메서드 사용 시 self는 불변값이 기에 이같은 방식을 사용하지 못함.
+     */
     static func fromSystemImage(name: String, font: UIFont, color: UIColor = .black) -> UIImage? {
         let configuration = UIImage.SymbolConfiguration(font: font)
         var image = UIImage(systemName: name, withConfiguration: configuration)
