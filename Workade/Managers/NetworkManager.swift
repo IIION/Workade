@@ -94,7 +94,7 @@ enum NetworkError: Error {
     case notConnectedToInternet
     case invalidResponse(_ url: URL)
     case failedJsonParsing
-    case unknownURLError(_ errorCode: Int)
+    case unpredictableURLError(_ errorCode: Int)
     case unknownError
     
     /// 에러 메시지입니다. catch문에서 error를 NetworkError로 캐스팅한후 .message로 에러문 출력하면 됩니다.
@@ -106,7 +106,7 @@ enum NetworkError: Error {
         case .notConnectedToInternet: return "💤 네트워크가 꺼져있습니다."
         case .invalidResponse: return "👹 유효하지 않은 response입니다."
         case .failedJsonParsing: return "📑 Json 파싱 작업에 실패했습니다."
-        case .unknownURLError(let errorCode): return "⁉️ 미확인 URL관련 에러입니다. 에러 코드: \(errorCode)"
+        case .unpredictableURLError(let errorCode): return "⁉️ 미리 예상하지못한 URL관련 에러입니다. 에러 코드: \(errorCode)"
         case .unknownError: return "🤯 원인을 알 수 없는 에러입니다!"
         }
     }
@@ -120,7 +120,7 @@ enum NetworkError: Error {
             case -1009:
                 return NetworkError.notConnectedToInternet
             default:
-                return NetworkError.unknownURLError(error.errorCode)
+                return NetworkError.unpredictableURLError(error.errorCode)
             }
         } else {
             return NetworkError.invalidResponse(url)
