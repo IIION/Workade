@@ -10,6 +10,10 @@ import UIKit
 struct OfficeResource: Codable {
     let content: [Office]
     
+    init() {
+        self.content = []
+    }
+
     enum CodingKeys: String, CodingKey {
         case content = "context"
     }
@@ -64,6 +68,10 @@ enum SpotType: String {
 
 struct MagazineResource: Codable {
     let content: [Magazine]
+    
+    init() {
+        self.content = []
+    }
 }
 
 struct Magazine: Codable {

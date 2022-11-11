@@ -10,6 +10,10 @@ import Foundation
 // Magazine 상세 뷰 모델
 struct MagazineDetailResource: Codable {
     let content: [MagazineDetail]
+    
+    init() {
+        self.content = []
+    }
 }
 
 // MagazineDetailModel 모델

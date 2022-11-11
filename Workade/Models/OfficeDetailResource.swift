@@ -9,6 +9,10 @@ import Foundation
 
 struct OfficeDetailResource: Codable {
     let content: [OfficeDetail]
+    
+    init() {
+        self.content = []
+    }
 }
 
 struct OfficeDetail: Codable {

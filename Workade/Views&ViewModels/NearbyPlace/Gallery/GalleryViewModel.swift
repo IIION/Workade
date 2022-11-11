@@ -23,6 +23,10 @@ enum NetworkingError: LocalizedError {
 struct GalleryResource: Codable {
     let items: [GalleryImage]
     
+    init() {
+        self.items = []
+    }
+    
     enum CodingKeys: String, CodingKey {
         case items = "content"
     }

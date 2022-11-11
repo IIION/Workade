@@ -10,6 +10,10 @@ import UIKit
 struct CheckListTemplateResource: Codable {
     let content: [CheckListTemplate]
     
+    init() {
+        self.content = []
+    }
+    
     enum CodingKeys: String, CodingKey {
         case content = "context"
     }
