@@ -24,7 +24,7 @@ class NearbyPlaceDetailView: UIView {
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
-        //        scrollView.isScrollEnabled = false
+        scrollView.isScrollEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -122,6 +122,7 @@ extension NearbyPlaceDetailView {
                     label.numberOfLines = 0
                     label.setLineHeight(lineHeight: 12.0)
                     self.introduceView.stackView.addArrangedSubview(label)
+                    
                 case "Image":
                     let imageView = UIImageView()
                     let imageURL = content.context
@@ -139,8 +140,9 @@ extension NearbyPlaceDetailView {
                         imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
                     }
                     self.introduceView.stackView.addArrangedSubview(imageView)
+                    
                 default:
-                    break
+                    return
                 }
             }
         }
