@@ -107,7 +107,9 @@ extension MyPageViewController: UICollectionViewDelegate {
 extension MyPageViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) { // 북마크
         viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
-        viewModel.wishMagazines = viewModel.wishMagazines.filter { $0.title != id }
+        guard let index = viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
+        viewModel.wishMagazines.remove(at: index)
+        wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
     }
 }
 
