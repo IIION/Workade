@@ -36,8 +36,7 @@ class MagazineDetailView: UIView {
     
     func setupMagazineDetailData() {
         magazineViewModel.requestMagazineDetailData(from: magazine.introduceURL)
-        
-        magazineViewModel.data.bindAndFire { [weak self] content in
+        magazineViewModel.data.bind { [weak self] content in
             guard let self = self else { return }
             for data in content {
                 switch data.type {

@@ -96,7 +96,7 @@ extension TapDetailViewController {
     }
     
     private func observingChangedMagazineId() {
-        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+        viewModel.clickedMagazineId.bind { [weak self] id in
             guard let self = self,
                   let index = self.viewModel.magazineData.content.firstIndex(where: { $0.title == id }) else {
                 return

@@ -187,7 +187,7 @@ extension HomeViewController {
     
     // 북마크
     private func observingChangedMagazineId() {
-        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+        viewModel.clickedMagazineId.bind { [weak self] id in
             guard let self = self else { return }
             guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
             DispatchQueue.main.async {

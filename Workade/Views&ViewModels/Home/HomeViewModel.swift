@@ -43,7 +43,7 @@ final class HomeViewModel {
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {
-        bookmarkManager.clickedMagazineId.bindAndFire(at: .home) { [weak self] id in
+        bookmarkManager.clickedMagazineId.bind(at: .home) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
@@ -52,5 +52,9 @@ final class HomeViewModel {
     /// ViewController -> ViewModel -> Manager
     func notifyClickedMagazineId(title id: String, key: String) {
         bookmarkManager.notifyClickedMagazineId(title: id, key: key)
+    }
+    
+    deinit {
+        BookmarkManager.shared.clickedMagazineId.remove(at: .home)
     }
 }

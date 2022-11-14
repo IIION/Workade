@@ -34,7 +34,7 @@ class MagazineViewModel {
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {
-        BookmarkManager.shared.clickedMagazineId.bindAndFire(at: .detail) { [weak self] id in
+        BookmarkManager.shared.clickedMagazineId.bind(at: .detail) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
@@ -42,5 +42,9 @@ class MagazineViewModel {
     
     func notifyClickedMagazineId(title id: String, key: String) {
         BookmarkManager.shared.notifyClickedMagazineId(title: id, key: key)
+    }
+    
+    deinit {
+        BookmarkManager.shared.clickedMagazineId.remove(at: .detail)
     }
 }

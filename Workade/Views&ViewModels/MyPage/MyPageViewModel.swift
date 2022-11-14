@@ -23,7 +23,7 @@ final class MyPageViewModel {
     }
     
     private func bindingBookmarkManager() {
-        bookmarkManager.clickedMagazineId.bindAndFire(at: .myPage) { [weak self] id in
+        bookmarkManager.clickedMagazineId.bind(at: .myPage) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
