@@ -9,13 +9,13 @@ import UIKit
 
 @MainActor
 final class HomeViewModel {
-    var bookmarkManager = BookmarkManager.shared
+    private var bookmarkManager = BookmarkManager.shared
     
-    var officeResource = OfficeResource()
-    var magazineResource = MagazineResource()
+    private(set) var officeResource = OfficeResource()
+    private(set) var magazineResource = MagazineResource()
     
     /// 모델 데이터 fetch가 완료되었을 때, HomeViewController에 알려주는 역할을 할 Binder 타입의 변수
-    var isCompleteFetch = Binder(false)
+    private(set) var isCompleteFetch = Binder(false)
     
     init() {
         requestHomeData()
@@ -39,7 +39,7 @@ final class HomeViewModel {
     // MARK: 북마크 Logic in ViewModel (init시에 bindingBookmarkManager()호출)
     
     /// 눌린 북마크의 id를 cell - viewController - viewModel - bookmarkManager 흐름으로 알립니다.
-    var clickedMagazineId = Binder("")
+    private(set) var clickedMagazineId = Binder("")
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {

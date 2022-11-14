@@ -9,13 +9,13 @@ import Foundation
 
 @MainActor
 final class MyPageViewModel {
-    let bookmarkManager = BookmarkManager.shared
-    let userDefaultsManager = UserDefaultsManager.shared
-    var clickedMagazineId = Binder("")
+    private let bookmarkManager = BookmarkManager.shared
+    private let userDefaultsManager = UserDefaultsManager.shared
+    private(set) var clickedMagazineId = Binder("")
     var wishMagazines: [MagazineModel] = []
     
     /// 모델 데이터 fetch가 완료되었을 때, HomeViewController에 알려주는 역할을 할 Binder 타입의 변수
-    var isCompleteFetch = Binder(false)
+    private(set) var isCompleteFetch = Binder(false)
     
     init() {
         fetchWishMagazines()
