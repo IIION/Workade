@@ -97,9 +97,8 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupIntroduceView() {
         introduceVM.requestOfficeDetailData(urlString: office.introduceURL)
-        // TODO: 다음 PR 수정 예정
-        // 강한 순환 참조 방지를 위해 [weak self] 캡쳐로 수정 예정.
-        introduceVM.introductions.bind { contents in
+        introduceVM.introductions.bind { [weak self] contents in
+            guard let self = self else { return }
             for content in contents {
                 switch content.type {
                 case "Text":

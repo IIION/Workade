@@ -37,14 +37,15 @@ class MagazineDetailView: UIView {
     func setupMagazineDetailData() {
         magazineViewModel.requestMagazineDetailData(urlString: magazine.introduceURL)
         
-        magazineViewModel.data.bindAndFire { [self] content in
+        magazineViewModel.data.bindAndFire { [weak self] content in
+            guard let self = self else { return }
             for data in content {
                 switch data.type {
                 case "Text":
-                    appendTextToStackView(data.content, data.font, data.color)
+                    self.appendTextToStackView(data.content, data.font, data.color)
                     
                 case "Image":
-                    appendImageToStackView(data.content)
+                    self.appendImageToStackView(data.content)
                     
                 default:
                     return

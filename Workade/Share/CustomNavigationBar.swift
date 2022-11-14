@@ -16,7 +16,7 @@ class CustomNavigationBar: UIViewController {
     private var rightButtonImage: UIImage?
     var magazine: MagazineModel?
     var office: OfficeModel?
-    var delegate: InnerTouchPresentDelegate?
+    weak var delegate: InnerTouchPresentDelegate?
     
     private let navigationBar: UIView = {
         let view = UIView()
