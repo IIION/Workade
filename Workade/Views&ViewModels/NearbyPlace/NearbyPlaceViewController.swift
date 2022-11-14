@@ -86,7 +86,7 @@ class NearbyPlaceViewController: UIViewController {
     private func setupGalleryView() {
         Task {
             do {
-                try await galleryViewModel.requestGalleryData(urlString: office.galleryURL)
+                try await galleryViewModel.requestGalleryData(from: office.galleryURL)
                 nearbyPlaceView.galleryView.collectionView.reloadData()
             } catch {
                 let error = error as? NetworkError ?? .unknownError
@@ -96,7 +96,7 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupIntroduceView() {
-        introduceVM.requestOfficeDetailData(urlString: office.introduceURL)
+        introduceVM.requestOfficeDetailData(from: office.introduceURL)
         introduceVM.introductions.bind { [weak self] contents in
             guard let self = self else { return }
             for content in contents {
@@ -120,7 +120,7 @@ class NearbyPlaceViewController: UIViewController {
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
                         do {
-                            let image = try await NetworkManager.shared.fetchImage(urlString: imageURL)
+                            let image = try await NetworkManager.shared.fetchImage(from: imageURL)
                             imageView.image = image
                             let width = image.size.width
                             let height = image.size.height

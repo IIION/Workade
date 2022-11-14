@@ -56,8 +56,8 @@ struct GalleryImageModel: Codable {
         }
     }
     
-    func requestGalleryData(urlString: String) async throws {
-        self.content = try await manager.requestResourceData(urlString: urlString)
+    func requestGalleryData(from urlString: String) async throws {
+        self.content = try await manager.requestResourceData(from: urlString)
         await fetchImages()
     }
     

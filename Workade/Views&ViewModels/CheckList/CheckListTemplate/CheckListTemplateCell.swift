@@ -111,7 +111,7 @@ class CheckListTemplateCell: UICollectionViewCell {
         self.imageView.image = nil
         task = Task {
             do {
-                try await self.imageView.setImageURL(imageUrl)
+                try await self.imageView.setImageURL(from: imageUrl)
             } catch {
                 let error = error as? NetworkError ?? .unknownError
                 print(error.message)

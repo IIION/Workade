@@ -48,7 +48,7 @@ final class NetworkManager {
 
      총 6가지 형태의 에러를 던질 수 있습니다.  ( + unknown error )
      */
-    func requestResourceData<T: Codable>(urlString: String) async throws -> T {
+    func requestResourceData<T: Codable>(from urlString: String) async throws -> T {
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidStringForURL
         }
@@ -71,7 +71,7 @@ final class NetworkManager {
 
      총 6가지 형태의 에러를 던질 수 있습니다.  ( + unknown error )
      */
-    func fetchImage(urlString: String) async throws -> UIImage {
+    func fetchImage(from urlString: String) async throws -> UIImage {
         if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
             return cachedImage
         }

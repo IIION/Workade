@@ -35,7 +35,7 @@ class MagazineDetailView: UIView {
     }
     
     func setupMagazineDetailData() {
-        magazineViewModel.requestMagazineDetailData(urlString: magazine.introduceURL)
+        magazineViewModel.requestMagazineDetailData(from: magazine.introduceURL)
         
         magazineViewModel.data.bindAndFire { [weak self] content in
             guard let self = self else { return }
@@ -58,7 +58,7 @@ class MagazineDetailView: UIView {
         let imageView = UIImageView()
         Task {
             do {
-                let image = try await NetworkManager.shared.fetchImage(urlString: url)
+                let image = try await NetworkManager.shared.fetchImage(from: url)
                 let width = image.size.width
                 let height = image.size.height
                 imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true

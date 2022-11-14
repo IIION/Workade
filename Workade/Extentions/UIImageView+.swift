@@ -21,7 +21,7 @@ extension UIImageView {
     
      문자열에서 URL로의 전환 실패했을 때, 데이터 요청에 실패했을 때, 데이터에서 이미지로의 전환 실패했을 때 에러를 던집니다.
      */
-    func setImageURL(_ urlString: String) async throws {
+    func setImageURL(from urlString: String) async throws {
         if let cachedImage = ImageCacheManager.shared.object(id: urlString) {
             self.image = cachedImage
             return

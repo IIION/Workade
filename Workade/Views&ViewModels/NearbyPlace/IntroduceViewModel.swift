@@ -13,10 +13,10 @@ class IntroduceViewModel {
     // 데이터가 받아 진 후, stackView에 데이터를 쌓아주기 위해 다이나믹으로 선언했습니다.
     var introductions: IntroduceViewDynamic<[OfficeDetailModel]> = IntroduceViewDynamic([])
     
-    func requestOfficeDetailData(urlString: String) {
+    func requestOfficeDetailData(from urlString: String) {
         Task {
             do {
-                let detailResource: OfficeDetailResource = try await networkManager.requestResourceData(urlString: urlString)
+                let detailResource: OfficeDetailResource = try await networkManager.requestResourceData(from: urlString)
                 introductions.value = detailResource.content
             } catch {
                 let error = error as? NetworkError ?? .unknownError

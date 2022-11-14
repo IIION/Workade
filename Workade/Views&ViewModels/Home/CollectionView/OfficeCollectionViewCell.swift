@@ -86,7 +86,7 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         backgroundImageView.image = nil
         task = Task {
             do {
-                try await backgroundImageView.setImageURL(office.imageURL)
+                try await backgroundImageView.setImageURL(from: office.imageURL)
             } catch {
                 let error = error as? NetworkError ?? .unknownError
                 print(error.message)

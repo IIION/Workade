@@ -98,7 +98,7 @@ class CellItemDetailViewController: UIViewController {
         titleLabel.text = magazine.title
         Task {
             do {
-                try await titleImageView.setImageURL(magazine.imageURL)
+                try await titleImageView.setImageURL(from: magazine.imageURL)
             } catch {
                 let error = error as? NetworkError ?? .unknownError
                 print(error.message)
