@@ -18,7 +18,6 @@ final class MyPageViewModel {
     private(set) var isCompleteFetch = Binder(false)
     
     init() {
-        fetchWishMagazines()
         bindingBookmarkManager()
     }
     
@@ -33,7 +32,7 @@ final class MyPageViewModel {
         bookmarkManager.notifyClickedMagazineId(title: id, key: key)
     }
     
-    private func fetchWishMagazines() {
+    func fetchWishMagazines() {
         Task {
             do {
                 guard let resource: MagazineResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.magazineResource) else { return }
