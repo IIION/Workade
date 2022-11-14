@@ -45,7 +45,12 @@ final class MyPageViewController: UIViewController {
         setupGradientLayer()
         
         observingFetchComplete()
-        observingChangedMagazineId()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchWishMagazines()
     }
 }
 
@@ -66,21 +71,10 @@ extension MyPageViewController {
 // MARK: Binding
 extension MyPageViewController {
     private func observingFetchComplete() {
-        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+        viewModel.isCompleteFetch.bind { [weak self] _ in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.wishMagazineCollectionView.reloadData()
-            }
-        }
-    }
-    
-    private func observingChangedMagazineId() {
-        viewModel.fetchWishMagazines()
-        viewModel.clickedMagazineId.bind { [weak self] id in
-            guard let self = self else { return }
-            guard let index = self.viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
-            DispatchQueue.main.async {
-                self.wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
             }
         }
     }
