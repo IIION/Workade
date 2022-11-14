@@ -16,7 +16,9 @@ class CustomNavigationBar: UIViewController {
     private var rightButtonImage: UIImage?
     var magazine: Magazine?
     var office: Office?
-    var delegate: InnerTouchPresentDelegate?
+    
+    // 메모리누수1 : 델리게이트 weak로 선언
+    weak var delegate: InnerTouchPresentDelegate?
     
     private let navigationBar: UIView = {
         let view = UIView()

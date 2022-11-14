@@ -41,14 +41,16 @@ class MagazineDetailView: UIView {
             await magazineViewModel.fetchMagazine(url: introduceURL)
         }
         
-        magazineViewModel.data.bind { [self] content in
+        // 메모리누수2: weak self
+        magazineViewModel.data.bind { [weak self] content in
+            guard let self = self else { return }
             for data in content {
                 switch data.type {
                 case "Text":
-                    appendTextToStackView(data.context, data.font, data.color)
+                    self.appendTextToStackView(data.context, data.font, data.color)
                     
                 case "Image":
-                    appendImageToStackView(data.context)
+                    self.appendImageToStackView(data.context)
                     
                 default:
                     return
