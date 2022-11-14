@@ -280,8 +280,14 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
 extension NearbyPlaceViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let totalOffset = scrollView.contentOffset.y
-        if totalOffset < -.topSafeArea {
-            self.dismiss(animated: true, completion: nil)
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            if totalOffset < -.topSafeArea {
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+        default:
+            return
         }
     }
     
