@@ -41,8 +41,34 @@ class NearbyPlaceViewController: UIViewController {
         return button
     }()
     
+    lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
+        segmentedControl.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
+            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
+                                                for: .normal)
+        segmentedControl.setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: UIColor.theme.primary,
+            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
+                                                for: .selected)
+        segmentedControl.selectedSegmentIndex = 0
+//        segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        return segmentedControl
+    }()
+    
+    private let segmentUnderLine: UIView = {
+        let segmentUnderLine = UIView()
+        segmentUnderLine.backgroundColor = UIColor.theme.quaternary
+        segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
+        
+        return segmentUnderLine
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .theme.background
         nearbyPlaceImageView.delegate = self
         
         setupLayout()
@@ -56,6 +82,22 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nearbyPlaceImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             nearbyPlaceImageView.heightAnchor.constraint(equalToConstant: .topSafeArea + 375)
+        ])
+        
+        view.addSubview(segmentedControl)
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor),
+            segmentedControl.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor, constant: 20),
+            segmentedControl.trailingAnchor.constraint(equalTo: nearbyPlaceImageView.trailingAnchor, constant: -20),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        view.addSubview(segmentUnderLine)
+        NSLayoutConstraint.activate([
+            segmentUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
+            segmentUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
     
