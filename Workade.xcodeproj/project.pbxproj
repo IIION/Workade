@@ -82,6 +82,7 @@
 		96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */; };
 		96CFBE2629044E9200A4B488 /* CheckListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFBE2529044E9200A4B488 /* CheckListButton.swift */; };
 		96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */; };
+		96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDE02923E079008A67BB /* UINavigationController+.swift */; };
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A34AB347291B99C600065212 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AB346291B99C600065212 /* CGFloat+.swift */; };
@@ -181,6 +182,7 @@
 		96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeCollectionViewCell.swift; sourceTree = "<group>"; };
 		96CFBE2529044E9200A4B488 /* CheckListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListButton.swift; sourceTree = "<group>"; };
 		96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineResource.swift; sourceTree = "<group>"; };
+		96E0CDE02923E079008A67BB /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A34AB346291B99C600065212 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
+				96E0CDE02923E079008A67BB /* UINavigationController+.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */,
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
 				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
+				96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */,
 				9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
