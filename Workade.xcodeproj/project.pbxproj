@@ -209,8 +209,8 @@
 		0EFB5BA128FF088A00174291 /* NearbyPlace */ = {
 			isa = PBXGroup;
 			children = (
+				A37D283E2923BBFE009F0ED6 /* NearbyPlaceViewModel */,
 				0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */,
-				0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */,
 				0E467660290272C100556C41 /* NearbyPlaceView.swift */,
 				0EFB5BA42900E9D800174291 /* IntroduceView.swift */,
 				218E4F7629012FFB003CF215 /* Gallery */,
@@ -287,8 +287,6 @@
 				2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */,
 				2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */,
 				21862A902902675500518EBC /* GalleryDetailViewController.swift */,
-				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
-				21096F8329069ECF007EC889 /* GalleryViewModel.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -467,6 +465,7 @@
 				96433232290A74C600FBECAF /* ImageCacheManager.swift */,
 				961CC480290AE69700921F24 /* UserDefaultsManager.swift */,
 				961CC484290AF80500921F24 /* BookmarkManager.swift */,
+				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -507,6 +506,15 @@
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
 			);
 			path = Magazine;
+			sourceTree = "<group>";
+		};
+		A37D283E2923BBFE009F0ED6 /* NearbyPlaceViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */,
+				21096F8329069ECF007EC889 /* GalleryViewModel.swift */,
+			);
+			path = NearbyPlaceViewModel;
 			sourceTree = "<group>";
 		};
 		A3947B2129013ECA00DA4E0D /* Share */ = {
