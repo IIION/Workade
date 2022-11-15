@@ -204,6 +204,13 @@ class CheckListDetailViewController: UIViewController {
             object: nil
         )
     }
+}
+
+// MARK: Objective-C Methods
+extension CheckListDetailViewController {
+    @objc private func popToCheckListViewController() {
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -300,7 +307,14 @@ class CheckListDetailViewController: UIViewController {
 
 extension CheckListDetailViewController {
     private func setupNavigationBar() {
+        navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItem = deleteButton
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.chevronLeft.image,
+            style: .done,
+            target: self,
+            action: #selector(popToCheckListViewController)
+        )
     }
     
     private func setupLayout() {

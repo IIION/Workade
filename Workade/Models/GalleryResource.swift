@@ -1,5 +1,5 @@
 //
-//  GalleryModel.swift
+//  GalleryResource.swift
 //  Workade
 //
 //  Created by Hong jeongmin on 2022/11/15.
@@ -21,8 +21,4 @@ struct GalleryResource: Codable {
 
 struct GalleryImageModel: Codable {
     let content: String
-    
-    enum CodingKeys: String, CodingKey {
-        case content = "context"
-    }
 }

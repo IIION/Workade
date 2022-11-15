@@ -73,6 +73,10 @@ class CheckListViewController: UIViewController {
         )
     }
     
+    @objc private func popToHomeViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
         if editState == .edit {
             editState = .none
@@ -122,9 +126,15 @@ class CheckListViewController: UIViewController {
 
 extension CheckListViewController {
     private func setupNavigationBar() {
-        navigationController?.navigationBar.tintColor = .theme.primary
-        navigationItem.backButtonTitle = ""
+        navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItem = editButton
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.chevronLeft.image,
+            style: .done,
+            target: self,
+            action: #selector(popToHomeViewController)
+        )
+        navigationController?.navigationBar.tintColor = .theme.primary
     }
     
     private func setupLayout() {

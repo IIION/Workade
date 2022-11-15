@@ -7,18 +7,6 @@
 
 import UIKit
 
-enum NetworkingError: LocalizedError {
-    case badURLResponse(url: URL)
-    case unknown
-    
-    var errorDescription: String? {
-        switch self {
-        case .badURLResponse(url: let url): return "[🔥] Bad URL Response \(url)"
-        case .unknown: return "[⚠️] Unknown Error"
-        }
-    }
-}
-
 @MainActor class GalleryViewModel {
     private let manager = NetworkManager.shared
     private(set) var isLoading = false

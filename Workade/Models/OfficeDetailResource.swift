@@ -1,5 +1,5 @@
 //
-//  DetailDataModel.swift
+//  OfficeDetailResource.swift
 //  Workade
 //
 //  Created by ryu hyunsun on 2022/10/26.
@@ -20,9 +20,4 @@ struct OfficeDetailModel: Codable {
     let font: String?
     let content: String
     let color: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case type, font, color
-        case content = "context"
-    }
 }
