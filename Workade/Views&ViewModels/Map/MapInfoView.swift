@@ -83,8 +83,6 @@ class MapInfoView: UIView {
         case Pin.nature.rawValue: markerImage.image = UIImage(named: "natureinfo")
         default: markerImage.image = UIImage()
         }
-        
-        print(marker.tag)
     }
     
     private func naverMapButtonTapped() {
