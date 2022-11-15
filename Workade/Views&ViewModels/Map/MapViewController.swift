@@ -10,7 +10,7 @@ import UIKit
 
 class MapViewController: UIViewController {
     private var viewModel: MapViewModel
-    
+    private lazy var markerInfoView = MapInfoView(marker: viewModel.currentPin)
     private var map = NMFMapView()
 
     private var topInfoStackView: UIStackView = {
@@ -52,19 +52,6 @@ class MapViewController: UIViewController {
         return button
     }()
     
-    private lazy var naverMapButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("네이버 맵으로 바로가기", for: .normal)
-        button.titleLabel?.font = .customFont(for: .title2)
-        button.layer.backgroundColor = CGColor(red: 94/255, green: 204/255, blue: 105/255, alpha: 1)
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(naverButtonTapped), for: .touchUpInside)
-        button.isHidden = true
-        
-        return button
-    }()
-    
     init(office: Office) {
         viewModel = MapViewModel(office: office)
         super.init(nibName: nil, bundle: nil)
@@ -98,12 +85,13 @@ class MapViewController: UIViewController {
             topInfoStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44)
         ])
         
-        view.addSubview(naverMapButton)
+        view.addSubview(markerInfoView)
+        markerInfoView.isHidden = true
         NSLayoutConstraint.activate([
-            naverMapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
-            naverMapButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            naverMapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            naverMapButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            markerInfoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -96),
+            markerInfoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            markerInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            markerInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
         setupTopInfoViewLayout()
@@ -152,7 +140,9 @@ extension MapViewController {
             }
             
             self.viewModel.currentPin = (self.viewModel.currentPin == marker) ? nil : marker
-            self.naverMapButton.isHidden = (self.viewModel.currentPin == nil)
+            self.markerInfoView.isHidden = (self.viewModel.currentPin == nil)
+            self.markerInfoView.marker = self.viewModel.currentPin
+            self.markerInfoView.titleLabel.text = self.viewModel.currentPin?.captionText
             return true
         }
     
@@ -206,3 +196,4 @@ extension MapViewController {
         UIApplication.shared.open(url, options: [:])
     }
 }
+

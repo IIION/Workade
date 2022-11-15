@@ -28,6 +28,8 @@ extension UIFont {
             return UIFont(name: CustomFont.pretendardMedium.rawValue, size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium)
         case .caption:
             return UIFont(name: CustomFont.pretendardRegular.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
+        case .captionHeadlineNew:
+            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold) // TODO: Font 적용하기
         }
     }
 }
@@ -48,4 +50,5 @@ enum CustomTextStyle: String {
     case articleBody
     case footnote
     case caption
+    case captionHeadlineNew
 }
