@@ -10,7 +10,7 @@ import UIKit
 
 class MapViewController: UIViewController {
     private var viewModel: MapViewModel
-    private lazy var markerInfoView = MapInfoView(marker: viewModel.currentPin)
+    private lazy var markerInfoView = MapInfoView()
     private var map = NMFMapView()
 
     private var topInfoStackView: UIStackView = {
@@ -141,8 +141,8 @@ extension MapViewController {
             
             self.viewModel.currentPin = (self.viewModel.currentPin == marker) ? nil : marker
             self.markerInfoView.isHidden = (self.viewModel.currentPin == nil)
-            self.markerInfoView.marker = self.viewModel.currentPin
-            self.markerInfoView.titleLabel.text = self.viewModel.currentPin?.captionText
+//            self.markerInfoView.titleLabel.text = self.viewModel.currentPin?.captionText
+            self.markerInfoView.setMarkerInfo(marker: marker)
             return true
         }
     
@@ -196,4 +196,3 @@ extension MapViewController {
         UIApplication.shared.open(url, options: [:])
     }
 }
-
