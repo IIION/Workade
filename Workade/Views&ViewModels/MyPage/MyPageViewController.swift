@@ -45,7 +45,12 @@ final class MyPageViewController: UIViewController {
         setupGradientLayer()
         
         observingFetchComplete()
-        observingChangedMagazineId()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchWishMagazines()
     }
 }
 
@@ -66,20 +71,10 @@ extension MyPageViewController {
 // MARK: Binding
 extension MyPageViewController {
     private func observingFetchComplete() {
-        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+        viewModel.isCompleteFetch.bind { [weak self] _ in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.wishMagazineCollectionView.reloadData()
-            }
-        }
-    }
-    
-    private func observingChangedMagazineId() {
-        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
-            guard let self = self else { return }
-            guard let index = self.viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
-            DispatchQueue.main.async {
-                self.wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
             }
         }
     }
@@ -111,8 +106,10 @@ extension MyPageViewController: UICollectionViewDelegate {
 
 extension MyPageViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) { // 북마크
-        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
-        viewModel.wishMagazines = viewModel.wishMagazines.filter { $0.title != id }
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
+        guard let index = viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
+        viewModel.wishMagazines.remove(at: index)
+        wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
     }
 }
 

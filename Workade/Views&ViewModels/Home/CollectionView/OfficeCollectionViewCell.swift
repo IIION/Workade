@@ -9,7 +9,7 @@ import UIKit
 
 /// 오피스를 나열한 컬렉션뷰의 셀
 final class OfficeCollectionViewCell: UICollectionViewCell {
-    var office: Office?
+    var office: OfficeModel?
     var task: Task<Void, Error>?
     
     weak var delegate: CollectionViewCellDelegate?
@@ -78,14 +78,19 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(office: Office) {
+    func configure(office: OfficeModel) {
         self.office = office
         regionNameLabel.text = office.regionName
         officeNameLabel.text = office.officeName
         // 이렇게 최초 구성 이미지를 nil로 해주면, 빠른 스크롤 시에 이전 이미지가 들어가있는 이미지 꼬임 현상을 다소 막아줄 수 있습니다. 그 후 불러와진 이미지가 정상적으로 자리잡게 됩니다.
         backgroundImageView.image = nil
         task = Task {
-            await backgroundImageView.setImageURL(office.imageURL)
+            do {
+                try await backgroundImageView.setImageURL(from: office.imageURL)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     

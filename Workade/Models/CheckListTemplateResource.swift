@@ -1,5 +1,5 @@
 //
-//  CheckListTemplate.swift
+//  CheckListTemplateResource.swift
 //  Workade
 //
 //  Created by 김예훈 on 2022/10/26.
@@ -8,7 +8,11 @@
 import UIKit
 
 struct CheckListTemplateResource: Codable {
-    let context: [CheckListTemplateModel]
+    let content: [CheckListTemplateModel]
+    
+    init() {
+        self.content = []
+    }
 }
 
 struct CheckListTemplateModel: Codable {

@@ -146,7 +146,12 @@ class CheckListTemplateViewController: UIViewController {
         self.countLabel.attributedText = attributedText
         self.imageView.image = nil
         Task {
-            await self.imageView.setImageURL(imageUrl)
+            do {
+                try await self.imageView.setImageURL(from: imageUrl)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     
