@@ -45,7 +45,12 @@ final class MyPageViewController: UIViewController {
         setupGradientLayer()
         
         observingFetchComplete()
-        observingChangedMagazineId()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchWishMagazines()
     }
 }
 
@@ -66,24 +71,10 @@ extension MyPageViewController {
 // MARK: Binding
 extension MyPageViewController {
     private func observingFetchComplete() {
-        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+        viewModel.isCompleteFetch.bind { [weak self] _ in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.wishMagazineCollectionView.reloadData()
-            }
-        }
-    }
-    
-    // TODO: 다음 PR 수정사항
-    // Detail Cell과 이어짐으로써 delete로직이 아닌 다른 로직으로 수정해야함.
-    // 비동기로 지속적으로 움직이는 방식이 아닌 viewWillAppear핸들링으로 수정.
-    // reload관련 이슈해결위해 diffableDataSource활용 예정.
-    private func observingChangedMagazineId() {
-        viewModel.clickedMagazineId.bind { [weak self] id in
-            guard let self = self else { return }
-            guard let index = self.viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
-            DispatchQueue.main.async {
-                self.wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
             }
         }
     }
@@ -116,7 +107,9 @@ extension MyPageViewController: UICollectionViewDelegate {
 extension MyPageViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) { // 북마크
         viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
-        viewModel.wishMagazines = viewModel.wishMagazines.filter { $0.title != id }
+        guard let index = viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
+        viewModel.wishMagazines.remove(at: index)
+        wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
     }
 }
 
