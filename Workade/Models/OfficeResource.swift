@@ -1,5 +1,5 @@
 //
-//  HomeModel.swift
+//  OfficeResource.swift
 //  Workade
 //
 //  Created by Inho Choi on 2022/10/18.
@@ -12,10 +12,6 @@ struct OfficeResource: Codable {
     
     init() {
         self.content = []
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case content = "context"
     }
 }
 
@@ -64,24 +60,4 @@ enum SpotType: String {
     case nature
     case restaurant
     case sea
-}
-
-struct MagazineResource: Codable {
-    let content: [MagazineModel]
-    
-    init() {
-        self.content = []
-    }
-}
-
-struct MagazineModel: Codable {
-    let title: String
-    let imageURL: String
-    let introduceURL: String
-    
-    enum CodingKeys: String, CodingKey {
-        case title
-        case imageURL = "imageurl"
-        case introduceURL = "introduceurl"
-    }
 }
