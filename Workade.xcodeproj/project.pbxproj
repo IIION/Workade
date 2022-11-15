@@ -90,6 +90,7 @@
 		A35A982C290ADE1300220755 /* MagazineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982B290ADE1300220755 /* MagazineModel.swift */; };
 		A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineViewModel.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
+		A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
 		A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */; };
@@ -187,6 +188,7 @@
 		A35A982B290ADE1300220755 /* MagazineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineModel.swift; sourceTree = "<group>"; };
 		A35A982E290ADE1F00220755 /* MagazineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewModel.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
+		A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceImageView.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				0E467660290272C100556C41 /* NearbyPlaceView.swift */,
 				0EFB5BA42900E9D800174291 /* IntroduceView.swift */,
 				218E4F7629012FFB003CF215 /* Gallery */,
+				A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */,
 			);
 			path = NearbyPlace;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
 				16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */,
 				96CFBE2629044E9200A4B488 /* CheckListButton.swift in Sources */,
+				A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
 				16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* HomeModel.swift in Sources */,
