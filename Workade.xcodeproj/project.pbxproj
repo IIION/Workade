@@ -390,6 +390,7 @@
 			children = (
 				A3947B2129013ECA00DA4E0D /* Share */,
 				5F5C074F28FE81F20089DD4B /* Delegate */,
+				96E0CDDF2923DBAB008A67BB /* Utils */,
 				5F5C074C28FE81BD0089DD4B /* Extentions */,
 				961CC47F290AE65900921F24 /* Managers */,
 				5F5C074B28FE81B40089DD4B /* Models */,
@@ -427,9 +428,6 @@
 			children = (
 				5FDC17DE28FE7F320060DBB7 /* HomeViewController.swift */,
 				5FDC17E028FE7F430060DBB7 /* HomeViewModel.swift */,
-				96433238290A783100FBECAF /* Binder.swift */,
-				961CC482290AF34600921F24 /* MultiBinder.swift */,
-				96433234290A776600FBECAF /* Constants.swift */,
 				961C56242902FFF0003E238F /* View */,
 				961C56222902FF81003E238F /* CollectionView */,
 			);
@@ -491,6 +489,16 @@
 				9646763E2909347C0047ED34 /* SettingViewController.swift */,
 			);
 			path = SettingViewController;
+			sourceTree = "<group>";
+		};
+		96E0CDDF2923DBAB008A67BB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				96433238290A783100FBECAF /* Binder.swift */,
+				961CC482290AF34600921F24 /* MultiBinder.swift */,
+				96433234290A776600FBECAF /* Constants.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		A35A982D290ADE1F00220755 /* MagazineViewModel */ = {

@@ -139,7 +139,7 @@ class CustomNavigationBar: UIViewController {
     @objc
     func clickedRightButton(sender: UIButton) {
         switch sender.currentImage {
-        case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image :
+        case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image:
             detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.Key.wishMagazine)
             setupBookmarkImage()
             

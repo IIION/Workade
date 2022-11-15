@@ -1,5 +1,5 @@
 //
-//  CustopSegmentController.swift
+//  CustomSegmentedControl.swift
 //  Workade
 //
 //  Created by Hong jeongmin on 2022/10/20.

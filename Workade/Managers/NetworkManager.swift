@@ -1,5 +1,5 @@
 //
-//  NWManager.swift
+//  NetworkManager.swift
 //  Workade
 //
 //  Created by Hyeonsoo Kim on 2022/10/27.
@@ -58,6 +58,7 @@ final class NetworkManager {
         do {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
+            print(url)
             throw NetworkError.failedJsonParsing
         }
     }
