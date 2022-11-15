@@ -73,7 +73,6 @@
 		9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643323A290A9B2000FBECAF /* MyPageViewModel.swift */; };
 		9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763729092D4A0047ED34 /* MyPageViewController.swift */; };
 		9646763A29092EBF0047ED34 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763929092EBF0047ED34 /* TitleView.swift */; };
-		9646763C290932010047ED34 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763B290932010047ED34 /* UINavigationController.swift */; };
 		9646763F2909347C0047ED34 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763E2909347C0047ED34 /* SettingViewController.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
 		96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */; };
@@ -172,7 +171,6 @@
 		9643323A290A9B2000FBECAF /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		9646763729092D4A0047ED34 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9646763929092EBF0047ED34 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
-		9646763B290932010047ED34 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		9646763E2909347C0047ED34 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -343,7 +341,6 @@
 				A33835272903E03A009882BF /* UIButton+.swift */,
 				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
-				9646763B290932010047ED34 /* UINavigationController.swift */,
 				A34AB346291B99C600065212 /* CGFloat+.swift */,
 			);
 			path = Extentions;
@@ -702,7 +699,6 @@
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
 				9646763A29092EBF0047ED34 /* TitleView.swift in Sources */,
 				9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */,
-				9646763C290932010047ED34 /* UINavigationController.swift in Sources */,
 				A393992629081628000E129A /* CustomNavigationBar.swift in Sources */,
 				5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,

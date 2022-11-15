@@ -250,7 +250,7 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: CollectionViewCellDelegate {
-    func didTapMapButton(officeModel: OfficeModel) {
+    private func didTapMapButton(officeModel: OfficeModel) {
         let viewController = MapViewController(office: officeModel)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
