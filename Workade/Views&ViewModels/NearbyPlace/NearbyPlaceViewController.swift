@@ -7,16 +7,21 @@
 
 import UIKit
 
+protocol InnerTouchPresentDelegate: AnyObject {
+    func touch(office: Office)
+}
+
 class NearbyPlaceViewController: UIViewController {
     var office: Office
-    //    let nearbyPlaceView: NearbyPlaceView
     let nearbyPlaceImageView: NearbyPlaceImageView
+    let nearbyPlaceDetailView: NearbyPlaceDetailView
     let galleryViewModel = GalleryViewModel()
     let introduceViewModel: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
         self.nearbyPlaceImageView = NearbyPlaceImageView(office: office)
+        self.nearbyPlaceDetailView = NearbyPlaceDetailView(office: office)
         self.introduceViewModel = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,14 +34,14 @@ class NearbyPlaceViewController: UIViewController {
     private var defaultScrollYOffset: CGFloat = 0
     
     // Gallery 관련 프로퍼티
-    //    let transitionManager = CardTransitionMananger()
+    //        let transitionManager = CardTransitionMananger()
     var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
     
     lazy var closeButton: UIButton = {
         let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(clickedCloseButton), for: .touchUpInside)
         
         return button
     }()
@@ -52,7 +57,7 @@ class NearbyPlaceViewController: UIViewController {
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
                                                 for: .selected)
         segmentedControl.selectedSegmentIndex = 0
-//        segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
+        segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentedControl
@@ -99,6 +104,14 @@ class NearbyPlaceViewController: UIViewController {
             segmentUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
+        
+        view.addSubview(nearbyPlaceDetailView)
+        NSLayoutConstraint.activate([
+            nearbyPlaceDetailView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor),
+            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            nearbyPlaceDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nearbyPlaceDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setupCustomNavigationBar() {
@@ -119,8 +132,36 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     @objc
-    func clickedCloseButton(sender: UIButton) {
+    func clickedCloseButton() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    private func indexChanged(_ segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            nearbyPlaceDetailView.scrollView.isScrollEnabled = true
+            nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            //                        scrollView.isScrollEnabled = true
+            nearbyPlaceDetailView.introduceView.isHidden = false
+            nearbyPlaceDetailView.galleryView.isHidden = true
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+            nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
+        case 1:
+            // 갤러리 누르면 세그먼트 위치로 스크롤 이동.
+            nearbyPlaceDetailView.scrollView.isScrollEnabled = false
+            nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            // 전체 뷰의 스크롤은 멈춰야함.
+            //                        scrollView.isScrollEnabled = false
+            // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
+            //                        scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+            nearbyPlaceDetailView.introduceView.isHidden = true
+            nearbyPlaceDetailView.galleryView.isHidden = false
+            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
+        default:
+            return
+        }
     }
 }
 
