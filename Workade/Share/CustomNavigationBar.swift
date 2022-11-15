@@ -15,7 +15,7 @@ class CustomNavigationBar: UIViewController {
     private var titleText: String?
     private var rightButtonImage: UIImage?
     var magazine: MagazineModel?
-    var office: OfficeModel?
+    var officeModel: OfficeModel?
     // 메모리누수1 : 델리게이트 weak로 선언
     weak var delegate: InnerTouchPresentDelegate?
     
@@ -144,8 +144,8 @@ class CustomNavigationBar: UIViewController {
             setupBookmarkImage()
             
         case SFSymbol.mapInNavigation.image:
-            guard let safetyOffice = office else { return }
-            delegate?.touch(office: safetyOffice)
+            guard let safetyOfficeModel = officeModel else { return }
+            delegate?.touch(officeModel: safetyOfficeModel)
             
         default:
             return

@@ -9,7 +9,7 @@ import UIKit
 
 // BaseImageView -> CloseButton / CustomNavigationBar -> locationLabel -> placeLabel -> mapButton
 class NearbyPlaceImageView: UIView {
-    let office: Office
+    let officeModel: OfficeModel
     weak var delegate: InnerTouchPresentDelegate?
     
     // MARK: Property 선언
@@ -65,8 +65,8 @@ class NearbyPlaceImageView: UIView {
         return mapButtonContainer
     }()
     
-    init(office: Office) {
-        self.office = office
+    init(officeModel: OfficeModel) {
+        self.officeModel = officeModel
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -79,10 +79,15 @@ class NearbyPlaceImageView: UIView {
     }
     
     private func setupOfficeData() {
-        placeLabel.text = office.officeName
-        locationLabel.text = office.regionName
+        placeLabel.text = officeModel.officeName
+        locationLabel.text = officeModel.regionName
         Task {
-            await imageView.setImageURL(office.imageURL)
+            do {
+                try await imageView.setImageURL(from: officeModel.imageURL)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     
@@ -123,6 +128,6 @@ class NearbyPlaceImageView: UIView {
     // Button 클릭 관련 함수
     @objc
     func clickedMapButton() {
-        delegate?.touch(office: self.office)
+        delegate?.touch(officeModel: self.officeModel)
     }
 }

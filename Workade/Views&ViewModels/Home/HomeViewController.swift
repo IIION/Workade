@@ -234,8 +234,8 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case officeCollectionView:
-            let office = viewModel.officeResource.content[indexPath.row]
-            let viewController = NearbyPlaceViewController(office: office)
+            let officeModel = viewModel.officeResource.content[indexPath.row]
+            let viewController = NearbyPlaceViewController(officeModel: officeModel)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         case magazineCollectionView:
@@ -250,8 +250,8 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: CollectionViewCellDelegate {
-    func didTapMapButton(office: OfficeModel) {
-        let viewController = MapViewController(office: office)
+    func didTapMapButton(officeModel: OfficeModel) {
+        let viewController = MapViewController(office: officeModel)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }

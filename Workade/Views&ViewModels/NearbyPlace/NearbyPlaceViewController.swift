@@ -8,19 +8,19 @@
 import UIKit
 
 protocol InnerTouchPresentDelegate: AnyObject {
-    func touch(office: Office)
+    func touch(officeModel: OfficeModel)
 }
 
 class NearbyPlaceViewController: UIViewController {
-    var office: Office
+    var officeModel: OfficeModel
     let nearbyPlaceImageView: NearbyPlaceImageView
     let nearbyPlaceDetailView: NearbyPlaceDetailView
     let galleryViewModel = GalleryViewModel()
     
-    init(office: Office) {
-        self.office = office
-        self.nearbyPlaceImageView = NearbyPlaceImageView(office: office)
-        self.nearbyPlaceDetailView = NearbyPlaceDetailView(office: office)
+    init(officeModel: OfficeModel) {
+        self.officeModel = officeModel
+        self.nearbyPlaceImageView = NearbyPlaceImageView(officeModel: officeModel)
+        self.nearbyPlaceDetailView = NearbyPlaceDetailView(officeModel: officeModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -164,8 +164,8 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: office.officeName, rightButtonImage: SFSymbol.mapInNavigation.image)
-        customNavigationBar.office = office
+        customNavigationBar = CustomNavigationBar(titleText: officeModel.officeName, rightButtonImage: SFSymbol.mapInNavigation.image)
+        customNavigationBar.officeModel = officeModel
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.delegate = self
         customNavigationBar.view.alpha = 0
@@ -216,16 +216,20 @@ class NearbyPlaceViewController: UIViewController {
     /// 갤러리 사진들 불러오는 함수
     private func setupGalleryView() {
         Task {
-            guard let url = URL(string: office.galleryURL) else { return }
-            await galleryViewModel.fetchContent(by: url)
-            nearbyPlaceDetailView.galleryView.collectionView.reloadData()
+            do {
+                try await galleryViewModel.requestGalleryData(from: officeModel.galleryURL)
+                nearbyPlaceDetailView.galleryView.collectionView.reloadData()
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
 }
 
 extension NearbyPlaceViewController: InnerTouchPresentDelegate {
-    func touch(office: Office) {
-        let viewController = MapViewController(office: office)
+    func touch(officeModel: OfficeModel) {
+        let viewController = MapViewController(office: officeModel)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }

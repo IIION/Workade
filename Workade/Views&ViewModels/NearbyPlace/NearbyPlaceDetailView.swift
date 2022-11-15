@@ -8,7 +8,7 @@
 import UIKit
 
 class NearbyPlaceDetailView: UIView {
-    let office: Office
+    let officeModel: OfficeModel
     var introduceViewModel: IntroduceViewModel
     
     var introduceBottomConstraints: NSLayoutConstraint!
@@ -46,9 +46,9 @@ class NearbyPlaceDetailView: UIView {
         return view
     }()
     
-    init(office: Office) {
-        self.office = office
-        self.introduceViewModel = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
+    init(officeModel: OfficeModel) {
+        self.officeModel = officeModel
+        self.introduceViewModel = IntroduceViewModel()
         super.init(frame: .zero)
         
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
@@ -103,18 +103,14 @@ class NearbyPlaceDetailView: UIView {
 extension NearbyPlaceDetailView {
     /// introduce 소개 글을 불러오는 fetch함수
     private func setupIntroduceView() {
-        Task {
-            await introduceViewModel.fetchData()
-        }
-        
-        // 메모리누수3 - weak self
+        introduceViewModel.requestOfficeDetailData(from: officeModel.introduceURL)
         introduceViewModel.introductions.bind { [weak self] contents in
             guard let self = self else { return }
             for content in contents {
                 switch content.type {
                 case "Text":
                     let label = UILabel()
-                    label.text = content.context
+                    label.text = content.content
                     if let font = content.font {
                         label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
                     }
@@ -125,27 +121,29 @@ extension NearbyPlaceDetailView {
                     label.numberOfLines = 0
                     label.setLineHeight(lineHeight: 12.0)
                     self.introduceView.stackView.addArrangedSubview(label)
-                    
                 case "Image":
                     let imageView = UIImageView()
-                    let imageURL = content.context
+                    let imageURL = content.content
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
-                        let image = await self.introduceViewModel.fetchImage(urlString: imageURL)
-                        imageView.image = image
-                        let width = image.size.width
-                        let height = image.size.height
-                        
-                        imageView.contentMode = .scaleToFill
-                        imageView.layer.cornerRadius = 20
-                        imageView.clipsToBounds = true
-                        
-                        imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
+                        do {
+                            let image = try await NetworkManager.shared.fetchImage(from: imageURL)
+                            imageView.image = image
+                            let width = image.size.width
+                            let height = image.size.height
+                            
+                            imageView.contentMode = .scaleToFill
+                            imageView.layer.cornerRadius = 20
+                            imageView.clipsToBounds = true
+                            imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
+                        } catch {
+                            let error = error as? NetworkError ?? .unknownError
+                            print(error.message)
+                        }
                     }
                     self.introduceView.stackView.addArrangedSubview(imageView)
-                    
                 default:
-                    return
+                    break
                 }
             }
         }
