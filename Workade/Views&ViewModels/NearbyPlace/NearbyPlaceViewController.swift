@@ -8,16 +8,16 @@
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
-    var office: OfficeModel
+    var office: Office
     let nearbyPlaceView: NearbyPlaceView
     let galleryViewModel: GalleryViewModel
     let introduceVM: IntroduceViewModel
     
-    init(office: OfficeModel) {
+    init(office: Office) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
         self.galleryViewModel = GalleryViewModel()
-        self.introduceVM = IntroduceViewModel()
+        self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,13 +41,6 @@ class NearbyPlaceViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
-    }()
-    
-    lazy var mapButtonImage: UIImage = {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        let image = UIImage(systemName: "map", withConfiguration: config) ?? UIImage()
-        
-        return image
     }()
     
     lazy var closeButton: UIButton = {
@@ -85,25 +78,22 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupGalleryView() {
         Task {
-            do {
-                try await galleryViewModel.requestGalleryData(from: office.galleryURL)
-                nearbyPlaceView.galleryView.collectionView.reloadData()
-            } catch {
-                let error = error as? NetworkError ?? .unknownError
-                print(error.message)
-            }
+            guard let url = URL(string: office.galleryURL) else { return }
+            await galleryViewModel.fetchContent(by: url)
+            nearbyPlaceView.galleryView.collectionView.reloadData()
         }
     }
     
     private func setupIntroduceView() {
-        introduceVM.requestOfficeDetailData(from: office.introduceURL)
-        introduceVM.introductions.bind { [weak self] contents in
-            guard let self = self else { return }
+        Task {
+            await introduceVM.fetchData()
+        }
+        introduceVM.introductions.bind { contents in
             for content in contents {
                 switch content.type {
                 case "Text":
                     let label = UILabel()
-                    label.text = content.content
+                    label.text = content.context
                     if let font = content.font {
                         label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
                     }
@@ -116,23 +106,19 @@ class NearbyPlaceViewController: UIViewController {
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(label)
                 case "Image":
                     let imageView = UIImageView()
-                    let imageURL = content.content
+                    let imageURL = content.context
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
-                        do {
-                            let image = try await NetworkManager.shared.fetchImage(from: imageURL)
-                            imageView.image = image
-                            let width = image.size.width
-                            let height = image.size.height
-                            
-                            imageView.contentMode = .scaleToFill
-                            imageView.layer.cornerRadius = 20
-                            imageView.clipsToBounds = true
-                            imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
-                        } catch {
-                            let error = error as? NetworkError ?? .unknownError
-                            print(error.message)
-                        }
+                        let image = await self.introduceVM.fetchImage(urlString: imageURL)
+                        imageView.image = image
+                        let width = image.size.width
+                        let height = image.size.height
+                        
+                        imageView.contentMode = .scaleToFill
+                        imageView.layer.cornerRadius = 20
+                        imageView.clipsToBounds = true
+                        
+                        imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
                     }
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
                 default:
@@ -267,7 +253,7 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
 }
 
 extension NearbyPlaceViewController: InnerTouchPresentDelegate {
-    func touch(office: OfficeModel) {
+    func touch(office: Office) {
         let viewController = MapViewController(office: office)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
