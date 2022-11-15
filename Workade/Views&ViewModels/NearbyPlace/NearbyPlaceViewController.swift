@@ -16,13 +16,11 @@ class NearbyPlaceViewController: UIViewController {
     let nearbyPlaceImageView: NearbyPlaceImageView
     let nearbyPlaceDetailView: NearbyPlaceDetailView
     let galleryViewModel = GalleryViewModel()
-    let introduceViewModel: IntroduceViewModel
     
     init(office: Office) {
         self.office = office
         self.nearbyPlaceImageView = NearbyPlaceImageView(office: office)
         self.nearbyPlaceDetailView = NearbyPlaceDetailView(office: office)
-        self.introduceViewModel = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,6 +35,22 @@ class NearbyPlaceViewController: UIViewController {
     let transitionManager = CardTransitionMananger()
     var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
+    
+    lazy var totalScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrollView
+    }()
+    
+    let contentsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .theme.background
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
     lazy var closeButton: UIButton = {
         let button = UIButton().closeButton()
@@ -76,26 +90,54 @@ class NearbyPlaceViewController: UIViewController {
         view.backgroundColor = .theme.background
         nearbyPlaceImageView.delegate = self
         
-        // GalleryView 델리게이트 위임
-        nearbyPlaceDetailView.galleryView.collectionView.dataSource = self
-        nearbyPlaceDetailView.galleryView.collectionView.delegate = self
-        nearbyPlaceDetailView.galleryView.layout.delegate = self
+        setupDelegate()
         
+        setupScrollViewLayout()
         setupGalleryView()
         setupLayout()
         setupCustomNavigationBar()
     }
     
-    func setupLayout() {
-        view.addSubview(nearbyPlaceImageView)
+    func setupDelegate() {
+        nearbyPlaceDetailView.galleryView.collectionView.dataSource = self
+        nearbyPlaceDetailView.galleryView.collectionView.delegate = self
+        nearbyPlaceDetailView.galleryView.layout.delegate = self
+        
+        totalScrollView.delegate = self
+        nearbyPlaceDetailView.scrollView.delegate = self
+    }
+    
+    func setupScrollViewLayout() {
+        view.addSubview(totalScrollView)
         NSLayoutConstraint.activate([
-            nearbyPlaceImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            nearbyPlaceImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            nearbyPlaceImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            totalScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            totalScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            totalScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            totalScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        let scrollViewContentsLayoutGuide = totalScrollView.contentLayoutGuide
+        totalScrollView.addSubview(contentsContainerView)
+        NSLayoutConstraint.activate([
+            contentsContainerView.topAnchor.constraint(equalTo: scrollViewContentsLayoutGuide.topAnchor),
+            contentsContainerView.leadingAnchor.constraint(equalTo: scrollViewContentsLayoutGuide.leadingAnchor),
+            contentsContainerView.trailingAnchor.constraint(equalTo: scrollViewContentsLayoutGuide.trailingAnchor),
+            contentsContainerView.bottomAnchor.constraint(equalTo: scrollViewContentsLayoutGuide.bottomAnchor),
+            contentsContainerView.widthAnchor.constraint(equalTo: totalScrollView.widthAnchor)
+        ])
+    }
+    
+    func setupLayout() {
+        contentsContainerView.addSubview(nearbyPlaceImageView)
+        NSLayoutConstraint.activate([
+            nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            nearbyPlaceImageView.topAnchor.constraint(equalTo: contentsContainerView.topAnchor),
+            nearbyPlaceImageView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            nearbyPlaceImageView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             nearbyPlaceImageView.heightAnchor.constraint(equalToConstant: .topSafeArea + 375)
         ])
         
-        view.addSubview(segmentedControl)
+        contentsContainerView.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor),
             segmentedControl.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor, constant: 20),
@@ -103,20 +145,21 @@ class NearbyPlaceViewController: UIViewController {
             segmentedControl.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        view.addSubview(segmentUnderLine)
+        contentsContainerView.addSubview(segmentUnderLine)
         NSLayoutConstraint.activate([
             segmentUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            segmentUnderLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentUnderLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            segmentUnderLine.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            segmentUnderLine.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
         
-        view.addSubview(nearbyPlaceDetailView)
+        contentsContainerView.addSubview(nearbyPlaceDetailView)
         NSLayoutConstraint.activate([
             nearbyPlaceDetailView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor),
-            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            nearbyPlaceDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            nearbyPlaceDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor),
+            nearbyPlaceDetailView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            nearbyPlaceDetailView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
+            contentsContainerView.bottomAnchor.constraint(equalTo: nearbyPlaceDetailView.contensContainerView.bottomAnchor)
         ])
     }
     
@@ -148,7 +191,7 @@ class NearbyPlaceViewController: UIViewController {
         case 0:
             nearbyPlaceDetailView.scrollView.isScrollEnabled = true
             nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-            //                        scrollView.isScrollEnabled = true
+            totalScrollView.isScrollEnabled = true
             nearbyPlaceDetailView.introduceView.isHidden = false
             nearbyPlaceDetailView.galleryView.isHidden = true
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
@@ -158,9 +201,9 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceDetailView.scrollView.isScrollEnabled = false
             nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             // 전체 뷰의 스크롤은 멈춰야함.
-            //                        scrollView.isScrollEnabled = false
+            totalScrollView.isScrollEnabled = false
             // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
-            //                        scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+            totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
             nearbyPlaceDetailView.introduceView.isHidden = true
             nearbyPlaceDetailView.galleryView.isHidden = false
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
@@ -231,5 +274,49 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
         let aspectR = image.size.width / image.size.height
         
         return (collectionView.frame.width - columnSpacing * 3) / 2 * 1 / aspectR
+    }
+}
+
+extension NearbyPlaceViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let totalOffset = scrollView.contentOffset.y
+        if totalOffset < -.topSafeArea {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let totalOffset = scrollView.contentOffset.y
+        let detailOffset = nearbyPlaceDetailView.scrollView.contentOffset.y
+        
+        switch scrollView {
+        case totalScrollView:
+            if totalOffset > 0 {
+                if totalOffset > 315 {
+                    scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+                    // 전체 스크롤 뷰를 막고, 디테일 뷰의 스크롤 뷰를 활성화 시킴.
+                    totalScrollView.isScrollEnabled = false
+                    nearbyPlaceDetailView.scrollView.isScrollEnabled = true
+                } else {
+                    if segmentedControl.selectedSegmentIndex == 0 {
+                        nearbyPlaceDetailView.scrollView.isScrollEnabled = false
+                    }
+                    customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
+                    nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
+                }
+            } else {
+                customNavigationBar.view.alpha = 0
+                nearbyPlaceImageView.alpha = 1
+            }
+        case nearbyPlaceDetailView.scrollView:
+            if detailOffset <= 0 {
+                nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                if segmentedControl.selectedSegmentIndex == 0 {
+                    totalScrollView.isScrollEnabled = true
+                }
+            }
+        default:
+            break
+        }
     }
 }

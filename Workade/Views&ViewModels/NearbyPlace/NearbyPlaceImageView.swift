@@ -13,7 +13,7 @@ class NearbyPlaceImageView: UIView {
     weak var delegate: InnerTouchPresentDelegate?
     
     // MARK: Property 선언
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -90,7 +90,6 @@ class NearbyPlaceImageView: UIView {
     private func setupLayout() {
         addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
