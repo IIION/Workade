@@ -143,7 +143,7 @@ extension NearbyPlaceDetailView {
                     }
                     self.introduceView.stackView.addArrangedSubview(imageView)
                 default:
-                    break
+                    continue
                 }
             }
         }
