@@ -213,10 +213,10 @@
 			children = (
 				A37D283E2923BBFE009F0ED6 /* NearbyPlaceViewModel */,
 				0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */,
+				A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */,
 				0E467660290272C100556C41 /* NearbyPlaceView.swift */,
 				0EFB5BA42900E9D800174291 /* IntroduceView.swift */,
 				218E4F7629012FFB003CF215 /* Gallery */,
-				A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */,
 			);
 			path = NearbyPlace;
 			sourceTree = "<group>";
