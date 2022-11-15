@@ -32,16 +32,6 @@ class NearbyPlaceViewController: UIViewController {
     var columnSpacing: CGFloat = 20
     var isLoading: Bool = false
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "O - Peace"
-        label.textColor = .theme.background
-        label.font = .customFont(for: .title1)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
     lazy var closeButton: UIButton = {
         let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -64,15 +54,10 @@ class NearbyPlaceViewController: UIViewController {
         nearbyPlaceView.galleryView.collectionView.delegate = self
         nearbyPlaceView.galleryView.layout.delegate = self
         
-        setupOfficeTitle()
         setupNearbyPlaceView()
         setupCustomNavigationBar()
         setupGalleryView()
         setupIntroduceView()
-    }
-    
-    private func setupOfficeTitle() {
-        titleLabel.text = office.officeName
     }
     
     private func setupGalleryView() {
@@ -128,7 +113,7 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: SFSymbol.mapInNavigation.image)
+        customNavigationBar = CustomNavigationBar(titleText: office.officeName, rightButtonImage: SFSymbol.mapInNavigation.image)
         customNavigationBar.office = office
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.delegate = self
