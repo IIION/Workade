@@ -16,6 +16,7 @@ class CustomNavigationBar: UIViewController {
     private var rightButtonImage: UIImage?
     var magazine: MagazineModel?
     var office: OfficeModel?
+    // 메모리누수1 : 델리게이트 weak로 선언
     weak var delegate: InnerTouchPresentDelegate?
     
     private let navigationBar: UIView = {

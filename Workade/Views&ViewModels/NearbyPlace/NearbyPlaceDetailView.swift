@@ -106,7 +106,10 @@ extension NearbyPlaceDetailView {
         Task {
             await introduceViewModel.fetchData()
         }
-        introduceViewModel.introductions.bind { contents in
+        
+        // 메모리누수3 - weak self
+        introduceViewModel.introductions.bind { [weak self] contents in
+            guard let self = self else { return }
             for content in contents {
                 switch content.type {
                 case "Text":

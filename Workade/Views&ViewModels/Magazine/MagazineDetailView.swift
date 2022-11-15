@@ -36,6 +36,7 @@ class MagazineDetailView: UIView {
     
     func setupMagazineDetailData() {
         magazineViewModel.requestMagazineDetailData(from: magazine.introduceURL)
+        // 메모리누수2: weak self
         magazineViewModel.data.bind { [weak self] content in
             guard let self = self else { return }
             for data in content {
