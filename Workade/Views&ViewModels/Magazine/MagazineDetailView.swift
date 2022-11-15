@@ -48,7 +48,7 @@ class MagazineDetailView: UIView {
                     self.appendImageToStackView(data.content)
                     
                 default:
-                    return
+                    continue
                 }
             }
         }
