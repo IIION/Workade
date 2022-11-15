@@ -8,15 +8,15 @@
 import UIKit
 
 protocol InnerTouchPresentDelegate: AnyObject {
-    func touch(office: OfficeModel)
+    func touch(office: Office)
 }
 
 class NearbyPlaceView: UIView {
     weak var delegate: InnerTouchPresentDelegate?
- 
+  
     private var introduceBottomConstraints: NSLayoutConstraint!
     private var galleryBottomConstraints: NSLayoutConstraint!
-    var office: OfficeModel = OfficeModel(
+    var office: Office = Office(
         officeName: "",
         regionName: "",
         imageURL: "",
@@ -83,10 +83,7 @@ class NearbyPlaceView: UIView {
         mapButton.frame.size = CGSize(width: 48, height: 48)
         mapButton.layer.cornerRadius = mapButton.bounds.height / 2
         
-        let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 17, weight: .semibold))
-        var image = UIImage(systemName: "map", withConfiguration: configuration)
-        image = image?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        mapButton.setImage(image, for: .normal)
+        mapButton.setImage(SFSymbol.map.image, for: .normal)
         
         blur.frame = mapButton.bounds
         blur.isUserInteractionEnabled = false
@@ -170,7 +167,7 @@ class NearbyPlaceView: UIView {
         super.init(coder: coder)
     }
     
-    init(office: OfficeModel) {
+    init(office: Office) {
         super.init(frame: .zero)
         // 스크롤 뷰의 영역을 컨텐츠 크기에 따라 dynamic하게 변경하기 위한 설정
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: detailContensContainer.bottomAnchor, constant: -20)
@@ -179,17 +176,12 @@ class NearbyPlaceView: UIView {
         setupLayout()
     }
     
-    private func setupOfficeData(office: OfficeModel) {
+    private func setupOfficeData(office: Office) {
         self.office = office
         placeLabel.text = office.officeName
         locationLabel.text = office.regionName
         Task {
-            do {
-                try await placeImageView.setImageURL(from: office.imageURL)
-            } catch {
-                let error = error as? NetworkError ?? .unknownError
-                print(error.message)
-            }
+            await placeImageView.setImageURL(office.imageURL)
         }
     }
     
