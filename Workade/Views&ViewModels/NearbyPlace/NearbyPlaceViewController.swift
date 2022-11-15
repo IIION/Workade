@@ -156,10 +156,10 @@ class NearbyPlaceViewController: UIViewController {
         contentsContainerView.addSubview(nearbyPlaceDetailView)
         NSLayoutConstraint.activate([
             nearbyPlaceDetailView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor),
-            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor),
+            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             nearbyPlaceDetailView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             nearbyPlaceDetailView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            contentsContainerView.bottomAnchor.constraint(equalTo: nearbyPlaceDetailView.contensContainerView.bottomAnchor)
+            contentsContainerView.bottomAnchor.constraint(equalTo: nearbyPlaceDetailView.contensContainerView.bottomAnchor, constant: 375)
         ])
     }
     
