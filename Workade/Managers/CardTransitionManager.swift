@@ -49,9 +49,9 @@ extension CardTransitionMananger: UIViewControllerAnimatedTransitioning {
               
               let nearbyPlaceViewController = (transition == .presentation) ? (fromViewController as? NearbyPlaceViewController) : (toViewController as? NearbyPlaceViewController),
               
-              let indexPath = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.indexPathsForSelectedItems?.first,
+              let indexPath = nearbyPlaceViewController.nearbyPlaceDetailView.galleryView.collectionView.indexPathsForSelectedItems?.first,
               
-              let item = nearbyPlaceViewController.nearbyPlaceView.galleryView.collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell
+              let item = nearbyPlaceViewController.nearbyPlaceDetailView.galleryView.collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell
                 
         else {
             transitionContext.completeTransition(true)
