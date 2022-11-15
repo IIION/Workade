@@ -19,41 +19,32 @@ enum NetworkingError: LocalizedError {
     }
 }
 
-// TODO: 탐나의 NetworkManager와 기능은 일치합니다. 차후 통일 예정
-class NetworkingManager {
-    private init() { }
-    static let shared = NetworkingManager()
-    func request(url: URL) async -> Data? {
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return nil
-            }
-            return data
-        } catch {
-            print(error)
-        }
-        return nil
+// TODO: 모델 GalleryModel file로 따로 빼주세요.
+struct GalleryResource: Codable {
+    let items: [GalleryImageModel]
+    
+    init() {
+        self.items = []
     }
-}
-
-struct GalleryContent: Codable {
-    let items: [GalleryImage]
     
     enum CodingKeys: String, CodingKey {
         case items = "content"
     }
 }
 
-struct GalleryImage: Codable {
-    let context: String
+struct GalleryImageModel: Codable {
+    let content: String
+    
+    enum CodingKeys: String, CodingKey {
+        case content = "context"
+    }
 }
 
 @MainActor class GalleryViewModel {
     
-    private let manager = NetworkingManager.shared
+    private let manager = NetworkManager.shared
     private(set) var isLoading = false
-    private(set) var content: GalleryContent?
+    private(set) var content: GalleryResource?
     private(set) var images: [UIImage] = []
     
     var paginationUnit: Int = 10
@@ -65,46 +56,39 @@ struct GalleryImage: Codable {
         }
     }
     
-    func fetchContent(by url: URL) async {
-        let result = await manager.request(url: url)
-        guard let result = result else { return }
-        let searchResult = try? JSONDecoder().decode(GalleryContent.self, from: result)
-        guard let searchResult = searchResult else { return }
-        self.content = searchResult
-        
+    func requestGalleryData(from urlString: String) async throws {
+        self.content = try await manager.requestResourceData(from: urlString)
         await fetchImages()
     }
     
     func fetchImages() async {
-        guard
-            let content = content,
-            isLoading == false,
-            isCanLoaded
-        else { return }
-        
+        guard let content = content,
+              isLoading == false,
+              isCanLoaded else { return }
         isLoading = true
-        
         let fetchedImages = await withTaskGroup(of: Data?.self) { group in
             var tempImages = [UIImage]()
             let paginationEndPoint = min(images.count + paginationUnit, content.items.count)
+            
             for index in images.count..<paginationEndPoint {
-                guard let url = URL(string: content.items[index].context) else { continue }
+                guard let url = URL(string: content.items[index].content) else { continue }
                 group.addTask { [weak self] in
-                    return await self?.manager.request(url: url)
+                    guard let data = try? await self?.manager.request(url: url) else {
+                        return nil
+                    }
+                    return data
                 }
             }
             
-            for await data in group {
-                if let data = data, let image = UIImage(data: data) {
+            for await data in group.compactMap({$0}) {
+                if let image = UIImage(data: data) {
                     tempImages.append(image)
                 }
             }
             
             return tempImages
         }
-        
         self.images.append(contentsOf: fetchedImages)
-        
         isLoading = false
     }
 }

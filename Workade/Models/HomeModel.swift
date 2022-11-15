@@ -8,10 +8,18 @@
 import UIKit
 
 struct OfficeResource: Codable {
-    let context: [Office]
+    let content: [OfficeModel]
+    
+    init() {
+        self.content = []
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case content = "context"
+    }
 }
 
-struct Office: Codable {
+struct OfficeModel: Codable {
     let officeName: String
     let regionName: String
     let imageURL: String
@@ -59,10 +67,14 @@ enum SpotType: String {
 }
 
 struct MagazineResource: Codable {
-    let content: [Magazine]
+    let content: [MagazineModel]
+    
+    init() {
+        self.content = []
+    }
 }
 
-struct Magazine: Codable {
+struct MagazineModel: Codable {
     let title: String
     let imageURL: String
     let introduceURL: String

@@ -8,16 +8,16 @@
 import UIKit
 
 class NearbyPlaceViewController: UIViewController {
-    var office: Office
+    var office: OfficeModel
     let nearbyPlaceView: NearbyPlaceView
     let galleryViewModel: GalleryViewModel
     let introduceVM: IntroduceViewModel
     
-    init(office: Office) {
+    init(office: OfficeModel) {
         self.office = office
         self.nearbyPlaceView = NearbyPlaceView(office: office)
         self.galleryViewModel = GalleryViewModel()
-        self.introduceVM = IntroduceViewModel(url: URL(string: office.introduceURL) ?? URL(string: "")!)
+        self.introduceVM = IntroduceViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,22 +85,25 @@ class NearbyPlaceViewController: UIViewController {
     
     private func setupGalleryView() {
         Task {
-            guard let url = URL(string: office.galleryURL) else { return }
-            await galleryViewModel.fetchContent(by: url)
-            nearbyPlaceView.galleryView.collectionView.reloadData()
+            do {
+                try await galleryViewModel.requestGalleryData(from: office.galleryURL)
+                nearbyPlaceView.galleryView.collectionView.reloadData()
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     
     private func setupIntroduceView() {
-        Task {
-            await introduceVM.fetchData()
-        }
-        introduceVM.introductions.bind { contents in
+        introduceVM.requestOfficeDetailData(from: office.introduceURL)
+        introduceVM.introductions.bind { [weak self] contents in
+            guard let self = self else { return }
             for content in contents {
                 switch content.type {
                 case "Text":
                     let label = UILabel()
-                    label.text = content.context
+                    label.text = content.content
                     if let font = content.font {
                         label.font = .customFont(for: CustomTextStyle(rawValue: font) ?? .articleBody)
                     }
@@ -113,19 +116,23 @@ class NearbyPlaceViewController: UIViewController {
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(label)
                 case "Image":
                     let imageView = UIImageView()
-                    let imageURL = content.context
+                    let imageURL = content.content
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     Task {
-                        let image = await self.introduceVM.fetchImage(urlString: imageURL)
-                        imageView.image = image
-                        let width = image.size.width
-                        let height = image.size.height
-                        
-                        imageView.contentMode = .scaleToFill
-                        imageView.layer.cornerRadius = 20
-                        imageView.clipsToBounds = true
-                        
-                        imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
+                        do {
+                            let image = try await NetworkManager.shared.fetchImage(from: imageURL)
+                            imageView.image = image
+                            let width = image.size.width
+                            let height = image.size.height
+                            
+                            imageView.contentMode = .scaleToFill
+                            imageView.layer.cornerRadius = 20
+                            imageView.clipsToBounds = true
+                            imageView.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: height/width).isActive = true
+                        } catch {
+                            let error = error as? NetworkError ?? .unknownError
+                            print(error.message)
+                        }
                     }
                     self.nearbyPlaceView.introduceView.stackView.addArrangedSubview(imageView)
                 default:
@@ -260,7 +267,7 @@ extension NearbyPlaceViewController: TwoLineLayoutDelegate {
 }
 
 extension NearbyPlaceViewController: InnerTouchPresentDelegate {
-    func touch(office: Office) {
+    func touch(office: OfficeModel) {
         let viewController = MapViewController(office: office)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)

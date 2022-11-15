@@ -14,9 +14,9 @@ class CustomNavigationBar: UIViewController {
     // Binding
     private var titleText: String?
     private var rightButtonImage: UIImage?
-    var magazine: Magazine?
-    var office: Office?
-    var delegate: InnerTouchPresentDelegate?
+    var magazine: MagazineModel?
+    var office: OfficeModel?
+    weak var delegate: InnerTouchPresentDelegate?
     
     private let navigationBar: UIView = {
         let view = UIView()
@@ -139,7 +139,7 @@ class CustomNavigationBar: UIViewController {
     func clickedRightButton(sender: UIButton) {
         switch sender.currentImage {
         case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image :
-            detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.wishMagazine)
+            detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.Key.wishMagazine)
             setupBookmarkImage()
             
         case SFSymbol.mapInNavigation.image:
@@ -152,7 +152,7 @@ class CustomNavigationBar: UIViewController {
     }
     
     private func setupBookmarkImage() {
-        let userDefault = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine?.title ?? "")
+        let userDefault = UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine?.title ?? "")
         rightButton.setImage(userDefault ? SFSymbol.bookmarkFillInNavigation.image : SFSymbol.bookmarkInNavigation.image, for: .normal)
     }
 }

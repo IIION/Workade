@@ -15,7 +15,7 @@ struct MapViewModel {
     let spots: [Spot]
     var currentPin: NMFMarker? = nil
     
-    init(office: Office) {
+    init(office: OfficeModel) {
         self.latitude = office.latitude
         self.longitude = office.longitude
         self.officeName = office.officeName

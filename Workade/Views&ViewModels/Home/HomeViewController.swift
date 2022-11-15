@@ -169,10 +169,12 @@ private extension HomeViewController {
 
 // MARK: Binding with ViewModel
 extension HomeViewController {
-    /// OfficeResource, MagazineResource 데이터 불러오는 과정이 완료가 되면 소식을 받을 수 있도록 binding
-    ///
-    /// 현재 HomeViewController가 로드될 때, 데이터를 불러오기 때문에 처음 컬렉션뷰가 그려질 때는 아직 데이터의 count가 0입니다.
-    /// 따라서, 모든 데이터를 불러온 직후 최초 1회 binding한 이 클로저를 호출시켜주면서 컬렉션뷰들을 정상적으로 reload합니다.
+    /**
+     OfficeResource, MagazineResource 데이터 불러오는 과정이 완료가 되면 소식을 받을 수 있도록 binding
+    
+     현재 HomeViewController가 로드될 때, 데이터를 불러오기 때문에 처음 컬렉션뷰가 그려질 때는 아직 데이터의 count가 0입니다.
+     따라서, 모든 데이터를 불러온 직후 최초 1회 binding한 이 클로저를 호출시켜주면서 컬렉션뷰들을 정상적으로 reload합니다.
+     */
     private func observingFetchComplete() {
         viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
             guard let self = self else { return }
@@ -185,7 +187,7 @@ extension HomeViewController {
     
     // 북마크
     private func observingChangedMagazineId() {
-        viewModel.clickedMagazineId.bindAndFire { [weak self] id in
+        viewModel.clickedMagazineId.bind { [weak self] id in
             guard let self = self else { return }
             guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
             DispatchQueue.main.async {
@@ -200,7 +202,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
         case officeCollectionView:
-            return viewModel.officeResource.context.count
+            return viewModel.officeResource.content.count
         case magazineCollectionView:
             return viewModel.magazineResource.content.count
         default:
@@ -213,7 +215,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case officeCollectionView:
             let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
             cell.delegate = self
-            cell.configure(office: viewModel.officeResource.context[indexPath.row])
+            cell.configure(office: viewModel.officeResource.content[indexPath.row])
             return cell
         case magazineCollectionView:
             let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
@@ -232,7 +234,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case officeCollectionView:
-            let office = viewModel.officeResource.context[indexPath.row]
+            let office = viewModel.officeResource.content[indexPath.row]
             let viewController = NearbyPlaceViewController(office: office)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
@@ -248,14 +250,14 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: CollectionViewCellDelegate {
-    func didTapMapButton(office: Office) {
+    func didTapMapButton(office: OfficeModel) {
         let viewController = MapViewController(office: office)
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }
     
     func didTapBookmarkButton(id: String) { // 북마크
-        viewModel.notifyClickedMagazineId(title: id, key: Constants.wishMagazine)
+        viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
     }
 }
 
