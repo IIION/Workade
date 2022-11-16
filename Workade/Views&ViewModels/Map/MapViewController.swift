@@ -148,13 +148,12 @@ extension MapViewController {
         let clickedMarker: (NMFOverlay) -> Bool = { [weak self] marker in
             guard let marker = marker as? NMFMarker, let self = self else { return false }
             marker.iconImage = self.viewModel.fetchSelectedIcon(marker)
-            if let pin = self.viewModel.currentPin {
-                self.viewModel.currentPin?.iconImage = self.viewModel.fetchUnselectedIcon(pin)
+            if let pin = self.viewModel.currentMarker {
+                self.viewModel.currentMarker?.iconImage = self.viewModel.fetchUnselectedIcon(pin)
             }
             
-            self.viewModel.currentPin = (self.viewModel.currentPin == marker) ? nil : marker
-            self.markerInfoView.isHidden = (self.viewModel.currentPin == nil)
-//            self.markerInfoView.titleLabel.text = self.viewModel.currentPin?.captionText
+            self.viewModel.currentMarker = (self.viewModel.currentMarker == marker) ? nil : marker
+            self.markerInfoView.isHidden = (self.viewModel.currentMarker == nil)
             self.markerInfoView.setMarkerInfo(marker: marker)
             return true
         }
@@ -201,7 +200,7 @@ extension MapViewController {
     
     // 하단 네이버맵 바로가기 버튼이 눌리면 작동되는 함수
     @objc private func naverButtonTapped() {
-        guard let title = viewModel.currentPin?.captionText else { return }
+        guard let title = viewModel.currentMarker?.captionText else { return }
         let urlStr = "nmap://search?query=\(title)"
         guard let encodedStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: encodedStr)
