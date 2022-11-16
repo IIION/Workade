@@ -8,10 +8,9 @@
 import UIKit
 
 class MagazineDetailView: UIView {
-    var magazine: Magazine
+    var magazine: MagazineModel
     
     let magazineViewModel = MagazineDetailViewModel()
-    var introduceURL: URL?
     
     private var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -23,7 +22,7 @@ class MagazineDetailView: UIView {
         return stackView
     }()
     
-    init(magazine: Magazine) {
+    init(magazine: MagazineModel) {
         self.magazine = magazine
         super.init(frame: .zero)
         
@@ -36,47 +35,41 @@ class MagazineDetailView: UIView {
     }
     
     func setupMagazineDetailData() {
-        introduceURL = magazineViewModel.fetchURL(urlString: magazine.introduceURL)
-        Task {
-            await magazineViewModel.fetchMagazine(url: introduceURL)
-        }
-        
-        magazineViewModel.data.bind { [self] content in
+        magazineViewModel.requestMagazineDetailData(from: magazine.introduceURL)
+        // 메모리누수2: weak self
+        magazineViewModel.data.bind { [weak self] content in
+            guard let self = self else { return }
             for data in content {
                 switch data.type {
                 case "Text":
-                    appendTextToStackView(data.context, data.font, data.color)
+                    self.appendTextToStackView(data.content, data.font, data.color)
                     
                 case "Image":
-                    appendImageToStackView(data.context)
+                    self.appendImageToStackView(data.content)
                     
                 default:
-                    return
+                    continue
                 }
             }
         }
     }
     
-    func setImageURL(url: String) async -> UIImage {
-        guard let url = URL(string: url) else { return UIImage() }
-        guard let data = await NetworkManager.shared.request(url: url) else { return UIImage() }
-        if let image = UIImage(data: data) {
-            return image
-        }
-        return UIImage()
-    }
-    
     private func appendImageToStackView(_ url: String) {
         let imageView = UIImageView()
         Task {
-            let image = await setImageURL(url: url)
-            let width = image.size.width
-            let height = image.size.height
-            imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
-            imageView.contentMode = .scaleToFill
-            imageView.layer.cornerRadius = 20
-            imageView.clipsToBounds = true
-            imageView.image = image
+            do {
+                let image = try await NetworkManager.shared.fetchImage(from: url)
+                let width = image.size.width
+                let height = image.size.height
+                imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: height/width).isActive = true
+                imageView.contentMode = .scaleToFill
+                imageView.layer.cornerRadius = 20
+                imageView.clipsToBounds = true
+                imageView.image = image
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
         stackView.addArrangedSubview(imageView)
     }

@@ -40,8 +40,8 @@ class CheckListBottomSheetViewController: UIViewController {
         return view
     }()
     
-    private lazy var templateCollectionView: HorizontalCollectionView = {
-        let collectionView = HorizontalCollectionView(itemSize: CGSize(width: 240, height: 144))
+    private lazy var templateCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(itemSize: CGSize(width: 240, height: 144), direction: .horizontal)
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -147,7 +147,7 @@ class CheckListBottomSheetViewController: UIViewController {
 
 extension CheckListBottomSheetViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return checkListBottomSheetViewModel.checkListTemplateResource.context.count
+        return checkListBottomSheetViewModel.checkListTemplateResource.content.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -156,11 +156,11 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.content[indexPath.row]
         
         cell.setupCell(checkListTemplate: template)
-        cell.addTemplate = {
-            self.checkListBottomSheetViewModel.addTemplateTodo(template.list)
+        cell.addTemplate = { [weak self] in
+            self?.checkListBottomSheetViewModel.addTemplateTodo(template.list)
         }
         
         return cell
@@ -172,7 +172,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDelegate {
         let checkListTemplateViewController = CheckListTemplateViewController()
         checkListTemplateViewController.modalPresentationStyle = .overFullScreen
         
-        let template = checkListBottomSheetViewModel.checkListTemplateResource.context[indexPath.row]
+        let template = checkListBottomSheetViewModel.checkListTemplateResource.content[indexPath.row]
         
         checkListTemplateViewController.setupData(checkListTemplate: template)
         

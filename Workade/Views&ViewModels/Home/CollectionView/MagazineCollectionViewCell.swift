@@ -41,7 +41,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     }()
     
     private func setupBookmarkImage() {
-        let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazineId ?? "")
+        let isBookmark = UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazineId ?? "")
         bookmarkButton.setImage(isBookmark ? SFSymbol.bookmarkFill.image : SFSymbol.bookmark.image, for: .normal)
     }
     
@@ -62,14 +62,19 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(magazine: Magazine) {
+    func configure(magazine: MagazineModel) {
         magazineId = magazine.title
         titleLabel.text = magazine.title
         backgroundImageView.image = nil
         setupBookmarkImage()
         // 이렇게 최초 구성 이미지를 nil로 해주면, 빠른 스크롤 시에 이전 이미지가 들어가있는 이미지 꼬임 현상을 다소 막아줄 수 있습니다. 그 후 불러와진 이미지가 정상적으로 자리잡게 됩니다.
         task = Task {
-            await backgroundImageView.setImageURL(magazine.imageURL)
+            do {
+                try await backgroundImageView.setImageURL(from: magazine.imageURL)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 @MainActor
 class MagazineDetailViewModel {
-    var magazineData = MagazineModel(magazineContent: [])
+    var magazineData = MagazineResource()
     
     var data: Binder<[MagazineDetailModel]> = Binder([])
     
@@ -18,43 +18,34 @@ class MagazineDetailViewModel {
     }
     
     // Magazine의 전체 내용을 가져오는 함수
-    func fetchData() {
+    func requestMagazineData() {
         Task {
-            magazineData = try await NetworkManager.shared.fetchHomeData("magazine")
-        }
-    }
-    
-    func fetchMagazine(url: URL?) async {
-        var magazineDetailData: [MagazineDetailModel] = []
-        
-        guard let dataUrl = url else { return }
-        
-        let result = await NetworkManager.shared.request(url: dataUrl)
-        guard let result = result else { return }
-        
-        do {
-            let magazineData = try JSONDecoder().decode(MagazineDataModel.self, from: result)
-            magazineData.magazineData.forEach { detailData in
-                magazineDetailData.append(detailData)
+            do {
+                magazineData = try await NetworkManager.shared.requestResourceData(from: Constants.Address.magazineResource)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
             }
-        } catch {
-            print(error)
         }
-        
-        data.value = magazineDetailData
     }
     
-    func fetchURL(urlString: String) -> URL? {
-        guard let url = URL(string: urlString) else { return nil }
-        
-        return url
+    func requestMagazineDetailData(from urlString: String) {
+        Task {
+            do {
+                let detailResource: MagazineDetailResource = try await NetworkManager.shared.requestResourceData(from: urlString)
+                data.value = detailResource.content
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
+        }
     }
     
     var clickedMagazineId = Binder("")
     
     /// Manager -> ViewModel -> ViewController
     private func bindingBookmarkManager() {
-        BookmarkManager.shared.clickedMagazineId.bindAndFire(at: .magazine) { [weak self] id in
+        BookmarkManager.shared.clickedMagazineId.bind(at: .magazine) { [weak self] id in
             guard let self = self else { return }
             self.clickedMagazineId.value = id
         }
@@ -62,5 +53,9 @@ class MagazineDetailViewModel {
     
     func notifyClickedMagazineId(title id: String, key: String) {
         BookmarkManager.shared.notifyClickedMagazineId(title: id, key: key)
+    }
+    
+    deinit {
+        BookmarkManager.shared.clickedMagazineId.remove(at: .magazine)
     }
 }

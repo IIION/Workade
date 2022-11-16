@@ -52,7 +52,20 @@ class MapViewController: UIViewController {
         return button
     }()
     
-    init(office: Office) {
+    private lazy var naverMapButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("네이버 맵으로 바로가기", for: .normal)
+        button.titleLabel?.font = .customFont(for: .title2)
+        button.layer.backgroundColor = CGColor(red: 94/255, green: 204/255, blue: 105/255, alpha: 1)
+        button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(naverButtonTapped), for: .touchUpInside)
+        button.isHidden = true
+        
+        return button
+    }()
+    
+    init(office: OfficeModel) {
         viewModel = MapViewModel(office: office)
         super.init(nibName: nil, bundle: nil)
     }

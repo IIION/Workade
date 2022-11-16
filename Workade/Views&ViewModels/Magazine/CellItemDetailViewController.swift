@@ -8,7 +8,7 @@
 import UIKit
 
 class CellItemDetailViewController: UIViewController {
-    var magazine: Magazine
+    var magazine: MagazineModel
     let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
@@ -83,7 +83,7 @@ class CellItemDetailViewController: UIViewController {
     
     private var customNavigationBar = CustomNavigationBar()
     
-    init(magazine: Magazine) {
+    init(magazine: MagazineModel) {
         self.magazine = magazine
         super.init(nibName: nil, bundle: nil)
     }
@@ -97,7 +97,12 @@ class CellItemDetailViewController: UIViewController {
         view.backgroundColor = .theme.background
         titleLabel.text = magazine.title
         Task {
-            await titleImageView.setImageURL(magazine.imageURL)
+            do {
+                try await titleImageView.setImageURL(from: magazine.imageURL)
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
         }
         
         bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
@@ -205,7 +210,7 @@ class CellItemDetailViewController: UIViewController {
     }
     
     private func userDefaultsCheck() -> Bool {
-        return UserDefaultsManager.shared.loadUserDefaults(key: Constants.wishMagazine).contains(magazine.title)
+        return UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine.title)
         
     }
     
@@ -216,7 +221,7 @@ class CellItemDetailViewController: UIViewController {
     
     @objc
     func clickedBookmarkButton(sender: UIButton) {
-        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.wishMagazine)
+        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.Key.wishMagazine)
         setupBookmarkImage()
     }
 }

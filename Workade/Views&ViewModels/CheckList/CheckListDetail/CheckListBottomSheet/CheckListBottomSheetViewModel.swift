@@ -9,7 +9,7 @@ import UIKit
 
 @MainActor
 final class CheckListBottomSheetViewModel {
-    var checkListTemplateResource = CheckListTemplateResource(context: [])
+    var checkListTemplateResource = CheckListTemplateResource()
     
     var isCompleteFetch = Binder(false)
     
@@ -19,7 +19,7 @@ final class CheckListBottomSheetViewModel {
     
     private func fetchData() {
         Task {
-            checkListTemplateResource = try await NetworkManager.shared.requestCheckListTemplateData()
+            checkListTemplateResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.checkListResource)
             isCompleteFetch.value = true
         }
     }
