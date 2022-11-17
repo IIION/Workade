@@ -10,6 +10,14 @@ import UIKit
 class ProfileView: UIView {
     // TODO: Login User 정보 ViewModel 사용
     
+    let containerView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .clear
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return containerView
+    }()
+    
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 32
@@ -66,30 +74,37 @@ class ProfileView: UIView {
     }
     
     private func setupLayout() {
-        addSubview(profileImage)
+        addSubview(containerView)
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        containerView.addSubview(profileImage)
         NSLayoutConstraint.activate([
             profileImage.widthAnchor.constraint(equalToConstant: 64),
             profileImage.heightAnchor.constraint(equalToConstant: 64),
-            profileImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            profileImage.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+            profileImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
+            profileImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20)
         ])
         
-        addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
             nameLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20)
         ])
         
-        addSubview(jobLabel)
+        containerView.addSubview(jobLabel)
         NSLayoutConstraint.activate([
             jobLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
             jobLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4)
         ])
         
-        addSubview(editProfileButton)
+        containerView.addSubview(editProfileButton)
         NSLayoutConstraint.activate([
             editProfileButton.topAnchor.constraint(equalTo: profileImage.topAnchor),
-            editProfileButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            editProfileButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             editProfileButton.widthAnchor.constraint(equalToConstant: 90),
             editProfileButton.heightAnchor.constraint(equalToConstant: 36)
         ])
