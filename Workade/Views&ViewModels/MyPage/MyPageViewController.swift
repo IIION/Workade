@@ -123,13 +123,14 @@ private extension MyPageViewController {
             target: self,
             action: #selector(popToHomeVC)
         )
-        // TODO: 나중에 설정 추가하기
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(
-//            image: SFSymbol.gearshapeFill.image,
-//            style: .done,
-//            target: self,
-//            action: #selector(pushToSettingVC)
-//        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.gearshapeFill.image,
+            style: .done,
+            target: self,
+            action: #selector(pushToSettingVC)
+        )
+        self.title = "마이 페이지"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.customFont(for: .subHeadline)]
     }
     
     func setupGradientLayer() {
