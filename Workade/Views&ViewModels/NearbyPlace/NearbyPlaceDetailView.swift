@@ -21,16 +21,6 @@ class NearbyPlaceDetailView: UIView {
         return contensContainerView
     }()
     
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
-        scrollView.isScrollEnabled = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return scrollView
-    }()
-    
     let introduceView: IntroduceView = {
         let view = IntroduceView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -64,22 +54,13 @@ class NearbyPlaceDetailView: UIView {
     }
     
     func setupLayout() {
-        addSubview(scrollView)
-        scrollView.addSubview(contensContainerView)
+        addSubview(contensContainerView)
+
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-        
-        let scrollViewGuide = scrollView.contentLayoutGuide
-        NSLayoutConstraint.activate([
-            contensContainerView.topAnchor.constraint(equalTo: scrollViewGuide.topAnchor),
-            contensContainerView.bottomAnchor.constraint(equalTo: scrollViewGuide.bottomAnchor),
-            contensContainerView.leadingAnchor.constraint(equalTo: scrollViewGuide.leadingAnchor),
-            contensContainerView.trailingAnchor.constraint(equalTo: scrollViewGuide.trailingAnchor),
-            contensContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            contensContainerView.topAnchor.constraint(equalTo: topAnchor),
+            contensContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contensContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contensContainerView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         contensContainerView.addSubview(introduceView)
