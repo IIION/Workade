@@ -15,6 +15,8 @@
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
+		163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */; };
+		163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */; };
 		1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */; };
 		16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29983290A7BAE00136E62 /* CheckListCellViewModel.swift */; };
 		16B29988290AF65F00136E62 /* TitlePopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29987290AF65F00136E62 /* TitlePopOverViewController.swift */; };
@@ -112,6 +114,8 @@
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewController.swift; sourceTree = "<group>"; };
+		163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewModel.swift; sourceTree = "<group>"; };
 		1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListBottomSheetViewController.swift; sourceTree = "<group>"; };
 		16B29983290A7BAE00136E62 /* CheckListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCellViewModel.swift; sourceTree = "<group>"; };
 		16B29987290AF65F00136E62 /* TitlePopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopOverViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,15 @@
 				16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */,
 			);
 			path = CheckListCell;
+			sourceTree = "<group>";
+		};
+		163A0FA729260DAF00BFF0D2 /* Workation */ = {
+			isa = PBXGroup;
+			children = (
+				163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */,
+				163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */,
+			);
+			path = Workation;
 			sourceTree = "<group>";
 		};
 		1646C99029082F95008D510D /* CheckListBottomSheet */ = {
@@ -425,6 +438,7 @@
 				9646763629092D340047ED34 /* MyPage */,
 				9646763D2909346A0047ED34 /* SettingViewController */,
 				16083B4729013F9A008056D4 /* CheckList */,
+				163A0FA729260DAF00BFF0D2 /* Workation */,
 			);
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
@@ -710,6 +724,7 @@
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
+				163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
@@ -779,6 +794,7 @@
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* HomeViewController.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
+				163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
 				0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,

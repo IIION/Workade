@@ -70,6 +70,7 @@ enum SFSymbol {
     case bookmarkFillInDetail
     case bookmarkInNavigation
     case bookmarkFillInNavigation
+    case xmarkInNavigation
     
     var image: UIImage {
         switch self {
@@ -99,6 +100,8 @@ enum SFSymbol {
             return .fromSystemImage(name: "bookmark", font: .systemFont(ofSize: 17, weight: .bold), color: .theme.primary)!
         case .bookmarkFillInNavigation:
             return .fromSystemImage(name: "bookmark.fill", font: .systemFont(ofSize: 17, weight: .bold), color: .theme.primary)!
+        case .xmarkInNavigation:
+            return .fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.primary)!
         }
     }
 }
