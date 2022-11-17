@@ -123,12 +123,13 @@ private extension MyPageViewController {
             target: self,
             action: #selector(popToHomeVC)
         )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: SFSymbol.gearshapeFill.image,
-            style: .done,
-            target: self,
-            action: #selector(pushToSettingVC)
-        )
+        // TODO: 나중에 설정 추가하기
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//            image: SFSymbol.gearshapeFill.image,
+//            style: .done,
+//            target: self,
+//            action: #selector(pushToSettingVC)
+//        )
     }
     
     func setupGradientLayer() {
