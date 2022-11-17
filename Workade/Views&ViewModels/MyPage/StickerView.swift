@@ -51,10 +51,11 @@ extension StickerView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let stickerCollectionViewCell = StickerCollectionViewCell()
         let width = (UIScreen.main.bounds.width - 30 * 4) / 3
         
-        // Figma 상의 비율로 보면 width 90 , height 142 이기 때문에 이를 나눈 비율로 각 셀의 높이를 계산
-        return CGSize(width: width, height: width * 1.57)
+        // Height : 스티커 이미지의 고정크기 90 + 이미지와 라벨 사이 간격 6 + 라벨들의 높이
+        return CGSize(width: width, height: 90 + 6 + stickerCollectionViewCell.getLabelsHeight())
     }
 }
 

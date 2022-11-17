@@ -9,7 +9,7 @@ import UIKit
 
 class StickerCollectionViewCell: UICollectionViewCell {
     private let stickerContainerView: UIView = {
-       let stickerContainerView = UIView()
+        let stickerContainerView = UIView()
         stickerContainerView.backgroundColor = .theme.groupedBackground
         stickerContainerView.layer.cornerRadius = 16
         stickerContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
     }()
     
     private let stickerImage: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         
         // TODO: 스티커로 변경 예정
@@ -33,6 +33,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
         stickerNameLabel.font = .customFont(for: .footnote)
         // TODO: Data 연결시 삭제
         stickerNameLabel.text = "감귤 스티커"
+        stickerNameLabel.sizeToFit()
         stickerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return stickerNameLabel
@@ -44,6 +45,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
         stickerDataLabel.font = .customFont(for: .caption)
         // TODO: Data 연결시 삭제
         stickerDataLabel.text = "2022.12.03"
+        stickerDataLabel.sizeToFit()
         stickerDataLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return stickerDataLabel
@@ -55,6 +57,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
         stickerLocationLabel.font = .customFont(for: .caption)
         // TODO: Data 연결시 삭제
         stickerLocationLabel.text = "제주에서 획득"
+        stickerLocationLabel.sizeToFit()
         stickerLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return stickerLocationLabel
@@ -102,5 +105,13 @@ class StickerCollectionViewCell: UICollectionViewCell {
             stickerLocationLabel.topAnchor.constraint(equalTo: stickerDataLabel.bottomAnchor),
             stickerLocationLabel.leadingAnchor.constraint(equalTo: stickerContainerView.leadingAnchor)
         ])
+    }
+    
+    func getLabelsHeight() -> Double {
+        let nameLabelHeight = stickerNameLabel.bounds.size.height
+        let dataLabelHeight = stickerDataLabel.bounds.size.height
+        let locationLabelHeight = stickerLocationLabel.bounds.size.height
+        
+        return nameLabelHeight + dataLabelHeight + locationLabelHeight
     }
 }
