@@ -54,23 +54,46 @@ struct DesignSystem: View {
                     }
                 }
             } else {
-                VStack(spacing: 20) {
-                    Color(UIColor.theme.primary)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.secondary)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.tertiary)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.quaternary)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.background)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.groupedBackground)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.subGroupedBackground)
-                        .frame(width: 44, height: 44)
-                    Color(UIColor.theme.labelBackground)
-                        .frame(width: 44, height: 44)
+                HStack(alignment: .top, spacing: 10) {
+                    VStack(spacing: 20) {
+                        Color(UIColor.theme.workadeBlue)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.primary)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.secondary)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.tertiary)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.quaternary)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.background)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.groupedBackground)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.subGroupedBackground)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.labelBackground)
+                            .frame(width: 44, height: 44)
+                    }
+                    
+                    
+                    
+                    VStack(spacing: 20) {
+                        Text("Content Color")
+                            .font(.title3)
+                        Color(UIColor.theme.contentRed)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.contentYellow)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.contentGreen)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.contentBlue)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.contentPurple)
+                            .frame(width: 44, height: 44)
+                        Color(UIColor.theme.contentPink)
+                            .frame(width: 44, height: 44)
+                    }
                 }
             }
         }
