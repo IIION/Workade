@@ -75,8 +75,8 @@ class StickerCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             stickerContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             stickerContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stickerContainerView.widthAnchor.constraint(equalToConstant: 90),
-            stickerContainerView.heightAnchor.constraint(equalToConstant: 90)
+            stickerContainerView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 30 * 4) / 3),
+            stickerContainerView.heightAnchor.constraint(equalTo: widthAnchor)
         ])
         
         stickerContainerView.addSubview(stickerImage)
