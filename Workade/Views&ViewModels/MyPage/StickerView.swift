@@ -2,19 +2,18 @@
 //  StickerView.swift
 //  Workade
 //
-//  Created by Hong jeongmin on 2022/11/17.
+//  Created by Hong jeongmin on 2022/11/16.
 //
 
 import UIKit
 
 class StickerView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

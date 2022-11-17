@@ -19,6 +19,15 @@ final class MyPageViewController: UIViewController {
         return profileView
     }()
     
+    private let stickerView: StickerView = {
+        let stickerView = StickerView()
+        stickerView.translatesAutoresizingMaskIntoConstraints = false
+        stickerView.layer.cornerRadius = 30
+        stickerView.backgroundColor = .theme.background
+        
+        return stickerView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.primary
@@ -74,6 +83,14 @@ private extension MyPageViewController {
             profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileView.containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+        
+        view.addSubview(stickerView)
+        NSLayoutConstraint.activate([
+            stickerView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 4),
+            stickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
