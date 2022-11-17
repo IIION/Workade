@@ -90,11 +90,13 @@ class StickerCollectionViewCell: UICollectionViewCell {
             stickerNameLabel.topAnchor.constraint(equalTo: stickerContainerView.bottomAnchor, constant: 6),
             stickerNameLabel.leadingAnchor.constraint(equalTo: stickerContainerView.leadingAnchor)
         ])
+        
         addSubview(stickerDataLabel)
         NSLayoutConstraint.activate([
             stickerDataLabel.topAnchor.constraint(equalTo: stickerNameLabel.bottomAnchor),
             stickerDataLabel.leadingAnchor.constraint(equalTo: stickerContainerView.leadingAnchor)
         ])
+        
         addSubview(stickerLocationLabel)
         NSLayoutConstraint.activate([
             stickerLocationLabel.topAnchor.constraint(equalTo: stickerDataLabel.bottomAnchor),
