@@ -10,10 +10,12 @@ import UIKit
 final class MyPageViewController: UIViewController {
     private let viewModel = MyPageViewModel()
     
+    // 특정 모서리만 둥글게 처리 참고 사이트 : https://swieeft.github.io/2020/03/05/UIViewRoundCorners.html
     private let profileView: ProfileView = {
         let profileView = ProfileView()
         profileView.translatesAutoresizingMaskIntoConstraints = false
         profileView.layer.cornerRadius = 30
+        profileView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
         profileView.backgroundColor = .theme.background
         
         return profileView
@@ -23,6 +25,7 @@ final class MyPageViewController: UIViewController {
         let stickerView = StickerView()
         stickerView.translatesAutoresizingMaskIntoConstraints = false
         stickerView.layer.cornerRadius = 30
+        stickerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         stickerView.backgroundColor = .theme.background
         
         return stickerView
@@ -76,19 +79,10 @@ private extension MyPageViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.customFont(for: .subHeadline)]
     }
     
-    /*
-     기기별 대응을 위해 오토레이아웃 일부를 변경합니다.
-     노치가 있는 디자인에서는 이상 없었으나
-     노치가 아닌 기기에서는 상단과 하단의 cornerRadius 가 적용되어 UI가 깨집니다.
-     
-     이를 방지하기 위해 profileView의 topAnchor 를 상단에서 30만큼 위로,
-     stickerView의 BottomAnchor를 하단에서 30만큼 아래로 수정합니다.
-     */
-    
     private func setupLayout() {
         view.addSubview(profileView)
         NSLayoutConstraint.activate([
-            profileView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+            profileView.topAnchor.constraint(equalTo: view.topAnchor),
             profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileView.containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
@@ -97,7 +91,7 @@ private extension MyPageViewController {
         view.addSubview(stickerView)
         NSLayoutConstraint.activate([
             stickerView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 4),
-            stickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30),
+            stickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             stickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
