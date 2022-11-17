@@ -21,7 +21,7 @@ class ProfileView: UIView {
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 32
-        imageView.backgroundColor = .theme.labelBackground
+        imageView.backgroundColor = .theme.groupedBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         // TODO: 로그인 유저 프로필사진 정보로 변경
