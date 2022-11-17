@@ -34,14 +34,24 @@ struct DesignSystem: View {
                         .font(Font(UIFont.customFont(for: .title3)))
                     Text("Headline")
                         .font(Font(UIFont.customFont(for: .headline)))
+                    Text("CaptionHeadline")
+                        .font(Font(UIFont.customFont(for: .captionHeadline)))
                     Text("Subheadline")
                         .font(Font(UIFont.customFont(for: .subHeadline)))
-                    Text("ArticleBody")
-                        .font(Font(UIFont.customFont(for: .articleBody)))
-                    Text("Footnote")
-                        .font(Font(UIFont.customFont(for: .footnote)))
-                    Text("Caption")
-                        .font(Font(UIFont.customFont(for: .caption)))
+                    Group {
+                        Text("ArticleBody")
+                            .font(Font(UIFont.customFont(for: .articleBody)))
+                        Text("Footnote")
+                            .font(Font(UIFont.customFont(for: .footnote)))
+                        Text("Footnote2")
+                            .font(Font(UIFont.customFont(for: .footnote2)))
+                        Text("Caption")
+                            .font(Font(UIFont.customFont(for: .caption)))
+                        Text("Caption2")
+                            .font(Font(UIFont.customFont(for: .caption2)))
+                        Text("Tag")
+                            .font(Font(UIFont.customFont(for: .tag)))
+                    }
                 }
             } else {
                 VStack(spacing: 20) {

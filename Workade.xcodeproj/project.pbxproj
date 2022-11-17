@@ -26,6 +26,10 @@
 		16CBD46E29040D960056A641 /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46D29040D950056A641 /* CheckListViewModel.swift */; };
 		16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */; };
 		16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */; };
+		2103BBA729261F4D00BBCB2C /* Satoshi-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2103BBA329261F4C00BBCB2C /* Satoshi-Bold.otf */; };
+		2103BBA829261F4D00BBCB2C /* Satoshi-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2103BBA429261F4C00BBCB2C /* Satoshi-Black.otf */; };
+		2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2103BBA529261F4C00BBCB2C /* Satoshi-Medium.otf */; };
+		2103BBAA29261F4D00BBCB2C /* Satoshi-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2103BBA629261F4D00BBCB2C /* Satoshi-Regular.otf */; };
 		21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21096F8329069ECF007EC889 /* GalleryViewModel.swift */; };
 		2120F566290130870035D36E /* UICollectionViewTwoLineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */; };
 		2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */; };
@@ -123,6 +127,10 @@
 		16CBD46D29040D950056A641 /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
 		16CBD46F290411ED0056A641 /* CheckListAddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListAddButtonCell.swift; sourceTree = "<group>"; };
 		16CBD4732905673D0056A641 /* CheckListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewModel.swift; sourceTree = "<group>"; };
+		2103BBA329261F4C00BBCB2C /* Satoshi-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Bold.otf"; sourceTree = "<group>"; };
+		2103BBA429261F4C00BBCB2C /* Satoshi-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Black.otf"; sourceTree = "<group>"; };
+		2103BBA529261F4C00BBCB2C /* Satoshi-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Medium.otf"; sourceTree = "<group>"; };
+		2103BBA629261F4D00BBCB2C /* Satoshi-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Regular.otf"; sourceTree = "<group>"; };
 		21096F8329069ECF007EC889 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		2120F565290130870035D36E /* UICollectionViewTwoLineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewTwoLineLayout.swift; sourceTree = "<group>"; };
 		2120F569290134D10035D36E /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -312,6 +320,10 @@
 		21F6DE5628FFED2000ED72C6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				2103BBA429261F4C00BBCB2C /* Satoshi-Black.otf */,
+				2103BBA329261F4C00BBCB2C /* Satoshi-Bold.otf */,
+				2103BBA529261F4C00BBCB2C /* Satoshi-Medium.otf */,
+				2103BBA629261F4D00BBCB2C /* Satoshi-Regular.otf */,
 				21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */,
 				21F6DE5728FFED5C00ED72C6 /* Pretendard-Medium.otf */,
 				21F6DE5928FFED5C00ED72C6 /* Pretendard-Regular.otf */,
@@ -619,13 +631,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2103BBA729261F4D00BBCB2C /* Satoshi-Bold.otf in Resources */,
+				2103BBA829261F4D00BBCB2C /* Satoshi-Black.otf in Resources */,
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
+				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
 				5FDC17C728FE799D0060DBB7 /* Assets.xcassets in Resources */,
 				21F6DE5B28FFED5D00ED72C6 /* Pretendard-Medium.otf in Resources */,
+				2103BBAA29261F4D00BBCB2C /* Satoshi-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
