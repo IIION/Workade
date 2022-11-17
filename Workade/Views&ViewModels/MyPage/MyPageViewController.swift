@@ -73,7 +73,6 @@ private extension MyPageViewController {
             profileView.topAnchor.constraint(equalTo: view.topAnchor),
             profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -509),
             profileView.containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }

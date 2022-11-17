@@ -77,8 +77,7 @@ class ProfileView: UIView {
         addSubview(containerView)
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         containerView.addSubview(profileImage)
@@ -98,7 +97,8 @@ class ProfileView: UIView {
         containerView.addSubview(jobLabel)
         NSLayoutConstraint.activate([
             jobLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
-            jobLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4)
+            jobLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            containerView.bottomAnchor.constraint(equalTo: jobLabel.bottomAnchor, constant: 20)
         ])
         
         containerView.addSubview(editProfileButton)
@@ -108,5 +108,7 @@ class ProfileView: UIView {
             editProfileButton.widthAnchor.constraint(equalToConstant: 90),
             editProfileButton.heightAnchor.constraint(equalToConstant: 36)
         ])
+        
+        bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 20).isActive = true
     }
 }
