@@ -18,7 +18,7 @@ final class MapInfoView: UIView {
         setupLayout()
     }
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = .customFont(for: .captionHeadlineNew)
@@ -27,14 +27,14 @@ final class MapInfoView: UIView {
         return title
     }()
     
-    let markerImage: UIImageView = {
+    private let markerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
     
-    lazy var mapButton: UIButton = {
+    private lazy var mapButton: UIButton = {
         let mapButton = UIButton()
         mapButton.translatesAutoresizingMaskIntoConstraints = false
         mapButton.setImage(UIImage(named: "navermapbutton"), for: .normal)
