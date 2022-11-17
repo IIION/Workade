@@ -2,19 +2,96 @@
 //  ProfileView.swift
 //  Workade
 //
-//  Created by Hong jeongmin on 2022/11/17.
+//  Created by Hong jeongmin on 2022/11/16.
 //
 
 import UIKit
 
 class ProfileView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    // TODO: Login User 정보 ViewModel 사용
+    
+    private let profileImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 32
+        imageView.backgroundColor = .theme.labelBackground
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // TODO: 로그인 유저 프로필사진 정보로 변경
+        
+        return imageView
+    }()
+    
+    private lazy var editProfileButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("프로필 편집", for: .normal)
+        button.setTitleColor(.theme.tertiary, for: .normal)
+        button.titleLabel?.font = .customFont(for: .caption)
+        button.backgroundColor = .theme.labelBackground
+        button.layer.cornerRadius = 18
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .customFont(for: .title3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        // TODO: 로그인 유저 이름 정보로 변경
+        label.text = "김예훈"
+        
+        return label
+    }()
+    
+    private let jobLabel: UILabel = {
+        let label = UILabel()
+        label.font = .customFont(for: .footnote)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        // TODO: 로그인 유저 직업 정보로 변경
+        label.text = "프리랜서 개발자"
+        
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupLayout()
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupLayout() {
+        addSubview(profileImage)
+        NSLayoutConstraint.activate([
+            profileImage.widthAnchor.constraint(equalToConstant: 64),
+            profileImage.heightAnchor.constraint(equalToConstant: 64),
+            profileImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            profileImage.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+        ])
+        
+        addSubview(nameLabel)
+        NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
+            nameLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20)
+        ])
+        
+        addSubview(jobLabel)
+        NSLayoutConstraint.activate([
+            jobLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
+            jobLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4)
+        ])
+        
+        addSubview(editProfileButton)
+        NSLayoutConstraint.activate([
+            editProfileButton.topAnchor.constraint(equalTo: profileImage.topAnchor),
+            editProfileButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            editProfileButton.widthAnchor.constraint(equalToConstant: 90),
+            editProfileButton.heightAnchor.constraint(equalToConstant: 36)
+        ])
+    }
 }
