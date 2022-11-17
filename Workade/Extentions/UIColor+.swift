@@ -46,6 +46,9 @@ extension UIColor {
 
 struct ColorTheme {
     fileprivate init() {}
+    
+    let workadeBlue = UIColor(named: "WorkadeBlue") ?? UIColor.black
+    
     let primary = UIColor(named: "Primary") ?? UIColor.black
     let secondary = UIColor(named: "Secondary") ?? UIColor.black
     let tertiary = UIColor(named: "Tertiary") ?? UIColor.black
@@ -54,4 +57,11 @@ struct ColorTheme {
     let labelBackground = UIColor(named: "LabelBackground") ?? UIColor.black
     let groupedBackground = UIColor(named: "GroupedBackground") ?? UIColor.black
     let subGroupedBackground = UIColor(named: "SubGroupedBackground") ?? UIColor.black
+    
+    let contentRed = UIColor(named: "Red") ?? UIColor.black
+    let contentYellow = UIColor(named: "Yellow") ?? UIColor.black
+    let contentGreen = UIColor(named: "Green") ?? UIColor.black
+    let contentBlue = UIColor(named: "Blue") ?? UIColor.black
+    let contentPurple = UIColor(named: "Purple") ?? UIColor.black
+    let contentPink = UIColor(named: "Pink") ?? UIColor.black
 }

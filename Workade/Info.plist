@@ -4,6 +4,10 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Satoshi-Black.otf</string>
+		<string>Satoshi-Bold.otf</string>
+		<string>Satoshi-Medium.otf</string>
+		<string>Satoshi-Regular.otf</string>
 		<string>Pretendard-Bold.otf</string>
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-Regular.otf</string>
