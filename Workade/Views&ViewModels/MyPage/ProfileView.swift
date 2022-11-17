@@ -33,6 +33,7 @@ class ProfileView: UIView {
         let button = UIButton()
         button.setTitle("프로필 편집", for: .normal)
         button.setTitleColor(.theme.tertiary, for: .normal)
+        // TODO: caption2 2차 디자인 시스템 적용
         button.titleLabel?.font = .customFont(for: .caption)
         button.backgroundColor = .theme.labelBackground
         button.layer.cornerRadius = 18
