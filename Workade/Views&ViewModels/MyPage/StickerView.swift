@@ -54,8 +54,7 @@ extension StickerView: UICollectionViewDelegateFlowLayout {
         let stickerCollectionViewCell = StickerCollectionViewCell()
         let width = (UIScreen.main.bounds.width - 30 * 4) / 3
         
-        // Height : 스티커 이미지의 고정크기 90 + 이미지와 라벨 사이 간격 6 + 라벨들의 높이
-        return CGSize(width: width, height: 90 + 6 + stickerCollectionViewCell.getLabelsHeight())
+        return CGSize(width: width, height: stickerCollectionViewCell.getContainerHeight())
     }
 }
 

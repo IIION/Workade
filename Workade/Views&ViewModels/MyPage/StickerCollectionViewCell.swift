@@ -8,6 +8,9 @@
 import UIKit
 
 class StickerCollectionViewCell: UICollectionViewCell {
+    /// 화면 기기너비에 비례한 Image 너비를 계산
+    private let stickerImageWidth = (UIScreen.main.bounds.width - 30 * 4) / 3
+    
     private let stickerContainerView: UIView = {
         let stickerContainerView = UIView()
         stickerContainerView.backgroundColor = .theme.groupedBackground
@@ -78,7 +81,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             stickerContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             stickerContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stickerContainerView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 30 * 4) / 3),
+            stickerContainerView.widthAnchor.constraint(equalToConstant: stickerImageWidth),
             stickerContainerView.heightAnchor.constraint(equalTo: widthAnchor)
         ])
         
@@ -107,11 +110,14 @@ class StickerCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func getLabelsHeight() -> Double {
+    /// 이미지와 라벨 사이 간격 6 + 라벨들의 높이 + 스티커 이미지의 동적 너비 ( stickerImageWidth )
+    func getContainerHeight() -> Double {
         let nameLabelHeight = stickerNameLabel.bounds.size.height
         let dataLabelHeight = stickerDataLabel.bounds.size.height
         let locationLabelHeight = stickerLocationLabel.bounds.size.height
         
-        return nameLabelHeight + dataLabelHeight + locationLabelHeight
+        let labelsHeight = nameLabelHeight + dataLabelHeight + locationLabelHeight
+        
+        return labelsHeight + 6 + stickerImageWidth
     }
 }
