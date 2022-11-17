@@ -18,18 +18,13 @@ final class SettingViewController: UIViewController {
         
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
         setupNavigationBar()
         setupLayout()
-    }
-    
-    @objc
-    func popToMyPageView() {
-        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -39,9 +34,10 @@ private extension SettingViewController {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
-            style: .done,
-            target: self,
-            action: #selector(popToMyPageView)
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            })
         )
     }
     
