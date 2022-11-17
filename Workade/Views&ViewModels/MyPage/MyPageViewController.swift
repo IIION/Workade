@@ -35,6 +35,7 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.primary
         
+        editProfileButtonTapped()
         setupNavigationBar()
         setupLayout()
     }
@@ -42,6 +43,14 @@ final class MyPageViewController: UIViewController {
     // TODO: Login Check Logic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    private func editProfileButtonTapped() {
+        profileView.editProfileButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            let viewController = EditProfileViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }), for: .touchUpInside)
     }
 }
 

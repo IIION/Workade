@@ -103,6 +103,7 @@
 		A37D28442923C62E009F0ED6 /* GalleryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28432923C62E009F0ED6 /* GalleryResource.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
+		A3BB02BD2926A7E3000DE275 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */; };
 		A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */; };
 		A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD5E6D2917A193008FDFBF /* GradientView.swift */; };
 		A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */; };
@@ -211,6 +212,7 @@
 		A37D28432923C62E009F0ED6 /* GalleryResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryResource.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
 		A3DD5E6D2917A193008FDFBF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailView.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				A354F476292625F5003E601A /* ProfileView.swift */,
 				A354F47829262615003E601A /* StickerView.swift */,
 				A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */,
+				A3BB02BB2926A7C8000DE275 /* EditProfile */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -576,6 +579,14 @@
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
 			);
 			path = Share;
+			sourceTree = "<group>";
+		};
+		A3BB02BB2926A7C8000DE275 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */,
+			);
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		B7DE360250B0A3F5EC254C91 /* Pods */ = {
@@ -762,6 +773,7 @@
 				5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */,
 				A354F47B29263C52003E601A /* StickerCollectionViewCell.swift in Sources */,
 				0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */,
+				A3BB02BD2926A7E3000DE275 /* EditProfileViewController.swift in Sources */,
 				9646763F2909347C0047ED34 /* SettingViewController.swift in Sources */,
 				A37D28442923C62E009F0ED6 /* GalleryResource.swift in Sources */,
 				96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */,

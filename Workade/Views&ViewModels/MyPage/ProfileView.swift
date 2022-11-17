@@ -29,7 +29,7 @@ class ProfileView: UIView {
         return imageView
     }()
     
-    private lazy var editProfileButton: UIButton = {
+    lazy var editProfileButton: UIButton = {
         let button = UIButton()
         button.setTitle("프로필 편집", for: .normal)
         button.setTitleColor(.theme.tertiary, for: .normal)
