@@ -101,7 +101,7 @@ class MapViewController: UIViewController {
         view.addSubview(markerInfoView)
         markerInfoView.isHidden = true
         NSLayoutConstraint.activate([
-            markerInfoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -96),
+            markerInfoView.heightAnchor.constraint(equalToConstant: 80),
             markerInfoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             markerInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             markerInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)

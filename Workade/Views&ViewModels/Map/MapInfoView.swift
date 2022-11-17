@@ -8,27 +8,29 @@
 import NMapsMap
 import UIKit
 
-class MapInfoView: UIView {
+final class MapInfoView: UIView {
     init() {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .white
         self.layer.cornerRadius = 30
         
-        setLayout()
+        setupLayout()
     }
     
-    var titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = .customFont(for: .captionHeadlineNew)
         title.textColor = .black
+        
         return title
     }()
     
-    var markerImage: UIImageView = {
+    let markerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     
@@ -47,20 +49,19 @@ class MapInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setLayout() {
+    private func setupLayout() {
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 22),
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -22),
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85),
-            titleLabel.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: 200 + 85)
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 85)
         ])
         
         addSubview(markerImage)
         NSLayoutConstraint.activate([
             markerImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 22),
             markerImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -22),
-            markerImage.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16 + 42),
+            markerImage.widthAnchor.constraint(equalTo: markerImage.heightAnchor),
             markerImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         ])
         
@@ -68,7 +69,7 @@ class MapInfoView: UIView {
         NSLayoutConstraint.activate([
             mapButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 22),
             mapButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -22),
-            mapButton.leadingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(16 + 42)),
+            markerImage.widthAnchor.constraint(equalTo: markerImage.heightAnchor),
             mapButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
     }
