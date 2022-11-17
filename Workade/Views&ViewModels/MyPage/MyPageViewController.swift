@@ -10,16 +10,6 @@ import UIKit
 final class MyPageViewController: UIViewController {
     private let viewModel = MyPageViewModel()
     
-    private let wishLabel: UILabel = {
-        let label = UILabel()
-        label.text = "내가 찜한 매거진"
-        label.font = .customFont(for: .headline)
-        label.textColor = .theme.primary
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -30,8 +20,6 @@ final class MyPageViewController: UIViewController {
     // TODO: Login Check Logic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        viewModel.fetchWishMagazines()
     }
 }
 
