@@ -17,17 +17,17 @@ class EditProfileViewController: UIViewController {
         return label
     }()
     
-    private let nameTextFiled: UITextField = {
-        let textFiled = UITextField()
+    private let nameTextField: UITextField = {
+        let textField = UITextField()
         // TODO: Placeholder를 현재 사용자의 이름으로 설정
-        textFiled.placeholder = "이름 입력하기"
-        textFiled.font = .customFont(for: .footnote2)
-        textFiled.backgroundColor = .theme.groupedBackground
-        textFiled.layer.cornerRadius = 15
-        textFiled.addLeftPadding()
-        textFiled.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "이름 입력하기"
+        textField.font = .customFont(for: .footnote2)
+        textField.backgroundColor = .theme.groupedBackground
+        textField.layer.cornerRadius = 15
+        textField.addLeftPadding()
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        return textFiled
+        return textField
     }()
     
     private let nowJobLabel: UILabel = {
@@ -54,17 +54,17 @@ class EditProfileViewController: UIViewController {
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
         
-        view.addSubview(nameTextFiled)
+        view.addSubview(nameTextField)
         NSLayoutConstraint.activate([
-            nameTextFiled.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
-            nameTextFiled.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            nameTextFiled.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
-            nameTextFiled.heightAnchor.constraint(equalToConstant: 54)
+            nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
+            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+            nameTextField.heightAnchor.constraint(equalToConstant: 54)
         ])
         
         view.addSubview(nowJobLabel)
         NSLayoutConstraint.activate([
-            nowJobLabel.topAnchor.constraint(equalTo: nameTextFiled.bottomAnchor, constant: 30),
+            nowJobLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 30),
             nowJobLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor)
         ])
     }
