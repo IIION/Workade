@@ -33,32 +33,13 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let regionNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .customFont(for: .subHeadline)
-        label.textColor = .white
-        
-        return label
-    }()
-    
     private let officeNameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .title3)
         label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
-    }()
-    
-    private lazy var titleStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.alignment = .leading
-        stackView.axis = .vertical
-        stackView.spacing = 2
-        stackView.addArrangedSubview(regionNameLabel)
-        stackView.addArrangedSubview(officeNameLabel)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
     }()
     
     // 이미지를 nil로 처리해도 빠른 스크롤의 경우 이미지 꼬임 현상을 완벽하게 해결하진 못합니다.
@@ -80,7 +61,6 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
     
     func configure(office: OfficeModel) {
         self.office = office
-        regionNameLabel.text = office.regionName
         officeNameLabel.text = office.officeName
         // 이렇게 최초 구성 이미지를 nil로 해주면, 빠른 스크롤 시에 이전 이미지가 들어가있는 이미지 꼬임 현상을 다소 막아줄 수 있습니다. 그 후 불러와진 이미지가 정상적으로 자리잡게 됩니다.
         backgroundImageView.image = nil
@@ -110,7 +90,7 @@ private extension OfficeCollectionViewCell {
     func setupLayout() {
         contentView.addSubview(backgroundImageView)
         contentView.addSubview(mapButton)
-        contentView.addSubview(titleStackView)
+        contentView.addSubview(officeNameLabel)
         
         NSLayoutConstraint.activate([
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
@@ -125,8 +105,9 @@ private extension OfficeCollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            officeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            officeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            officeNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
     }
 }

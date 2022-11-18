@@ -7,11 +7,13 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class GuideHomeViewController: UIViewController {
     enum Section: Int, CaseIterable {
-        case office, magazine
+        case office, magazine, checkList
     }
-    private let viewModel = HomeViewModel()
+    private let viewModel = GuideHomeViewModel()
+    
+    var divider = Divider()
     
     private lazy var guideCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
@@ -19,6 +21,7 @@ final class HomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(cell: OfficeCollectionViewCell.self)
         collectionView.register(cell: MagazineCollectionViewCell.self)
+        collectionView.register(cell: CheckListNavigationCell.self)
         collectionView.registerSupplementary(view: HeaderView.self, kind: UICollectionView.elementKindSectionHeader) // for header
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -36,57 +39,61 @@ final class HomeViewController: UIViewController {
         observingChangedMagazineId()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // HomeVC에서는 네비게이션 영역 쓰지않음
-        // viewDidAppear로 하면, 홈화면 돌아올 때 backButton의 잔상이 순간 보이게 되버림
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // viewDidDisappear로 하면, 다음 화면에서 backButton이 다소 늦게 나타나버림
-        navigationController?.navigationBar.isHidden = false
-    }
-    
     private func setupNavigationBar() {
-        // hide 안걸어주면 push할 때 backButton 잔상 남아버림
+        title = "가이드"
+        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .black)]
+        
+        navigationController?.navigationBar.shadowImage = UIImage() // 스크롤 시 나타나는 기본 검정 언더라인 제거
         navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.tintColor = .theme.primary
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: SFSymbol.chevronLeft.image, // 현재 새로운 폰트 업데이트 안되서 얇음.
+            style: .done,
+            target: self,
+            action: #selector(popViewController)
+        )
     }
     
     private func setupLayout() {
         view.addSubview(guideCollectionView)
+        view.addSubview(divider)
         NSLayoutConstraint.activate([
             guideCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             guideCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            divider.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
 }
 
 // MARK: Navigates
-private extension HomeViewController {
+private extension GuideHomeViewController {
     @objc
-    func pushToMyPageVC() {
-        let viewController = MyPageViewController()
+    func pushToOfficeVC() {
+        let viewController = OfficeViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
     @objc
-    func pushToMagazineVC() { // 요기
+    func pushToMagazineVC() {
         let viewController = MagazineViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    @objc
     func pushToCheckListVC() {
         let viewController = CheckListViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    @objc
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: Binding with ViewModel
-extension HomeViewController {
+extension GuideHomeViewController {
     /**
      OfficeResource, MagazineResource 데이터 불러오는 과정이 완료가 되면 소식을 받을 수 있도록 binding
      
@@ -108,6 +115,7 @@ extension HomeViewController {
             guard let self = self else { return }
             guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
             DispatchQueue.main.async {
+                print("reload")
                 self.guideCollectionView.reloadItems(at: [.init(item: index, section: 1)])
             }
         }
@@ -115,7 +123,7 @@ extension HomeViewController {
 }
 
 // MARK: DataSource
-extension HomeViewController: UICollectionViewDataSource {
+extension GuideHomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
     }
@@ -127,7 +135,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case 1:
             return viewModel.magazineResource.content.count
         default:
-            return 0
+            return 1
         }
     }
     
@@ -143,6 +151,9 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.delegate = self // 북마크
             cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
             return cell
+        case 2:
+            let cell: CheckListNavigationCell = collectionView.dequeue(for: indexPath)
+            return cell
         default:
             return UICollectionViewCell()
         }
@@ -155,7 +166,7 @@ extension HomeViewController: UICollectionViewDataSource {
         case 0:
             reusableView.configure(title: "office")
             reusableView.pushToNext = { [weak self] in
-                self?.pushToMyPageVC()
+                self?.pushToOfficeVC()
             }
             return reusableView
         case 1:
@@ -171,7 +182,7 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 // MARK: Delegate
-extension HomeViewController: UICollectionViewDelegate {
+extension GuideHomeViewController: UICollectionViewDelegate {
     // 반드시 office 혹은 magazine이 있어야하는 요소는 init으로 넘깁니다.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
@@ -185,13 +196,16 @@ extension HomeViewController: UICollectionViewDelegate {
             let viewController = CellItemDetailViewController(magazine: magazine)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
+        case 2:
+            pushToCheckListVC()
         default:
             break
         }
     }
 }
 
-extension HomeViewController: CollectionViewCellDelegate {
+// MARK: Custom Delegate
+extension GuideHomeViewController: CollectionViewCellDelegate {
     func didTapMapButton(office: OfficeModel) {
         let viewController = MapViewController(office: office)
         viewController.modalPresentationStyle = .fullScreen

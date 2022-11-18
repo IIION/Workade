@@ -12,15 +12,18 @@ final class HeaderView: UICollectionReusableView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .customFont(for: .headline)
+        label.font = .systemFont(ofSize: 17, weight: .heavy) // 임시
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-    private let pushButton: UIButton = {
+    private lazy var pushButton: UIButton = {
         let button = UIButton()
-        button.setImage(SFSymbol.chevronRight.image, for: .normal)
+        button.setImage(SFSymbol.chevronRightSkyBlue.image, for: .normal)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.pushToNext?()
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -28,8 +31,6 @@ final class HeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
-        print("헤더뷰 init!")
         
         setupLayout()
     }
@@ -54,7 +55,7 @@ final class HeaderView: UICollectionReusableView {
         
         NSLayoutConstraint.activate([
             pushButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            pushButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            pushButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 11),
             pushButton.widthAnchor.constraint(equalToConstant: 44),
             pushButton.heightAnchor.constraint(equalToConstant: 44)
         ])
