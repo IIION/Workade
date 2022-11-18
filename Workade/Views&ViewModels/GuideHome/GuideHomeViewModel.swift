@@ -65,18 +65,16 @@ extension GuideHomeViewModel {
     func createLayout() -> UICollectionViewLayout {
         let sectionProvider = { [weak self] (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
-            
+            guard let sectionCase = GuideHomeSection(rawValue: sectionIndex) else { return nil }
             // 전달받은 섹션 index별 알맞는 섹션을 생성
             var section: NSCollectionLayoutSection!
-            switch sectionIndex {
-            case 0:
+            switch sectionCase {
+            case .office:
                 section = self.createOfficeSection()
-            case 1:
+            case .magazine:
                 section = self.createMagazineSection()
-            case 2:
+            case .checkList:
                 section = self.createCheckListSection()
-            default:
-                return nil
             }
             return section
         }

@@ -7,13 +7,14 @@
 
 import UIKit
 
+enum GuideHomeSection: Int, CaseIterable {
+    case office, magazine, checkList
+}
+
 final class GuideHomeViewController: UIViewController {
-    enum Section: Int, CaseIterable {
-        case office, magazine, checkList
-    }
     private let viewModel = GuideHomeViewModel()
     
-    var divider = Divider()
+    private let divider = Divider()
     
     private lazy var guideCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
@@ -34,7 +35,6 @@ final class GuideHomeViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
-        
         observingFetchComplete()
         observingChangedMagazineId()
     }
@@ -42,11 +42,10 @@ final class GuideHomeViewController: UIViewController {
     private func setupNavigationBar() {
         title = "가이드"
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .black)]
-        
-        navigationController?.navigationBar.shadowImage = UIImage() // 스크롤 시 나타나는 기본 검정 언더라인 제거
+        navigationController?.navigationBar.shadowImage = UIImage() // remove default underline
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: SFSymbol.chevronLeft.image, // 현재 새로운 폰트 업데이트 안되서 얇음.
+            image: SFSymbol.chevronLeft.image,
             style: .done,
             target: self,
             action: #selector(popViewController)
@@ -69,14 +68,12 @@ final class GuideHomeViewController: UIViewController {
 
 // MARK: Navigates
 private extension GuideHomeViewController {
-    @objc
-    func pushToOfficeVC() {
+    @objc func pushToOfficeVC() {
         let viewController = OfficeViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    @objc
-    func pushToMagazineVC() {
+    @objc func pushToMagazineVC() {
         let viewController = MagazineViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -86,8 +83,7 @@ private extension GuideHomeViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    @objc
-    func popViewController() {
+    @objc func popViewController() {
         navigationController?.popViewController(animated: true)
     }
 }
@@ -114,9 +110,9 @@ extension GuideHomeViewController {
         viewModel.clickedMagazineId.bind { [weak self] id in
             guard let self = self else { return }
             guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
+            let sectionIndex = GuideHomeSection.allCases.firstIndex(of: .magazine)!
             DispatchQueue.main.async {
-                print("reload")
-                self.guideCollectionView.reloadItems(at: [.init(item: index, section: 1)])
+                self.guideCollectionView.reloadItems(at: [.init(item: index, section: sectionIndex)])
             }
         }
     }
@@ -125,57 +121,58 @@ extension GuideHomeViewController {
 // MARK: DataSource
 extension GuideHomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Section.allCases.count
+        return GuideHomeSection.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
-        case 0:
+        guard let sectionCase = GuideHomeSection(rawValue: section) else { return 0 }
+        switch sectionCase { // 추후 컨텐츠 데이터 받아와서 할 예정. 일단 UI.
+        case .office:
             return viewModel.officeResource.content.count
-        case 1:
+        case .magazine:
             return viewModel.magazineResource.content.count
-        default:
+        case .checkList:
             return 1
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
+        guard let sectionCase = GuideHomeSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        switch sectionCase {
+        case .office:
             let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
             cell.delegate = self
             cell.configure(office: viewModel.officeResource.content[indexPath.row])
             return cell
-        case 1:
+        case .magazine:
             let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
             cell.delegate = self // 북마크
             cell.configure(magazine: viewModel.magazineResource.content[indexPath.row])
             return cell
-        case 2:
+        case .checkList:
             let cell: CheckListNavigationCell = collectionView.dequeue(for: indexPath)
             return cell
-        default:
-            return UICollectionViewCell()
         }
     }
     
     // for header
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let sectionCase = GuideHomeSection(rawValue: indexPath.section) else { return UICollectionReusableView() }
         let reusableView: HeaderView = collectionView.dequeueSupplementary(kind: kind, for: indexPath)
-        switch indexPath.section {
-        case 0:
+        switch sectionCase {
+        case .office:
             reusableView.configure(title: "office")
             reusableView.pushToNext = { [weak self] in
                 self?.pushToOfficeVC()
             }
             return reusableView
-        case 1:
+        case .magazine:
             reusableView.configure(title: "magazine")
             reusableView.pushToNext = { [weak self] in
                 self?.pushToMagazineVC()
             }
             return reusableView
-        default:
+        default: // office, magazine외에 CompositionalLayout 상에서 header등록을 안했다면, default로 들어올 일이 없다.
             return UICollectionReusableView()
         }
     }
@@ -185,21 +182,20 @@ extension GuideHomeViewController: UICollectionViewDataSource {
 extension GuideHomeViewController: UICollectionViewDelegate {
     // 반드시 office 혹은 magazine이 있어야하는 요소는 init으로 넘깁니다.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
+        guard let sectionCase = GuideHomeSection(rawValue: indexPath.section) else { return }
+        switch sectionCase {
+        case .office:
             let officeModel = viewModel.officeResource.content[indexPath.row]
             let viewController = NearbyPlaceViewController(officeModel: officeModel)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
-        case 1:
+        case .magazine:
             let magazine = viewModel.magazineResource.content[indexPath.row]
             let viewController = CellItemDetailViewController(magazine: magazine)
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
-        case 2:
+        case .checkList:
             pushToCheckListVC()
-        default:
-            break
         }
     }
 }

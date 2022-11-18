@@ -80,7 +80,6 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     
     @objc
     func tapBookmarkButton() {
-        print("tap bookmark")
         guard let id = magazineId else { return }
         delegate?.didTapBookmarkButton(id: id)
     }

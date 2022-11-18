@@ -7,12 +7,13 @@
 
 import UIKit
 
+/// GuideHomeCollectionView의 각 섹션 위에 위치하는 헤더뷰
 final class HeaderView: UICollectionReusableView {
     var pushToNext: (() -> Void)?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .heavy) // 임시
+        label.font = .systemFont(ofSize: 17, weight: .heavy)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

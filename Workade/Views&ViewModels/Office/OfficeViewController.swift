@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OfficeViewController: UIViewController {
+final class OfficeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemMint
