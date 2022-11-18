@@ -74,6 +74,8 @@ struct DesignSystem: View {
                             .frame(width: 44, height: 44)
                         Color(UIColor.theme.labelBackground)
                             .frame(width: 44, height: 44)
+                        Color(UIColor.theme.sectionBackground)
+                            .frame(width: 44, height: 44)
                     }
                     
                     

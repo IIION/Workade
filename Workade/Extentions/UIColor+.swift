@@ -55,6 +55,7 @@ struct ColorTheme {
     let quaternary = UIColor(named: "Quaternary") ?? UIColor.black
     let background = UIColor(named: "Background") ?? UIColor.black
     let labelBackground = UIColor(named: "LabelBackground") ?? UIColor.black
+    let sectionBackground = UIColor(named: "SectionBackground") ?? UIColor.black
     let groupedBackground = UIColor(named: "GroupedBackground") ?? UIColor.black
     let subGroupedBackground = UIColor(named: "SubGroupedBackground") ?? UIColor.black
     
