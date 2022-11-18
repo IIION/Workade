@@ -212,8 +212,8 @@ class NearbyPlaceViewController: UIViewController {
     private func indexChanged(_ segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            nearbyPlaceImageView.isHidden = false
             totalScrollView.isScrollEnabled = true
+            nearbyPlaceImageView.isHidden = false
             nearbyPlaceDetailView.introduceView.isHidden = false
             nearbyPlaceDetailView.galleryView.isHidden = true
             nearbyPlaceDetailView.featureView.isHidden = true
@@ -221,6 +221,8 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceDetailView.featureBottomConstraints.isActive = false
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
         case 1:
+            totalScrollView.isScrollEnabled = true
+            nearbyPlaceImageView.isHidden = false
             nearbyPlaceDetailView.introduceView.isHidden = true
             nearbyPlaceDetailView.galleryView.isHidden = true
             nearbyPlaceDetailView.featureView.isHidden = false
@@ -228,8 +230,8 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
             nearbyPlaceDetailView.featureBottomConstraints.isActive = true
         case 2:
-            nearbyPlaceImageView.isHidden = true
             totalScrollView.isScrollEnabled = false
+            nearbyPlaceImageView.isHidden = true
             // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
             totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
             nearbyPlaceDetailView.featureView.isHidden = true

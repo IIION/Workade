@@ -62,7 +62,7 @@ enum SpotType: String {
     case sea
 }
 
-struct Features: Codable {
+struct Feature: Codable {
     let featureImage: String
     let featureDescription: String
 }
