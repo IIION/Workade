@@ -26,35 +26,6 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// navigation인 척!하는 *UIStackView*
-    private lazy var navigationView: UIStackView = {
-        let logoImageView = UIImageView(image: UIImage(named: "WorkadeLogoTamna")?.setOriginal())
-        logoImageView.contentMode = .left
-        let profileButton = UIButton()
-        profileButton.setImage(UIImage(named: "ProfileTamna")?.setOriginal(), for: .normal)
-        profileButton.addTarget(self, action: #selector(pushToMyPageVC), for: .touchUpInside)
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.addArrangedSubview(logoImageView)
-        stackView.addArrangedSubview(profileButton)
-        stackView.layoutMargins = .init(top: 0, left: 20, bottom: 0, right: 20)
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
-    private let welcomeLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 2 // default value = 1
-        label.text = "반가워요!\n같이 워케이션을 꿈꿔볼까요?"
-        label.font = .customFont(for: .title3)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
     private lazy var officeCollectionView: UICollectionView = {
         let collectionView = UICollectionView(itemSize: CGSize(width: 280, height: 200), direction: .horizontal)
         collectionView.delegate = self
@@ -63,14 +34,6 @@ final class HomeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
-    }()
-    
-    private let divider = {
-        let view = UIView()
-        view.backgroundColor = .theme.labelBackground
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
     }()
     
     private lazy var magazineHeaderView: HeaderView = {
@@ -102,15 +65,6 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
-    // 런치스크린
-    lazy var launchScreenView: LaunchScreenAnimationView = {
-        let view = LaunchScreenAnimationView()
-        view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -123,11 +77,7 @@ final class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: LaunchScreenTimingDelegate {
-    func finishLaunchScreen() {
-        setupStatusBar()
-    }
-    
+extension HomeViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // HomeVC에서는 네비게이션 영역 쓰지않음
@@ -144,10 +94,6 @@ extension HomeViewController: LaunchScreenTimingDelegate {
 
 // MARK: Navigates
 private extension HomeViewController {
-    // 변수에 접근해서 할당하는 방식을 사용.
-    // 초기화 구문의 매개변수를 통해 전달하는 방식은 이동 전 뷰컨트롤러가 이동할 뷰턴이 요구하는 매거진 배열을 다 넘길 수 있는 뷰컨인 상황에서만 가능합니다.
-    // 혹은 이동된 뷰컨트롤러가 자신이 init될 때, 자신의 viewModel로부터 매거진을 가져오는 방식 등이 될 것으로 예상됩니다.
-    // 그렇기에 당장은 init구문이 아닌 변수 접근 및 할당 방식을 현재 채택했습니다.
     @objc
     func pushToMyPageVC() {
         let viewController = MyPageViewController()
@@ -269,14 +215,6 @@ private extension HomeViewController {
         navigationController?.navigationBar.tintColor = .theme.primary
     }
     
-    func setupStatusBar() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let bounds = windowScene?.statusBarManager?.statusBarFrame
-        let blurredStatusBar = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        blurredStatusBar.frame = bounds ?? CGRect(x: 0, y: 0, width: view.bounds.width, height: 47)
-        view.addSubview(blurredStatusBar)
-    }
-    
     func setupScrollViewLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -299,41 +237,18 @@ private extension HomeViewController {
     }
     
     func setupLayout() {
-        [navigationView, welcomeLabel, officeCollectionView, divider,
-         magazineHeaderView, magazineCollectionView, checkListButton].forEach {
+        [officeCollectionView, magazineHeaderView, magazineCollectionView, checkListButton].forEach {
             contentView.addSubview($0)
         }
         
-        // 런치스크린
-        view.addSubview(launchScreenView)
-        
         NSLayoutConstraint.activate([
-            navigationView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            navigationView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            navigationView.heightAnchor.constraint(equalToConstant: 48)
-        ])
-        
-        NSLayoutConstraint.activate([
-            welcomeLabel.topAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 20),
-            welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            welcomeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            officeCollectionView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 22),
+            officeCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 22),
             officeCollectionView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             officeCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
         NSLayoutConstraint.activate([
-            divider.topAnchor.constraint(equalTo: officeCollectionView.bottomAnchor, constant: 30),
-            divider.leadingAnchor.constraint(equalTo: officeCollectionView.leadingAnchor, constant: 20),
-            divider.trailingAnchor.constraint(equalTo: officeCollectionView.trailingAnchor, constant: -20),
-            divider.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        NSLayoutConstraint.activate([
-            magazineHeaderView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 4),
+            magazineHeaderView.topAnchor.constraint(equalTo: officeCollectionView.bottomAnchor, constant: 4),
             magazineHeaderView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             magazineHeaderView.heightAnchor.constraint(equalToConstant: 60)
         ])
@@ -350,14 +265,6 @@ private extension HomeViewController {
             checkListButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             checkListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             checkListButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
-        
-        // 런치스크린
-        NSLayoutConstraint.activate([
-            launchScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            launchScreenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            launchScreenView.topAnchor.constraint(equalTo: view.topAnchor),
-            launchScreenView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
