@@ -10,47 +10,38 @@ import UIKit
 final class MyPageViewController: UIViewController {
     private let viewModel = MyPageViewModel()
     
-    private let titleView = TitleView(title: "매거진")
-    
-    private let wishLabel: UILabel = {
-        let label = UILabel()
-        label.text = "내가 찜한 매거진"
-        label.font = .customFont(for: .headline)
-        label.textColor = .theme.primary
-        label.translatesAutoresizingMaskIntoConstraints = false
+    // 특정 모서리만 둥글게 처리 참고 사이트 : https://swieeft.github.io/2020/03/05/UIViewRoundCorners.html
+    private let profileView: ProfileView = {
+        let profileView = ProfileView()
+        profileView.translatesAutoresizingMaskIntoConstraints = false
+        profileView.layer.cornerRadius = 30
+        profileView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
+        profileView.backgroundColor = .theme.background
         
-        return label
+        return profileView
     }()
     
-    private lazy var wishMagazineCollectionView: UICollectionView = {
-        let width = (view.bounds.width - 60) / 2
-        let collectionView = UICollectionView(
-            itemSize: CGSize(width: width, height: width*1.3),
-            inset: .init(top: 0, left: 20, bottom: 20, right: 20),
-            direction: .vertical)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(cell: MagazineCollectionViewCell.self)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+    private let stickerView: StickerView = {
+        let stickerView = StickerView()
+        stickerView.translatesAutoresizingMaskIntoConstraints = false
+        stickerView.layer.cornerRadius = 30
+        stickerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        stickerView.backgroundColor = .theme.background
         
-        return collectionView
+        return stickerView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .theme.background
+        view.backgroundColor = .theme.primary
         
         setupNavigationBar()
         setupLayout()
-        setupGradientLayer()
-        
-        observingFetchComplete()
     }
     
+    // TODO: Login Check Logic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        viewModel.fetchWishMagazines()
     }
 }
 
@@ -68,54 +59,9 @@ extension MyPageViewController {
     }
 }
 
-// MARK: Binding
-extension MyPageViewController {
-    private func observingFetchComplete() {
-        viewModel.isCompleteFetch.bind { [weak self] _ in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.wishMagazineCollectionView.reloadData()
-            }
-        }
-    }
-}
-
-// MARK: DataSource
-extension MyPageViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.wishMagazines.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: MagazineCollectionViewCell = collectionView.dequeue(for: indexPath)
-        cell.delegate = self
-        cell.configure(magazine: viewModel.wishMagazines[indexPath.row])
-        return cell
-    }
-}
-
-// MARK: Delegate
-extension MyPageViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let magazine = viewModel.wishMagazines[indexPath.row]
-        let viewController = CellItemDetailViewController(magazine: magazine)
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: true)
-    }
-}
-
-extension MyPageViewController: CollectionViewCellDelegate {
-    func didTapBookmarkButton(id: String) { // 북마크
-        viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
-        guard let index = viewModel.wishMagazines.firstIndex(where: { $0.title == id }) else { return }
-        viewModel.wishMagazines.remove(at: index)
-        wishMagazineCollectionView.deleteItems(at: [.init(item: index, section: 0)])
-    }
-}
-
 // MARK: UI setup 관련 Methods
 private extension MyPageViewController {
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
@@ -129,39 +75,25 @@ private extension MyPageViewController {
             target: self,
             action: #selector(pushToSettingVC)
         )
+        self.title = "마이 페이지"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.customFont(for: .subHeadline)]
     }
     
-    func setupGradientLayer() {
-        let layer = CAGradientLayer()
-        layer.colors = [UIColor.white.withAlphaComponent(0).cgColor,
-                        UIColor.white.withAlphaComponent(0.6).cgColor]
-        layer.locations = [0, 1]
-        layer.frame = CGRect(x: 0, y: view.bounds.height/7*6,
-                             width: view.bounds.width, height: view.bounds.height/7)
-        layer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        layer.endPoint = CGPoint(x: 0.0, y: 1.0)
-        view.layer.addSublayer(layer)
-    }
-    
-    func setupLayout() {
-        view.addSubview(titleView)
-        view.addSubview(wishLabel)
-        view.addSubview(wishMagazineCollectionView)
-        
+    private func setupLayout() {
+        view.addSubview(profileView)
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+            profileView.topAnchor.constraint(equalTo: view.topAnchor),
+            profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            profileView.containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
         
+        view.addSubview(stickerView)
         NSLayoutConstraint.activate([
-            wishLabel.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 30),
-            wishLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            wishMagazineCollectionView.topAnchor.constraint(equalTo: wishLabel.bottomAnchor, constant: 16),
-            wishMagazineCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            wishMagazineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            stickerView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 4),
+            stickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
