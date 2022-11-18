@@ -11,7 +11,6 @@ final class HomeViewController: UIViewController {
     enum Section: Int, CaseIterable {
         case office, magazine
     }
-    
     private let viewModel = HomeViewModel()
     
     private lazy var guideCollectionView: UICollectionView = {
@@ -24,17 +23,6 @@ final class HomeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
-    }()
-    
-    private lazy var checkListButton: NavigateButton = {
-        let button = NavigateButton(image: nil, text: "체크리스트")
-        button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(pushToCheckListVC), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
     }()
     
     override func viewDidLoad() {
