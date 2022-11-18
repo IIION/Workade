@@ -48,6 +48,7 @@ struct ColorTheme {
     fileprivate init() {}
     
     let workadeBlue = UIColor(named: "WorkadeBlue") ?? UIColor.black
+    let workadeBackgroundBlue = UIColor(named: "WorkadeBackgroundBlue") ?? UIColor.black
     
     let primary = UIColor(named: "Primary") ?? UIColor.black
     let secondary = UIColor(named: "Secondary") ?? UIColor.black
