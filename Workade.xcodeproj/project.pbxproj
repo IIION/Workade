@@ -79,6 +79,7 @@
 		9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763729092D4A0047ED34 /* MyPageViewController.swift */; };
 		9646763A29092EBF0047ED34 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763929092EBF0047ED34 /* TitleView.swift */; };
 		9646763F2909347C0047ED34 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646763E2909347C0047ED34 /* SettingViewController.swift */; };
+		96554E9C292779D200BBE26A /* CheckListNavigationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554E9B292779D200BBE26A /* CheckListNavigationCell.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
 		96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */; };
 		96972ED12903011500197DEE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ED02903011500197DEE /* CellImageView.swift */; };
@@ -183,6 +184,7 @@
 		9646763729092D4A0047ED34 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9646763929092EBF0047ED34 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		9646763E2909347C0047ED34 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		96554E9B292779D200BBE26A /* CheckListNavigationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListNavigationCell.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
 		96972ED02903011500197DEE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 			children = (
 				96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */,
 				96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */,
+				96554E9B292779D200BBE26A /* CheckListNavigationCell.swift */,
 				961CC486290B069700921F24 /* CollectionViewCellDelegate.swift */,
 			);
 			path = CollectionView;
@@ -748,6 +751,7 @@
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
 				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
+				96554E9C292779D200BBE26A /* CheckListNavigationCell.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* HomeViewModel.swift in Sources */,
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,

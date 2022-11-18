@@ -24,6 +24,12 @@ extension UIImage {
         return image
     }
     
+    static func fromSystemImage(name: String, font: UIFont, colors: [UIColor]) -> UIImage? {
+        var configuration = UIImage.SymbolConfiguration(font: font)
+        configuration = configuration.applying(UIImage.SymbolConfiguration(paletteColors: colors)) // iOS 15+
+        return UIImage(systemName: name, withConfiguration: configuration)
+    }
+    
     /// 이미지의 Original 렌더링 세팅을 좀 더 간소화한 버전
     func setOriginal() -> UIImage {
         return self.withRenderingMode(.alwaysOriginal)
@@ -63,6 +69,8 @@ enum SFSymbol {
     case mapInNavigation
     case chevronLeft // in navigationbar
     case chevronRight
+    case chevronRightSkyBlue
+    case chevronRightBlue
     case bookmark
     case bookmarkFill
     case gearshapeFill
@@ -85,6 +93,11 @@ enum SFSymbol {
             return .fromSystemImage(name: "chevron.left", font: .customFont(for: .headline), color: .theme.primary)!
         case .chevronRight:
             return .fromSystemImage(name: "chevron.right", font: .systemFont(ofSize: 15, weight: .heavy), color: .theme.primary)!
+        case .chevronRightSkyBlue:
+            return .fromSystemImage(name: "chevron.right.circle.fill", font: .systemFont(ofSize: 22, weight: .heavy),
+                                    colors: [UIColor.hexStringToUIColor(hex: "2D67F6"), .blue.withAlphaComponent(0.1)])!
+        case .chevronRightBlue:
+            return .fromSystemImage(name: "chevron.right.circle.fill", font: .systemFont(ofSize: 22, weight: .heavy), color: .blue)!
         case .bookmark:
             return .fromSystemImage(name: "bookmark", font: .customFont(for: .headline), color: .white)!
         case .bookmarkFill:
