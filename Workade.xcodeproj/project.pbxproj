@@ -104,6 +104,7 @@
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
 		A3BB02BD2926A7E3000DE275 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */; };
+		A3CBB16629275F97009AD4E1 /* UITextFiled+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CBB16529275F97009AD4E1 /* UITextFiled+.swift */; };
 		A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */; };
 		A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD5E6D2917A193008FDFBF /* GradientView.swift */; };
 		A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */; };
@@ -213,6 +214,7 @@
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		A3CBB16529275F97009AD4E1 /* UITextFiled+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+.swift"; sourceTree = "<group>"; };
 		A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
 		A3DD5E6D2917A193008FDFBF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailView.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */,
 				0E1E8873290AFCEF0021E788 /* UILabel+.swift */,
 				A33835272903E03A009882BF /* UIButton+.swift */,
+				A3CBB16529275F97009AD4E1 /* UITextFiled+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
@@ -822,6 +825,7 @@
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,
+				A3CBB16629275F97009AD4E1 /* UITextFiled+.swift in Sources */,
 				A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
