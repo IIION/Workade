@@ -32,6 +32,16 @@ extension UICollectionView {
         return cell
     }
     
+    /// 컬렉션 뷰의 재사용 SupplementaryView(헤더, 푸터 등) 등록 과정을 관편하게 할 수 있게 하는 확장 인스턴스 메서드
+    func dequeueSupplementary<T: UICollectionReusableView>(kind: String, for indexPath: IndexPath) -> T {
+        guard let reusableView = dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: T.identifier,
+            for: indexPath) as? T else { return T() }
+        
+        return reusableView
+    }
+    
     /**
      기존 HorizontalCollectionView를 convenience init 정의 형태로 쓸 수 있도록 추가
      - itemSize: 셀 사이즈

@@ -69,9 +69,10 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        setupScrollViewLayout()
         setupNavigationBar()
+        setupScrollViewLayout()
         setupLayout()
+        
         observingFetchComplete()
         observingChangedMagazineId()
     }
@@ -170,6 +171,20 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         default:
             return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let reusableView: UICollectionReusableView = collectionView.dequeueSupplementary(kind: kind, for: indexPath)
+        switch collectionView {
+        case officeCollectionView:
+            print("push To OfficesPage")
+            return reusableView
+        case magazineCollectionView:
+            print("push To OfficesPage")
+            return reusableView
+        default:
+            return UICollectionReusableView()
         }
     }
 }
