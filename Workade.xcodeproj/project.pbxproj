@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
 		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
+		0E29E46029275B3F00889984 /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29E45F29275B3F00889984 /* FeatureView.swift */; };
 		0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */; };
 		0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
@@ -106,6 +107,7 @@
 /* Begin PBXFileReference section */
 		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		0E29E45F29275B3F00889984 /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeDetailResource.swift; sourceTree = "<group>"; };
 		0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */,
+				0E29E45F29275B3F00889984 /* FeatureView.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */,
 				2120F566290130870035D36E /* UICollectionViewTwoLineLayout.swift in Sources */,
 				0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */,
+				0E29E46029275B3F00889984 /* FeatureView.swift in Sources */,
 				961CC481290AE69700921F24 /* UserDefaultsManager.swift in Sources */,
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */,
