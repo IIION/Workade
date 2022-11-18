@@ -17,9 +17,9 @@ class FeatureView: UIView {
         flowLayout.scrollDirection = .vertical
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(cell: FeatureCollectionViewCell.self)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(cell: FeatureCollectionViewCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -39,16 +39,19 @@ class FeatureView: UIView {
         self.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.bottomSafeArea - 20)
         ])
     }
 }
 
 extension FeatureView: UICollectionViewDelegateFlowLayout {
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: 170, height: 104)
+    }
 }
 
 extension FeatureView: UICollectionViewDataSource {

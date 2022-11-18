@@ -70,7 +70,7 @@ class NearbyPlaceViewController: UIViewController {
     }()
     
     lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
+        let segmentedControl = CustomSegmentedControl(items: ["소개", "특징", "갤러리"])
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
@@ -216,16 +216,27 @@ class NearbyPlaceViewController: UIViewController {
             totalScrollView.isScrollEnabled = true
             nearbyPlaceDetailView.introduceView.isHidden = false
             nearbyPlaceDetailView.galleryView.isHidden = true
+            nearbyPlaceDetailView.featureView.isHidden = true
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+            nearbyPlaceDetailView.featureBottomConstraints.isActive = false
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
         case 1:
+            nearbyPlaceDetailView.introduceView.isHidden = true
+            nearbyPlaceDetailView.galleryView.isHidden = true
+            nearbyPlaceDetailView.featureView.isHidden = false
+            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+            nearbyPlaceDetailView.featureBottomConstraints.isActive = true
+        case 2:
             nearbyPlaceImageView.isHidden = true
             totalScrollView.isScrollEnabled = false
             // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
             totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+            nearbyPlaceDetailView.featureView.isHidden = true
             nearbyPlaceDetailView.introduceView.isHidden = true
             nearbyPlaceDetailView.galleryView.isHidden = false
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+            nearbyPlaceDetailView.featureBottomConstraints.isActive = false
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
         default:
             return

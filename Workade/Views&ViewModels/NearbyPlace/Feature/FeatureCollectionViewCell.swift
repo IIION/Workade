@@ -8,10 +8,28 @@
 import UIKit
 
 class FeatureCollectionViewCell: UICollectionViewCell {
+    // 이미지
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
+    // 설명
+    let subscribeLabel: UILabel = {
+        let subscribeLabel = UILabel()
+        subscribeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return subscribeLabel
+    }()
+    
     lazy var cell: UIView = {
         let cell = UIView()
-        
+        cell.layer.cornerRadius = 20
+        cell.backgroundColor = .rgb(0xF7F7FA)
         cell.translatesAutoresizingMaskIntoConstraints = false
+        
         return cell
     }()
     

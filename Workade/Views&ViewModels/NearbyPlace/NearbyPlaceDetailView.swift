@@ -13,6 +13,7 @@ class NearbyPlaceDetailView: UIView {
     
     var introduceBottomConstraints: NSLayoutConstraint!
     var galleryBottomConstraints: NSLayoutConstraint!
+    var featureBottomConstraints: NSLayoutConstraint!
     
     let contensContainerView: UIView = {
         let contensContainerView = UIView()
@@ -36,6 +37,14 @@ class NearbyPlaceDetailView: UIView {
         return view
     }()
     
+    let featureView: FeatureView = {
+        let view = FeatureView()
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     init(officeModel: OfficeModel) {
         self.officeModel = officeModel
         self.introduceViewModel = IntroduceViewModel()
@@ -43,6 +52,8 @@ class NearbyPlaceDetailView: UIView {
         
         introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
         galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
+        featureBottomConstraints = featureView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
+        
         translatesAutoresizingMaskIntoConstraints = false
         
         setupIntroduceView()
@@ -69,6 +80,14 @@ class NearbyPlaceDetailView: UIView {
             introduceView.leadingAnchor.constraint(equalTo: contensContainerView.leadingAnchor, constant: 20),
             introduceView.trailingAnchor.constraint(equalTo: contensContainerView.trailingAnchor, constant: -20),
             introduceBottomConstraints
+        ])
+        
+        contensContainerView.addSubview(featureView)
+        NSLayoutConstraint.activate([
+            featureView.topAnchor.constraint(equalTo: contensContainerView.topAnchor, constant: 30),
+            featureView.leadingAnchor.constraint(equalTo: contensContainerView.leadingAnchor, constant: 20),
+            featureView.trailingAnchor.constraint(equalTo: contensContainerView.trailingAnchor, constant: -20),
+            featureView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 50)
         ])
         
         contensContainerView.addSubview(galleryView)
