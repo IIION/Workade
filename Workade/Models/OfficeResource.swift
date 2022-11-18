@@ -61,3 +61,8 @@ enum SpotType: String {
     case restaurant
     case sea
 }
+
+struct Features: Codable {
+    let featureImage: String
+    let featureDescription: String
+}

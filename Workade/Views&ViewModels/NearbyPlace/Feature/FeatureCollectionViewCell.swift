@@ -17,11 +17,11 @@ class FeatureCollectionViewCell: UICollectionViewCell {
     }()
     
     // 설명
-    let subscribeLabel: UILabel = {
-        let subscribeLabel = UILabel()
-        subscribeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        return subscribeLabel
+    let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.font = UIFont(name: CustomFont.pretendardBold.rawValue, size: 12)
+        return descriptionLabel
     }()
     
     lazy var cell: UIView = {
@@ -45,12 +45,23 @@ class FeatureCollectionViewCell: UICollectionViewCell {
     
     private func setupLayout() {
         contentView.addSubview(cell)
-        
         NSLayoutConstraint.activate([
             cell.leadingAnchor.constraint(equalTo: leadingAnchor),
             cell.trailingAnchor.constraint(equalTo: trailingAnchor),
             cell.topAnchor.constraint(equalTo: topAnchor),
             cell.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        cell.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: cell.topAnchor, constant: 20),
+            imageView.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 16)
+        ])
+        
+        cell.addSubview(descriptionLabel)
+        NSLayoutConstraint.activate([
+            descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
+            descriptionLabel.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 16)
+        ])
+        
     }
 }
