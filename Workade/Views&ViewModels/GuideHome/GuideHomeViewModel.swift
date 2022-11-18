@@ -136,6 +136,7 @@ extension GuideHomeViewModel {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.53))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
+        group.edgeSpacing = .init(leading: nil, top: nil, trailing: nil, bottom: .fixed(30))
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
         

@@ -12,25 +12,11 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
     var office: OfficeModel?
     var task: Task<Void, Error>?
     
-    weak var delegate: CollectionViewCellDelegate?
-    
     private lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
-    }()
-    
-    private lazy var mapButton: UIButton = {
-        let button = UIButton()
-        let image = SFSymbol.mapInCell.image
-        button.setImage(image, for: .normal)
-        button.layer.cornerRadius = 18
-        button.layer.backgroundColor = UIColor.black.withAlphaComponent(0.4).cgColor
-        button.addTarget(self, action: #selector(tapMapButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
     }()
     
     private let officeNameLabel: UILabel = {
@@ -73,12 +59,6 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
-    @objc
-    func tapMapButton() {
-        guard let office = office else { return }
-        delegate?.didTapMapButton(office: office)
-    }
 }
 
 // MARK: UI setup 관련 Methods
@@ -89,19 +69,11 @@ private extension OfficeCollectionViewCell {
     
     func setupLayout() {
         contentView.addSubview(backgroundImageView)
-        contentView.addSubview(mapButton)
         contentView.addSubview(officeNameLabel)
         
         NSLayoutConstraint.activate([
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            mapButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            mapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            mapButton.widthAnchor.constraint(equalToConstant: 36),
-            mapButton.heightAnchor.constraint(equalToConstant: 36)
         ])
         
         NSLayoutConstraint.activate([

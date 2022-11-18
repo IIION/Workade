@@ -141,7 +141,6 @@ extension GuideHomeViewController: UICollectionViewDataSource {
         switch sectionCase {
         case .office:
             let cell: OfficeCollectionViewCell = collectionView.dequeue(for: indexPath)
-            cell.delegate = self
             cell.configure(office: viewModel.officeResource.content[indexPath.row])
             return cell
         case .magazine:
@@ -202,12 +201,6 @@ extension GuideHomeViewController: UICollectionViewDelegate {
 
 // MARK: Custom Delegate
 extension GuideHomeViewController: CollectionViewCellDelegate {
-    func didTapMapButton(office: OfficeModel) {
-        let viewController = MapViewController(office: office)
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: true)
-    }
-    
     func didTapBookmarkButton(id: String) { // 북마크
         viewModel.notifyClickedMagazineId(title: id, key: Constants.Key.wishMagazine)
     }

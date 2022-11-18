@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol CollectionViewCellDelegate: AnyObject {
+    func didTapBookmarkButton(id: String)
+}
+
+extension CollectionViewCellDelegate {
+    func didTapBookmarkButton(id: String) {}
+}
+
 /// 매거진을 나열한 컬렉션뷰의 셀
 final class MagazineCollectionViewCell: UICollectionViewCell {
     private var magazineId: String?
