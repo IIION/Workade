@@ -90,14 +90,15 @@ enum SFSymbol {
         case .mapInNavigation:
             return .fromSystemImage(name: "map", font: .systemFont(ofSize: 22, weight: .medium), color: .theme.primary)!
         case .chevronLeft:
-            return .fromSystemImage(name: "chevron.left", font: .customFont(for: .headline), color: .theme.primary)!
+            return .fromSystemImage(name: "chevron.left", font: .customFont(for: .subHeadline), color: .theme.primary)!
         case .chevronRight:
             return .fromSystemImage(name: "chevron.right", font: .systemFont(ofSize: 15, weight: .heavy), color: .theme.primary)!
         case .chevronRightSkyBlue:
             return .fromSystemImage(name: "chevron.right.circle.fill", font: .systemFont(ofSize: 22, weight: .heavy),
-                                    colors: [UIColor.hexStringToUIColor(hex: "2D67F6"), .blue.withAlphaComponent(0.1)])!
+                                    colors: [.theme.workadeBlue, .blue.withAlphaComponent(0.1)])!
         case .chevronRightBlue:
-            return .fromSystemImage(name: "chevron.right.circle.fill", font: .systemFont(ofSize: 22, weight: .heavy), color: .blue)!
+            return .fromSystemImage(name: "chevron.right.circle.fill", font: .systemFont(ofSize: 22, weight: .heavy),
+                                    colors: [.white, .theme.workadeBlue])!
         case .bookmark:
             return .fromSystemImage(name: "bookmark", font: .customFont(for: .headline), color: .white)!
         case .bookmarkFill:
