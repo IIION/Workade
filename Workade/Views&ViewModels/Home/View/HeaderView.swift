@@ -7,32 +7,29 @@
 
 import UIKit
 
-/// 컬렉션 뷰 상단의 제목 겸 네비게이션 푸시 기능을 하는 뷰입니다.
-///
-/// 추후 비슷한 류의 가로 컬렉션뷰가 많아진다면 재사용할 일이 많을 듯하여 따로 뺐습니다.
-final class HeaderView: UIStackView {
+final class HeaderView: UICollectionReusableView {
+    var pushToNext: (() -> Void)?
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .headline)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-    let pushButton: UIButton = {
+    private let pushButton: UIButton = {
         let button = UIButton()
         button.setImage(SFSymbol.chevronRight.image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    init(title: String) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
-        self.titleLabel.text = title
         
-        axis = .horizontal
-        alignment = .center
-        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 8)
-        isLayoutMarginsRelativeArrangement = true // ArrangedSubview에 margin적용할지에 대한 Boolean
+        print("헤더뷰 init!")
         
         setupLayout()
     }
@@ -41,11 +38,23 @@ final class HeaderView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(title: String) {
+        self.titleLabel.text = title
+    }
+    
     private func setupLayout() {
-        addArrangedSubview(titleLabel)
-        addArrangedSubview(pushButton)
+        addSubview(titleLabel)
+        addSubview(pushButton)
         
-        NSLayoutConstraint.activate([ // for hitbox...
+        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: pushButton.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            pushButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            pushButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             pushButton.widthAnchor.constraint(equalToConstant: 44),
             pushButton.heightAnchor.constraint(equalToConstant: 44)
         ])

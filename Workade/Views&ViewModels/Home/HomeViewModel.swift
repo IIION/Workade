@@ -9,6 +9,7 @@ import UIKit
 
 @MainActor
 final class HomeViewModel {
+    typealias Size = NSCollectionLayoutSize
     private var bookmarkManager = BookmarkManager.shared
     
     private(set) var officeResource = OfficeResource()
@@ -56,5 +57,84 @@ final class HomeViewModel {
     
     deinit {
         BookmarkManager.shared.clickedMagazineId.remove(at: .home)
+    }
+}
+
+// MARK: GuideHomeView의 전체 레이아웃 관리
+extension HomeViewModel {
+    func createLayout() -> UICollectionViewLayout {
+        let sectionProvider = { [weak self] (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let self = self else { return nil }
+            
+            // 전달받은 섹션 index별 알맞는 섹션을 생성
+            var section: NSCollectionLayoutSection!
+            switch sectionIndex {
+            case 0:
+                section = self.createOfficeSection()
+            case 1:
+                section = self.createMagazineSection()
+            case 2:
+                section = self.createCheckListSection()
+            default:
+                return nil
+            }
+            
+            // 이하 섹션별 공통설정
+            section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
+            section.interGroupSpacing = 20
+            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+            
+            // office, magazine 섹션만 헤더를 생성
+            if sectionIndex < 2 {
+                let headerSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+                let header = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerSize,
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top)
+                section.boundarySupplementaryItems = [header] // for header
+            }
+            
+            return section
+        }
+        
+        // 이하 전체 컬렉션뷰의 설정
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 20
+        config.scrollDirection = .vertical
+        
+        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
+    }
+    
+    // office section
+    private func createOfficeSection() -> NSCollectionLayoutSection {
+        let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = Size(widthDimension: .estimated(280), heightDimension: .estimated(180))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        return NSCollectionLayoutSection(group: group)
+    }
+    
+    // magazine section
+    private func createMagazineSection() -> NSCollectionLayoutSection {
+        let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = Size(widthDimension: .estimated(130), heightDimension: .estimated(180))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        return NSCollectionLayoutSection(group: group)
+    }
+    
+    // checkList section
+    private func createCheckListSection() -> NSCollectionLayoutSection {
+        let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.5))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
+        
+        return NSCollectionLayoutSection(group: group)
     }
 }
