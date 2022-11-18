@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-final class HomeViewModel {
+final class GuideHomeViewModel {
     typealias Size = NSCollectionLayoutSize
     private var bookmarkManager = BookmarkManager.shared
     
@@ -60,8 +60,8 @@ final class HomeViewModel {
     }
 }
 
-// MARK: GuideHomeView의 전체 레이아웃 관리
-extension HomeViewModel {
+// MARK: GuideHomeVC 레이아웃 관련
+extension GuideHomeViewModel {
     func createLayout() -> UICollectionViewLayout {
         let sectionProvider = { [weak self] (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
@@ -78,22 +78,6 @@ extension HomeViewModel {
             default:
                 return nil
             }
-            
-            // 이하 섹션별 공통설정
-            section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
-            section.interGroupSpacing = 20
-            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-            
-            // office, magazine 섹션만 헤더를 생성
-            if sectionIndex < 2 {
-                let headerSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
-                let header = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: headerSize,
-                    elementKind: UICollectionView.elementKindSectionHeader,
-                    alignment: .top)
-                section.boundarySupplementaryItems = [header] // for header
-            }
-            
             return section
         }
         
@@ -105,36 +89,58 @@ extension HomeViewModel {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
     }
     
-    // office section
+    // office section layout
     private func createOfficeSection() -> NSCollectionLayoutSection {
         let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
         let groupSize = Size(widthDimension: .estimated(280), heightDimension: .estimated(180))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        group.edgeSpacing = .init(leading: nil, top: .fixed(60), trailing: nil, bottom: nil)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
+        section.interGroupSpacing = 10
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         
-        return NSCollectionLayoutSection(group: group)
+        let headerSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            containerAnchor: .init(edges: .top, absoluteOffset: .init(x: 0, y: 10)))
+        section.boundarySupplementaryItems = [header] // for header
+        
+        return section
     }
     
-    // magazine section
+    // magazine section layout
     private func createMagazineSection() -> NSCollectionLayoutSection {
-        let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .absolute(180))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = Size(widthDimension: .estimated(130), heightDimension: .estimated(180))
+        let groupSize = Size(widthDimension: .absolute(130), heightDimension: .absolute(190))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
+        section.interGroupSpacing = 10
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         
-        return NSCollectionLayoutSection(group: group)
+        let headerSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top)
+        section.boundarySupplementaryItems = [header] // for header
+        
+        return section
     }
     
-    // checkList section
+    // checkList section layout
     private func createCheckListSection() -> NSCollectionLayoutSection {
         let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.5))
+        let groupSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.53))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 20)
         
-        return NSCollectionLayoutSection(group: group)
+        return section
     }
 }
