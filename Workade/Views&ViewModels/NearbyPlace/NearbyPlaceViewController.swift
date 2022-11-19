@@ -70,7 +70,7 @@ class NearbyPlaceViewController: UIViewController {
     }()
     
     lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = CustomSegmentedControl(items: ["소개", "특징", "갤러리"])
+        let segmentedControl = CustomSegmentedControl(items: ["소개", "특징", "갤러리", "주변"])
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
@@ -109,7 +109,7 @@ class NearbyPlaceViewController: UIViewController {
         setupGalleryView()
         setupCustomNavigationBar()
     }
-    
+
     func setupDelegate() {
         nearbyPlaceDetailView.galleryView.collectionView.dataSource = self
         nearbyPlaceDetailView.galleryView.collectionView.delegate = self
@@ -215,31 +215,49 @@ class NearbyPlaceViewController: UIViewController {
             totalScrollView.isScrollEnabled = true
             nearbyPlaceImageView.isHidden = false
             nearbyPlaceDetailView.introduceView.isHidden = false
-            nearbyPlaceDetailView.galleryView.isHidden = true
             nearbyPlaceDetailView.featureView.isHidden = true
+            nearbyPlaceDetailView.galleryView.isHidden = true
+            nearbyPlaceDetailView.mapView.isHidden = true
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
             nearbyPlaceDetailView.featureBottomConstraints.isActive = false
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
+            nearbyPlaceDetailView.mapBottomConstrains.isActive = false
         case 1:
             totalScrollView.isScrollEnabled = true
             nearbyPlaceImageView.isHidden = false
             nearbyPlaceDetailView.introduceView.isHidden = true
-            nearbyPlaceDetailView.galleryView.isHidden = true
             nearbyPlaceDetailView.featureView.isHidden = false
+            nearbyPlaceDetailView.galleryView.isHidden = true
+            nearbyPlaceDetailView.mapView.isHidden = true
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
             nearbyPlaceDetailView.featureBottomConstraints.isActive = true
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+            nearbyPlaceDetailView.mapBottomConstrains.isActive = false
         case 2:
             totalScrollView.isScrollEnabled = false
             nearbyPlaceImageView.isHidden = true
             // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
             totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
-            nearbyPlaceDetailView.featureView.isHidden = true
             nearbyPlaceDetailView.introduceView.isHidden = true
+            nearbyPlaceDetailView.featureView.isHidden = true
             nearbyPlaceDetailView.galleryView.isHidden = false
+            nearbyPlaceDetailView.mapView.isHidden = true
+            nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
             nearbyPlaceDetailView.featureBottomConstraints.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
+        case 3:
+            totalScrollView.isScrollEnabled = false
+            nearbyPlaceImageView.isHidden = true
+            totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+            nearbyPlaceDetailView.introduceView.isHidden = true
+            nearbyPlaceDetailView.featureView.isHidden = true
+            nearbyPlaceDetailView.galleryView.isHidden = true
+            nearbyPlaceDetailView.mapView.isHidden = false
+            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+            nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+            nearbyPlaceDetailView.mapBottomConstrains.isActive = true
         default:
             return
         }
