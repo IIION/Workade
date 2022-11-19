@@ -211,52 +211,13 @@ class NearbyPlaceViewController: UIViewController {
     private func indexChanged(_ segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            totalScrollView.isScrollEnabled = true
-            nearbyPlaceImageView.isHidden = false
-            nearbyPlaceDetailView.introduceView.isHidden = false
-            nearbyPlaceDetailView.featureView.isHidden = true
-            nearbyPlaceDetailView.galleryView.isHidden = true
-            nearbyPlaceDetailView.mapView.isHidden = true
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
-            nearbyPlaceDetailView.featureBottomConstraints.isActive = false
-            nearbyPlaceDetailView.mapBottomConstrains.isActive = false
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
+            showInformationView()
         case 1:
-            totalScrollView.isScrollEnabled = true
-            nearbyPlaceImageView.isHidden = false
-            nearbyPlaceDetailView.introduceView.isHidden = true
-            nearbyPlaceDetailView.featureView.isHidden = false
-            nearbyPlaceDetailView.galleryView.isHidden = true
-            nearbyPlaceDetailView.mapView.isHidden = true
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
-            nearbyPlaceDetailView.mapBottomConstrains.isActive = false
-            nearbyPlaceDetailView.featureBottomConstraints.isActive = true
+            showFeatureView()
         case 2:
-            totalScrollView.isScrollEnabled = false
-            nearbyPlaceImageView.isHidden = true
-            // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
-            totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
-            nearbyPlaceDetailView.introduceView.isHidden = true
-            nearbyPlaceDetailView.featureView.isHidden = true
-            nearbyPlaceDetailView.galleryView.isHidden = false
-            nearbyPlaceDetailView.mapView.isHidden = true
-            nearbyPlaceDetailView.mapBottomConstrains.isActive = false
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
-            nearbyPlaceDetailView.featureBottomConstraints.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
+            showGalleryView()
         case 3:
-            totalScrollView.isScrollEnabled = false
-            nearbyPlaceImageView.isHidden = true
-            totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
-            nearbyPlaceDetailView.introduceView.isHidden = true
-            nearbyPlaceDetailView.featureView.isHidden = true
-            nearbyPlaceDetailView.galleryView.isHidden = true
-            nearbyPlaceDetailView.mapView.isHidden = false
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
-            nearbyPlaceDetailView.featureBottomConstraints.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
-            nearbyPlaceDetailView.mapBottomConstrains.isActive = true
+            showMapView()
         default:
             return
         }
@@ -274,6 +235,64 @@ class NearbyPlaceViewController: UIViewController {
             }
         }
     }
+}
+
+extension NearbyPlaceViewController {
+    private func showInformationView() {
+        totalScrollView.isScrollEnabled = true
+        nearbyPlaceImageView.isHidden = false
+        nearbyPlaceDetailView.introduceView.isHidden = false
+        nearbyPlaceDetailView.featureView.isHidden = true
+        nearbyPlaceDetailView.galleryView.isHidden = true
+        nearbyPlaceDetailView.mapView.isHidden = true
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
+    }
+    
+    private func showFeatureView() {
+        totalScrollView.isScrollEnabled = true
+        nearbyPlaceImageView.isHidden = false
+        nearbyPlaceDetailView.introduceView.isHidden = true
+        nearbyPlaceDetailView.featureView.isHidden = false
+        nearbyPlaceDetailView.galleryView.isHidden = true
+        nearbyPlaceDetailView.mapView.isHidden = true
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = true
+    }
+    
+    private func showGalleryView() {
+        totalScrollView.isScrollEnabled = false
+        nearbyPlaceImageView.isHidden = true
+        // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
+        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
+        nearbyPlaceDetailView.introduceView.isHidden = true
+        nearbyPlaceDetailView.featureView.isHidden = true
+        nearbyPlaceDetailView.galleryView.isHidden = false
+        nearbyPlaceDetailView.mapView.isHidden = true
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
+    }
+    
+    private func showMapView() {
+        totalScrollView.isScrollEnabled = false
+        nearbyPlaceImageView.isHidden = true
+        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
+        nearbyPlaceDetailView.introduceView.isHidden = true
+        nearbyPlaceDetailView.featureView.isHidden = true
+        nearbyPlaceDetailView.galleryView.isHidden = true
+        nearbyPlaceDetailView.mapView.isHidden = false
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = true
+    }
+    
 }
 
 extension NearbyPlaceViewController: InnerTouchPresentDelegate {
@@ -335,6 +354,10 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
         let totalOffset = scrollView.contentOffset.y
         switch segmentedControl.selectedSegmentIndex {
         case 0:
+            if totalOffset < -.topSafeArea {
+                self.dismiss(animated: true, completion: nil)
+            }
+        case 1:
             if totalOffset < -.topSafeArea {
                 self.dismiss(animated: true, completion: nil)
             }
