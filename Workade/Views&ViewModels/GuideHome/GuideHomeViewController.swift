@@ -41,7 +41,7 @@ final class GuideHomeViewController: UIViewController {
     
     private func setupNavigationBar() {
         title = "가이드"
-        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .black)]
+        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.customFont(for: .subHeadline)]
         navigationController?.navigationBar.shadowImage = UIImage() // remove default underline
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(

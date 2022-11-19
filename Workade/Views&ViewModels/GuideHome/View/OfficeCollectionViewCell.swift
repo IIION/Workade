@@ -21,7 +21,7 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
     
     private let officeNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .customFont(for: .title3)
+        label.font = .customFont(for: .captionHeadlineNew)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         

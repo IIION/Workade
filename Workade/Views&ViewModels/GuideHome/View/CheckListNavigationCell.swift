@@ -21,7 +21,7 @@ class CheckListNavigationCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "checklist"
         label.textColor = .white
-        label.font = .systemFont(ofSize: 17, weight: .heavy) // 임시
+        label.font = .customFont(for: .captionHeadlineNew)
         let imageView = UIImageView(image: SFSymbol.chevronRightBlue.image)
         imageView.contentMode = .center
         stackView.addArrangedSubview(label)
