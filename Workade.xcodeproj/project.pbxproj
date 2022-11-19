@@ -82,6 +82,7 @@
 		96554EE22927C78C00BBE26A /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554EE12927C78C00BBE26A /* Divider.swift */; };
 		96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554EE42927F16900BBE26A /* OfficeViewController.swift */; };
 		96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */; };
+		96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F2A29290C4200BBE26A /* EllipseButton.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
 		96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */; };
 		96972ED12903011500197DEE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ED02903011500197DEE /* CellImageView.swift */; };
@@ -193,6 +194,7 @@
 		96554EE12927C78C00BBE26A /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		96554EE42927F16900BBE26A /* OfficeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeViewController.swift; sourceTree = "<group>"; };
 		96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseSegmentControl.swift; sourceTree = "<group>"; };
+		96554F2A29290C4200BBE26A /* EllipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseButton.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
 		96972ED02903011500197DEE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 				A393992529081628000E129A /* CustomNavigationBar.swift */,
 				A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */,
 				96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */,
+				96554F2A29290C4200BBE26A /* EllipseButton.swift */,
 				9646763929092EBF0047ED34 /* TitleLabel.swift */,
 				5F28285B290793D800882FF3 /* BasePaddingLabel.swift */,
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
@@ -763,6 +766,7 @@
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
+				96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,

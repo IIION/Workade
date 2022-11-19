@@ -51,11 +51,27 @@ final class EllipseSegmentControl: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// 현재 눌린 버튼을 확인하고, select. 나머지 버튼 unselect. +) 인덱스 쏴주기 & 위치 체크
     private func changeCurrentSegmentIndex(new index: Int) {
         guard buttons.count > index else { return }
         buttons.forEach { $0.isSelected = false }
         buttons[index].isSelected = true
         delegate?.ellipseSegment(didSelectItemAt: index)
+        checkPostion(index)
+    }
+    
+    /// 눌린 버튼의 위치를 체크하고, 필요 시 적절히 잘 보이도록 스크롤하는 메서드.
+    private func checkPostion(_ index: Int) {
+        let buttonMinX = buttons[index].frame.minX
+        let buttonMaxX = buttons[index].frame.maxX
+        let contentOffset = scrollView.contentOffset.x
+        let scrollViewWidth = scrollView.frame.width
+        
+        if buttonMinX - contentOffset < 20 {
+            scrollView.setContentOffset(.init(x: buttonMinX - 20, y: 0), animated: true)
+        } else if (contentOffset + scrollViewWidth) - buttonMaxX < 20 {
+            scrollView.setContentOffset(.init(x: buttonMaxX - scrollViewWidth + 20, y: 0), animated: true)
+        }
     }
 }
 
@@ -91,34 +107,5 @@ private extension EllipseSegmentControl {
             stackView.bottomAnchor.constraint(equalTo: contentGuide.bottomAnchor),
             stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         ])
-    }
-}
-
-/// 타원 모양의 버튼. EllipseSegmentControl에서 쓸 수 있도록 만들어졌습니다.
-///
-/// 원하면 그 외에서도 사용이 가능하지만, 현재 강조 색상 및 평소 색상은 고정되어있습니다.
-final class EllipseButton: UIButton {
-    init(title: String) {
-        super.init(frame: .zero)
-        setTitle(title, for: .normal)
-        setTitleColor(.theme.tertiary, for: .normal)
-        titleLabel?.font = .customFont(for: .footnote)
-        backgroundColor = .theme.groupedBackground
-        layer.cornerRadius = intrinsicContentSize.height/2
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: super.intrinsicContentSize.width + 20, height: 34)
-    }
-    
-    override var isSelected: Bool {
-        didSet {
-            backgroundColor = isSelected ? UIColor.blue : UIColor.lightGray
-            setTitleColor(isSelected ? .theme.workadeBlue : .theme.tertiary, for: .normal)
-        }
     }
 }
