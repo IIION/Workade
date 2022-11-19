@@ -70,7 +70,7 @@ class NearbyPlaceViewController: UIViewController {
     }()
     
     lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = CustomSegmentedControl(items: ["소개", "특징", "갤러리", "주변"])
+        let segmentedControl = CustomSegmentedControl(items: ["정보", "특징", "갤러리", "주변"])
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
