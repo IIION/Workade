@@ -8,7 +8,7 @@
 import UIKit
 
 final class SettingViewController: UIViewController {
-    private let titleView = TitleView(title: "설정")
+    private let titleView = TitleLabel(title: "설정")
     
     override func viewDidLoad() {
         super.viewDidLoad()
