@@ -10,7 +10,6 @@ import UIKit
 // BaseImageView -> CloseButton / CustomNavigationBar -> locationLabel -> placeLabel -> mapButton
 class NearbyPlaceImageView: UIView {
     let officeModel: OfficeModel
-    weak var delegate: InnerTouchPresentDelegate?
     
     // MARK: Property 선언
     let imageView: UIImageView = {
@@ -38,31 +37,6 @@ class NearbyPlaceImageView: UIView {
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return placeLabel
-    }()
-    
-    lazy var mapButton: UIButton = {
-        let mapButton = UIButton()
-        let blur = UIVisualEffectView(effect:
-                                        UIBlurEffect(style: UIBlurEffect.Style.light))
-        mapButton.frame.size = CGSize(width: 48, height: 48)
-        mapButton.layer.cornerRadius = mapButton.bounds.height / 2
-        mapButton.setImage(SFSymbol.map.image, for: .normal)
-        
-        blur.frame = mapButton.bounds
-        blur.isUserInteractionEnabled = false
-        blur.layer.cornerRadius = 0.5 * mapButton.bounds.size.height
-        blur.clipsToBounds = true
-        mapButton.insertSubview(blur, belowSubview: mapButton.imageView ?? UIImageView())
-        mapButton.addTarget(self, action: #selector(clickedMapButton), for: .touchUpInside)
-        
-        return mapButton
-    }()
-    
-    let mapButtonContainer: UIView = {
-        let mapButtonContainer = UIView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
-        mapButtonContainer.translatesAutoresizingMaskIntoConstraints = false
-        
-        return mapButtonContainer
     }()
     
     init(officeModel: OfficeModel) {
@@ -111,23 +85,5 @@ class NearbyPlaceImageView: UIView {
             locationLabel.bottomAnchor.constraint(equalTo: placeLabel.topAnchor, constant: -5),
             locationLabel.leadingAnchor.constraint(equalTo: placeLabel.leadingAnchor)
         ])
-        
-        addSubview(mapButtonContainer)
-        NSLayoutConstraint.activate([
-            mapButtonContainer.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -17),
-            mapButtonContainer.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -17)
-        ])
-        
-        mapButtonContainer.addSubview(mapButton)
-        NSLayoutConstraint.activate([
-            mapButton.centerXAnchor.constraint(equalTo: mapButtonContainer.centerXAnchor),
-            mapButton.centerYAnchor.constraint(equalTo: mapButtonContainer.centerYAnchor)
-        ])
-    }
-    
-    // Button 클릭 관련 함수
-    @objc
-    func clickedMapButton() {
-        delegate?.touch(officeModel: self.officeModel)
     }
 }

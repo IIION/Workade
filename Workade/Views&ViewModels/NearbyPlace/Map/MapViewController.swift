@@ -44,7 +44,7 @@ class MapViewController: UIViewController {
         markerInfoView.isHidden = true
         NSLayoutConstraint.activate([
             markerInfoView.heightAnchor.constraint(equalToConstant: 80),
-            markerInfoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            markerInfoView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10 - .bottomSafeArea),
             markerInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             markerInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
@@ -55,7 +55,7 @@ class MapViewController: UIViewController {
 extension MapViewController {
     private func setupNMap() {
         setMarkOfficePlace()
-        // 필용없는듯?
+        // 필요없는듯?
         setMapCamera()
     }
     

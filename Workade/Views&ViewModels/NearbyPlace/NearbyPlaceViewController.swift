@@ -100,7 +100,6 @@ class NearbyPlaceViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .theme.background
-        nearbyPlaceImageView.delegate = self
         
         setupDelegate()
         
@@ -181,7 +180,7 @@ class NearbyPlaceViewController: UIViewController {
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: officeModel.officeName, rightButtonImage: SFSymbol.mapInNavigation.image)
+        customNavigationBar = CustomNavigationBar(titleText: officeModel.officeName, rightButtonImage: UIImage())
         customNavigationBar.officeModel = officeModel
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.delegate = self
