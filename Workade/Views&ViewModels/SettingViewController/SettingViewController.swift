@@ -9,18 +9,22 @@ import UIKit
 
 final class SettingViewController: UIViewController {
     private let titleView = TitleView(title: "설정")
-
+    
+    private let infoButton: NavigateButton = {
+        let button = NavigateButton(image: SFSymbol.info.image, text: "서비스 정보")
+        button.layer.backgroundColor = UIColor.systemGroupedBackground.cgColor
+        button.layer.cornerRadius = 12
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
         setupNavigationBar()
         setupLayout()
-    }
-    
-    @objc
-    func popToMyPageView() {
-        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -30,9 +34,10 @@ private extension SettingViewController {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
-            style: .done,
-            target: self,
-            action: #selector(popToMyPageView)
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            })
         )
     }
     
