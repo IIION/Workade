@@ -23,7 +23,7 @@ class NearbyPlaceViewController: UIViewController {
     
     let segmentedControllerHeight: CGFloat = 52
     var customNavigationBarHeight: CGFloat!
-    let imageHeight: CGFloat = 375
+    let imageHeight: CGFloat = 375 - .topSafeArea
 
     init(officeModel: OfficeModel) {
         self.officeModel = officeModel
@@ -90,7 +90,7 @@ class NearbyPlaceViewController: UIViewController {
     
     private let segmentUnderLine: UIView = {
         let segmentUnderLine = UIView()
-        segmentUnderLine.backgroundColor = UIColor.theme.quaternary
+        segmentUnderLine.backgroundColor = .rgb(0xF2F2F7)
         segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentUnderLine

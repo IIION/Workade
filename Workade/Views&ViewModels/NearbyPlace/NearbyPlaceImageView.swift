@@ -21,15 +21,6 @@ class NearbyPlaceImageView: UIView {
         return imageView
     }()
     
-    private let locationLabel: UILabel = {
-        let locationLabel = UILabel()
-        locationLabel.font = UIFont.customFont(for: .title3)
-        locationLabel.textColor = .theme.background
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        return locationLabel
-    }()
-    
     private let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.font = UIFont.customFont(for: .title1)
@@ -37,6 +28,15 @@ class NearbyPlaceImageView: UIView {
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return placeLabel
+    }()
+    
+    private let locationLabel: UILabel = {
+        let locationLabel = UILabel()
+        locationLabel.font = UIFont.customFont(for: .footnote)
+        locationLabel.textColor = .theme.background
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return locationLabel
     }()
     
     init(officeModel: OfficeModel) {
@@ -74,16 +74,16 @@ class NearbyPlaceImageView: UIView {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        imageView.addSubview(placeLabel)
-        NSLayoutConstraint.activate([
-            placeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
-            placeLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)
-        ])
-        
         imageView.addSubview(locationLabel)
         NSLayoutConstraint.activate([
-            locationLabel.bottomAnchor.constraint(equalTo: placeLabel.topAnchor, constant: -5),
-            locationLabel.leadingAnchor.constraint(equalTo: placeLabel.leadingAnchor)
+            locationLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
+            locationLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)
+        ])
+        
+        imageView.addSubview(placeLabel)
+        NSLayoutConstraint.activate([
+            placeLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -5),
+            placeLabel.leadingAnchor.constraint(equalTo: locationLabel.leadingAnchor)
         ])
     }
 }
