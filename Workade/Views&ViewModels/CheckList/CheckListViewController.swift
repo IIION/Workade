@@ -73,7 +73,7 @@ class CheckListViewController: UIViewController {
         )
     }
     
-    @objc private func popToHomeViewController() {
+    @objc private func popToGuideHomeViewController() {
         navigationController?.popViewController(animated: true)
     }
     
@@ -132,7 +132,7 @@ extension CheckListViewController {
             image: SFSymbol.chevronLeft.image,
             style: .done,
             target: self,
-            action: #selector(popToHomeViewController)
+            action: #selector(popToGuideHomeViewController)
         )
         navigationController?.navigationBar.tintColor = .theme.primary
     }
