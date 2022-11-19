@@ -13,7 +13,7 @@ final class HeaderView: UICollectionReusableView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .customFont(for: .captionHeadlineNew)
+        label.font = .customFont(for: .captionHeadline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

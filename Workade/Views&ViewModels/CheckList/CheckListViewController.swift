@@ -52,7 +52,7 @@ class CheckListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .theme.background
         
         self.setupNavigationBar()
         self.setupLayout()
