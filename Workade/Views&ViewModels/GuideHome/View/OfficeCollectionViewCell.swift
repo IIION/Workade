@@ -72,6 +72,8 @@ private extension OfficeCollectionViewCell {
         contentView.addSubview(officeNameLabel)
         
         NSLayoutConstraint.activate([
+            backgroundImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backgroundImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
         ])

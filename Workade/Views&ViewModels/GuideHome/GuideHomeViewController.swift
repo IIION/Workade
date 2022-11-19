@@ -57,11 +57,14 @@ final class GuideHomeViewController: UIViewController {
         view.addSubview(divider)
         NSLayoutConstraint.activate([
             guideCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            guideCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor)
+            guideCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            guideCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            guideCollectionView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            divider.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            divider.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            divider.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }

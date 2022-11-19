@@ -27,6 +27,7 @@ class CheckListNavigationCell: UICollectionViewCell {
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(imageView)
         stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -47,6 +48,8 @@ class CheckListNavigationCell: UICollectionViewCell {
         contentView.addSubview(titleStackView)
         
         NSLayoutConstraint.activate([
+            backgroundImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backgroundImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             backgroundImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor)
         ])

@@ -100,11 +100,13 @@ private extension MagazineCollectionViewCell {
     }
     
     func setupLayout() {
-        addSubview(backgroundImageView)
-        addSubview(bookmarkButton)
+        contentView.addSubview(backgroundImageView)
+        contentView.addSubview(bookmarkButton)
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
+            backgroundImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backgroundImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
