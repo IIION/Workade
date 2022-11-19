@@ -30,6 +30,12 @@ class MapViewController: UIViewController {
         setupNMap()
         setupLayout()
     }
+    // 이제는 호출 안하는 함수
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setMapCamera()
+    }
     
     private func setupLayout() {
         view.addSubview(map)
@@ -49,6 +55,8 @@ class MapViewController: UIViewController {
 extension MapViewController {
     private func setupNMap() {
         setMarkOfficePlace()
+        // 필용없는듯?
+        setMapCamera()
     }
     
     /// 카메라를 입력 받은 위도 경도로 이동하는 함수

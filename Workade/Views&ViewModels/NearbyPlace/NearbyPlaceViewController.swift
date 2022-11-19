@@ -21,7 +21,7 @@ class NearbyPlaceViewController: UIViewController {
     var segmentedControlTopConstraintsToNavbar: NSLayoutConstraint!
     var segmentedControlTopConstraintsToImage: NSLayoutConstraint!
     
-    let segmentedControllerHeight: CGFloat = 50
+    let segmentedControllerHeight: CGFloat = 52
     var customNavigationBarHeight: CGFloat!
     let imageHeight: CGFloat = 375
 
@@ -220,8 +220,8 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceDetailView.mapView.isHidden = true
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
             nearbyPlaceDetailView.featureBottomConstraints.isActive = false
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
             nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+            nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
         case 1:
             totalScrollView.isScrollEnabled = true
             nearbyPlaceImageView.isHidden = false
@@ -230,26 +230,26 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceDetailView.galleryView.isHidden = true
             nearbyPlaceDetailView.mapView.isHidden = true
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
-            nearbyPlaceDetailView.featureBottomConstraints.isActive = true
             nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
             nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+            nearbyPlaceDetailView.featureBottomConstraints.isActive = true
         case 2:
             totalScrollView.isScrollEnabled = false
             nearbyPlaceImageView.isHidden = true
             // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
-            totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+            totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
             nearbyPlaceDetailView.introduceView.isHidden = true
             nearbyPlaceDetailView.featureView.isHidden = true
             nearbyPlaceDetailView.galleryView.isHidden = false
             nearbyPlaceDetailView.mapView.isHidden = true
             nearbyPlaceDetailView.mapBottomConstrains.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
             nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
             nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
         case 3:
             totalScrollView.isScrollEnabled = false
             nearbyPlaceImageView.isHidden = true
-            totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
+            totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
             nearbyPlaceDetailView.introduceView.isHidden = true
             nearbyPlaceDetailView.featureView.isHidden = true
             nearbyPlaceDetailView.galleryView.isHidden = true
@@ -346,14 +346,13 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let totalOffset = scrollView.contentOffset.y
-        
         switch scrollView {
         case totalScrollView:
             if totalOffset > 0 {
                 customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
                 nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
-                // 이미지 뷰의 크기 + safeareator + segmentcontrol크기 + 네비게이션 바 위치.
-                if totalOffset > nearbyPlaceImageView.imageView.bounds.height + segmentedControllerHeight + .topSafeArea + customNavigationBarHeight {
+                // 이미지 뷰의 크기 + safeareator + segmentcontrol크기 + 네비게이션 바 위치에 스크롤이 왔을때 세그먼트 컨트롤뷰의 Top constraints 값을 변경하여 스티키 효과 구현.
+                if totalOffset > imageHeight - customNavigationBarHeight + .topSafeArea {
                     segmentedControlTopConstraintsToImage.isActive = false
                     segmentedControlTopConstraintsToNavbar.isActive = true
                 } else {
