@@ -36,6 +36,7 @@ final class OfficeViewController: UIViewController {
     
     private lazy var officeCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -168,5 +169,14 @@ extension OfficeViewController: EllipseSegmentControlDelegate {
     func ellipseSegment(didSelectItemAt index: Int) {
         let region = viewModel.regions[index]
         applySnapshot(region: region, animated: true)
+    }
+}
+
+extension OfficeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let officeModel = snapshot.itemIdentifiers[indexPath.row]
+        let viewController = NearbyPlaceViewController(officeModel: officeModel)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }
