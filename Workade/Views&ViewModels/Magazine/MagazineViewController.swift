@@ -9,6 +9,9 @@ import UIKit
 
 final class MagazineViewController: UIViewController {
     private let viewModel = MagazineViewModel()
+    private var category: MagazineCategory {
+        return MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
+    }
     
     enum Section { case magazine }
     private var dataSource: UICollectionViewDiffableDataSource<Section, MagazineModel>!
@@ -57,10 +60,17 @@ final class MagazineViewController: UIViewController {
         observeFetchCompletion()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.setupMagazineModelsBookmark()
+        applySnapshot(category: category, animated: false)
+    }
+    
     private func observeFetchCompletion() {
-        let category = MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
         viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
-            self?.applySnapshot(category: category, animated: true)
+            guard let self = self else { return }
+            self.applySnapshot(category: self.category, animated: true)
         }
     }
 }
@@ -69,6 +79,7 @@ final class MagazineViewController: UIViewController {
 private extension MagazineViewController {
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<MagazineCollectionViewCell, MagazineModel> { cell, _, itemIdentifier in
+            cell.delegate = self
             cell.configure(magazine: itemIdentifier)
         }
         
@@ -91,7 +102,6 @@ private extension MagazineViewController {
 // MARK: UI Related Methods
 private extension MagazineViewController {
     func displayPrepareViewIfNeeded() {
-        let category = MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
         prepareView.category = .magazine(category)
         let wouldShow: Bool = (snapshot.numberOfItems == 0)
         UIView.animate(withDuration: (wouldShow ? 0.3 : 0), delay: (wouldShow ? 0.2 : 0)) { [weak self] in
@@ -156,6 +166,17 @@ extension MagazineViewController: EllipseSegmentControlDelegate {
     }
 }
 
+extension MagazineViewController: CollectionViewCellDelegate {
+    func didTapBookmarkButton(id: String) {
+        // UserDefaults 업데이트(저장)
+        UserDefaultsManager.shared.updateUserDefaults(id: id, key: Constants.Key.wishMagazine)
+        // viewModel의 magazines 업데이트
+        viewModel.setupMagazineModelsBookmark()
+        // apply snapshot
+        applySnapshot(category: category, animated: category == .wishList)
+    }
+}
+
 extension MagazineViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let magazineModel = snapshot.itemIdentifiers[indexPath.row]
@@ -164,3 +185,8 @@ extension MagazineViewController: UICollectionViewDelegate {
         present(viewController, animated: true)
     }
 }
+
+/*
+ 북마크 버튼 눌릴 때, 저장하고있고.
+ CellItemDetailViewController는 BookmarkManager에게 발신함으로써 저장하고있다.
+ */
