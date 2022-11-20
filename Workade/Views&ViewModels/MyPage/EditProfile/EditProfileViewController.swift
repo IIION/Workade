@@ -72,6 +72,17 @@ class EditProfileViewController: UIViewController {
         return pickerTableView
     }()
     
+    private let pickerLabel: UILabel = {
+        let pickerLabel = UILabel()
+        // TODO: 현재 사용자의 직업으로 설정
+        pickerLabel.text = "선택하세요"
+        pickerLabel.font = .customFont(for: .footnote2)
+        pickerLabel.textColor = .theme.tertiary
+        pickerLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pickerLabel
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -113,6 +124,12 @@ class EditProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             pickerImage.centerYAnchor.constraint(equalTo: jobPickerButton.centerYAnchor),
             pickerImage.trailingAnchor.constraint(equalTo: jobPickerButton.trailingAnchor, constant: -20)
+        ])
+        
+        jobPickerButton.addSubview(pickerLabel)
+        NSLayoutConstraint.activate([
+            pickerLabel.centerYAnchor.constraint(equalTo: jobPickerButton.centerYAnchor),
+            pickerLabel.leadingAnchor.constraint(equalTo: jobPickerButton.leadingAnchor, constant: 20)
         ])
     }
 }
