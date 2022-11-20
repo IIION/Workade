@@ -14,14 +14,14 @@ final class WorkationViewController: UIViewController {
     
     private let titleView = TitleView(title: "제주도")
     
-    private let closeButton = UIBarButtonItem(
+    private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         style: .done,
         target: self,
         action: #selector(clickedCloseButton(_:))
     )
     
-    private let guideButton = UIBarButtonItem(
+    private lazy var guideButton = UIBarButtonItem(
         image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
         style: .plain,
         target: self,
@@ -40,7 +40,7 @@ final class WorkationViewController: UIViewController {
     }()
     
     private lazy var whoAreTheyButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = GradientButton(type: .custom)
         var config = UIButton.Configuration.plain()
         config.imagePadding = 4
         config.cornerStyle = .capsule
