@@ -11,17 +11,16 @@ final class OfficeViewController: UIViewController {
     private let viewModel = OfficeViewModel()
     
     enum Section { case office }
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, OfficeModel>!
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, OfficeModel>()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, OfficeModel>() // 여기
     
     // MARK: UI 컴포넌트
     private let titleView = TitleLabel(title: "오피스")
     
-    private lazy var ellipseSegment: UIView = {
-        let segment = EllipseSegmentControl(items: ["전체", "제주", "양양", "고성", "경주", "포항"])
+    private lazy var ellipseSegment: EllipseSegmentControl = {
+        let segment = EllipseSegmentControl(items: viewModel.regions)
         segment.delegate = self
-        segment.currentSegmentIndex = 0
+        segment.currentSegmentIndex = 2
         segment.translatesAutoresizingMaskIntoConstraints = false
         
         return segment
@@ -44,6 +43,15 @@ final class OfficeViewController: UIViewController {
         setupNavigationBar()
         setupLayout()
         configureDataSource()
+        observeFetchCompletion()
+    }
+    
+    private func observeFetchCompletion() {
+        viewModel.requestOfficeData()
+        let regionName = viewModel.regions[ellipseSegment.currentSegmentIndex]
+        viewModel.isCompleteFetch.bind { [weak self] _ in
+            self?.applySnapshot(region: regionName, animated: true)
+        }
     }
 }
 
@@ -61,12 +69,12 @@ extension OfficeViewController {
         })
     }
     
-    func applySnapshot(animated: Bool) {
+    func applySnapshot(region: String, animated: Bool) {
         guard dataSource != nil else { return }
         var snapshot = snapshot
         snapshot.deleteAllItems()
         snapshot.appendSections([Section.office])
-        snapshot.appendItems([])
+        snapshot.appendItems(viewModel.filteredOffice(region: region))
         self.dataSource.apply(snapshot, animatingDifferences: animated)
         self.snapshot = snapshot // 이 순간에만 snapShot didset 호출될 수 있게 변수로 구성하고 넘기는 형태 구현함.
     }
@@ -119,6 +127,7 @@ private extension OfficeViewController {
 // MARK: Delegate
 extension OfficeViewController: EllipseSegmentControlDelegate {
     func ellipseSegment(didSelectItemAt index: Int) {
-        print(index)
+        let region = viewModel.regions[index]
+        applySnapshot(region: region, animated: true)
     }
 }

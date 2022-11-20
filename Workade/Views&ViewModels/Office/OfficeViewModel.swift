@@ -9,11 +9,33 @@ import UIKit
 
 @MainActor
 final class OfficeViewModel {
+    private var officeResource = OfficeResource()
+    let regions = ["전체", "제주", "양양", "고성", "경주", "포항"] // 추후 서버데이터로부터 구성할 것 생각.
     
+    var isCompleteFetch = Binder(false)
+    
+    func requestOfficeData() {
+        Task {
+            do {
+                officeResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.officeResource)
+                self.isCompleteFetch.value = true
+            } catch {
+                let error = error as? NetworkError ?? .unknownError
+                print(error.message)
+            }
+        }
+    }
 }
 
 extension OfficeViewModel {
+    /// filter and return data for diffableDataSource's snapshot
+    func filteredOffice(region: String) -> [OfficeModel] {
+        guard isCompleteFetch.value else { return [] }
+        return region == "전체" ? officeResource.content : officeResource.content.filter { $0.regionName.contains(region) }
+    }
+    
     typealias Size = NSCollectionLayoutSize
+    /// create OfficeCollectionView's Compositional Layout
     func createLayout() -> UICollectionViewLayout {
         let itemSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
