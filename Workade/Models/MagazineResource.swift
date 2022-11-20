@@ -15,7 +15,8 @@ struct MagazineResource: Codable {
     }
 }
 
-struct MagazineModel: Codable {
+struct MagazineModel: Codable, Hashable {
+    let uuid = UUID()
     let title: String
     let imageURL: String
     let introduceURL: String
@@ -24,5 +25,9 @@ struct MagazineModel: Codable {
         case title
         case imageURL = "imageurl"
         case introduceURL = "introduceurl"
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
     }
 }

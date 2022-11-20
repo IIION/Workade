@@ -79,7 +79,7 @@ final class OfficeViewController: UIViewController {
 }
 
 // MARK: DiffableDataSource
-extension OfficeViewController {
+private extension OfficeViewController {
     func configureDataSource() {
         // cell을 구성하고, 등록지를 만듬
         let cellRegistration = UICollectionView.CellRegistration<OfficeCollectionViewCell, OfficeModel> { cell, _, itemIdentifier in

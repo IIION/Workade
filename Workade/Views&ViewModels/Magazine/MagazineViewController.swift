@@ -7,8 +7,12 @@
 
 import UIKit
 
-class MagazineViewController: UIViewController {
+final class MagazineViewController: UIViewController {
     private let viewModel = MagazineViewModel()
+    
+    enum Section { case magazine }
+    private var dataSource: UICollectionViewDiffableDataSource<Section, MagazineModel>!
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, MagazineModel>()
     
     // MARK: UI 컴포넌트
     private let titleView = TitleLabel(title: "매거진")
@@ -38,9 +42,34 @@ class MagazineViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        configureDataSource()
     }
 }
 
+// MARK: DiffableDataSource
+private extension MagazineViewController {
+    func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<MagazineCollectionViewCell, MagazineModel> { cell, _, itemIdentifier in
+            cell.configure(magazine: itemIdentifier)
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: magazineCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
+    }
+    
+    func applySnapshot(category: String, animated: Bool) {
+        guard dataSource != nil else { return }
+        var snapshot = snapshot
+        snapshot.deleteAllItems()
+        snapshot.appendSections([Section.magazine])
+        snapshot.appendItems([]) // check
+        self.dataSource.apply(snapshot, animatingDifferences: animated)
+        self.snapshot = snapshot
+    }
+}
+
+// MARK: UI Related Methods
 private extension MagazineViewController {
     func setupNavigationBar() {
         navigationItem.hidesBackButton = true
