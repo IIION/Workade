@@ -56,7 +56,7 @@ class EditProfileViewController: UIViewController {
     
     private let pickerImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "chevron.down")
+        image.image = UIImage.fromSystemImage(name: "chevron.down", font: .systemFont(ofSize: 13, weight: .heavy), color: .theme.primary) ?? UIImage(systemName: "chevron.down")
         image.tintColor = .theme.primary
         image.translatesAutoresizingMaskIntoConstraints = false
         
