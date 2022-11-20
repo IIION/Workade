@@ -19,7 +19,7 @@ final class CellImageView: UIImageView {
         super.init(frame: .zero) // 추후 Skeleton에 초기 이미지 넣어도 될 듯함
         contentMode = .scaleAspectFill
         clipsToBounds = true
-        layer.cornerRadius = 12
+        layer.cornerRadius = 16
         backgroundColor = .theme.groupedBackground // Skeleton color
         
         let path = UIBezierPath(rect: bounds)

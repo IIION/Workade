@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol CollectionViewCellDelegate: AnyObject {
+    func didTapBookmarkButton(id: String)
+}
+
+extension CollectionViewCellDelegate {
+    func didTapBookmarkButton(id: String) {}
+}
+
 /// 매거진을 나열한 컬렉션뷰의 셀
 final class MagazineCollectionViewCell: UICollectionViewCell {
     private var magazineId: String?
@@ -33,7 +41,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .customFont(for: .subHeadline)
+        label.font = .customFont(for: .caption2)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -92,11 +100,13 @@ private extension MagazineCollectionViewCell {
     }
     
     func setupLayout() {
-        addSubview(backgroundImageView)
-        addSubview(bookmarkButton)
+        contentView.addSubview(backgroundImageView)
+        contentView.addSubview(bookmarkButton)
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
+            backgroundImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backgroundImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             backgroundImageView.widthAnchor.constraint(equalTo: widthAnchor),
             backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
@@ -109,9 +119,9 @@ private extension MagazineCollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 }

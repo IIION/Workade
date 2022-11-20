@@ -32,8 +32,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
     
     private let stickerNameLabel: UILabel = {
         let stickerNameLabel = UILabel()
-        // TODO: footnote2 2차 디자인 시스템 적용
-        stickerNameLabel.font = .customFont(for: .footnote)
+        stickerNameLabel.font = .customFont(for: .footnote2)
         // TODO: Data 연결시 삭제
         stickerNameLabel.text = "감귤 스티커"
         stickerNameLabel.sizeToFit()
@@ -44,8 +43,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
     
     private let stickerDataLabel: UILabel = {
         let stickerDataLabel = UILabel()
-        // TODO: footnote2 2차 디자인 시스템 적용
-        stickerDataLabel.font = .customFont(for: .caption)
+        stickerDataLabel.font = .customFont(for: .tag)
         // TODO: Data 연결시 삭제
         stickerDataLabel.text = "2022.12.03"
         stickerDataLabel.sizeToFit()
@@ -56,8 +54,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
     
     private let stickerLocationLabel: UILabel = {
         let stickerLocationLabel = UILabel()
-        // TODO: footnote2 2차 디자인 시스템 적용
-        stickerLocationLabel.font = .customFont(for: .caption)
+        stickerLocationLabel.font = .customFont(for: .tag)
         // TODO: Data 연결시 삭제
         stickerLocationLabel.text = "제주에서 획득"
         stickerLocationLabel.sizeToFit()
