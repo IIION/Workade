@@ -12,13 +12,17 @@ final class MagazineViewController: UIViewController {
     
     enum Section { case magazine }
     private var dataSource: UICollectionViewDiffableDataSource<Section, MagazineModel>!
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, MagazineModel>()
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, MagazineModel>() {
+        didSet {
+            displayPrepareViewIfNeeded()
+        }
+    }
     
     // MARK: UI 컴포넌트
     private let titleView = TitleLabel(title: "매거진")
     
     private lazy var ellipseSegment: UIView = {
-        let segment = EllipseSegmentControl(items: ["전체", "팁", "칼럼", "후기", "찜한 리스트"])
+        let segment = EllipseSegmentControl(items: viewModel.categories)
         segment.delegate = self
         segment.currentSegmentIndex = 0
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +38,13 @@ final class MagazineViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
+    }()
+    
+    private let prepareView: PrepareView = {
+        let prepareView = PrepareView()
+        prepareView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return prepareView
     }()
     
     override func viewDidLoad() {
@@ -71,6 +82,10 @@ private extension MagazineViewController {
 
 // MARK: UI Related Methods
 private extension MagazineViewController {
+    func displayPrepareViewIfNeeded() {
+        
+    }
+    
     func setupNavigationBar() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -83,9 +98,9 @@ private extension MagazineViewController {
     }
     
     func setupLayout() {
-        view.addSubview(titleView)
-        view.addSubview(ellipseSegment)
-        view.addSubview(divider)
+        [titleView, ellipseSegment, divider, magazineCollectionView, prepareView].forEach {
+            view.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -102,6 +117,20 @@ private extension MagazineViewController {
         NSLayoutConstraint.activate([
             divider.topAnchor.constraint(equalTo: ellipseSegment.bottomAnchor, constant: 12),
             divider.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            magazineCollectionView.topAnchor.constraint(equalTo: divider.bottomAnchor),
+            magazineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            magazineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            magazineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            prepareView.topAnchor.constraint(equalTo: divider.bottomAnchor),
+            prepareView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            prepareView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            prepareView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
