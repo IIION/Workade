@@ -9,6 +9,7 @@ import UIKit
 
 final class OfficeViewController: UIViewController {
     private let viewModel = OfficeViewModel()
+    private let startRegion: String // 시작 화면 설정용
     
     enum Section { case office }
     private var dataSource: UICollectionViewDiffableDataSource<Section, OfficeModel>!
@@ -24,7 +25,8 @@ final class OfficeViewController: UIViewController {
     private lazy var ellipseSegment: EllipseSegmentControl = {
         let segment = EllipseSegmentControl(items: viewModel.regions)
         segment.delegate = self
-        segment.currentSegmentIndex = 0 // 여기
+        // 아직 서버에는 '제주도' <- 이렇게 되있어서 우선 contains를 사용.
+        segment.currentSegmentIndex = viewModel.regions.firstIndex(where: { startRegion.contains($0) }) ?? 0
         segment.translatesAutoresizingMaskIntoConstraints = false
         
         return segment
@@ -46,6 +48,11 @@ final class OfficeViewController: UIViewController {
         return prepareView
     }()
     
+    init(from region: String = "전체") { // 특정지역으로부터 올 때 -> OfficeViewController(from: "제주")
+        self.startRegion = region
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +70,10 @@ final class OfficeViewController: UIViewController {
         viewModel.isCompleteFetch.bind { [weak self] _ in
             self?.applySnapshot(region: regionName, animated: true)
         }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

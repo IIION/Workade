@@ -31,6 +31,7 @@ extension OfficeViewModel {
     /// filter and return data for diffableDataSource's snapshot
     func filteredOffice(region: String) -> [OfficeModel] {
         guard isCompleteFetch.value else { return [] }
+        // 아직 서버에는 '제주도' <- 이렇게 되있어서 우선 contains를 사용.
         return region == "전체" ? officeResource.content : officeResource.content.filter { $0.regionName.contains(region) }
     }
     
