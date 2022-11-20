@@ -21,6 +21,7 @@ class FeatureCollectionViewCell: UICollectionViewCell {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont(name: CustomFont.pretendardBold.rawValue, size: 12)
+        
         return descriptionLabel
     }()
     
@@ -51,6 +52,7 @@ class FeatureCollectionViewCell: UICollectionViewCell {
             cell.topAnchor.constraint(equalTo: topAnchor),
             cell.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
         cell.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: cell.topAnchor, constant: 20),
@@ -62,6 +64,5 @@ class FeatureCollectionViewCell: UICollectionViewCell {
             descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
             descriptionLabel.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 16)
         ])
-        
     }
 }

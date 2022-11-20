@@ -46,7 +46,6 @@ class FeatureView: UIView {
     
     func setupLayout() {
         self.addSubview(collectionView)
-        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -75,6 +74,7 @@ extension FeatureView: UICollectionViewDataSource {
         // TODO: Office 모델에 파라미터 추가 후 변경 예정.
         cell.descriptionLabel.text = officeFeatureSample[indexPath.row].featureDescription
         cell.imageView.image = UIImage(named: officeFeatureSample[indexPath.row].featureImage) ?? UIImage()
+        
         return cell
     }
 }

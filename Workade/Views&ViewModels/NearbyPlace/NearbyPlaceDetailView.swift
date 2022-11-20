@@ -11,7 +11,7 @@ class NearbyPlaceDetailView: UIView {
     let officeModel: OfficeModel
     var introduceViewModel: IntroduceViewModel
     
-    var mapVC: MapViewController!
+    var mapVC: MapViewController?
     var introduceBottomConstraints: NSLayoutConstraint!
     var galleryBottomConstraints: NSLayoutConstraint!
     var featureBottomConstraints: NSLayoutConstraint!
@@ -67,9 +67,9 @@ class NearbyPlaceDetailView: UIView {
     
     func setupMapView() {
         mapVC = MapViewController(office: officeModel)
-        mapVC.setMapCamera()
+        mapVC?.setMapCamera()
         
-        mapView = mapVC.view
+        mapView = mapVC?.view
         mapView.isHidden = true
         mapView.translatesAutoresizingMaskIntoConstraints = false
     }

@@ -80,6 +80,7 @@ extension MapViewController {
             self.viewModel.currentMarker = (self.viewModel.currentMarker == marker) ? nil : marker
             self.markerInfoView.isHidden = (self.viewModel.currentMarker == nil)
             self.markerInfoView.setMarkerInfo(marker: marker)
+            
             return true
         }
     
@@ -107,6 +108,7 @@ extension MapViewController {
 extension MapViewController: NMFMapViewTouchDelegate {
     // 네이버 지도가 터치 되었을 때에 실행되는 함수
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        // 좌표에 대한 정보 출력
         print(point.debugDescription)
     }
     
