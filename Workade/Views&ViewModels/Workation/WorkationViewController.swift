@@ -12,7 +12,7 @@ final class WorkationViewController: UIViewController {
     
     var dismissAction: (() -> Void)?
     
-    private let titleView = TitleView(title: "제주도")
+    private let titleView = TitleLabel(title: "제주도")
     
     private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
