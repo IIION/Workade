@@ -12,7 +12,11 @@ final class OfficeViewController: UIViewController {
     
     enum Section { case office }
     private var dataSource: UICollectionViewDiffableDataSource<Section, OfficeModel>!
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, OfficeModel>() // 여기
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, OfficeModel>() {
+        didSet { // didset timing: 1) data fetch 완료 후, 2) segment 눌렸을 때.
+            displayPrepareViewIfNeeded()
+        }
+    }
     
     // MARK: UI 컴포넌트
     private let titleView = TitleLabel(title: "오피스")
@@ -20,7 +24,7 @@ final class OfficeViewController: UIViewController {
     private lazy var ellipseSegment: EllipseSegmentControl = {
         let segment = EllipseSegmentControl(items: viewModel.regions)
         segment.delegate = self
-        segment.currentSegmentIndex = 2
+        segment.currentSegmentIndex = 0 // 여기
         segment.translatesAutoresizingMaskIntoConstraints = false
         
         return segment
@@ -33,6 +37,13 @@ final class OfficeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
+    }()
+    
+    private let prepareView: PrepareView = {
+        let prepareView = PrepareView()
+        prepareView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return prepareView
     }()
     
     // MARK: viewDidLoad
@@ -82,6 +93,16 @@ extension OfficeViewController {
 
 // MARK: UI Related Methods
 private extension OfficeViewController {
+    func displayPrepareViewIfNeeded() {
+        let region = viewModel.regions[ellipseSegment.currentSegmentIndex]
+        prepareView.category = .office(region)
+        // diffable datasource animation을 저해하지않도록 display 애니메이션 설정.
+        let wouldShow: Bool = (snapshot.numberOfItems == 0)
+        UIView.animate(withDuration: (wouldShow ? 0.3 : 0), delay: (wouldShow ? 0.2 : 0)) { [weak self] in
+            self?.prepareView.alpha = wouldShow ? 1 : 0
+        }
+    }
+    
     func setupNavigationBar() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -94,7 +115,7 @@ private extension OfficeViewController {
     }
     
     func setupLayout() {
-        [titleView, ellipseSegment, divider, officeCollectionView].forEach {
+        [titleView, ellipseSegment, divider, officeCollectionView, prepareView].forEach {
             view.addSubview($0)
         }
         
@@ -120,6 +141,13 @@ private extension OfficeViewController {
             officeCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             officeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             officeCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            prepareView.topAnchor.constraint(equalTo: divider.bottomAnchor),
+            prepareView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            prepareView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            prepareView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }

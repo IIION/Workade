@@ -20,8 +20,8 @@ final class PrepareView: UIView {
         }
     }
     
-    private let heartImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "heartIcon"))
+    private let prepareImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "folder")) // 임시 이미지. 추후 Asset PR 반영된 후 수정 예정.
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -68,15 +68,15 @@ final class PrepareView: UIView {
     }
     
     private func setupLayout() {
-        addSubview(heartImageView)
+        addSubview(prepareImageView)
         addSubview(prepareLabel)
         addSubview(expectLabel)
         
         NSLayoutConstraint.activate([
-            heartImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            heartImageView.widthAnchor.constraint(equalToConstant: 100),
-            heartImageView.heightAnchor.constraint(equalToConstant: 100),
-            heartImageView.bottomAnchor.constraint(equalTo: prepareLabel.topAnchor, constant: -20)
+            prepareImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            prepareImageView.widthAnchor.constraint(equalToConstant: 100),
+            prepareImageView.heightAnchor.constraint(equalToConstant: 100),
+            prepareImageView.bottomAnchor.constraint(equalTo: prepareLabel.topAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
