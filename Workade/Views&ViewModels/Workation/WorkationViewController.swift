@@ -21,15 +21,15 @@ final class WorkationViewController: UIViewController {
         config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets.init(top: 10, leading: 14, bottom: 10, trailing: 14)
         
-        button.setTitle("가이드 보러 가기", for: .normal)
-        button.setImage(UIImage(systemName: "text.book.closed.fill"), for: .normal)
-        button.setTitleColor(.theme.primary, for: .normal)
+        var attText = AttributedString.init("가이드 보러가기")
+        attText.font = .customFont(for: .caption)
+        config.attributedTitle = attText
+        config.image = UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+                
         button.configuration = config
-        button.tintColor = .theme.primary
-        button.backgroundColor = .theme.tertiary
+        button.tintColor = .theme.workadeBlue
+        button.backgroundColor = .theme.workadeBackgroundBlue
         button.layer.cornerRadius = 20
-        
-        button.titleLabel?.font = .customFont(for: .caption)
         
         return button
     }()
@@ -53,7 +53,8 @@ final class WorkationViewController: UIViewController {
         label.textColor = .black
         let stackView = UIStackView(arrangedSubviews: [imageView, label])
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
+        stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -159,7 +160,7 @@ private extension WorkationViewController {
             jobStackView.topAnchor.constraint(equalTo: jobScrollView.topAnchor),
             jobStackView.bottomAnchor.constraint(equalTo: jobScrollView.bottomAnchor),
             jobStackView.leadingAnchor.constraint(equalTo: jobScrollView.leadingAnchor),
-            jobStackView.trailingAnchor.constraint(equalTo: jobScrollView.trailingAnchor)
+            jobStackView.trailingAnchor.constraint(equalTo: jobScrollView.trailingAnchor, constant: -20)
         ])
     }
     
