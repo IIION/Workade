@@ -73,7 +73,7 @@ final class GuideHomeViewController: UIViewController {
 // MARK: Navigates
 private extension GuideHomeViewController {
     @objc func pushToOfficeVC() {
-        let viewController = OfficeViewController(from: "제주도")
+        let viewController = OfficeViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
