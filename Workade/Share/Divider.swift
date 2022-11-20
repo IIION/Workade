@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Divider: UIView {
+final class Divider: UIView {
     init() {
         super.init(frame: .zero)
         backgroundColor = .theme.groupedBackground
