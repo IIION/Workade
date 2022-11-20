@@ -48,6 +48,8 @@ class NearbyPlaceViewController: UIViewController {
     lazy var totalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
@@ -140,12 +142,14 @@ class NearbyPlaceViewController: UIViewController {
     func setupLayout() {
         contentsContainerView.addSubview(nearbyPlaceImageView)
         
-        // constraint 깨지는 것을 방지하기 위해 우선순위 높이기.
-        let imageViewTopConstraint = nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor)
-        imageViewTopConstraint.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            nearbyPlaceImageView.imageView.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor),
+            nearbyPlaceImageView.imageView.trailingAnchor.constraint(equalTo: nearbyPlaceImageView.trailingAnchor),
+            nearbyPlaceImageView.imageView.bottomAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor)
+        ])
         
         NSLayoutConstraint.activate([
-            imageViewTopConstraint,
             nearbyPlaceImageView.topAnchor.constraint(equalTo: contentsContainerView.topAnchor),
             nearbyPlaceImageView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             nearbyPlaceImageView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),

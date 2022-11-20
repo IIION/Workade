@@ -30,6 +30,12 @@ class MapViewController: UIViewController {
         setupNMap()
         setupLayout()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        setMapCamera()
+    }
     
     private func setupLayout() {
         view.addSubview(map)

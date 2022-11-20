@@ -68,11 +68,6 @@ class NearbyPlaceImageView: UIView {
     // AutoLayout
     private func setupLayout() {
         addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
         
         imageView.addSubview(locationLabel)
         NSLayoutConstraint.activate([
