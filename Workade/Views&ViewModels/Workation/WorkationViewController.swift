@@ -34,77 +34,160 @@ final class WorkationViewController: UIViewController {
         return button
     }()
     
-    private let numberOfPeopleView: UIView = {
+    // MARK: - Top Pane's Contents
+    
+    private let topPaneView: UIView = {
         let view = UIView()
-        view.backgroundColor = .theme.subGroupedBackground
-        view.layer.cornerRadius = 20
+        view.backgroundColor = .theme.background
+        view.layer.cornerRadius = 30
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    private let wholePeopleStackView: UIStackView = {
-        let personImage = UIImage.fromSystemImage(name: "person.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .black)
-        let imageView = UIImageView(image: personImage)
-        imageView.contentMode = .scaleAspectFit
+    private lazy var whoAreTheyButton: UIButton = {
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 4
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 12, leading: 18, bottom: 12, trailing: 18)
+        
+        var attributedText = AttributedString.init("누군지 알아보기")
+        attributedText.font = .customFont(for: .footnote2)
+        config.attributedTitle = attributedText
+        config.image = UIImage.fromSystemImage(name: "person.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.background)
+                
+        button.configuration = config
+        button.tintColor = .theme.background
+        button.backgroundColor = .theme.workadeBlue
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private let numberOfWorkers: UILabel = {
         let label = UILabel()
-        label.text = "52명"
-        label.font = .customFont(for: .subHeadline)
-        label.textColor = .black
-        let stackView = UIStackView(arrangedSubviews: [imageView, label])
+        label.font = .customFont(for: .caption2)
+        label.textColor = .theme.tertiary
+        
+        let fullText = "53명이 일하고 있어요"
+        let attributedString = NSMutableAttributedString(string: fullText)
+        let range = (fullText as NSString).range(of: "53")
+        attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: range)
+        label.attributedText = attributedString
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    // MARK: - Bottom Pane's Contents
+    
+    private let bottomPaneView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .theme.background
+        view.layer.cornerRadius = 30
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let funnyWorkationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .customFont(for: .captionHeadlineNew)
+        label.textColor = .theme.primary
+        label.text = "즐거운 워케이션이네요!"
+        
+        return label
+    }()
+    
+    private lazy var endButton: UIButton = {
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 4
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 8, leading: 16, bottom: 8, trailing: 16)
+        
+        var attributedText = AttributedString.init("끝내기")
+        attributedText.font = .customFont(for: .caption)
+        config.attributedTitle = attributedText
+        config.image = UIImage.fromSystemImage(name: "door.right.hand.open", font: .systemFont(ofSize: 12, weight: .semibold), color: .theme.background)
+                
+        button.configuration = config
+        button.tintColor = .theme.background
+        button.backgroundColor = .theme.primary
+        button.layer.cornerRadius = 15
+        
+        return button
+    }()
+    
+    private lazy var bottomTopStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [funnyWorkationLabel, endButton])
         stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 4
+        stackView.distribution = .equalCentering
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    private func numberOfJobStack(job: String, num: Int) -> UIStackView {
-        let jobLabel = UILabel()
-        jobLabel.text = job
-        jobLabel.font = .customFont(for: .caption)
-        jobLabel.textColor = .black
+    private func reusableStack(title: String, content: String) -> UIStackView {
+        let titleLabel = UILabel()
+        titleLabel.font = .customFont(for: .footnote)
+        titleLabel.textColor = .theme.tertiary
+        titleLabel.text = title
         
-        let numberLabel = UILabel()
-        numberLabel.text = "\(num)명"
-        numberLabel.font = .customFont(for: .caption)
-        numberLabel.textColor = .black
+        let contentLabel = UILabel()
+        contentLabel.font = .customFont(for: .subHeadline)
+        contentLabel.textColor = .theme.primary
+        contentLabel.text = content
         
-        let stackView = UIStackView(arrangedSubviews: [jobLabel, numberLabel])
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel])
+        stackView.axis = .vertical
         stackView.spacing = 4
+        stackView.alignment = .leading
         
         return stackView
     }
     
-    private lazy var jobStackView: UIStackView = {
+    private lazy var bottomMiddleStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            numberOfJobStack(job: "디자이너", num: 40000),
-            numberOfJobStack(job: "작가", num: 70000),
-            numberOfJobStack(job: "컨텐츠 제작", num: 1200000),
-            numberOfJobStack(job: "개발자", num: 20000)
+            reusableStack(title: "워케이션을 시작한 지", content: "33일째"),
+            reusableStack(title: "내 위치", content: "조천읍 조천2길")
         ])
         stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 20
+        stackView.spacing = 16
+        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    private lazy var jobScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var bottomBottomStack: UIStackView = {
+        let label = UILabel()
+        label.font = .customFont(for: .subHeadline)
+        label.textColor = .theme.primary
+        label.text = "스티커"
         
-        return scrollView
+        let progressView = UIProgressView()
+        progressView.progress = 30/31
+        
+        let stackView = UIStackView(arrangedSubviews: [label, progressView])
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.distribution = .equalCentering
+        stackView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.borderColor = UIColor.theme.groupedBackground.cgColor
+        stackView.layer.borderWidth = 1
+        stackView.layer.cornerRadius = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .theme.background
+        view.backgroundColor = .theme.primary
         
         setupLayout()
         setupNavigationBar()
@@ -127,40 +210,60 @@ private extension WorkationViewController {
     private func setupLayout() {
         let guide = view.safeAreaLayoutGuide
         
-        view.addSubview(titleView)
+        view.addSubview(bottomPaneView)
+        NSLayoutConstraint.activate([
+            bottomPaneView.heightAnchor.constraint(equalToConstant: 300),
+            bottomPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        view.addSubview(topPaneView)
+        NSLayoutConstraint.activate([
+            topPaneView.topAnchor.constraint(equalTo: view.topAnchor),
+            topPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topPaneView.bottomAnchor.constraint(equalTo: bottomPaneView.topAnchor, constant: -4)
+        ])
+        
+        topPaneView.addSubview(titleView)
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 20),
             titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
         
-        view.addSubview(numberOfPeopleView)
+        topPaneView.addSubview(whoAreTheyButton)
         NSLayoutConstraint.activate([
-            numberOfPeopleView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
-            numberOfPeopleView.heightAnchor.constraint(equalToConstant: 76),
-            numberOfPeopleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            numberOfPeopleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            whoAreTheyButton.centerXAnchor.constraint(equalTo: topPaneView.centerXAnchor),
+            whoAreTheyButton.bottomAnchor.constraint(equalTo: topPaneView.bottomAnchor, constant: -16)
         ])
         
-        numberOfPeopleView.addSubview(wholePeopleStackView)
+        topPaneView.addSubview(numberOfWorkers)
         NSLayoutConstraint.activate([
-            wholePeopleStackView.topAnchor.constraint(equalTo: numberOfPeopleView.topAnchor, constant: 16),
-            wholePeopleStackView.leadingAnchor.constraint(equalTo: numberOfPeopleView.leadingAnchor, constant: 20)
+            numberOfWorkers.centerXAnchor.constraint(equalTo: topPaneView.centerXAnchor),
+            numberOfWorkers.bottomAnchor.constraint(equalTo: whoAreTheyButton.topAnchor, constant: -10)
         ])
         
-        numberOfPeopleView.addSubview(jobScrollView)
+        bottomPaneView.addSubview(bottomTopStack)
         NSLayoutConstraint.activate([
-            jobScrollView.topAnchor.constraint(equalTo: wholePeopleStackView.bottomAnchor, constant: 6),
-            jobScrollView.leadingAnchor.constraint(equalTo: numberOfPeopleView.leadingAnchor, constant: 20),
-            jobScrollView.trailingAnchor.constraint(equalTo: numberOfPeopleView.trailingAnchor),
-            jobScrollView.bottomAnchor.constraint(equalTo: numberOfPeopleView.bottomAnchor, constant: -16)
+            bottomTopStack.topAnchor.constraint(equalTo: bottomPaneView.topAnchor, constant: 20),
+            bottomTopStack.leadingAnchor.constraint(equalTo: bottomPaneView.leadingAnchor, constant: 30),
+            bottomTopStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20)
         ])
         
-        jobScrollView.addSubview(jobStackView)
+        bottomPaneView.addSubview(bottomMiddleStack)
         NSLayoutConstraint.activate([
-            jobStackView.topAnchor.constraint(equalTo: jobScrollView.topAnchor),
-            jobStackView.bottomAnchor.constraint(equalTo: jobScrollView.bottomAnchor),
-            jobStackView.leadingAnchor.constraint(equalTo: jobScrollView.leadingAnchor),
-            jobStackView.trailingAnchor.constraint(equalTo: jobScrollView.trailingAnchor, constant: -20)
+            bottomMiddleStack.topAnchor.constraint(equalTo: bottomTopStack.bottomAnchor, constant: 18),
+            bottomMiddleStack.leadingAnchor.constraint(equalTo: bottomPaneView.leadingAnchor, constant: 30),
+            bottomMiddleStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -30)
+        ])
+        
+        bottomPaneView.addSubview(bottomBottomStack)
+        NSLayoutConstraint.activate([
+            bottomBottomStack.heightAnchor.constraint(equalToConstant: 138),
+            bottomBottomStack.leadingAnchor.constraint(equalTo: bottomPaneView.leadingAnchor, constant: 20),
+            bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
+            bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
     }
     
