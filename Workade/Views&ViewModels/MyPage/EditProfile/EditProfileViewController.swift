@@ -8,6 +8,8 @@
 import UIKit
 
 class EditProfileViewController: UIViewController {
+    private var pickerCheck = false
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "이름/닉네임"
@@ -39,6 +41,28 @@ class EditProfileViewController: UIViewController {
         return label
     }()
     
+    private lazy var jobPickerButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            self?.presentPickerView()
+        }
+        let button = UIButton(primaryAction: action)
+        button.backgroundColor = .theme.groupedBackground
+        button.layer.cornerRadius = 15
+        button.sizeToFit()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private lazy var pickerTableView: UITableView = {
+        let pickerTableView = UITableView()
+        pickerTableView.layer.cornerRadius = 15
+        pickerTableView.backgroundColor = .red
+        pickerTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pickerTableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -67,6 +91,14 @@ class EditProfileViewController: UIViewController {
             nowJobLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 30),
             nowJobLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor)
         ])
+        
+        view.addSubview(jobPickerButton)
+        NSLayoutConstraint.activate([
+            jobPickerButton.topAnchor.constraint(equalTo: nowJobLabel.bottomAnchor, constant: 12),
+            jobPickerButton.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            jobPickerButton.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            jobPickerButton.heightAnchor.constraint(equalTo: nameTextField.heightAnchor)
+        ])
     }
 }
 
@@ -82,5 +114,35 @@ private extension EditProfileViewController {
         )
         self.title = "프로필 수정"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.customFont(for: .subHeadline)]
+    }
+    
+    private func presentPickerView() {
+        // tableView의 Frame을 현재 버튼에 맞춰 설정하고 View에 포함되지 않을경우 추가해 준다 ( 초기화 )
+        let frames = self.jobPickerButton.frame
+        if !view.contains(pickerTableView) {
+            self.pickerTableView.frame = CGRect(x: frames.origin.x,
+                                                y: frames.origin.y + frames.height,
+                                                width: frames.width,
+                                                height: 0)
+            view.addSubview(pickerTableView)
+        }
+        
+        // 버튼을 누를때 picker를 표현하기 위해 Bool값을 체크하여 테이블뷰를 애니메이션으로 표시 ( picker처럼 보이도록 )
+        pickerCheck.toggle()
+        if pickerCheck {
+            presentPickerAnimation(frames: frames, height: 300)
+        } else {
+            presentPickerAnimation(frames: frames, height: 0)
+        }
+    }
+    
+    // tableView를 애니메이션을 통해 Picker처럼 표현
+    private func presentPickerAnimation(frames: CGRect, height: CGFloat) {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) {
+            self.pickerTableView.frame = CGRect(x: frames.origin.x,
+                                                y: frames.origin.y + frames.height,
+                                                width: frames.width,
+                                                height: height)
+        }
     }
 }
