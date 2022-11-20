@@ -22,7 +22,10 @@ class EditProfileViewController: UIViewController {
     private let nameTextField: UITextField = {
         let textField = UITextField()
         // TODO: Placeholder를 현재 사용자의 이름으로 설정
-        textField.placeholder = "이름 입력하기"
+        textField.attributedPlaceholder = NSAttributedString(
+                string: "이름 입력하기",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
+            )
         textField.font = .customFont(for: .footnote2)
         textField.backgroundColor = .theme.groupedBackground
         textField.layer.cornerRadius = 15
