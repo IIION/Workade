@@ -39,12 +39,21 @@ final class WorkationViewController: UIViewController {
         return view
     }()
     
+    private let mapImageView: UIImageView = {
+        let image = UIImage(named: "Namwon")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     private lazy var whoAreTheyButton: UIButton = {
         let button = GradientButton(type: .custom)
         var config = UIButton.Configuration.plain()
         config.imagePadding = 4
         config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets.init(top: 12, leading: 18, bottom: 12, trailing: 18)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 18, bottom: 12, trailing: 18)
         
         var attributedText = AttributedString.init("누군지 알아보기")
         attributedText.font = .customFont(for: .footnote2)
@@ -223,13 +232,22 @@ private extension WorkationViewController {
         topPaneView.addSubview(whoAreTheyButton)
         NSLayoutConstraint.activate([
             whoAreTheyButton.centerXAnchor.constraint(equalTo: topPaneView.centerXAnchor),
-            whoAreTheyButton.bottomAnchor.constraint(equalTo: topPaneView.bottomAnchor, constant: -16)
+            whoAreTheyButton.bottomAnchor.constraint(equalTo: topPaneView.bottomAnchor, constant: -16),
+            whoAreTheyButton.heightAnchor.constraint(equalToConstant: 42)
         ])
         
         topPaneView.addSubview(numberOfWorkers)
         NSLayoutConstraint.activate([
             numberOfWorkers.centerXAnchor.constraint(equalTo: topPaneView.centerXAnchor),
             numberOfWorkers.bottomAnchor.constraint(equalTo: whoAreTheyButton.topAnchor, constant: -10)
+        ])
+        
+        topPaneView.addSubview(mapImageView)
+        NSLayoutConstraint.activate([
+            mapImageView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 60),
+            mapImageView.leadingAnchor.constraint(equalTo: topPaneView.leadingAnchor, constant: 20),
+            mapImageView.trailingAnchor.constraint(equalTo: topPaneView.trailingAnchor, constant: -20),
+            mapImageView.bottomAnchor.constraint(equalTo: numberOfWorkers.topAnchor, constant: -16)
         ])
         
         bottomPaneView.addSubview(bottomTopStack)
