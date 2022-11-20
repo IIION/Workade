@@ -30,12 +30,6 @@ class MapViewController: UIViewController {
         setupNMap()
         setupLayout()
     }
-    // 이제는 호출 안하는 함수
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        setMapCamera()
-    }
     
     private func setupLayout() {
         view.addSubview(map)
@@ -55,7 +49,6 @@ class MapViewController: UIViewController {
 extension MapViewController {
     private func setupNMap() {
         setMarkOfficePlace()
-        // 필요없는듯?
         setMapCamera()
     }
     
@@ -114,6 +107,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
     
     // 네이버 지도가 심볼을 터치 했을 때에 실행되는 함수
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
+        // 네이버 지도에서 제공하는 심볼을 클릭하면 심볼에 대한 정보 출력
         print(symbol.debugDescription)
         return true
     }
