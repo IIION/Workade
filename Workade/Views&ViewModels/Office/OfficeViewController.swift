@@ -8,12 +8,15 @@
 import UIKit
 
 final class OfficeViewController: UIViewController {
-    private let titleView = TitleLabel(title: "오피스")
+    private let viewModel = OfficeViewModel()
     
     enum Section { case office }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, OfficeModel>!
     private var snapshot = NSDiffableDataSourceSnapshot<Section, OfficeModel>()
+    
+    // MARK: UI 컴포넌트
+    private let titleView = TitleLabel(title: "오피스")
     
     private lazy var ellipseSegment: UIView = {
         let segment = EllipseSegmentControl(items: ["전체", "제주", "양양", "고성", "경주", "포항"])
@@ -27,12 +30,13 @@ final class OfficeViewController: UIViewController {
     private let divider = Divider()
     
     private lazy var officeCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
     
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
