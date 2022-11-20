@@ -54,6 +54,15 @@ class EditProfileViewController: UIViewController {
         return button
     }()
     
+    private let pickerImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "chevron.down")
+        image.tintColor = .theme.primary
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        return image
+    }()
+    
     private lazy var pickerTableView: UITableView = {
         let pickerTableView = UITableView()
         pickerTableView.layer.cornerRadius = 15
@@ -99,6 +108,12 @@ class EditProfileViewController: UIViewController {
             jobPickerButton.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
             jobPickerButton.heightAnchor.constraint(equalTo: nameTextField.heightAnchor)
         ])
+        
+        jobPickerButton.addSubview(pickerImage)
+        NSLayoutConstraint.activate([
+            pickerImage.centerYAnchor.constraint(equalTo: jobPickerButton.centerYAnchor),
+            pickerImage.trailingAnchor.constraint(equalTo: jobPickerButton.trailingAnchor, constant: -20)
+        ])
     }
 }
 
@@ -134,6 +149,8 @@ private extension EditProfileViewController {
         } else {
             presentPickerAnimation(frames: frames, height: 0)
         }
+        
+        pickerImage.transform = pickerImage.transform.rotated(by: .pi)
     }
     
     // tableView를 애니메이션을 통해 Picker처럼 표현
