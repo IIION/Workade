@@ -17,7 +17,8 @@ struct MagazineResource: Codable {
 
 struct MagazineModel: Codable, Hashable {
     let uuid = UUID()
-    var isBookmark = false
+    var isBookmark = false // json에 추가할 프로퍼티 1
+    let category: MagazineCategory = .tip // json에 추가할 프로퍼티 2
     
     let title: String
     let imageURL: String
