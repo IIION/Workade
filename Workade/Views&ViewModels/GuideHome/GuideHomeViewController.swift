@@ -46,9 +46,10 @@ final class GuideHomeViewController: UIViewController {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
-            style: .done,
-            target: self,
-            action: #selector(popViewController)
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            })
         )
     }
     
@@ -84,10 +85,6 @@ private extension GuideHomeViewController {
     func pushToCheckListVC() {
         let viewController = CheckListViewController()
         navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    @objc func popViewController() {
-        navigationController?.popViewController(animated: true)
     }
 }
 

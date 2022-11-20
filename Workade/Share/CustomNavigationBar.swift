@@ -142,11 +142,6 @@ class CustomNavigationBar: UIViewController {
         case SFSymbol.bookmarkInNavigation.image, SFSymbol.bookmarkFillInNavigation.image:
             detailViewModel.notifyClickedMagazineId(title: magazine?.title ?? "", key: Constants.Key.wishMagazine)
             setupBookmarkImage()
-            
-        case SFSymbol.mapInNavigation.image:
-            guard let safetyOfficeModel = officeModel else { return }
-            delegate?.touch(officeModel: safetyOfficeModel)
-            
         default:
             return
         }
