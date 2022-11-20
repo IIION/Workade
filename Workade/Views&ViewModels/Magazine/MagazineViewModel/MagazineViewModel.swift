@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class MagazineViewModel {
+final class MagazineViewModel {
     
     var magazineData = MagazineResource()
     var isCompleteFetch = Binder(false)
@@ -46,5 +46,22 @@ class MagazineViewModel {
     
     deinit {
         BookmarkManager.shared.clickedMagazineId.remove(at: .detail)
+    }
+}
+
+extension MagazineViewModel {
+    typealias Size = NSCollectionLayoutSize
+    /// create MagazineCollectionView's Compositional Layout
+    func createLayout() -> UICollectionViewLayout {
+        let itemSize = Size(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = Size(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1.33))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(20)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 20, leading: 20, bottom: 30, trailing: 20)
+        section.interGroupSpacing = 20
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
 }

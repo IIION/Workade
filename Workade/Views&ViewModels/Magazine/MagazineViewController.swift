@@ -8,6 +8,9 @@
 import UIKit
 
 class MagazineViewController: UIViewController {
+    private let viewModel = MagazineViewModel()
+    
+    // MARK: UI 컴포넌트
     private let titleView = TitleLabel(title: "매거진")
     
     private lazy var ellipseSegment: UIView = {
@@ -20,6 +23,14 @@ class MagazineViewController: UIViewController {
     }()
     
     private let divider = Divider()
+    
+    private lazy var magazineCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,8 +77,15 @@ private extension MagazineViewController {
     }
 }
 
+// MARK: Delegate
 extension MagazineViewController: EllipseSegmentControlDelegate {
     func ellipseSegment(didSelectItemAt index: Int) {
         print(index)
+    }
+}
+
+extension MagazineViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
