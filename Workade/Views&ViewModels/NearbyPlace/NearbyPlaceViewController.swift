@@ -23,7 +23,7 @@ class NearbyPlaceViewController: UIViewController {
     
     let segmentedControllerHeight: CGFloat = 52
     var customNavigationBarHeight: CGFloat!
-    let imageHeight: CGFloat = 375 - .topSafeArea
+    let imageHeight: CGFloat = 375
 
     init(officeModel: OfficeModel) {
         self.officeModel = officeModel
@@ -153,7 +153,7 @@ class NearbyPlaceViewController: UIViewController {
             nearbyPlaceImageView.topAnchor.constraint(equalTo: contentsContainerView.topAnchor),
             nearbyPlaceImageView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             nearbyPlaceImageView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            nearbyPlaceImageView.heightAnchor.constraint(equalToConstant: .topSafeArea + imageHeight)
+            nearbyPlaceImageView.heightAnchor.constraint(equalToConstant: imageHeight)
         ])
 
         contentsContainerView.addSubview(nearbyPlaceDetailView)
@@ -272,7 +272,7 @@ extension NearbyPlaceViewController {
         totalScrollView.isScrollEnabled = false
         nearbyPlaceImageView.isHidden = true
         // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
-        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
+        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight), animated: false)
         nearbyPlaceDetailView.introduceView.isHidden = true
         nearbyPlaceDetailView.featureView.isHidden = true
         nearbyPlaceDetailView.galleryView.isHidden = false
@@ -286,7 +286,7 @@ extension NearbyPlaceViewController {
     private func showMapView() {
         totalScrollView.isScrollEnabled = false
         nearbyPlaceImageView.isHidden = true
-        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight + .topSafeArea), animated: false)
+        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight), animated: false)
         nearbyPlaceDetailView.introduceView.isHidden = true
         nearbyPlaceDetailView.featureView.isHidden = true
         nearbyPlaceDetailView.galleryView.isHidden = true
@@ -377,8 +377,7 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
             if totalOffset > 0 {
                 customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
                 nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
-                // 이미지 뷰의 크기 + safeareator + segmentcontrol크기 + 네비게이션 바 위치에 스크롤이 왔을때 세그먼트 컨트롤뷰의 Top constraints 값을 변경하여 스티키 효과 구현.
-                if totalOffset > imageHeight - customNavigationBarHeight + .topSafeArea {
+                if totalOffset > imageHeight - customNavigationBarHeight {
                     segmentedControlTopConstraintsToImage.isActive = false
                     segmentedControlTopConstraintsToNavbar.isActive = true
                 } else {
