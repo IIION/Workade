@@ -34,6 +34,7 @@ final class WorkationViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .theme.background
         view.layer.cornerRadius = 30
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -91,6 +92,7 @@ final class WorkationViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .theme.background
         view.layer.cornerRadius = 30
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
