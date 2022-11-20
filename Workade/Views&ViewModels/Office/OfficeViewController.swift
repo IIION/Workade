@@ -10,6 +10,11 @@ import UIKit
 final class OfficeViewController: UIViewController {
     private let titleView = TitleLabel(title: "오피스")
     
+    enum Section { case office }
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, OfficeModel>!
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, OfficeModel>()
+    
     private lazy var ellipseSegment: UIView = {
         let segment = EllipseSegmentControl(items: ["전체", "제주", "양양", "고성", "경주", "포항"])
         segment.delegate = self
@@ -21,15 +26,39 @@ final class OfficeViewController: UIViewController {
     
     private let divider = Divider()
     
+    private lazy var officeCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
         setupNavigationBar()
         setupLayout()
+        configureDataSource()
     }
 }
 
+// MARK: DiffableDataSource
+extension OfficeViewController {
+    func configureDataSource() {
+        // cell을 구성하고, 등록지를 만듬
+        let cellRegistration = UICollectionView.CellRegistration<OfficeCollectionViewCell, OfficeModel> { cell, _, itemIdentifier in
+            cell.configure(office: itemIdentifier)
+        }
+        
+        // collectionView와 dequeue cell을 제공하면서 dataSource 초기화
+        dataSource = UICollectionViewDiffableDataSource(collectionView: officeCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
+    }
+}
+
+// MARK: UI Related Methods
 private extension OfficeViewController {
     func setupNavigationBar() {
         navigationItem.hidesBackButton = true
@@ -66,6 +95,7 @@ private extension OfficeViewController {
     }
 }
 
+// MARK: Delegate
 extension OfficeViewController: EllipseSegmentControlDelegate {
     func ellipseSegment(didSelectItemAt index: Int) {
         print(index)
