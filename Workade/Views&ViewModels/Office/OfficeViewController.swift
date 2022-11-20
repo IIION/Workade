@@ -56,6 +56,16 @@ extension OfficeViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
     }
+    
+    func applySnapshot(animated: Bool) {
+        guard dataSource != nil else { return }
+        var snapshot = snapshot
+        snapshot.deleteAllItems()
+        snapshot.appendSections([Section.office])
+        snapshot.appendItems([])
+        self.dataSource.apply(snapshot, animatingDifferences: animated)
+        self.snapshot = snapshot // 이 순간에만 snapShot didset 호출될 수 있게 변수로 구성하고 넘기는 형태 구현함.
+    }
 }
 
 // MARK: UI Related Methods
