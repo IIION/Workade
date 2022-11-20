@@ -21,8 +21,8 @@ final class MagazineViewController: UIViewController {
     // MARK: UI 컴포넌트
     private let titleView = TitleLabel(title: "매거진")
     
-    private lazy var ellipseSegment: UIView = {
-        let segment = EllipseSegmentControl(items: viewModel.categories)
+    private lazy var ellipseSegment: EllipseSegmentControl = {
+        let segment = EllipseSegmentControl(items: MagazineCategory.allCases.map { $0.rawValue })
         segment.delegate = self
         segment.currentSegmentIndex = 0
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +54,14 @@ final class MagazineViewController: UIViewController {
         setupNavigationBar()
         setupLayout()
         configureDataSource()
+        observeFetchCompletion()
+    }
+    
+    private func observeFetchCompletion() {
+        let category = MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
+            self?.applySnapshot(category: category, animated: true)
+        }
     }
 }
 
@@ -69,12 +77,12 @@ private extension MagazineViewController {
         })
     }
     
-    func applySnapshot(category: String, animated: Bool) {
+    func applySnapshot(category: MagazineCategory, animated: Bool) {
         guard dataSource != nil else { return }
         var snapshot = snapshot
         snapshot.deleteAllItems()
         snapshot.appendSections([Section.magazine])
-        snapshot.appendItems([]) // check
+        snapshot.appendItems(viewModel.filteredMagazine(category: category))
         self.dataSource.apply(snapshot, animatingDifferences: animated)
         self.snapshot = snapshot
     }
@@ -83,7 +91,12 @@ private extension MagazineViewController {
 // MARK: UI Related Methods
 private extension MagazineViewController {
     func displayPrepareViewIfNeeded() {
-        
+        let category = MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
+        prepareView.category = .magazine(category)
+        let wouldShow: Bool = (snapshot.numberOfItems == 0)
+        UIView.animate(withDuration: (wouldShow ? 0.3 : 0), delay: (wouldShow ? 0.2 : 0)) { [weak self] in
+            self?.prepareView.alpha = wouldShow ? 1 : 0
+        }
     }
     
     func setupNavigationBar() {
@@ -138,12 +151,16 @@ private extension MagazineViewController {
 // MARK: Delegate
 extension MagazineViewController: EllipseSegmentControlDelegate {
     func ellipseSegment(didSelectItemAt index: Int) {
-        print(index)
+        let category = MagazineCategory.allCases[index]
+        applySnapshot(category: category, animated: true)
     }
 }
 
 extension MagazineViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let magazineModel = snapshot.itemIdentifiers[indexPath.row]
+        let viewController = CellItemDetailViewController(magazine: magazineModel)
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
     }
 }

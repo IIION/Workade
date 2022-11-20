@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum MagazineCategory {
-    case total
-    case tip
-    case column
-    case review
-    case wishList
+enum MagazineCategory: String, CaseIterable {
+    case total = "전체"
+    case tip = "팁"
+    case column = "칼럼"
+    case review = "후기"
+    case wishList = "찜한 리스트"
 }
