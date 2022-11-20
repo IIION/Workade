@@ -17,6 +17,8 @@ struct MagazineResource: Codable {
 
 struct MagazineModel: Codable, Hashable {
     let uuid = UUID()
+    var isBookmark = false
+    
     let title: String
     let imageURL: String
     let introduceURL: String

@@ -9,43 +9,26 @@ import UIKit
 
 @MainActor
 final class MagazineViewModel {
+    private var magazines = [MagazineModel]()
     
-    var magazineData = MagazineResource()
     var isCompleteFetch = Binder(false)
     
     init() {
         requestMagazineData()
-        bindingBookmarkManager()
     }
     
     func requestMagazineData() {
         Task {
             do {
-                magazineData = try await NetworkManager.shared.requestResourceData(from: Constants.Address.magazineResource)
-                isCompleteFetch.value = true
+                let resource: MagazineResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.magazineResource)
+                magazines = resource.content
+                self.setupMagazineModelsBookmark()
+                self.isCompleteFetch.value = true
             } catch {
                 let error = error as? NetworkError ?? .unknownError
                 print(error.message)
             }
         }
-    }
-    
-    var clickedMagazineId = Binder("")
-    
-    /// Manager -> ViewModel -> ViewController
-    private func bindingBookmarkManager() {
-        BookmarkManager.shared.clickedMagazineId.bind(at: .detail) { [weak self] id in
-            guard let self = self else { return }
-            self.clickedMagazineId.value = id
-        }
-    }
-    
-    func notifyClickedMagazineId(title id: String, key: String) {
-        BookmarkManager.shared.notifyClickedMagazineId(title: id, key: key)
-    }
-    
-    deinit {
-        BookmarkManager.shared.clickedMagazineId.remove(at: .detail)
     }
 }
 
