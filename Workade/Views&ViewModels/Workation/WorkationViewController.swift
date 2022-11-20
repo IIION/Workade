@@ -64,6 +64,7 @@ final class WorkationViewController: UIViewController {
         button.tintColor = .theme.background
         button.backgroundColor = .theme.workadeBlue
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(whoAreTheyButtonTapped(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -120,6 +121,7 @@ final class WorkationViewController: UIViewController {
         button.tintColor = .theme.background
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(endButtonTapped(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -196,6 +198,36 @@ final class WorkationViewController: UIViewController {
         
         setupLayout()
         setupNavigationBar()
+    }
+    
+    @objc private func whoAreTheyButtonTapped(_ sender: UIButton) {
+        let workStatusSheetViewController = WorkerStatusSheetViewController()
+        workStatusSheetViewController.modalPresentationStyle = .overFullScreen
+        
+        let dimView = UIView(frame: UIScreen.main.bounds)
+        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.7)
+        self.view.addSubview(dimView)
+        self.view.bringSubviewToFront(dimView)
+        workStatusSheetViewController.viewDidDissmiss = {
+            dimView.removeFromSuperview()
+        }
+        
+        self.present(workStatusSheetViewController, animated: true)
+    }
+    
+    @objc private func endButtonTapped(_ sender: UIButton) {
+        let stickerShetViewController = StickerSheetViewController()
+        stickerShetViewController.modalPresentationStyle = .overFullScreen
+        
+        let dimView = UIView(frame: UIScreen.main.bounds)
+        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+        self.view.addSubview(dimView)
+        self.view.bringSubviewToFront(dimView)
+        stickerShetViewController.viewDidDismiss = {
+            dimView.removeFromSuperview()
+        }
+        
+        self.present( stickerShetViewController, animated: true)
     }
 }
 
