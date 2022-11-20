@@ -66,9 +66,8 @@ final class OfficeViewController: UIViewController {
     }
     
     private func observeFetchCompletion() {
-        viewModel.requestOfficeData()
         let regionName = viewModel.regions[ellipseSegment.currentSegmentIndex]
-        viewModel.isCompleteFetch.bind { [weak self] _ in
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
             self?.applySnapshot(region: regionName, animated: true)
         }
     }

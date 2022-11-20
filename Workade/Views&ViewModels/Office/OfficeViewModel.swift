@@ -14,6 +14,10 @@ final class OfficeViewModel {
     
     var isCompleteFetch = Binder(false)
     
+    init() {
+        requestOfficeData()
+    }
+    
     func requestOfficeData() {
         Task {
             do {
