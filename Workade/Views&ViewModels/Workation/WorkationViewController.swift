@@ -14,25 +14,19 @@ final class WorkationViewController: UIViewController {
     
     private let titleView = TitleView(title: "제주도")
     
-    private lazy var guideButton: UIButton = {
-        let button = UIButton(type: .custom)
-        var config = UIButton.Configuration.plain()
-        config.imagePadding = 4
-        config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets.init(top: 10, leading: 14, bottom: 10, trailing: 14)
-        
-        var attText = AttributedString.init("가이드 보러가기")
-        attText.font = .customFont(for: .caption)
-        config.attributedTitle = attText
-        config.image = UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
-                
-        button.configuration = config
-        button.tintColor = .theme.workadeBlue
-        button.backgroundColor = .theme.workadeBackgroundBlue
-        button.layer.cornerRadius = 20
-        
-        return button
-    }()
+    private let closeButton = UIBarButtonItem(
+        image: SFSymbol.xmarkInNavigation.image,
+        style: .done,
+        target: self,
+        action: #selector(clickedCloseButton(_:))
+    )
+    
+    private let guideButton = UIBarButtonItem(
+        image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
+        style: .plain,
+        target: self,
+        action: nil
+    )
     
     // MARK: - Top Pane's Contents
     
@@ -170,6 +164,8 @@ final class WorkationViewController: UIViewController {
         
         let progressView = UIProgressView()
         progressView.progress = 30/31
+        progressView.backgroundColor = .theme.groupedBackground
+        progressView.tintColor = .theme.workadeBlue
         
         let stackView = UIStackView(arrangedSubviews: [label, progressView])
         stackView.axis = .vertical
@@ -196,15 +192,7 @@ final class WorkationViewController: UIViewController {
 
 private extension WorkationViewController {
     private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: SFSymbol.xmarkInNavigation.image,
-            style: .done,
-            target: self,
-            action: #selector(clickedCloseButton(_:))
-        )
-        
-        let rightBarButton = UIBarButtonItem(customView: guideButton)
-        navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.rightBarButtonItems = [closeButton, guideButton]
     }
     
     private func setupLayout() {
