@@ -17,10 +17,19 @@ class NearbyPlaceViewController: UIViewController {
     let nearbyPlaceDetailView: NearbyPlaceDetailView
     let galleryViewModel = GalleryViewModel()
     
+    // 스크롤 뷰 하나에서, 세그먼트 컨트롤의 스티키 효과를 주기위해 2가지의 constraints 사용.
+    var segmentedControlTopConstraintsToNavbar: NSLayoutConstraint!
+    var segmentedControlTopConstraintsToImage: NSLayoutConstraint!
+    
+    let segmentedControllerHeight: CGFloat = 52
+    var customNavigationBarHeight: CGFloat!
+    let imageHeight: CGFloat = 375
+
     init(officeModel: OfficeModel) {
         self.officeModel = officeModel
         self.nearbyPlaceImageView = NearbyPlaceImageView(officeModel: officeModel)
         self.nearbyPlaceDetailView = NearbyPlaceDetailView(officeModel: officeModel)
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,6 +48,8 @@ class NearbyPlaceViewController: UIViewController {
     lazy var totalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
@@ -61,7 +72,7 @@ class NearbyPlaceViewController: UIViewController {
     }()
     
     lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = CustomSegmentedControl(items: ["소개", "갤러리"])
+        let segmentedControl = CustomSegmentedControl(items: ["정보", "특징", "갤러리", "주변"])
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
             NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
@@ -74,12 +85,14 @@ class NearbyPlaceViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
+        segmentedControl.backgroundColor = .white
+        
         return segmentedControl
     }()
     
     private let segmentUnderLine: UIView = {
         let segmentUnderLine = UIView()
-        segmentUnderLine.backgroundColor = UIColor.theme.quaternary
+        segmentUnderLine.backgroundColor = .rgb(0xF2F2F7)
         segmentUnderLine.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentUnderLine
@@ -87,24 +100,23 @@ class NearbyPlaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .theme.background
-        nearbyPlaceImageView.delegate = self
         
         setupDelegate()
         
         setupScrollViewLayout()
-        setupGalleryView()
         setupLayout()
+        setupGalleryView()
         setupCustomNavigationBar()
     }
-    
+
     func setupDelegate() {
         nearbyPlaceDetailView.galleryView.collectionView.dataSource = self
         nearbyPlaceDetailView.galleryView.collectionView.delegate = self
         nearbyPlaceDetailView.galleryView.layout.delegate = self
         
         totalScrollView.delegate = self
-        nearbyPlaceDetailView.scrollView.delegate = self
     }
     
     func setupScrollViewLayout() {
@@ -115,7 +127,7 @@ class NearbyPlaceViewController: UIViewController {
             totalScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             totalScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+
         let scrollViewContentsLayoutGuide = totalScrollView.contentLayoutGuide
         totalScrollView.addSubview(contentsContainerView)
         NSLayoutConstraint.activate([
@@ -129,22 +141,39 @@ class NearbyPlaceViewController: UIViewController {
     
     func setupLayout() {
         contentsContainerView.addSubview(nearbyPlaceImageView)
+        
         NSLayoutConstraint.activate([
             nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            nearbyPlaceImageView.imageView.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor),
+            nearbyPlaceImageView.imageView.trailingAnchor.constraint(equalTo: nearbyPlaceImageView.trailingAnchor),
+            nearbyPlaceImageView.imageView.bottomAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
             nearbyPlaceImageView.topAnchor.constraint(equalTo: contentsContainerView.topAnchor),
             nearbyPlaceImageView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             nearbyPlaceImageView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            nearbyPlaceImageView.heightAnchor.constraint(equalToConstant: .topSafeArea + 375)
+            nearbyPlaceImageView.heightAnchor.constraint(equalToConstant: imageHeight)
+        ])
+
+        contentsContainerView.addSubview(nearbyPlaceDetailView)
+        NSLayoutConstraint.activate([
+            nearbyPlaceDetailView.topAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor, constant: 52),
+            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor),
+            nearbyPlaceDetailView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            nearbyPlaceDetailView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
+            contentsContainerView.bottomAnchor.constraint(equalTo: nearbyPlaceDetailView.contensContainerView.bottomAnchor)
         ])
         
+        segmentedControlTopConstraintsToImage = segmentedControl.topAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor)
         contentsContainerView.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor),
-            segmentedControl.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor, constant: 20),
-            segmentedControl.trailingAnchor.constraint(equalTo: nearbyPlaceImageView.trailingAnchor, constant: -20),
+            segmentedControlTopConstraintsToImage,
+            segmentedControl.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
+
         contentsContainerView.addSubview(segmentUnderLine)
         NSLayoutConstraint.activate([
             segmentUnderLine.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
@@ -152,25 +181,22 @@ class NearbyPlaceViewController: UIViewController {
             segmentUnderLine.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             segmentUnderLine.heightAnchor.constraint(equalToConstant: 2)
         ])
-        
-        contentsContainerView.addSubview(nearbyPlaceDetailView)
-        NSLayoutConstraint.activate([
-            nearbyPlaceDetailView.topAnchor.constraint(equalTo: segmentUnderLine.bottomAnchor),
-            nearbyPlaceDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            nearbyPlaceDetailView.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
-            nearbyPlaceDetailView.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            contentsContainerView.bottomAnchor.constraint(equalTo: nearbyPlaceDetailView.contensContainerView.bottomAnchor, constant: 375)
-        ])
     }
     
     private func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: officeModel.officeName, rightButtonImage: SFSymbol.mapInNavigation.image)
+        customNavigationBar = CustomNavigationBar(titleText: officeModel.officeName, rightButtonImage: UIImage())
         customNavigationBar.officeModel = officeModel
         customNavigationBar.dismissAction = { [weak self] in self?.presentingViewController?.dismiss(animated: true)}
         customNavigationBar.delegate = self
         customNavigationBar.view.alpha = 0
+        customNavigationBarHeight = customNavigationBar.view.bounds.height
         
         view.addSubview(customNavigationBar.view)
+        
+        // 스크롤시, 스티키한 효과를 주기위해 세그먼트 컨트롤러를 네브바 아래에 붙을 수 있도록 설정.
+        segmentedControlTopConstraintsToNavbar = segmentedControl.topAnchor.constraint(equalTo: customNavigationBar.view.bottomAnchor)
+        segmentedControlTopConstraintsToNavbar.priority = .defaultHigh
+        
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: .topSafeArea + 8),
@@ -189,25 +215,13 @@ class NearbyPlaceViewController: UIViewController {
     private func indexChanged(_ segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            nearbyPlaceDetailView.scrollView.isScrollEnabled = true
-            nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-            totalScrollView.isScrollEnabled = true
-            nearbyPlaceDetailView.introduceView.isHidden = false
-            nearbyPlaceDetailView.galleryView.isHidden = true
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
+            showInformationView()
         case 1:
-            // 갤러리 누르면 세그먼트 위치로 스크롤 이동.
-            nearbyPlaceDetailView.scrollView.isScrollEnabled = false
-            nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-            // 전체 뷰의 스크롤은 멈춰야함.
-            totalScrollView.isScrollEnabled = false
-            // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
-            totalScrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
-            nearbyPlaceDetailView.introduceView.isHidden = true
-            nearbyPlaceDetailView.galleryView.isHidden = false
-            nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
-            nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
+            showFeatureView()
+        case 2:
+            showGalleryView()
+        case 3:
+            showMapView()
         default:
             return
         }
@@ -225,6 +239,64 @@ class NearbyPlaceViewController: UIViewController {
             }
         }
     }
+}
+
+extension NearbyPlaceViewController {
+    private func showInformationView() {
+        totalScrollView.isScrollEnabled = true
+        nearbyPlaceImageView.isHidden = false
+        nearbyPlaceDetailView.introduceView.isHidden = false
+        nearbyPlaceDetailView.featureView.isHidden = true
+        nearbyPlaceDetailView.galleryView.isHidden = true
+        nearbyPlaceDetailView.mapView.isHidden = true
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = true
+    }
+    
+    private func showFeatureView() {
+        totalScrollView.isScrollEnabled = true
+        nearbyPlaceImageView.isHidden = false
+        nearbyPlaceDetailView.introduceView.isHidden = true
+        nearbyPlaceDetailView.featureView.isHidden = false
+        nearbyPlaceDetailView.galleryView.isHidden = true
+        nearbyPlaceDetailView.mapView.isHidden = true
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = true
+    }
+    
+    private func showGalleryView() {
+        totalScrollView.isScrollEnabled = false
+        nearbyPlaceImageView.isHidden = true
+        // 전체뷰의 스크롤 위치를 이미지가 끝나는 지점으로 맞춰줘야함
+        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight), animated: false)
+        nearbyPlaceDetailView.introduceView.isHidden = true
+        nearbyPlaceDetailView.featureView.isHidden = true
+        nearbyPlaceDetailView.galleryView.isHidden = false
+        nearbyPlaceDetailView.mapView.isHidden = true
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = false
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = true
+    }
+    
+    private func showMapView() {
+        totalScrollView.isScrollEnabled = false
+        nearbyPlaceImageView.isHidden = true
+        totalScrollView.setContentOffset(CGPoint(x: 0, y: imageHeight - customNavigationBarHeight), animated: false)
+        nearbyPlaceDetailView.introduceView.isHidden = true
+        nearbyPlaceDetailView.featureView.isHidden = true
+        nearbyPlaceDetailView.galleryView.isHidden = true
+        nearbyPlaceDetailView.mapView.isHidden = false
+        nearbyPlaceDetailView.introduceBottomConstraints.isActive = false
+        nearbyPlaceDetailView.featureBottomConstraints.isActive = false
+        nearbyPlaceDetailView.galleryBottomConstraints.isActive = false
+        nearbyPlaceDetailView.mapBottomConstrains.isActive = true
+    }
+    
 }
 
 extension NearbyPlaceViewController: InnerTouchPresentDelegate {
@@ -289,41 +361,32 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
             if totalOffset < -.topSafeArea {
                 self.dismiss(animated: true, completion: nil)
             }
-            
+        case 1:
+            if totalOffset < -.topSafeArea {
+                self.dismiss(animated: true, completion: nil)
+            }
         default:
-            return
+            break
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let totalOffset = scrollView.contentOffset.y
-        let detailOffset = nearbyPlaceDetailView.scrollView.contentOffset.y
-        
         switch scrollView {
         case totalScrollView:
             if totalOffset > 0 {
-                if totalOffset > 315 {
-                    scrollView.setContentOffset(CGPoint(x: 0, y: 315), animated: false)
-                    // 전체 스크롤 뷰를 막고, 디테일 뷰의 스크롤 뷰를 활성화 시킴.
-                    totalScrollView.isScrollEnabled = false
-                    nearbyPlaceDetailView.scrollView.isScrollEnabled = true
+                customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
+                nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
+                if totalOffset > imageHeight - customNavigationBarHeight {
+                    segmentedControlTopConstraintsToImage.isActive = false
+                    segmentedControlTopConstraintsToNavbar.isActive = true
                 } else {
-                    if segmentedControl.selectedSegmentIndex == 0 {
-                        nearbyPlaceDetailView.scrollView.isScrollEnabled = false
-                    }
-                    customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
-                    nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
+                    segmentedControlTopConstraintsToImage.isActive = true
+                    segmentedControlTopConstraintsToNavbar.isActive = false
                 }
             } else {
                 customNavigationBar.view.alpha = 0
                 nearbyPlaceImageView.alpha = 1
-            }
-        case nearbyPlaceDetailView.scrollView:
-            if detailOffset <= 0 {
-                nearbyPlaceDetailView.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-                if segmentedControl.selectedSegmentIndex == 0 {
-                    totalScrollView.isScrollEnabled = true
-                }
             }
         default:
             break
