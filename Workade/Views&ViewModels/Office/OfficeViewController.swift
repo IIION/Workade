@@ -82,9 +82,9 @@ private extension OfficeViewController {
     }
     
     func setupLayout() {
-        view.addSubview(titleView)
-        view.addSubview(ellipseSegment)
-        view.addSubview(divider)
+        [titleView, ellipseSegment, divider, officeCollectionView].forEach {
+            view.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -101,6 +101,13 @@ private extension OfficeViewController {
         NSLayoutConstraint.activate([
             divider.topAnchor.constraint(equalTo: ellipseSegment.bottomAnchor, constant: 12),
             divider.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            officeCollectionView.topAnchor.constraint(equalTo: divider.bottomAnchor),
+            officeCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            officeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            officeCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
