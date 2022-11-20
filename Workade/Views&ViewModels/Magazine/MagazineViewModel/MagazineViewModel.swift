@@ -17,7 +17,7 @@ final class MagazineViewModel {
         requestMagazineData()
     }
     
-    func requestMagazineData() {
+    private func requestMagazineData() {
         Task {
             do {
                 let resource: MagazineResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.magazineResource)

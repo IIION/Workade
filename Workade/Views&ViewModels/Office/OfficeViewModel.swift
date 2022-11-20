@@ -18,7 +18,7 @@ final class OfficeViewModel {
         requestOfficeData()
     }
     
-    func requestOfficeData() {
+    private func requestOfficeData() {
         Task {
             do {
                 officeResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.officeResource)

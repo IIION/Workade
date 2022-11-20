@@ -50,6 +50,7 @@ final class MagazineViewController: UIViewController {
         return prepareView
     }()
     
+    // MARK: 오늘 할 일. 여기서 GuideHome으로 돌아갔을 때, GuideHome에서도 리로드를 잘 시켜줘야함. 혹은 여기로직이랑 동일하게 변경!
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
