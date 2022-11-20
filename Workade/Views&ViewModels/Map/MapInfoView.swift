@@ -69,7 +69,7 @@ final class MapInfoView: UIView {
         NSLayoutConstraint.activate([
             mapButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 22),
             mapButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -22),
-            mapButton.widthAnchor.constraint(equalTo: mapButton.heightAnchor),
+            mapButton.widthAnchor.constraint(equalTo: markerImage.heightAnchor),
             mapButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
     }
