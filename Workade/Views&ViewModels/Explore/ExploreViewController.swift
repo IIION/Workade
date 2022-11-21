@@ -12,7 +12,7 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon"), primaryAction: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon")?.withRenderingMode(.alwaysOriginal), primaryAction: nil)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
     }
     
@@ -29,6 +29,7 @@ class ExploreViewController: UIViewController {
         
         var titleAttr = AttributedString.init("오픈채팅")
         titleAttr.font = .customFont(for: .caption2)
+        titleAttr.foregroundColor = .theme.workadeBlue
         config.attributedTitle = titleAttr
         
         config.image = UIImage.fromSystemImage(name: "message.fill",
