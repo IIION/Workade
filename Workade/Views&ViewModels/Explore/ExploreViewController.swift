@@ -76,11 +76,27 @@ class ExploreViewController: UIViewController {
         return label
     }()
     
+    lazy var mapImageView: UIImageView = {
+        let image = UIImage(named: "map")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     private func setupLayout() {
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
+        ])
+        
+        view.addSubview(mapImageView)
+        NSLayoutConstraint.activate([
+            mapImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            mapImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            mapImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0)
         ])
     }
 }
