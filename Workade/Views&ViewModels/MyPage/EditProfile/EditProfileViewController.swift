@@ -178,7 +178,11 @@ class EditProfileViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let frames = self.jobPickerButton.frame
          self.view.endEditing(true)
-        pickerCheck.toggle()
+        
+        if pickerCheck {
+            pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
+        }
+        pickerCheck = false
         presentPickerAnimation(frames: frames, height: 0)
    }
 }
@@ -212,11 +216,12 @@ private extension EditProfileViewController {
         pickerCheck.toggle()
         if pickerCheck {
             presentPickerAnimation(frames: frames, height: 300)
+            pickerImage.transform = pickerImage.transform.rotated(by: .pi)
         } else {
             presentPickerAnimation(frames: frames, height: 0)
+            pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
         }
-        
-        pickerImage.transform = pickerImage.transform.rotated(by: .pi)
+        print(pickerImage.transform)
     }
     
     // tableView를 애니메이션을 통해 Picker처럼 표현
@@ -241,8 +246,7 @@ extension EditProfileViewController: UITableViewDelegate {
         let frames = self.jobPickerButton.frame
         
         pickerLabel.text = pickerList[indexPath.row]
-        pickerCheck.toggle()
-        presentPickerAnimation(frames: frames, height: 0)
+        presentPickerView()
     }
 }
 
