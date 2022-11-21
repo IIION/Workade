@@ -79,7 +79,7 @@ class EditProfileViewController: UIViewController {
     private let pickerLabel: UILabel = {
         let pickerLabel = UILabel()
         // TODO: 현재 사용자의 직업으로 설정
-        pickerLabel.text = "선택하세요"
+        pickerLabel.text = "선택하기"
         pickerLabel.font = .customFont(for: .footnote2)
         pickerLabel.textColor = .theme.tertiary
         pickerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +94,9 @@ class EditProfileViewController: UIViewController {
         button.setTitleColor(.theme.background, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
+        button.addAction(UIAction(handler: { _ in
+            print("프로필 수정 완료 버튼")
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -110,6 +113,7 @@ class EditProfileViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(nameLabel)
         NSLayoutConstraint.activate([
+            
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
