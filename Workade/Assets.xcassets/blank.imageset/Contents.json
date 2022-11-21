@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "sampleTipImage.jpeg",
+      "filename" : "blank_1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "blank.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "blank_3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
