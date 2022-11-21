@@ -9,6 +9,7 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
     private var pickerCheck = false
+    private let pickerList = ["개발", "디자인", "기획", "마케팅", "콘텐츠 제작", "작가(글,웹툰)", "예술가", "프리랜서", "기타"]
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -23,9 +24,9 @@ class EditProfileViewController: UIViewController {
         let textField = UITextField()
         // TODO: Placeholder를 현재 사용자의 이름으로 설정
         textField.attributedPlaceholder = NSAttributedString(
-                string: "이름 입력하기",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
-            )
+            string: "이름 입력하기",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
+        )
         textField.font = .customFont(for: .footnote2)
         textField.textColor = .theme.tertiary
         textField.backgroundColor = .theme.groupedBackground
@@ -70,7 +71,13 @@ class EditProfileViewController: UIViewController {
     private lazy var pickerTableView: UITableView = {
         let pickerTableView = UITableView()
         pickerTableView.layer.cornerRadius = 15
-        pickerTableView.backgroundColor = .red
+        pickerTableView.backgroundColor = .theme.background
+        pickerTableView.separatorStyle = .none
+        pickerTableView.showsVerticalScrollIndicator = false 
+        
+        pickerTableView.layer.borderWidth = 0.2
+        pickerTableView.layer.borderColor = UIColor.theme.tertiary.cgColor
+        
         pickerTableView.translatesAutoresizingMaskIntoConstraints = false
         
         return pickerTableView
@@ -106,6 +113,10 @@ class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
+        
+        pickerTableView.delegate = self
+        pickerTableView.dataSource = self
+        self.pickerTableView.register(PickerTableViewCell.self, forCellReuseIdentifier: PickerTableViewCell.cellId)
         
         setupNavigationBar()
         setupLayout()
@@ -201,11 +212,32 @@ private extension EditProfileViewController {
     
     // tableView를 애니메이션을 통해 Picker처럼 표현
     private func presentPickerAnimation(frames: CGRect, height: CGFloat) {
-        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
+            guard let self = self else { return }
             self.pickerTableView.frame = CGRect(x: frames.origin.x,
                                                 y: frames.origin.y + frames.height,
                                                 width: frames.width,
                                                 height: height)
         }
+    }
+}
+
+// TableView Delegate
+extension EditProfileViewController: UITableViewDelegate {
+}
+
+// TableView DataSource
+extension EditProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return self.pickerList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PickerTableViewCell.cellId, for: indexPath) as? PickerTableViewCell
+        guard let cell = cell else { return UITableViewCell() }
+        cell.pickerLabel.text = pickerList[indexPath.row]
+        
+        return cell
     }
 }

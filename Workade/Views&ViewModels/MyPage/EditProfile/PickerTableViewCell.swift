@@ -10,10 +10,10 @@ import UIKit
 class PickerTableViewCell: UITableViewCell {
     static let cellId = "PickerTableViewCell"
     
-    private let pickerLabel: UILabel = {
+    let pickerLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .theme.primary
-        label.font = .customFont(for: .subHeadline)
+        label.textColor = .theme.tertiary
+        label.font = .customFont(for: .footnote2)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -21,6 +21,8 @@ class PickerTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
