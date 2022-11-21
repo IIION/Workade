@@ -73,7 +73,7 @@ class EditProfileViewController: UIViewController {
         pickerTableView.layer.cornerRadius = 15
         pickerTableView.backgroundColor = .theme.background
         pickerTableView.separatorStyle = .none
-        pickerTableView.showsVerticalScrollIndicator = false 
+        pickerTableView.showsVerticalScrollIndicator = false
         
         pickerTableView.layer.borderWidth = 0.2
         pickerTableView.layer.borderColor = UIColor.theme.tertiary.cgColor
@@ -224,6 +224,17 @@ private extension EditProfileViewController {
 
 // TableView Delegate
 extension EditProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.selectionStyle = .none
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let frames = self.jobPickerButton.frame
+        
+        pickerLabel.text = pickerList[indexPath.row]
+        pickerCheck.toggle()
+        presentPickerAnimation(frames: frames, height: 0)
+    }
 }
 
 // TableView DataSource
