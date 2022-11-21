@@ -20,7 +20,7 @@ class EditProfileViewController: UIViewController {
         return label
     }()
     
-    private let nameTextField: UITextField = {
+    private lazy var nameTextField: UITextField = {
         let textField = UITextField()
         // TODO: Placeholder를 현재 사용자의 이름으로 설정
         textField.attributedPlaceholder = NSAttributedString(
@@ -32,6 +32,7 @@ class EditProfileViewController: UIViewController {
         textField.backgroundColor = .theme.groupedBackground
         textField.layer.cornerRadius = 15
         textField.addLeftPadding()
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -103,7 +104,7 @@ class EditProfileViewController: UIViewController {
         button.titleLabel?.font = .customFont(for: .subHeadline)
         button.addAction(UIAction(handler: { _ in
             // TODO: UserInfo와 연결하여 유저정보 업데이트
-            print("프로필 수정 완료 버튼")
+            print("설정된 이름 : \(self.nameTextField.text ?? "")\n설정된 직업: \(self.pickerLabel.text ?? "")")
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -172,6 +173,14 @@ class EditProfileViewController: UIViewController {
             editCompletionButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
+    
+    // 화면 터치시 Keyboard 내리기 & picker 접기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let frames = self.jobPickerButton.frame
+         self.view.endEditing(true)
+        pickerCheck.toggle()
+        presentPickerAnimation(frames: frames, height: 0)
+   }
 }
 
 private extension EditProfileViewController {
@@ -250,5 +259,13 @@ extension EditProfileViewController: UITableViewDataSource {
         cell.pickerLabel.text = pickerList[indexPath.row]
         
         return cell
+    }
+}
+
+// TextField Delegate
+extension EditProfileViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
