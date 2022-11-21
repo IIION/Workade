@@ -16,7 +16,7 @@ class WorkerStatusSheetViewController: UIViewController {
         let view = UIView(frame: .zero)
         view.backgroundColor = .theme.background
         view.layer.cornerCurve = .continuous
-        view.layer.cornerRadius = 42
+        view.layer.cornerRadius = 30
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -80,21 +80,24 @@ class WorkerStatusSheetViewController: UIViewController {
             jobLabel(job: "개발자", number: 20, isMyJob: false)
         ])
         firstStack.axis = .horizontal
-        firstStack.distribution = .equalSpacing
+        firstStack.distribution = .fillEqually
+        firstStack.spacing = 30
         
         let secondStack = UIStackView(arrangedSubviews: [
             jobLabel(job: "작가", number: 7, isMyJob: false),
             jobLabel(job: "기획", number: 7, isMyJob: false)
         ])
         secondStack.axis = .horizontal
-        secondStack.distribution = .equalSpacing
+        secondStack.distribution = .fillEqually
+        secondStack.spacing = 30
         
         let thirdStack = UIStackView(arrangedSubviews: [
             jobLabel(job: "컨텐츠 제작", number: 7, isMyJob: false),
             UIView()
         ])
         thirdStack.axis = .horizontal
-        thirdStack.distribution = .equalSpacing
+        thirdStack.distribution = .fillEqually
+        secondStack.spacing = 30
         
         let stackView = UIStackView(arrangedSubviews: [firstStack, secondStack, thirdStack])
         stackView.axis = .vertical
