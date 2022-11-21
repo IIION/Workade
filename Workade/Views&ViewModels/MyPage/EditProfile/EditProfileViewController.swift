@@ -87,6 +87,18 @@ class EditProfileViewController: UIViewController {
         return pickerLabel
     }()
     
+    private lazy var editCompletionButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .theme.workadeBlue
+        button.setTitle("프로필 수정", for: .normal)
+        button.setTitleColor(.theme.background, for: .normal)
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = .customFont(for: .subHeadline)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -134,6 +146,14 @@ class EditProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             pickerLabel.centerYAnchor.constraint(equalTo: jobPickerButton.centerYAnchor),
             pickerLabel.leadingAnchor.constraint(equalTo: jobPickerButton.leadingAnchor, constant: 20)
+        ])
+        
+        view.addSubview(editCompletionButton)
+        NSLayoutConstraint.activate([
+            editCompletionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -54),
+            editCompletionButton.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            editCompletionButton.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            editCompletionButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
 }
