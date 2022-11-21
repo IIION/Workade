@@ -221,7 +221,6 @@ private extension EditProfileViewController {
             presentPickerAnimation(frames: frames, height: 0)
             pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
         }
-        print(pickerImage.transform)
     }
     
     // tableView를 애니메이션을 통해 Picker처럼 표현
