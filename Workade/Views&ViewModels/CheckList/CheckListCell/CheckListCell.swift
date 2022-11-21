@@ -37,7 +37,7 @@ class CheckListCell: UICollectionViewCell {
         
         let stackView = UIStackView(arrangedSubviews: [uncheckImage, uncheckLabel])
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.spacing = 2
         
         return stackView
@@ -57,7 +57,7 @@ class CheckListCell: UICollectionViewCell {
         
         let stackView = UIStackView(arrangedSubviews: [checkImage, checkLabel])
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.spacing = 2
         
         return stackView
@@ -66,7 +66,8 @@ class CheckListCell: UICollectionViewCell {
     private lazy var displayStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [uncheckStack, checkStack])
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.spacing = 8
+        stackView.distribution = .fill
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -83,14 +84,6 @@ class CheckListCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
-    }()
-    
-    private lazy var emojiLabel: UILabel = {
-        let label = UILabel()
-        label.text = "🏝"
-        label.font = .systemFont(ofSize: 30)
-        
-        return label
     }()
     
     private lazy var titleLabel: UILabel = {
@@ -121,17 +114,6 @@ class CheckListCell: UICollectionViewCell {
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
         stackView.spacing = 3
-        
-        return stackView
-    }()
-    
-    private lazy var verticalStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [emojiLabel, labelStack])
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .fillEqually
-        stackView.spacing = 6
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -141,7 +123,7 @@ class CheckListCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.layer.cornerRadius = 20
-        contentView.layer.borderWidth = 2
+        contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         
         self.setupLayout()
@@ -152,7 +134,6 @@ class CheckListCell: UICollectionViewCell {
     }
     
     func setupCell(checkList: CheckList) {
-        emojiLabel.text = checkList.emoji ?? "⚽️"
         titleLabel.text = checkList.title ?? "제목없음"
         checkListCellViewModel.selectedCheckList = checkList
         checkLabel.text = "\(checkListCellViewModel.checkCount)"
@@ -185,7 +166,7 @@ class CheckListCell: UICollectionViewCell {
 
 extension CheckListCell {
     private func setupLayout() {
-        [verticalStack, displayStack, deleteButton].forEach { subView in
+        [labelStack, displayStack, deleteButton].forEach { subView in
             contentView.addSubview(subView)
         }
         
@@ -202,8 +183,8 @@ extension CheckListCell {
         ])
         
         NSLayoutConstraint.activate([
-            verticalStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
-            verticalStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -7)
+            labelStack.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
+            labelStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -10)
         ])
     }
 }
