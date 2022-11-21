@@ -95,6 +95,7 @@ class EditProfileViewController: UIViewController {
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
         button.addAction(UIAction(handler: { _ in
+            // TODO: UserInfo와 연결하여 유저정보 업데이트
             print("프로필 수정 완료 버튼")
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
