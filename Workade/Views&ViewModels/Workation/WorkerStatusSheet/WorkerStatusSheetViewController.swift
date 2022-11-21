@@ -69,6 +69,8 @@ class WorkerStatusSheetViewController: UIViewController {
         label.textColor = isMyJob ? .theme.workadeBlue : .theme.secondary
         let fullText = "\(job) \(number)명"
         let attributedString = NSMutableAttributedString(string: fullText)
+        let range = (fullText as NSString).range(of: "\(number)명")
+        attributedString.addAttribute(.font, value: UIFont.customFont(for: .footnote2), range: range)
         label.attributedText = attributedString
         
         return label
