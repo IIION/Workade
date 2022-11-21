@@ -66,9 +66,8 @@ final class OfficeViewController: UIViewController {
     }
     
     private func observeFetchCompletion() {
-        viewModel.requestOfficeData()
         let regionName = viewModel.regions[ellipseSegment.currentSegmentIndex]
-        viewModel.isCompleteFetch.bind { [weak self] _ in
+        viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
             self?.applySnapshot(region: regionName, animated: true)
         }
     }
@@ -79,7 +78,7 @@ final class OfficeViewController: UIViewController {
 }
 
 // MARK: DiffableDataSource
-extension OfficeViewController {
+private extension OfficeViewController {
     func configureDataSource() {
         // cell을 구성하고, 등록지를 만듬
         let cellRegistration = UICollectionView.CellRegistration<OfficeCollectionViewCell, OfficeModel> { cell, _, itemIdentifier in
@@ -137,7 +136,7 @@ private extension OfficeViewController {
         ])
         
         NSLayoutConstraint.activate([
-            ellipseSegment.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 30),
+            ellipseSegment.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 25),
             ellipseSegment.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             ellipseSegment.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ellipseSegment.heightAnchor.constraint(equalToConstant: 34)

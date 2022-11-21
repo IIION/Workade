@@ -9,7 +9,7 @@ import UIKit
 
 enum GuideCategory {
     case office(_ region: String)
-    case magazine
+    case magazine(_ category: MagazineCategory)
 }
 
 /// 현재 아직 컨텐츠가 없는 화면에 띄울 View
@@ -62,8 +62,8 @@ final class PrepareView: UIView {
         case .office(let regionName):
             prepareLabel.text = "현재 준비중인 지역입니다."
             expectLabel.text = "\(regionName) 편도 기대해주세요~!"
-        case .magazine:
-            prepareLabel.text = "현재 준비중인 컨텐츠입니다."
+        case .magazine(let category):
+            prepareLabel.text = category == .wishList ? "찜한 매거진이 없네요~!" : "현재 준비중인 컨텐츠입니다."
         }
     }
     
