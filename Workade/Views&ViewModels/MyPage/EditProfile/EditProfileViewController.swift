@@ -27,6 +27,7 @@ class EditProfileViewController: UIViewController {
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
             )
         textField.font = .customFont(for: .footnote2)
+        textField.textColor = .theme.tertiary
         textField.backgroundColor = .theme.groupedBackground
         textField.layer.cornerRadius = 15
         textField.addLeftPadding()
