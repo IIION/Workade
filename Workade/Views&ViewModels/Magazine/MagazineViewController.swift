@@ -132,7 +132,7 @@ private extension MagazineViewController {
         ])
         
         NSLayoutConstraint.activate([
-            ellipseSegment.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 30),
+            ellipseSegment.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 25),
             ellipseSegment.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             ellipseSegment.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ellipseSegment.heightAnchor.constraint(equalToConstant: 34)
