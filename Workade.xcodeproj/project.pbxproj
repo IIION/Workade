@@ -517,18 +517,18 @@
 				A354F47829262615003E601A /* StickerView.swift */,
 				A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */,
 				A3BB02BB2926A7C8000DE275 /* EditProfile */,
-				9646763D2909346A0047ED34 /* SettingViewController */,
+				9646763D2909346A0047ED34 /* Setting */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
 		};
-		9646763D2909346A0047ED34 /* SettingViewController */ = {
+		9646763D2909346A0047ED34 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				9646763E2909347C0047ED34 /* SettingViewController.swift */,
 				A3479C95292BA84800AE1528 /* LoginInformationView.swift */,
 			);
-			path = SettingViewController;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		96E0CDDF2923DBAB008A67BB /* Utils */ = {
