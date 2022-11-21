@@ -91,6 +91,7 @@
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A3479C96292BA84800AE1528 /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3479C95292BA84800AE1528 /* LoginInformationView.swift */; };
+		A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3479C97292BB10B00AE1528 /* SettingButton.swift */; };
 		A34AB347291B99C600065212 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AB346291B99C600065212 /* CGFloat+.swift */; };
 		A354F477292625F5003E601A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F476292625F5003E601A /* ProfileView.swift */; };
 		A354F47929262615003E601A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47829262615003E601A /* StickerView.swift */; };
@@ -203,6 +204,7 @@
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A3479C95292BA84800AE1528 /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
+		A3479C97292BB10B00AE1528 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		A34AB346291B99C600065212 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		A354F476292625F5003E601A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A354F47829262615003E601A /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 				9646763929092EBF0047ED34 /* TitleView.swift */,
 				5F28285B290793D800882FF3 /* BasePaddingLabel.swift */,
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
+				A3479C97292BB10B00AE1528 /* SettingButton.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,
+				A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				A354F477292625F5003E601A /* ProfileView.swift in Sources */,
 				96433235290A776600FBECAF /* Constants.swift in Sources */,

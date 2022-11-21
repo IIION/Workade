@@ -19,10 +19,33 @@ final class SettingViewController: UIViewController {
         return logInInformationView
     }()
     
-    private let infoButton: NavigateButton = {
-        let button = NavigateButton(image: SFSymbol.info.image, text: "서비스 정보")
-        button.layer.backgroundColor = UIColor.systemGroupedBackground.cgColor
-        button.layer.cornerRadius = 12
+    private let settingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "설정"
+        label.font = .customFont(for: .captionHeadlineNew)
+        label.textColor = .theme.primary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let dataButton: SettingButton = {
+        let button = SettingButton(text: "데이터")
+        button.addAction(UIAction(handler: { _ in
+            // TODO: 데이터 뷰 이동
+            print("데이터 버튼 클릭")
+        }), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private let licenseButton: SettingButton = {
+        let button = SettingButton(text: "라이센스")
+        button.addAction(UIAction(handler: { _ in
+            // TODO: 라이센스 뷰 이동
+            print("라이센스 버튼 클릭")
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -60,6 +83,28 @@ private extension SettingViewController {
             loginInformationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginInformationView.widthAnchor.constraint(equalToConstant: 350),
             loginInformationView.heightAnchor.constraint(equalToConstant: 195)
+        ])
+        
+        view.addSubview(settingLabel)
+        NSLayoutConstraint.activate([
+            settingLabel.topAnchor.constraint(equalTo: loginInformationView.bottomAnchor, constant: 30),
+            settingLabel.leadingAnchor.constraint(equalTo: loginInformationView.leadingAnchor)
+        ])
+        
+        view.addSubview(dataButton)
+        NSLayoutConstraint.activate([
+            dataButton.topAnchor.constraint(equalTo: settingLabel.bottomAnchor, constant: 20),
+            dataButton.leadingAnchor.constraint(equalTo: loginInformationView.leadingAnchor),
+            dataButton.trailingAnchor.constraint(equalTo: loginInformationView.trailingAnchor),
+            dataButton.heightAnchor.constraint(equalToConstant: 55)
+        ])
+        
+        view.addSubview(licenseButton)
+        NSLayoutConstraint.activate([
+            licenseButton.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 10),
+            licenseButton.leadingAnchor.constraint(equalTo: loginInformationView.leadingAnchor),
+            licenseButton.trailingAnchor.constraint(equalTo: loginInformationView.trailingAnchor),
+            licenseButton.heightAnchor.constraint(equalTo: dataButton.heightAnchor)
         ])
     }
 }
