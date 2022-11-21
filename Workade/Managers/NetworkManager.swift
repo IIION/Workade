@@ -102,6 +102,7 @@ enum NetworkError: Error {
     case notConnectedToInternet
     case invalidResponse(_ url: URL)
     case failedJsonParsing
+    case cancelled
     case unexpectedURLError(_ errorCode: Int)
     case unknownError
     
@@ -114,6 +115,7 @@ enum NetworkError: Error {
         case .notConnectedToInternet: return "💤 네트워크가 꺼져있습니다."
         case .invalidResponse: return "👹 유효하지 않은 response입니다."
         case .failedJsonParsing: return "📑 Json 파싱 작업에 실패했습니다."
+        case .cancelled: return "🏹 새로운 요청으로 인한 이전 요청 취소"
         case .unexpectedURLError(let errorCode): return "⁉️ 미리 예상하지못한 URL관련 에러입니다. 에러 코드: \(errorCode)"
         case .unknownError: return "🤯 원인을 알 수 없는 에러입니다!"
         }
@@ -127,6 +129,8 @@ enum NetworkError: Error {
                 return NetworkError.unsupportedURL(url)
             case -1009:
                 return NetworkError.notConnectedToInternet
+            case -999:
+                return NetworkError.cancelled
             default:
                 return NetworkError.unexpectedURLError(error.errorCode)
             }

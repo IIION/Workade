@@ -41,7 +41,7 @@ import Foundation
  사용방법
  - 관찰하고자하는 값을 Binder로 래핑합니다. ex) var isBookmark = Binder(Bool)
  - 해당 값의 변화를 관찰하고자하는 곳에서 binding을 걸어줍니다.
-    - ex) HomeViewModel.shared.isBookmark.bind { [weak self] 전달값 in
+    - ex) GuideHomeViewModel.changedId.bind { [weak self] 전달값 in
               (실행문)
           }
  - 해당 바인딩 클로저가 있는 메서드를 적절한 시점에 호출시켜주면, 뷰-뷰모델 사이의 연결이 성립됩니다.
