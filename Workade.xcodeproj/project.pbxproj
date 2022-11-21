@@ -102,6 +102,7 @@
 		96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */; };
 		96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */; };
 		96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDE02923E079008A67BB /* UINavigationController+.swift */; };
+		96F9DEC8292BCB53006DFD00 /* SheetTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F9DEC7292BCB53006DFD00 /* SheetTransitionManager.swift */; };
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A34AB347291B99C600065212 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AB346291B99C600065212 /* CGFloat+.swift */; };
@@ -226,6 +227,7 @@
 		96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeCollectionViewCell.swift; sourceTree = "<group>"; };
 		96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineResource.swift; sourceTree = "<group>"; };
 		96E0CDE02923E079008A67BB /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
+		96F9DEC7292BCB53006DFD00 /* SheetTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTransitionManager.swift; sourceTree = "<group>"; };
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A34AB346291B99C600065212 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				961CC480290AE69700921F24 /* UserDefaultsManager.swift */,
 				961CC484290AF80500921F24 /* BookmarkManager.swift */,
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
+				96F9DEC7292BCB53006DFD00 /* SheetTransitionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
+				96F9DEC8292BCB53006DFD00 /* SheetTransitionManager.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
@@ -844,7 +848,7 @@
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				96A28422292A77E20084E479 /* PrepareView.swift in Sources */,
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
-				9646763A29092EBF0047ED34 /* TitleView.swift in Sources */,
+				9646763A29092EBF0047ED34 /* TitleLabel.swift in Sources */,
 				169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */,
 				9646763A29092EBF0047ED34 /* TitleLabel.swift in Sources */,
 				9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */,
