@@ -12,7 +12,6 @@ class CheckListDetailCell: UITableViewCell {
         let button = UIButton(type: .custom)
         let image = UIImage(systemName: "circle")
         button.setImage(image, for: .normal)
-        button.tintColor = .theme.primary
         button.frame = CGRect(x: 0, y: 0, width: 21, height: 22)
         
         return button
@@ -49,6 +48,7 @@ class CheckListDetailCell: UITableViewCell {
     
     func setupCell(todo: Todo) {
         checkButton.setImage(todo.done ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle"), for: .normal)
+        checkButton.tintColor = todo.done ? .theme.workadeBlue : .theme.primary 
         contentText.text = todo.content
     }
 }
