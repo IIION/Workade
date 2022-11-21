@@ -269,6 +269,7 @@ extension EditProfileViewController: UITableViewDataSource {
 extension EditProfileViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        
         return true
     }
 }
