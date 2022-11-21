@@ -35,6 +35,7 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.primary
         
+        editProfileButtonTapped()
         setupNavigationBar()
         setupLayout()
     }
@@ -43,19 +44,13 @@ final class MyPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-}
-
-// MARK: Navigates
-extension MyPageViewController {
-    @objc
-    func popToHomeVC() {
-        navigationController?.popViewController(animated: true)
-    }
     
-    @objc
-    func pushToSettingVC() {
-        let viewController = SettingViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+    private func editProfileButtonTapped() {
+        profileView.editProfileButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            let viewController = EditProfileViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }), for: .touchUpInside)
     }
 }
 
@@ -65,15 +60,18 @@ private extension MyPageViewController {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
-            style: .done,
-            target: self,
-            action: #selector(popToHomeVC)
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            })
         )
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: SFSymbol.gearshapeFill.image,
-            style: .done,
-            target: self,
-            action: #selector(pushToSettingVC)
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let self = self else { return }
+                let viewController = SettingViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            })
         )
         self.title = "마이 페이지"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.customFont(for: .subHeadline)]

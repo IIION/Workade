@@ -15,7 +15,8 @@ struct OfficeResource: Codable {
     }
 }
 
-struct OfficeModel: Codable {
+struct OfficeModel: Codable, Hashable {
+    let uuid = UUID()
     let officeName: String
     let regionName: String
     let imageURL: String
@@ -33,9 +34,14 @@ struct OfficeModel: Codable {
         case galleryURL = "galleryurl"
         case latitude, longitude, spots
     }
+    
+    // uuid를 해시값으로 삼겠다고 명시. (uuid 안쓰면, 다른 프로퍼티 중에서 알아서 기준값 잡아줌 <- 중복 위험있음)
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+    }
 }
 
-struct Spot: Codable {
+struct Spot: Codable, Hashable {
     let title: String
     let latitude: Double
     let longitude: Double
@@ -60,4 +66,9 @@ enum SpotType: String {
     case nature
     case restaurant
     case sea
+}
+
+struct Feature: Codable {
+    let featureImage: String
+    let featureDescription: String
 }

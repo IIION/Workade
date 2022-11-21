@@ -19,6 +19,11 @@ extension UICollectionView {
         register(T.self, forCellWithReuseIdentifier: T.identifier)
     }
     
+    /// 재사용 SupplementaryView 등록 과정을 간편하게 할 수 있게 하는 확장 인스턴스 메서드
+    func registerSupplementary<T: UICollectionReusableView>(view: T.Type, kind: String) {
+        register(T.self, forSupplementaryViewOfKind: kind, withReuseIdentifier: T.identifier)
+    }
+    
     /**
      컬렉션 뷰의 재사용 셀 등록 과정을 관편하게 할 수 있게 하는 확장 인스턴스 메서드
      - **before**: *let cell = collectionView.dequeueReusableCell(withReuseIdentifier:SomeCollectionViewCell.identifier, for: indexPath) as! SomeCollectionViewCell*
@@ -30,6 +35,16 @@ extension UICollectionView {
             for: indexPath) as? T else { return T() }
         
         return cell
+    }
+    
+    /// 컬렉션 뷰의 재사용 SupplementaryView(헤더, 푸터 등) 등록 과정을 관편하게 할 수 있게 하는 확장 인스턴스 메서드
+    func dequeueSupplementary<T: UICollectionReusableView>(kind: String, for indexPath: IndexPath) -> T {
+        guard let reusableView = dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: T.identifier,
+            for: indexPath) as? T else { return T() }
+        
+        return reusableView
     }
     
     /**

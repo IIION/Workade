@@ -29,12 +29,11 @@ class ProfileView: UIView {
         return imageView
     }()
     
-    private lazy var editProfileButton: UIButton = {
+    lazy var editProfileButton: UIButton = {
         let button = UIButton()
         button.setTitle("프로필 편집", for: .normal)
         button.setTitleColor(.theme.tertiary, for: .normal)
-        // TODO: caption2 2차 디자인 시스템 적용
-        button.titleLabel?.font = .customFont(for: .caption)
+        button.titleLabel?.font = .customFont(for: .caption2)
         button.backgroundColor = .theme.labelBackground
         button.layer.cornerRadius = 18
         button.translatesAutoresizingMaskIntoConstraints = false
