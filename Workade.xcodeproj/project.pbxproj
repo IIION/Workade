@@ -50,6 +50,7 @@
 		21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */; };
 		21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */; };
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
+		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
@@ -161,6 +162,7 @@
 		21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
+		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
@@ -362,6 +364,14 @@
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
 		};
+		5F1EA331292B48E8003EF7F2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5F1EA332292B4911003EF7F2 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		5F5C074B28FE81B40089DD4B /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +469,7 @@
 		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				5F1EA331292B48E8003EF7F2 /* Login */,
 				0EFB5BA128FF088A00174291 /* NearbyPlace */,
 				A35BD48028FE85A800D1FA7C /* Magazine */,
 				96554EE32927F15000BBE26A /* Office */,
@@ -837,6 +848,7 @@
 				A34AB347291B99C600065212 /* CGFloat+.swift in Sources */,
 				5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */,
 				5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */,
+				5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */,
 				A33835282903E03A009882BF /* UIButton+.swift in Sources */,
 				961C56212902BF77003E238F /* HeaderView.swift in Sources */,
 				16B29988290AF65F00136E62 /* TitlePopOverViewController.swift in Sources */,
