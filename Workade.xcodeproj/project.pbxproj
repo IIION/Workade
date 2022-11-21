@@ -102,7 +102,6 @@
 		A354F477292625F5003E601A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F476292625F5003E601A /* ProfileView.swift */; };
 		A354F47929262615003E601A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47829262615003E601A /* StickerView.swift */; };
 		A354F47B29263C52003E601A /* StickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */; };
-		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };
 		A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982B290ADE1300220755 /* MagazineDetailResource.swift */; };
 		A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineViewModel.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
@@ -219,7 +218,6 @@
 		A354F476292625F5003E601A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A354F47829262615003E601A /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollectionViewCell.swift; sourceTree = "<group>"; };
-		A35559A728FED2B2001E4254 /* TapDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailViewController.swift; sourceTree = "<group>"; };
 		A35A982B290ADE1300220755 /* MagazineDetailResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailResource.swift; sourceTree = "<group>"; };
 		A35A982E290ADE1F00220755 /* MagazineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewModel.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
@@ -580,7 +578,6 @@
 			isa = PBXGroup;
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
-				A35559A728FED2B2001E4254 /* TapDetailViewController.swift */,
 				A33835232903C96C009882BF /* CellItemDetailViewController.swift */,
 				A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */,
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
@@ -836,7 +833,6 @@
 				96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */,
 				9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
-				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,

@@ -169,11 +169,11 @@ extension MagazineViewController: EllipseSegmentControlDelegate {
 
 extension MagazineViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) {
-        // UserDefaults 업데이트(저장)
+        // UserDefaults update
         UserDefaultsManager.shared.updateUserDefaults(id: id, key: Constants.Key.wishMagazine)
-        // viewModel의 magazines 업데이트
+        // viewModel의 magazines update
         viewModel.setupMagazineModelsBookmark()
-        // apply snapshot
+        // apply snapshot - bookmark Tap 시 wishList일 때만 애니메이션.
         applySnapshot(category: category, animated: category == .wishList)
     }
 }
@@ -186,8 +186,3 @@ extension MagazineViewController: UICollectionViewDelegate {
         present(viewController, animated: true)
     }
 }
-
-/*
- 북마크 버튼 눌릴 때, 저장하고있고.
- CellItemDetailViewController는 BookmarkManager에게 발신함으로써 저장하고있다.
- */
