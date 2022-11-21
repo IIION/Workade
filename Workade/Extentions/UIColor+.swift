@@ -48,7 +48,7 @@ struct ColorTheme {
     fileprivate init() {}
     
     let workadeBlue = UIColor(named: "WorkadeBlue") ?? UIColor.black
-    let workadeBackgroundBlue = UIColor(named: "WorkadeBlue")?.withAlphaComponent(0.1) ?? UIColor.black
+    let workadeBackgroundBlue = UIColor(named: "WorkadeBackgroundBlue") ?? UIColor.black
     
     let primary = UIColor(named: "Primary") ?? UIColor.black
     let secondary = UIColor(named: "Secondary") ?? UIColor.black
@@ -56,6 +56,7 @@ struct ColorTheme {
     let quaternary = UIColor(named: "Quaternary") ?? UIColor.black
     let background = UIColor(named: "Background") ?? UIColor.black
     let labelBackground = UIColor(named: "LabelBackground") ?? UIColor.black
+    let sectionBackground = UIColor(named: "SectionBackground") ?? UIColor.black
     let groupedBackground = UIColor(named: "GroupedBackground") ?? UIColor.black
     let subGroupedBackground = UIColor(named: "SubGroupedBackground") ?? UIColor.black
     
