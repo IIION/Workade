@@ -16,20 +16,47 @@ class CheckListViewController: UIViewController {
     private var editState = EditState.none
     
     private lazy var editButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(
-            title: "편집",
-            style: .plain,
-            target: self,
-            action: #selector(barButtonPressed(_:))
-        )
-        barButtonItem.tintColor = .black
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 4
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 10, leading: 14, bottom: 10, trailing: 14)
+        
+        var attributedEditText = AttributedString.init("편집")
+        attributedEditText.font = .customFont(for: .caption)
+        var attributedCompleteText = AttributedString.init("완료")
+        attributedCompleteText.font = .customFont(for: .caption)
+        config.attributedTitle = attributedEditText
+        config.image = UIImage.fromSystemImage(name: "pencil", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+        
+        button.configuration = config
+        button.tintColor = .theme.workadeBlue
+        button.backgroundColor = .theme.workadeBackgroundBlue
+        button.layer.cornerRadius = 20
+        button.addAction(UIAction(handler: { [weak self] _ in
+            if let self = self {
+                if self.editState == .edit {
+                    self.editState = .none
+                    config.attributedTitle = attributedEditText
+                    button.configuration = config
+                    self.checklistCollectionView.reloadData()
+                } else {
+                    self.editState = .edit
+                    config.attributedTitle = attributedCompleteText
+                    button.configuration = config
+                    self.checklistCollectionView.reloadData()
+                }
+            }
+        }), for: .touchUpInside)
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
         
         return barButtonItem
     }()
     
     private let checkListLabel: UILabel = {
         let label = UILabel()
-        label.text = "Checklist"
+        label.text = "체크리스트"
         label.font = UIFont.customFont(for: .title2)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,18 +102,6 @@ class CheckListViewController: UIViewController {
     
     @objc private func popToGuideHomeViewController() {
         navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
-        if editState == .edit {
-            editState = .none
-            editButton.title = "편집"
-            checklistCollectionView.reloadData()
-        } else {
-            editState = .edit
-            editButton.title = "완료"
-            checklistCollectionView.reloadData()
-        }
     }
     
     @objc private func deleteButtonPressed(_ sender: UIButton) {
