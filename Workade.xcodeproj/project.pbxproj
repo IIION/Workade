@@ -101,6 +101,7 @@
 		A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */; };
 		A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */; };
 		A37D28442923C62E009F0ED6 /* GalleryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28432923C62E009F0ED6 /* GalleryResource.swift */; };
+		A3924B0E292B5F0B009BBBDE /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3924B0D292B5F0B009BBBDE /* PickerTableViewCell.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
 		A3BB02BD2926A7E3000DE275 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */; };
@@ -211,6 +212,7 @@
 		A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceImageView.swift; sourceTree = "<group>"; };
 		A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceDetailView.swift; sourceTree = "<group>"; };
 		A37D28432923C62E009F0ED6 /* GalleryResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryResource.swift; sourceTree = "<group>"; };
+		A3924B0D292B5F0B009BBBDE /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */,
+				A3924B0D292B5F0B009BBBDE /* PickerTableViewCell.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,
+				A3924B0E292B5F0B009BBBDE /* PickerTableViewCell.swift in Sources */,
 				A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */,
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
 				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
