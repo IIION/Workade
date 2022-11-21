@@ -16,16 +16,16 @@ final class WorkationViewController: UIViewController {
     
     private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
-        style: .done,
-        target: self,
-        action: #selector(clickedCloseButton(_:))
+        primaryAction: UIAction(handler: { [weak self] _ in
+            self?.dismissAction?()
+            self?.dismiss(animated: true)
+        })
     )
     
     private lazy var guideButton = UIBarButtonItem(
         image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
-        style: .plain,
-        target: self,
-        action: nil
+        primaryAction: UIAction(handler: { _ in
+        })
     )
     
     // MARK: - Top Pane's Contents
@@ -65,7 +65,20 @@ final class WorkationViewController: UIViewController {
         button.tintColor = .theme.background
         button.backgroundColor = .theme.workadeBlue
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(whoAreTheyButtonTapped(_:)), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            let workStatusSheetViewController = WorkerStatusSheetViewController()
+            workStatusSheetViewController.modalPresentationStyle = .overFullScreen
+            
+            let dimView = UIView(frame: UIScreen.main.bounds)
+            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.7)
+            self?.view.addSubview(dimView)
+            self?.view.bringSubviewToFront(dimView)
+            workStatusSheetViewController.viewDidDissmiss = {
+                dimView.removeFromSuperview()
+            }
+            
+            self?.present(workStatusSheetViewController, animated: true)
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -123,7 +136,20 @@ final class WorkationViewController: UIViewController {
         button.tintColor = .theme.background
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
-        button.addTarget(self, action: #selector(endButtonTapped(_:)), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            let stickerShetViewController = StickerSheetViewController()
+            stickerShetViewController.modalPresentationStyle = .overFullScreen
+            
+            let dimView = UIView(frame: UIScreen.main.bounds)
+            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+            self?.view.addSubview(dimView)
+            self?.view.bringSubviewToFront(dimView)
+            stickerShetViewController.viewDidDismiss = {
+                dimView.removeFromSuperview()
+            }
+            
+            self?.present( stickerShetViewController, animated: true)
+        }), for: .touchUpInside)
         
         return button
     }()
@@ -201,36 +227,6 @@ final class WorkationViewController: UIViewController {
         setupLayout()
         setupNavigationBar()
     }
-    
-    @objc private func whoAreTheyButtonTapped(_ sender: UIButton) {
-        let workStatusSheetViewController = WorkerStatusSheetViewController()
-        workStatusSheetViewController.modalPresentationStyle = .overFullScreen
-        
-        let dimView = UIView(frame: UIScreen.main.bounds)
-        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.7)
-        self.view.addSubview(dimView)
-        self.view.bringSubviewToFront(dimView)
-        workStatusSheetViewController.viewDidDissmiss = {
-            dimView.removeFromSuperview()
-        }
-        
-        self.present(workStatusSheetViewController, animated: true)
-    }
-    
-    @objc private func endButtonTapped(_ sender: UIButton) {
-        let stickerShetViewController = StickerSheetViewController()
-        stickerShetViewController.modalPresentationStyle = .overFullScreen
-        
-        let dimView = UIView(frame: UIScreen.main.bounds)
-        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
-        self.view.addSubview(dimView)
-        self.view.bringSubviewToFront(dimView)
-        stickerShetViewController.viewDidDismiss = {
-            dimView.removeFromSuperview()
-        }
-        
-        self.present( stickerShetViewController, animated: true)
-    }
 }
 
 private extension WorkationViewController {
@@ -305,11 +301,5 @@ private extension WorkationViewController {
             bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
-    }
-    
-    @objc
-    func clickedCloseButton(_ sender: UIButton) {
-        dismissAction?()
-        self.dismiss(animated: true)
     }
 }

@@ -26,6 +26,7 @@ class GradientButton: UIButton {
         subLayer.endPoint = CGPoint(x: 0.25, y: 0.75)
         subLayer.cornerRadius = 20
         layer.insertSublayer(subLayer, at: 0)
+        
         return subLayer
     }()
 }

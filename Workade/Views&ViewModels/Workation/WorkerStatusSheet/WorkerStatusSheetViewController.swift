@@ -29,7 +29,10 @@ class WorkerStatusSheetViewController: UIViewController {
         let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: config)
         button.setImage(image, for: .normal)
         button.tintColor = .theme.tertiary
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.presentingViewController?.dismiss(animated: true)
+            self?.viewDidDissmiss?()
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -100,11 +103,6 @@ class WorkerStatusSheetViewController: UIViewController {
         
         return stackView
     }()
-    
-    @objc private func close() {
-        presentingViewController?.dismiss(animated: true)
-        self.viewDidDissmiss?()
-    }
     
     @objc private func backgroundViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         presentingViewController?.dismiss(animated: true)
