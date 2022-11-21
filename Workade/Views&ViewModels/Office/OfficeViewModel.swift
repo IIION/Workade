@@ -14,7 +14,11 @@ final class OfficeViewModel {
     
     var isCompleteFetch = Binder(false)
     
-    func requestOfficeData() {
+    init() {
+        requestOfficeData()
+    }
+    
+    private func requestOfficeData() {
         Task {
             do {
                 officeResource = try await NetworkManager.shared.requestResourceData(from: Constants.Address.officeResource)

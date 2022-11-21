@@ -17,7 +17,12 @@
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
+		163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */; };
+		163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */; };
 		1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */; };
+		169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F00292A5A5E007F9E0A /* GradientButton.swift */; };
+		169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */; };
+		169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */; };
 		16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29983290A7BAE00136E62 /* CheckListCellViewModel.swift */; };
 		16B29988290AF65F00136E62 /* TitlePopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29987290AF65F00136E62 /* TitlePopOverViewController.swift */; };
 		16B2998A290B16E800136E62 /* CheckListBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */; };
@@ -86,6 +91,7 @@
 		96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */; };
 		96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F2A29290C4200BBE26A /* EllipseButton.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
+		9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690404C292AB61500F5E590 /* MagazineCategory.swift */; };
 		96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */; };
 		96972ED12903011500197DEE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ED02903011500197DEE /* CellImageView.swift */; };
 		96A28420292A6BB50084E479 /* OfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2841F292A6BB50084E479 /* OfficeViewModel.swift */; };
@@ -101,7 +107,6 @@
 		A354F477292625F5003E601A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F476292625F5003E601A /* ProfileView.swift */; };
 		A354F47929262615003E601A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47829262615003E601A /* StickerView.swift */; };
 		A354F47B29263C52003E601A /* StickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */; };
-		A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35559A728FED2B2001E4254 /* TapDetailViewController.swift */; };
 		A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982B290ADE1300220755 /* MagazineDetailResource.swift */; };
 		A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineViewModel.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
@@ -129,7 +134,12 @@
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewController.swift; sourceTree = "<group>"; };
+		163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewModel.swift; sourceTree = "<group>"; };
 		1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListBottomSheetViewController.swift; sourceTree = "<group>"; };
+		169E1F00292A5A5E007F9E0A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerStatusSheetViewController.swift; sourceTree = "<group>"; };
+		169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetViewController.swift; sourceTree = "<group>"; };
 		16B29983290A7BAE00136E62 /* CheckListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCellViewModel.swift; sourceTree = "<group>"; };
 		16B29987290AF65F00136E62 /* TitlePopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopOverViewController.swift; sourceTree = "<group>"; };
 		16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListBottomSheetViewModel.swift; sourceTree = "<group>"; };
@@ -202,6 +212,7 @@
 		96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseSegmentControl.swift; sourceTree = "<group>"; };
 		96554F2A29290C4200BBE26A /* EllipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseButton.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		9690404C292AB61500F5E590 /* MagazineCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCategory.swift; sourceTree = "<group>"; };
 		96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
 		96972ED02903011500197DEE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
 		96A2841F292A6BB50084E479 /* OfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeViewModel.swift; sourceTree = "<group>"; };
@@ -217,7 +228,6 @@
 		A354F476292625F5003E601A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A354F47829262615003E601A /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollectionViewCell.swift; sourceTree = "<group>"; };
-		A35559A728FED2B2001E4254 /* TapDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapDetailViewController.swift; sourceTree = "<group>"; };
 		A35A982B290ADE1300220755 /* MagazineDetailResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailResource.swift; sourceTree = "<group>"; };
 		A35A982E290ADE1F00220755 /* MagazineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewModel.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
@@ -291,6 +301,17 @@
 			path = CheckListCell;
 			sourceTree = "<group>";
 		};
+		163A0FA729260DAF00BFF0D2 /* Workation */ = {
+			isa = PBXGroup;
+			children = (
+				163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */,
+				163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */,
+				169E1F02292A7F01007F9E0A /* WorkerStatusSheet */,
+				169E1F05292A9529007F9E0A /* StickerSheet */,
+			);
+			path = Workation;
+			sourceTree = "<group>";
+		};
 		1646C99029082F95008D510D /* CheckListBottomSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +319,22 @@
 				16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */,
 			);
 			path = CheckListBottomSheet;
+			sourceTree = "<group>";
+		};
+		169E1F02292A7F01007F9E0A /* WorkerStatusSheet */ = {
+			isa = PBXGroup;
+			children = (
+				169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */,
+			);
+			path = WorkerStatusSheet;
+			sourceTree = "<group>";
+		};
+		169E1F05292A9529007F9E0A /* StickerSheet */ = {
+			isa = PBXGroup;
+			children = (
+				169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */,
+			);
+			path = StickerSheet;
 			sourceTree = "<group>";
 		};
 		16CBD45B290272DE0056A641 /* CheckListDetail */ = {
@@ -370,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */,
+				9690404C292AB61500F5E590 /* MagazineCategory.swift */,
 				5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */,
 				96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */,
 				0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */,
@@ -470,6 +508,7 @@
 				9646763629092D340047ED34 /* MyPage */,
 				9646763D2909346A0047ED34 /* SettingViewController */,
 				16083B4729013F9A008056D4 /* CheckList */,
+				163A0FA729260DAF00BFF0D2 /* Workation */,
 			);
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
@@ -577,7 +616,6 @@
 			isa = PBXGroup;
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
-				A35559A728FED2B2001E4254 /* TapDetailViewController.swift */,
 				A33835232903C96C009882BF /* CellItemDetailViewController.swift */,
 				A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */,
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
@@ -605,6 +643,7 @@
 				5F28285B290793D800882FF3 /* BasePaddingLabel.swift */,
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
 				96554EE12927C78C00BBE26A /* Divider.swift */,
+				169E1F00292A5A5E007F9E0A /* GradientButton.swift */,
 				96A28421292A77E20084E479 /* PrepareView.swift */,
 			);
 			path = Share;
@@ -779,6 +818,7 @@
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
+				169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */,
 				961CC483290AF34600921F24 /* MultiBinder.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
@@ -788,21 +828,26 @@
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
+				163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */,
 				96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				96A28422292A77E20084E479 /* PrepareView.swift in Sources */,
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
+				9646763A29092EBF0047ED34 /* TitleView.swift in Sources */,
+				169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */,
 				9646763A29092EBF0047ED34 /* TitleLabel.swift in Sources */,
 				9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */,
 				A393992629081628000E129A /* CustomNavigationBar.swift in Sources */,
+				169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */,
 				5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
 				16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */,
 				A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */,
+				9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
 				16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */,
@@ -832,7 +877,6 @@
 				96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */,
 				9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
-				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
@@ -863,6 +907,7 @@
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
+				163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
 				0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
