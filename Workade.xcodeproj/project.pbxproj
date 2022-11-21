@@ -114,9 +114,11 @@
 		A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */; };
 		A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */; };
 		A37D28442923C62E009F0ED6 /* GalleryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28432923C62E009F0ED6 /* GalleryResource.swift */; };
+		A3924B0E292B5F0B009BBBDE /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3924B0D292B5F0B009BBBDE /* PickerTableViewCell.swift */; };
 		A393992629081628000E129A /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A393992529081628000E129A /* CustomNavigationBar.swift */; };
 		A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */; };
 		A3BB02BD2926A7E3000DE275 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */; };
+		A3CBB16629275F97009AD4E1 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CBB16529275F97009AD4E1 /* UITextField+.swift */; };
 		A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */; };
 		A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD5E6D2917A193008FDFBF /* GradientView.swift */; };
 		A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */; };
@@ -236,9 +238,11 @@
 		A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceImageView.swift; sourceTree = "<group>"; };
 		A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceDetailView.swift; sourceTree = "<group>"; };
 		A37D28432923C62E009F0ED6 /* GalleryResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryResource.swift; sourceTree = "<group>"; };
+		A3924B0D292B5F0B009BBBDE /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
 		A393992529081628000E129A /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		A3947B2229013EE200DA4E0D /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		A3CBB16529275F97009AD4E1 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
 		A3DD5E6D2917A193008FDFBF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailView.swift; sourceTree = "<group>"; };
@@ -429,6 +433,7 @@
 				21BD196C29276FCB005D6D1A /* CAGradientLayer+.swift */,
 				0E1E8873290AFCEF0021E788 /* UILabel+.swift */,
 				A33835272903E03A009882BF /* UIButton+.swift */,
+				A3CBB16529275F97009AD4E1 /* UITextField+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
@@ -656,6 +661,7 @@
 			isa = PBXGroup;
 			children = (
 				A3BB02BC2926A7E3000DE275 /* EditProfileViewController.swift */,
+				A3924B0D292B5F0B009BBBDE /* PickerTableViewCell.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,
+				A3924B0E292B5F0B009BBBDE /* PickerTableViewCell.swift in Sources */,
 				A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */,
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
 				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
@@ -905,6 +912,7 @@
 				21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */,
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,
+				A3CBB16629275F97009AD4E1 /* UITextField+.swift in Sources */,
 				A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
