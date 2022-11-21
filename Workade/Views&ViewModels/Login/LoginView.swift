@@ -40,16 +40,16 @@ class  LoginView: UIView {
         return stack
     }()
     
-    private let umbrellaLabel: UIImageView = {
-        let umbrellaImageView = UIImageView()
-        umbrellaImageView.translatesAutoresizingMaskIntoConstraints = false
-        umbrellaImageView.image = UIImage(systemName: "beach.umbrella.fill")
-        umbrellaImageView.tintColor = .theme.background
+    private let umbrellaImageView: UIImageView = {
+        let umbrellaImage = UIImageView()
+        umbrellaImage.translatesAutoresizingMaskIntoConstraints = false
+        umbrellaImage.image = UIImage(systemName: "beach.umbrella.fill")
+        umbrellaImage.tintColor = .theme.background
         
-        return umbrellaImageView
+        return umbrellaImage
     }()
     
-    let textLabel: UILabel = {
+    let loginButtonText: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "나도 같이 동참하기"
@@ -111,13 +111,13 @@ class  LoginView: UIView {
             loginButtonView.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
             loginButtonView.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
         ])
-        loginButtonView.addArrangedSubview(umbrellaLabel)
-        NSLayoutConstraint.activate([
-            umbrellaLabel.heightAnchor.constraint(equalToConstant: 18),
-            umbrellaLabel.widthAnchor.constraint(equalToConstant: 18)
-        ])
-        loginButtonView.addArrangedSubview(textLabel)
         
+        loginButtonView.addArrangedSubview(umbrellaImageView)
+        NSLayoutConstraint.activate([
+            umbrellaImageView.heightAnchor.constraint(equalToConstant: 18),
+            umbrellaImageView.widthAnchor.constraint(equalToConstant: 18)
+        ])
+        
+        loginButtonView.addArrangedSubview(loginButtonText)
     }
-    
 }
