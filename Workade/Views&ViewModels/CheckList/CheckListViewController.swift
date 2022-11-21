@@ -37,11 +37,13 @@ class CheckListViewController: UIViewController {
             if let self = self {
                 if self.editState == .edit {
                     self.editState = .none
+                    config.image = UIImage.fromSystemImage(name: "pencil", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
                     config.attributedTitle = attributedEditText
                     button.configuration = config
                     self.checklistCollectionView.reloadData()
                 } else {
                     self.editState = .edit
+                    config.image = nil
                     config.attributedTitle = attributedCompleteText
                     button.configuration = config
                     self.checklistCollectionView.reloadData()
