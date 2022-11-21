@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController {
+final class EditProfileViewController: UIViewController {
     private var pickerCheck = false
     private let pickerList = ["개발", "디자인", "기획", "마케팅", "콘텐츠 제작", "작가(글,웹툰)", "예술가", "프리랜서", "기타"]
     
@@ -126,7 +126,6 @@ class EditProfileViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(nameLabel)
         NSLayoutConstraint.activate([
-            
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18)
         ])
