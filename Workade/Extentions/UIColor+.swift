@@ -48,6 +48,7 @@ struct ColorTheme {
     fileprivate init() {}
     
     let workadeBlue = UIColor(named: "WorkadeBlue") ?? UIColor.black
+    let workadeBackgroundBlue = UIColor(named: "WorkadeBlue")?.withAlphaComponent(0.1) ?? UIColor.black
     
     let primary = UIColor(named: "Primary") ?? UIColor.black
     let secondary = UIColor(named: "Secondary") ?? UIColor.black

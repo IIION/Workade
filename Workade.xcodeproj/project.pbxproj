@@ -17,7 +17,12 @@
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
+		163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */; };
+		163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */; };
 		1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */; };
+		169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F00292A5A5E007F9E0A /* GradientButton.swift */; };
+		169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */; };
+		169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */; };
 		16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29983290A7BAE00136E62 /* CheckListCellViewModel.swift */; };
 		16B29988290AF65F00136E62 /* TitlePopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29987290AF65F00136E62 /* TitlePopOverViewController.swift */; };
 		16B2998A290B16E800136E62 /* CheckListBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */; };
@@ -129,7 +134,12 @@
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewController.swift; sourceTree = "<group>"; };
+		163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewModel.swift; sourceTree = "<group>"; };
 		1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListBottomSheetViewController.swift; sourceTree = "<group>"; };
+		169E1F00292A5A5E007F9E0A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerStatusSheetViewController.swift; sourceTree = "<group>"; };
+		169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetViewController.swift; sourceTree = "<group>"; };
 		16B29983290A7BAE00136E62 /* CheckListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCellViewModel.swift; sourceTree = "<group>"; };
 		16B29987290AF65F00136E62 /* TitlePopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopOverViewController.swift; sourceTree = "<group>"; };
 		16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListBottomSheetViewModel.swift; sourceTree = "<group>"; };
@@ -291,6 +301,17 @@
 			path = CheckListCell;
 			sourceTree = "<group>";
 		};
+		163A0FA729260DAF00BFF0D2 /* Workation */ = {
+			isa = PBXGroup;
+			children = (
+				163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */,
+				163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */,
+				169E1F02292A7F01007F9E0A /* WorkerStatusSheet */,
+				169E1F05292A9529007F9E0A /* StickerSheet */,
+			);
+			path = Workation;
+			sourceTree = "<group>";
+		};
 		1646C99029082F95008D510D /* CheckListBottomSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +319,22 @@
 				16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */,
 			);
 			path = CheckListBottomSheet;
+			sourceTree = "<group>";
+		};
+		169E1F02292A7F01007F9E0A /* WorkerStatusSheet */ = {
+			isa = PBXGroup;
+			children = (
+				169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */,
+			);
+			path = WorkerStatusSheet;
+			sourceTree = "<group>";
+		};
+		169E1F05292A9529007F9E0A /* StickerSheet */ = {
+			isa = PBXGroup;
+			children = (
+				169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */,
+			);
+			path = StickerSheet;
 			sourceTree = "<group>";
 		};
 		16CBD45B290272DE0056A641 /* CheckListDetail */ = {
@@ -470,6 +507,7 @@
 				9646763629092D340047ED34 /* MyPage */,
 				9646763D2909346A0047ED34 /* SettingViewController */,
 				16083B4729013F9A008056D4 /* CheckList */,
+				163A0FA729260DAF00BFF0D2 /* Workation */,
 			);
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
@@ -605,6 +643,7 @@
 				5F28285B290793D800882FF3 /* BasePaddingLabel.swift */,
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
 				96554EE12927C78C00BBE26A /* Divider.swift */,
+				169E1F00292A5A5E007F9E0A /* GradientButton.swift */,
 				96A28421292A77E20084E479 /* PrepareView.swift */,
 			);
 			path = Share;
@@ -779,6 +818,7 @@
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
+				169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */,
 				961CC483290AF34600921F24 /* MultiBinder.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
@@ -788,15 +828,19 @@
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
+				163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */,
 				96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				96A28422292A77E20084E479 /* PrepareView.swift in Sources */,
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
+				9646763A29092EBF0047ED34 /* TitleView.swift in Sources */,
+				169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */,
 				9646763A29092EBF0047ED34 /* TitleLabel.swift in Sources */,
 				9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */,
 				A393992629081628000E129A /* CustomNavigationBar.swift in Sources */,
+				169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */,
 				5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
@@ -863,6 +907,7 @@
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
+				163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
 				0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */,
 				5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */,
