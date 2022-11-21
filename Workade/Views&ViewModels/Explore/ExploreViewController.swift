@@ -14,6 +14,7 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon")?.withRenderingMode(.alwaysOriginal), primaryAction: nil)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
+        setupLayout()
     }
     
     lazy var openChatButton: UIButton = {
@@ -65,4 +66,21 @@ class ExploreViewController: UIViewController {
         return button
     }()
     
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이번엔 어디로\n떠나볼까요?"
+        label.numberOfLines = 0
+        label.font = .customFont(for: .title3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private func setupLayout() {
+        view.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+        ])
+    }
 }
