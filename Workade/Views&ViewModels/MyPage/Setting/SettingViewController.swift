@@ -39,6 +39,7 @@ final class SettingViewController: UIViewController {
             // TODO: 데이터 뷰 이동
             print("데이터 버튼 클릭")
         }), for: .touchUpInside)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -50,6 +51,7 @@ final class SettingViewController: UIViewController {
             // TODO: 라이센스 뷰 이동
             print("라이센스 버튼 클릭")
         }), for: .touchUpInside)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -61,8 +63,8 @@ final class SettingViewController: UIViewController {
         button.titleLabel?.font = .customFont(for: .caption2)
         button.setTitleColor(.theme.tertiary, for: .normal)
         button.backgroundColor = .theme.background
-        button.layer.cornerRadius = 10
         
+        button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         
