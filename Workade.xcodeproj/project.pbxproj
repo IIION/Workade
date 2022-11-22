@@ -113,6 +113,8 @@
 		A354F47B29263C52003E601A /* StickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */; };
 		A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982B290ADE1300220755 /* MagazineDetailResource.swift */; };
 		A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineViewModel.swift */; };
+		A35B7096292CF6EE0083E0A2 /* LocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35B7095292CF6EE0083E0A2 /* LocationButton.swift */; };
+		A35B7098292D02370083E0A2 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35B7097292D02370083E0A2 /* TestViewController.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
 		A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */; };
 		A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */; };
@@ -238,6 +240,8 @@
 		A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		A35A982B290ADE1300220755 /* MagazineDetailResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailResource.swift; sourceTree = "<group>"; };
 		A35A982E290ADE1F00220755 /* MagazineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewModel.swift; sourceTree = "<group>"; };
+		A35B7095292CF6EE0083E0A2 /* LocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButton.swift; sourceTree = "<group>"; };
+		A35B7097292D02370083E0A2 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
 		A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceImageView.swift; sourceTree = "<group>"; };
 		A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceDetailView.swift; sourceTree = "<group>"; };
@@ -665,6 +669,8 @@
 				96554EE12927C78C00BBE26A /* Divider.swift */,
 				169E1F00292A5A5E007F9E0A /* GradientButton.swift */,
 				96A28421292A77E20084E479 /* PrepareView.swift */,
+				A35B7095292CF6EE0083E0A2 /* LocationButton.swift */,
+				A35B7097292D02370083E0A2 /* TestViewController.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -864,6 +870,7 @@
 				169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */,
 				5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
+				A35B7098292D02370083E0A2 /* TestViewController.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
 				2170C28F292BB0BC005146C3 /* ExploreViewController.swift in Sources */,
@@ -930,6 +937,7 @@
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
+				A35B7096292CF6EE0083E0A2 /* LocationButton.swift in Sources */,
 				21BD196D29276FCB005D6D1A /* CAGradientLayer+.swift in Sources */,
 				163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
