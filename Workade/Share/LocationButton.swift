@@ -53,18 +53,21 @@ class LocationButton: UIButton {
     }()
     
     private let peopleImage: UIImageView = {
+        let config = UIImage.SymbolConfiguration(pointSize: 9, weight: .regular, scale: .default)
+        
         let peopleImage = UIImageView()
-        peopleImage.image = UIImage(systemName: "person.fill")
+        peopleImage.image = UIImage(systemName: "person.fill", withConfiguration: config)
         peopleImage.tintColor = .theme.primary
         peopleImage.translatesAutoresizingMaskIntoConstraints = false
         
         return peopleImage
     }()
     
-    private let peopleCountLabel: UILabel = {
+    private lazy var peopleCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = .theme.primary
         label.font = .customFont(for: .caption2)
+        label.text = "\(peopleCount)"
         
         return label
     }()
