@@ -73,10 +73,11 @@ class LocationButton: UIButton {
         return label
     }()
     
-    init(region: String) {
+    init(region: String, selectedRegion: Binder<TestRegion?>) {
         self.region = region
-        super.init(frame: .zero)
+        self.selectedRegion = selectedRegion
         
+        super.init(frame: .zero)
         if selectedRegion.value?.rawValue == region {
             setupSelectLayout()
         } else {
