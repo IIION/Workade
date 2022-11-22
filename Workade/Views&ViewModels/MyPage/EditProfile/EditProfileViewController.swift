@@ -71,11 +71,11 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var pickerTableView: UITableView = {
         let pickerTableView = UITableView()
-        pickerTableView.layer.cornerRadius = 15
         pickerTableView.backgroundColor = .theme.background
         pickerTableView.separatorStyle = .none
         pickerTableView.showsVerticalScrollIndicator = false
         
+        pickerTableView.layer.cornerRadius = 15
         pickerTableView.layer.borderWidth = 0.2
         pickerTableView.layer.borderColor = UIColor.theme.tertiary.cgColor
         
