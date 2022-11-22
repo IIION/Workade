@@ -8,6 +8,9 @@
 import UIKit
 
 class RegionInfoView: UIView {
+    
+    let selectedRegion: Binder<Region?>
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = "제주도"
@@ -66,14 +69,15 @@ class RegionInfoView: UIView {
         let image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold))?.withRenderingMode(.alwaysOriginal)
         button.setImage(image, for: .normal)
         button.addAction(UIAction(handler: { [weak self] _ in
-            
+            self?.selectedRegion.value = nil
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, selectedRegion: Binder<Region?>) {
+        self.selectedRegion = selectedRegion
         super.init(frame: frame)
         
         self.backgroundColor = .theme.sectionBackground

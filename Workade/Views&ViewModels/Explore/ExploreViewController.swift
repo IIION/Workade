@@ -52,7 +52,7 @@ class ExploreViewController: UIViewController {
     }()
     
     lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero)
+        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
