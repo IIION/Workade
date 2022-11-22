@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ExploreViewController: UIViewController {
     
@@ -82,6 +83,11 @@ class ExploreViewController: UIViewController {
                                                color: .theme.workadeBlue)
         config.imagePadding = 4
         button.configuration = config
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard let blogUrl = URL(string: "https://open.kakao.com/o/gFC1wiEe") else { return }
+            let blogSafariView: SFSafariViewController = SFSafariViewController(url: blogUrl)
+            self?.present(blogSafariView, animated: true, completion: nil)
+        }), for: .touchUpInside)
         
         return button
     }()

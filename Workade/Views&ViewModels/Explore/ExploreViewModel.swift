@@ -22,6 +22,8 @@ enum Region: String, Hashable {
     case jeollanamdo
     case gyeongsangbukdo
     case gyeongsangnamdo
+    case jeju
+    case sejong
     
     var name: String {
         switch self {
@@ -53,6 +55,10 @@ enum Region: String, Hashable {
             return "경상북도"
         case .gyeongsangnamdo:
             return "경상남도"
+        case .jeju:
+            return "제주도"
+        case .sejong:
+            return "세종"
         }
     }
     
@@ -85,6 +91,10 @@ enum Region: String, Hashable {
         case .gyeongsangbukdo:
             return ""
         case .gyeongsangnamdo:
+            return ""
+        case .jeju:
+            return ""
+        case .sejong:
             return ""
         }
     }
