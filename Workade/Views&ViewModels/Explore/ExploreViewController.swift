@@ -29,12 +29,8 @@ class ExploreViewController: UIViewController {
         return view
     }()
     
-    lazy var subContainerView: UIView = {
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .theme.sectionBackground
-        view.layer.cornerCurve = .continuous
-        view.layer.cornerRadius = 30
-        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+    lazy var regionInfoView: RegionInfoView = {
+        let view = RegionInfoView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -133,6 +129,14 @@ class ExploreViewController: UIViewController {
     }()
     
     private func setupLayout() {
+        
+        view.addSubview(mainContainerView)
+        NSLayoutConstraint.activate([
+            mainContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            mainContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            mainContainerView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
+        ])
+        
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -141,15 +145,24 @@ class ExploreViewController: UIViewController {
         
         view.addSubview(mapImageView)
         NSLayoutConstraint.activate([
-            mapImageView.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
-            mapImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            mapImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0)
+            mapImageView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            mapImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
+            mapImageView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -20)
         ])
         
-        view.addSubview(guideButton)
+//        view.addSubview(guideButton)
+//        NSLayoutConstraint.activate([
+//            guideButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+//            guideButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+//        ])
+        
+        view.addSubview(regionInfoView)
         NSLayoutConstraint.activate([
-            guideButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            guideButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            regionInfoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            regionInfoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            regionInfoView.heightAnchor.constraint(equalToConstant: 170),
+            regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
+            regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: 4)
         ])
     }
 }
@@ -244,13 +257,13 @@ class RegionInfoView: UIView {
         self.addSubview(desciptionLabel)
         NSLayoutConstraint.activate([
             desciptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            desciptionLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            desciptionLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
         
         self.addSubview(workationButton)
         NSLayoutConstraint.activate([
             workationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            workationButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            workationButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
         
         self.addSubview(dismissButton)
