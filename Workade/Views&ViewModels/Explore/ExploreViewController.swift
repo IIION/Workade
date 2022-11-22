@@ -159,6 +159,9 @@ class ExploreViewController: UIViewController {
                                                color: .theme.background)
         config.imagePadding = 4
         button.configuration = config
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
