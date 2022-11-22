@@ -10,12 +10,27 @@ import SwiftUI
 
 class ExploreViewController: UIViewController {
     
+    let viewModel = ExploreViewModel()
+    var regionInfoViewBottomConstraint: NSLayoutConstraint?
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon")?.withRenderingMode(.alwaysOriginal), primaryAction: nil)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
         setupLayout()
+        let springTiming = UISpringTimingParameters(dampingRatio: 0.85, initialVelocity: .init(dx: 0, dy: 2))
+        let animator = UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
+        viewModel.selectedRegion.bind { [weak self] region in
+            if let region = region {
+                self?.regionInfoViewBottomConstraint?.constant = 180
+            } else {
+                self?.regionInfoViewBottomConstraint?.constant = 0
+            }
+            animator.addAnimations {
+                self?.view.layoutIfNeeded()
+            }
+            animator.startAnimation()
+        }
     }
     
     lazy var mainContainerView: UIView = {
@@ -81,6 +96,13 @@ class ExploreViewController: UIViewController {
                                                color: .theme.tertiary)
         config.imagePadding = 4
         button.configuration = config
+        button.addAction(UIAction(handler: { [weak self] _ in
+            if self?.viewModel.selectedRegion.value == nil {
+                self?.viewModel.selectedRegion.value = .busan
+            } else {
+                self?.viewModel.selectedRegion.value = nil
+            }
+        }), for: .touchUpInside)
         
         return button
     }()
@@ -129,7 +151,6 @@ class ExploreViewController: UIViewController {
     }()
     
     private func setupLayout() {
-        
         view.addSubview(mainContainerView)
         NSLayoutConstraint.activate([
             mainContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -157,11 +178,12 @@ class ExploreViewController: UIViewController {
 //        ])
         
         view.addSubview(regionInfoView)
+        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
         NSLayoutConstraint.activate([
             regionInfoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             regionInfoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            regionInfoView.heightAnchor.constraint(equalToConstant: 170),
-            regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
+            regionInfoView.heightAnchor.constraint(equalToConstant: 140 + CGFloat.bottomSafeArea),
+            regionInfoViewBottomConstraint!,
             regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: 4)
         ])
     }
@@ -190,10 +212,12 @@ class RegionInfoView: UIView {
     
     lazy var desciptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "지금 29명의 사람들이\n워케이션 중이에요"
+        let text = "지금 29명의 사람들이\n워케이션 중이에요"
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: (text as NSString).range(of: "29"))
+        label.attributedText = attributedString
         label.textAlignment = .left
         label.font = .customFont(for: .captionHeadline)
-        label.textColor = .theme.primary
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -201,23 +225,17 @@ class RegionInfoView: UIView {
     }()
     
     lazy var workationButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = GradientButton(type: .custom)
         var config = UIButton.Configuration.plain()
         config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 14, bottom: 12, trailing: 14)
         
-        var background = UIButton.Configuration.plain().background
-        background.backgroundColor = .theme.workadeBlue
-        config.background = background
-        
         var titleAttr = AttributedString.init("워케이션 하러 가기")
         titleAttr.font = .customFont(for: .caption2)
         titleAttr.foregroundColor = .theme.background
-        
+
         config.attributedTitle = titleAttr
-        config.image = UIImage.fromSystemImage(name: "text.book.closed.fill",
-                                               font: .systemFont(ofSize: 13, weight: .bold),
-                                               color: .theme.background)
+        config.image = UIImage(named: "star")
         config.imagePadding = 4
         button.configuration = config
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -257,13 +275,13 @@ class RegionInfoView: UIView {
         self.addSubview(desciptionLabel)
         NSLayoutConstraint.activate([
             desciptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            desciptionLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+            desciptionLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
         self.addSubview(workationButton)
         NSLayoutConstraint.activate([
             workationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            workationButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+            workationButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
         self.addSubview(dismissButton)

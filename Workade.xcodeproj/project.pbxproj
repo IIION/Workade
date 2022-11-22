@@ -45,6 +45,7 @@
 		2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */; };
 		2163F30B290958A0007CB6DC /* CheckListTemplateResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */; };
 		2170C28F292BB0BC005146C3 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C28E292BB0BC005146C3 /* ExploreViewController.swift */; };
+		2170C291292C974B005146C3 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C290292C974B005146C3 /* ExploreViewModel.swift */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
 		218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */; };
@@ -164,6 +165,7 @@
 		2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewModel.swift; sourceTree = "<group>"; };
 		2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateResource.swift; sourceTree = "<group>"; };
 		2170C28E292BB0BC005146C3 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		2170C290292C974B005146C3 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenAnimationView.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				2170C28E292BB0BC005146C3 /* ExploreViewController.swift */,
+				2170C290292C974B005146C3 /* ExploreViewModel.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */,
 				0E29E46029275B3F00889984 /* FeatureView.swift in Sources */,
 				961CC481290AE69700921F24 /* UserDefaultsManager.swift in Sources */,
+				2170C291292C974B005146C3 /* ExploreViewModel.swift in Sources */,
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
