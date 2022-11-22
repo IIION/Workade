@@ -12,7 +12,6 @@ class CellItemDetailViewController: UIViewController {
     let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
-    private var bottomConstraints: NSLayoutConstraint!
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -81,6 +80,21 @@ class CellItemDetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var divider: UIView = {
+        let divider = UIView()
+        divider.backgroundColor = .rgb(0xF2F2F7)
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        
+        return divider
+    }()
+    
+    private lazy var shareView: ShareView = {
+        let view = ShareView(magazine: self.magazine)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: MagazineModel) {
@@ -105,7 +119,6 @@ class CellItemDetailViewController: UIViewController {
             }
         }
         
-        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
         
         setupBookmarkImage()
@@ -143,8 +156,23 @@ class CellItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             magazineDetailView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 20),
             magazineDetailView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
-            magazineDetailView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
-            bottomConstraints
+            magazineDetailView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20)
+        ])
+        
+        contentsContainer.addSubview(divider)
+        NSLayoutConstraint.activate([
+            divider.topAnchor.constraint(equalTo: magazineDetailView.bottomAnchor, constant: 50),
+            divider.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor),
+            divider.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 5)
+        ])
+        
+        contentsContainer.addSubview(shareView)
+        NSLayoutConstraint.activate([
+            shareView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 25),
+            shareView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
+            shareView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
+            shareView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -.bottomSafeArea)
         ])
     }
     

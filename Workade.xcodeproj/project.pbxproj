@@ -10,6 +10,7 @@
 		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
 		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
 		0E29E46029275B3F00889984 /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29E45F29275B3F00889984 /* FeatureView.swift */; };
+		0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36ABA2292CABEB00D6B2DD /* ShareView.swift */; };
 		0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */; };
 		0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
@@ -119,6 +120,7 @@
 		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0E29E45F29275B3F00889984 /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
+		0E36ABA2292CABEB00D6B2DD /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeDetailResource.swift; sourceTree = "<group>"; };
 		0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
 				A35559A728FED2B2001E4254 /* TapDetailViewController.swift */,
 				A33835232903C96C009882BF /* CellItemDetailViewController.swift */,
+				0E36ABA2292CABEB00D6B2DD /* ShareView.swift */,
 				A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */,
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
 			);
@@ -819,6 +822,7 @@
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,
+				0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */,
 				A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */,
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
 				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
