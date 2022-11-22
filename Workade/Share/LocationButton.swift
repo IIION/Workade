@@ -7,7 +7,7 @@
 
 import UIKit
 
-// 임시 Enum 추후 삭제 예정
+// TODO: 임시 Enum 추후 삭제 예정
 enum TestRegion: String, Hashable {
     case seoul = "서울"
     case incheon = "인천"
@@ -27,12 +27,11 @@ enum TestRegion: String, Hashable {
 
 class LocationButton: UIButton {
     // TODO: ViewModel 에서 region 받아오기
-    var region = TestRegion.busan.rawValue
+    var region: String
     // TODO: TestRegion -> Region
-    var selectedRegion: Binder<TestRegion?> = Binder(nil)
-    
+    var selectedRegion: Binder<TestRegion?>
     // TODO: 인원수 받아오기 ( 뷰컨에서 작업해도 될거같기도 함 )
-    let peopleCount = 23
+    let peopleCount: Int
     
     private lazy var locationLabel: UILabel = {
         let label = UILabel()
@@ -73,9 +72,10 @@ class LocationButton: UIButton {
         return label
     }()
     
-    init(region: String, selectedRegion: Binder<TestRegion?>) {
+    init(region: String, selectedRegion: Binder<TestRegion?>, peopleCount: Int) {
         self.region = region
         self.selectedRegion = selectedRegion
+        self.peopleCount = peopleCount
         
         super.init(frame: .zero)
         if selectedRegion.value?.rawValue == region {
