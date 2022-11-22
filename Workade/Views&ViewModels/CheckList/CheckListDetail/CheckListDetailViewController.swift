@@ -253,7 +253,7 @@ extension CheckListDetailViewController {
             self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
             
         }
-        let indexPathArray = stride(from: 0, to: todosCount-1, by: 1).map { index in
+        let indexPathArray = stride(from: todosCount, to: todosCount + todoList.count, by: 1).map { index in
             IndexPath(row: index, section: 0)
         }
         self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)

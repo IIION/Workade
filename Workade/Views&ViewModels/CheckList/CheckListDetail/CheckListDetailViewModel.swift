@@ -23,7 +23,6 @@ final class CheckListDetailViewModel {
     func addTodo(_ content: String = "내용없음") {
         guard let newTodo = coreDataManager.addTodo(content, parentCheckList: selectedCheckList) else { return }
         todos.append(newTodo)
-        sortTodos()
     }
     
     func loadTodos() {
@@ -34,7 +33,6 @@ final class CheckListDetailViewModel {
             with: Todo.fetchRequest(),
             predicate: checkListPredicate
         )
-        sortTodos()
     }
     
     func updateCheckList(checkList: CheckList) {
@@ -49,7 +47,6 @@ final class CheckListDetailViewModel {
         todos[index] = todo
         todos[index].editedTime = Date()
         coreDataManager.saveData()
-        sortTodos()
     }
     
     func deleteCheckList() {
@@ -64,20 +61,5 @@ final class CheckListDetailViewModel {
     func deleteTodo(at index: Int) {
         coreDataManager.deleteData(todos[index])
         todos.remove(at: index)
-        sortTodos()
-    }
-    
-    private func sortTodos() {
-        self.todos.sort {
-            if $0.done == $1.done {
-                if let date1 = $0.editedTime,
-                   let date2 = $1.editedTime {
-                    return date1 > date2
-                }
-                return false
-            } else {
-                return Int(truncating: NSNumber(value: $0.done)) < Int(truncating: NSNumber(value: $1.done))
-            }
-        }
     }
 }

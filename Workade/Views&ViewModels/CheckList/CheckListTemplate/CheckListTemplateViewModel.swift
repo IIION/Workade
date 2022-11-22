@@ -7,7 +7,8 @@
 
 import UIKit
 
-class CheckListTemplateViewModel {
+@MainActor
+final class CheckListTemplateViewModel {
     var todos = [String]()
     
     func addTemplateContents() {
