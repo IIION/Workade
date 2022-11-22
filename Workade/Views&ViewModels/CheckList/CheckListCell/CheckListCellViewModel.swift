@@ -5,11 +5,11 @@
 //  Created by Wonhyuk Choi on 2022/10/27.
 //
 
-import CoreData
 import UIKit
 
-struct CheckListCellViewModel {
-    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+@MainActor
+final class CheckListCellViewModel {
+    private let coreDataManager = CoreDataManager.shared
     
     var checkCount = 0
     var uncheckCount = 0
@@ -23,20 +23,13 @@ struct CheckListCellViewModel {
         }
     }
     
-    mutating func loadTodos(with request: NSFetchRequest<Todo> = Todo.fetchRequest(), predicate: NSPredicate) -> Int {
-        guard let context = context else { return 0 }
+    func loadTodos(predicate: NSPredicate) -> Int {
         guard let cid = selectedCheckList?.cid else { return 0 }
         
         let checkListPredicate = NSPredicate(format: "parentCheckList.cid MATCHES %@", cid)
-        
-        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [checkListPredicate, predicate])
-        
-        do {
-            let todos = try context.fetch(request)
-            return todos.count
-        } catch {
-            print("Error fetching data context \(error)")
-        }
-        return 0
+        return coreDataManager.loadData(
+            with: Todo.fetchRequest(),
+            predicate: NSCompoundPredicate(andPredicateWithSubpredicates: [checkListPredicate, predicate])
+        ).count
     }
 }

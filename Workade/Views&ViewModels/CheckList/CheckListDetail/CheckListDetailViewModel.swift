@@ -8,8 +8,9 @@
 import CoreData
 import UIKit
 
-struct CheckListDetailViewModel {
-    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+@MainActor
+final class CheckListDetailViewModel {
+    private let coreDataManager = CoreDataManager.shared
     
     var todos = [Todo]()
 
@@ -19,47 +20,24 @@ struct CheckListDetailViewModel {
         }
     }
     
-    private mutating func saveTodos() {
-        guard let context = context else { return }
-        
-        do {
-            try context.save()
-            self.sortTodos()
-        } catch {
-            print("Error saving context \(error)")
-        }
+    func addTodo(_ content: String = "내용없음") {
+        guard let newTodo = coreDataManager.addTodo(content, parentCheckList: selectedCheckList) else { return }
+        todos.append(newTodo)
+        sortTodos()
     }
     
-    mutating func addTodo(_ content: String = "내용없음") {
-        guard let context = context else { return }
-        
-        let newTodo = Todo(context: context)
-        newTodo.content = content
-        newTodo.done = false
-        newTodo.editedTime = Date()
-        newTodo.parentCheckList = self.selectedCheckList
-        self.todos.append(newTodo)
-        
-        self.saveTodos()
-    }
-    
-    mutating func loadTodos(with request: NSFetchRequest<Todo> = Todo.fetchRequest()) {
-        guard let context = context else { return }
+    func loadTodos() {
         guard let cid = selectedCheckList?.cid else { return }
         
         let checkListPredicate = NSPredicate(format: "parentCheckList.cid MATCHES %@", cid)
-        
-        request.predicate = checkListPredicate
-        
-        do {
-            self.todos = try context.fetch(request)
-            self.sortTodos()
-        } catch {
-            print("Error fetching data context \(error)")
-        }
+        todos = coreDataManager.loadData(
+            with: Todo.fetchRequest(),
+            predicate: checkListPredicate
+        )
+        sortTodos()
     }
     
-    mutating func updateCheckList(checkList: CheckList) {
+    func updateCheckList(checkList: CheckList) {
         NotificationCenter.default.post(
             name: NSNotification.Name("editCheckList"),
             object: checkList,
@@ -67,14 +45,14 @@ struct CheckListDetailViewModel {
         )
     }
     
-    mutating func updateTodo(at index: Int, todo: Todo) {
-        self.todos[index] = todo
-        self.todos[index].editedTime = Date()
-        
-        saveTodos()
+    func updateTodo(at index: Int, todo: Todo) {
+        todos[index] = todo
+        todos[index].editedTime = Date()
+        coreDataManager.saveData()
+        sortTodos()
     }
     
-    mutating func deleteCheckList() {
+    func deleteCheckList() {
         guard let cid = self.selectedCheckList?.cid else { return }
         NotificationCenter.default.post(
             name: NSNotification.Name("deleteCheckList"),
@@ -83,16 +61,13 @@ struct CheckListDetailViewModel {
         )
     }
     
-    mutating func deleteTodo(at index: Int) {
-        guard let context = context else { return }
-        
-        context.delete(self.todos[index])
-        self.todos.remove(at: index)
-        
-        saveTodos()
+    func deleteTodo(at index: Int) {
+        coreDataManager.deleteData(todos[index])
+        todos.remove(at: index)
+        sortTodos()
     }
     
-    private mutating func sortTodos() {
+    private func sortTodos() {
         self.todos.sort {
             if $0.done == $1.done {
                 if let date1 = $0.editedTime,

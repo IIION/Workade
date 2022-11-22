@@ -15,6 +15,7 @@
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
 		0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceView.swift */; };
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
+		160572BE292CFB9900B4EE40 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160572BD292CFB9900B4EE40 /* CoreDataManager.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
 		163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */; };
@@ -138,6 +139,7 @@
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		0EFB5BCA29017FBB00174291 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
+		160572BD292CFB9900B4EE40 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewController.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				961CC480290AE69700921F24 /* UserDefaultsManager.swift */,
 				961CC484290AF80500921F24 /* BookmarkManager.swift */,
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
+				160572BD292CFB9900B4EE40 /* CoreDataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -861,7 +864,7 @@
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				96A28422292A77E20084E479 /* PrepareView.swift in Sources */,
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
-				9646763A29092EBF0047ED34 /* TitleView.swift in Sources */,
+				9646763A29092EBF0047ED34 /* TitleLabel.swift in Sources */,
 				169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */,
 				9646763A29092EBF0047ED34 /* TitleLabel.swift in Sources */,
 				9643322D290A602F00FBECAF /* NetworkManager.swift in Sources */,
@@ -887,6 +890,7 @@
 				5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
+				160572BE292CFB9900B4EE40 /* CoreDataManager.swift in Sources */,
 				A354F47929262615003E601A /* StickerView.swift in Sources */,
 				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
 				96554E9C292779D200BBE26A /* CheckListNavigationCell.swift in Sources */,
