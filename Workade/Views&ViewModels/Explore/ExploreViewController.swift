@@ -17,18 +17,21 @@ class ExploreViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon")?.withRenderingMode(.alwaysOriginal), primaryAction: nil)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
         setupLayout()
-        let springTiming = UISpringTimingParameters(dampingRatio: 0.85, initialVelocity: .init(dx: 0, dy: 2))
-        let animator = UIViewPropertyAnimator(duration: 0.6, timingParameters: springTiming)
+        
+        let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
+        let animator = UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
         viewModel.selectedRegion.bind { [weak self] region in
             if let region = region {
                 self?.regionInfoViewBottomConstraint?.constant = 0
                 self?.regionInfoView.titleLabel.text = region.name
                 self?.regionInfoView.subTitleLabel.text = region.rawValue
+                self?.titleLabel.alpha = 0
                 self?.mainContainerView.image = UIImage(named: region.imageName)
                 self?.mapImageView.tintColor = .white
             } else {
                 self?.regionInfoViewBottomConstraint?.constant = 180
                 self?.mainContainerView.image = UIImage(named: "")
+                self?.titleLabel.alpha = 1
                 self?.mapImageView.tintColor = .theme.workadeBlue
             }
             animator.addAnimations {
@@ -134,22 +137,20 @@ class ExploreViewController: UIViewController {
     }()
     
     lazy var guideButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = GradientButton(type: .custom)
+        button.layerCornerRadius = 24
         var config = UIButton.Configuration.plain()
         config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 24)
         
-        var background = UIButton.Configuration.plain().background
-        config.background = background
-        
         var titleAttr = AttributedString.init("가이드 보러 가기")
         titleAttr.font = .customFont(for: .caption2)
-        titleAttr.foregroundColor = .theme.tertiary
+        titleAttr.foregroundColor = .theme.background
         
         config.attributedTitle = titleAttr
         config.image = UIImage.fromSystemImage(name: "text.book.closed.fill",
                                                font: .systemFont(ofSize: 13, weight: .bold),
-                                               color: .theme.tertiary)
+                                               color: .theme.background)
         config.imagePadding = 4
         button.configuration = config
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -178,11 +179,11 @@ class ExploreViewController: UIViewController {
             mapImageView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -20)
         ])
         
-//        view.addSubview(guideButton)
-//        NSLayoutConstraint.activate([
-//            guideButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-//            guideButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
-//        ])
+        view.addSubview(guideButton)
+        NSLayoutConstraint.activate([
+            guideButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            guideButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        ])
         
         view.addSubview(regionInfoView)
         regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 180)
