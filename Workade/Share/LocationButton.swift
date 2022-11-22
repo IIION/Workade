@@ -28,6 +28,7 @@ enum TestRegion: String, Hashable {
 class LocationButton: UIButton {
     // TODO: ViewModel 에서 region 받아오기
     var region = TestRegion.busan.rawValue
+    // TODO: TestRegion -> Region
     var selectedRegion: Binder<TestRegion?> = Binder(nil)
     
     // TODO: 인원수 받아오기 ( 뷰컨에서 작업해도 될거같기도 함 )
@@ -106,6 +107,8 @@ class LocationButton: UIButton {
     }
     
     private func setupSelectLayout() {
+        setupButtonScale(scale: 72)
+        
         addSubview(locationLabel)
         NSLayoutConstraint.activate([
             locationLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
