@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class ExploreViewController: UIViewController {
     
@@ -19,12 +18,18 @@ class ExploreViewController: UIViewController {
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
         setupLayout()
         let springTiming = UISpringTimingParameters(dampingRatio: 0.85, initialVelocity: .init(dx: 0, dy: 2))
-        let animator = UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
+        let animator = UIViewPropertyAnimator(duration: 0.6, timingParameters: springTiming)
         viewModel.selectedRegion.bind { [weak self] region in
             if let region = region {
-                self?.regionInfoViewBottomConstraint?.constant = 180
-            } else {
                 self?.regionInfoViewBottomConstraint?.constant = 0
+                self?.regionInfoView.titleLabel.text = region.name
+                self?.regionInfoView.subTitleLabel.text = region.rawValue
+                self?.mainContainerView.image = UIImage(named: region.imageName)
+                self?.mapImageView.tintColor = .white
+            } else {
+                self?.regionInfoViewBottomConstraint?.constant = 180
+                self?.mainContainerView.image = UIImage(named: "")
+                self?.mapImageView.tintColor = .theme.workadeBlue
             }
             animator.addAnimations {
                 self?.view.layoutIfNeeded()
@@ -33,11 +38,13 @@ class ExploreViewController: UIViewController {
         }
     }
     
-    lazy var mainContainerView: UIView = {
-        let view = UIView(frame: .zero)
+    lazy var mainContainerView: UIImageView = {
+        let view = UIImageView(frame: .zero)
         view.backgroundColor = .theme.sectionBackground
+        view.contentMode = .scaleAspectFill
         view.layer.cornerCurve = .continuous
         view.layer.cornerRadius = 30
+        view.clipsToBounds = true
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMaxYCorner, .layerMaxXMaxYCorner)
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -118,7 +125,7 @@ class ExploreViewController: UIViewController {
     }()
     
     lazy var mapImageView: UIImageView = {
-        let image = UIImage(named: "map")
+        let image = UIImage(named: "map")?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -167,7 +174,7 @@ class ExploreViewController: UIViewController {
         view.addSubview(mapImageView)
         NSLayoutConstraint.activate([
             mapImageView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            mapImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
+            mapImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
             mapImageView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -20)
         ])
         
@@ -178,7 +185,7 @@ class ExploreViewController: UIViewController {
 //        ])
         
         view.addSubview(regionInfoView)
-        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
+        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 180)
         NSLayoutConstraint.activate([
             regionInfoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             regionInfoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
@@ -295,22 +302,5 @@ class RegionInfoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-struct Representable: UIViewRepresentable {
-    func makeUIView(context: Context) -> RegionInfoView {
-        let view = RegionInfoView(frame: .zero)
-        return view
-    }
-    
-    func updateUIView(_ uiView: RegionInfoView, context: Context) { }
-}
-
-struct RegionInfoViewPreview: PreviewProvider {
-    static var previews: some View {
-        Representable()
-            .previewLayout(.fixed(width: 390, height: 150))
-            .background(Color(uiColor: .theme.primary))
     }
 }
