@@ -51,11 +51,14 @@
 		21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */; };
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
 		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
+		5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA334292B7026003EF7F2 /* UIVIew+.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */; };
+		5F83AD12292BBA3F00F5CFB4 /* LoginModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD11292BBA3E00F5CFB4 /* LoginModalViewController.swift */; };
+		5F83AD14292CB04E00F5CFB4 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */; };
 		5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBADE4F29056811008CCC58 /* MapViewController.swift */; };
 		5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */; };
 		5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD22E8E290B17E2003CF909 /* MapViewModel.swift */; };
@@ -163,11 +166,14 @@
 		21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5F1EA334292B7026003EF7F2 /* UIVIew+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+.swift"; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
+		5F83AD11292BBA3E00F5CFB4 /* LoginModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModalViewController.swift; sourceTree = "<group>"; };
+		5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		5FBADE4F29056811008CCC58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinModel.swift; sourceTree = "<group>"; };
 		5FD22E8E290B17E2003CF909 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -368,6 +374,8 @@
 			isa = PBXGroup;
 			children = (
 				5F1EA332292B4911003EF7F2 /* LoginView.swift */,
+				5F83AD11292BBA3E00F5CFB4 /* LoginModalViewController.swift */,
+				5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -401,6 +409,7 @@
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
 				96E0CDE02923E079008A67BB /* UINavigationController+.swift */,
+				5F1EA334292B7026003EF7F2 /* UIVIew+.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -809,6 +818,7 @@
 				A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
 				16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */,
+				5F83AD14292CB04E00F5CFB4 /* LoginButtonView.swift in Sources */,
 				5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */,
 				A354F47B29263C52003E601A /* StickerCollectionViewCell.swift in Sources */,
 				0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */,
@@ -819,6 +829,7 @@
 				96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */,
 				5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
+				5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
 				A354F47929262615003E601A /* StickerView.swift in Sources */,
 				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
@@ -827,6 +838,7 @@
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
 				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
+				5F83AD12292BBA3F00F5CFB4 /* LoginModalViewController.swift in Sources */,
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,
