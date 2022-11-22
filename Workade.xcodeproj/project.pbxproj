@@ -105,6 +105,8 @@
 		96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDE02923E079008A67BB /* UINavigationController+.swift */; };
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
+		A3479C96292BA84800AE1528 /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3479C95292BA84800AE1528 /* LoginInformationView.swift */; };
+		A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3479C97292BB10B00AE1528 /* SettingButton.swift */; };
 		A34AB347291B99C600065212 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AB346291B99C600065212 /* CGFloat+.swift */; };
 		A354F477292625F5003E601A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F476292625F5003E601A /* ProfileView.swift */; };
 		A354F47929262615003E601A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47829262615003E601A /* StickerView.swift */; };
@@ -230,6 +232,8 @@
 		96E0CDE02923E079008A67BB /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		A3479C95292BA84800AE1528 /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
+		A3479C97292BB10B00AE1528 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		A34AB346291B99C600065212 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		A354F476292625F5003E601A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A354F47829262615003E601A /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
@@ -525,7 +529,6 @@
 				96554EE32927F15000BBE26A /* Office */,
 				5FDC17DD28FE7F1B0060DBB7 /* GuideHome */,
 				9646763629092D340047ED34 /* MyPage */,
-				9646763D2909346A0047ED34 /* SettingViewController */,
 				16083B4729013F9A008056D4 /* CheckList */,
 				163A0FA729260DAF00BFF0D2 /* Workation */,
 			);
@@ -583,16 +586,18 @@
 				A354F47829262615003E601A /* StickerView.swift */,
 				A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */,
 				A3BB02BB2926A7C8000DE275 /* EditProfile */,
+				9646763D2909346A0047ED34 /* Setting */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
 		};
-		9646763D2909346A0047ED34 /* SettingViewController */ = {
+		9646763D2909346A0047ED34 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				9646763E2909347C0047ED34 /* SettingViewController.swift */,
+				A3479C95292BA84800AE1528 /* LoginInformationView.swift */,
 			);
-			path = SettingViewController;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		96554EE32927F15000BBE26A /* Office */ = {
@@ -661,6 +666,7 @@
 				9646763929092EBF0047ED34 /* TitleLabel.swift */,
 				5F28285B290793D800882FF3 /* BasePaddingLabel.swift */,
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
+				A3479C97292BB10B00AE1528 /* SettingButton.swift */,
 				96554EE12927C78C00BBE26A /* Divider.swift */,
 				169E1F00292A5A5E007F9E0A /* GradientButton.swift */,
 				96A28421292A77E20084E479 /* PrepareView.swift */,
@@ -900,6 +906,7 @@
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,
+				A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				A354F477292625F5003E601A /* ProfileView.swift in Sources */,
 				96433235290A776600FBECAF /* Constants.swift in Sources */,
@@ -925,6 +932,7 @@
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,
 				A3CBB16629275F97009AD4E1 /* UITextField+.swift in Sources */,
+				A3479C96292BA84800AE1528 /* LoginInformationView.swift in Sources */,
 				A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
