@@ -113,11 +113,7 @@ class ExploreViewController: UIViewController {
         config.imagePadding = 4
         button.configuration = config
         button.addAction(UIAction(handler: { [weak self] _ in
-            if self?.viewModel.selectedRegion.value == nil {
-                self?.viewModel.selectedRegion.value = .busan
-            } else {
-                self?.viewModel.selectedRegion.value = nil
-            }
+            self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
         }), for: .touchUpInside)
         
         return button
