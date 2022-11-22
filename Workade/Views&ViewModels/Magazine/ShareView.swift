@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import KakaoSDKTemplate
+import KakaoSDKCommon
+import KakaoSDKShare
 
 class ShareView: UIView {
     var magazine: MagazineModel
@@ -43,8 +46,11 @@ class ShareView: UIView {
     
     private lazy var kakaoShareButton: UIButton = {
         let button = UIButton()
-        
         button.setImage(UIImage(named: "KakaoButton"), for: .normal)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.kakaoShare()
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -52,7 +58,6 @@ class ShareView: UIView {
     
     private lazy var clipboardButton: UIButton = {
         let button = UIButton()
-        
         button.setImage(UIImage(named: "ClipboardButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -61,7 +66,6 @@ class ShareView: UIView {
     
     private lazy var defaultShareButton: UIButton = {
         let button = UIButton()
-        
         button.setImage(UIImage(named: "DefaultButton"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -116,4 +120,32 @@ class ShareView: UIView {
             kakaoShareButton.bottomAnchor.constraint(equalTo: shareViewContrainer.bottomAnchor)
         ])
     }
+}
+
+extension ShareView {
+    private func kakaoShare() {
+        if ShareApi.isKakaoTalkSharingAvailable() {
+            let appLink = Link(iosExecutionParams: ["title": magazine.title, "imageURL": magazine.imageURL, "introduceURL": magazine.introduceURL])
+            let button = Button(title: "앱에서 보기", link: appLink)
+            let content = Content(title: "워케이드만이 알려주는 워케이션 꿀팁!", imageUrl: URL(string: magazine.imageURL)!, description: magazine.title, link: appLink)
+            let template = FeedTemplate(content: content, buttons: [button])
+            if let templateJsonData = (try? SdkJSONEncoder.custom.encode(template)) {
+                if let templateJsonObject = SdkUtils.toJsonObject(templateJsonData) {
+                    ShareApi.shared.shareDefault(templateObject: templateJsonObject) {(linkResult, error) in
+                        if let error = error {
+                            print("error : \(error)")
+                        } else {
+                            print("defaultLink(templateObject:templateJsonObject) success.")
+                            guard let linkResult = linkResult else { return }
+                            UIApplication.shared.open(linkResult.url, options: [:], completionHandler: nil)
+                        }
+                    }
+                }
+            }
+        } else {
+            // 카카오톡 미설치시. 웹 공유 사용 권장
+            print("카카오톡 미설치")
+        }
+    }
+    
 }
