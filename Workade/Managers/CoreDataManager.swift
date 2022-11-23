@@ -46,7 +46,6 @@ final class CoreDataManager {
     }
     
     // MARK: - CheckList
-    
     func addCheckList() -> CheckList? {
         guard let context = context else { return nil }
         
@@ -60,7 +59,6 @@ final class CoreDataManager {
     }
     
     // MARK: - Todo
-    
     func addTodo(_ content: String, parentCheckList: CheckList?) -> Todo? {
         guard let context = context else { return nil }
         

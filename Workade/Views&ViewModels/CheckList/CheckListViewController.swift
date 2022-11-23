@@ -36,20 +36,19 @@ final class CheckListViewController: UIViewController {
         button.backgroundColor = .theme.workadeBackgroundBlue
         button.layer.cornerRadius = 20
         button.addAction(UIAction(handler: { [weak self] _ in
-            if let self = self {
-                if self.editState == .edit {
-                    self.editState = .none
-                    config.image = UIImage.fromSystemImage(name: "pencil", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
-                    config.attributedTitle = attributedEditText
-                    button.configuration = config
-                    self.checklistCollectionView.reloadData()
-                } else {
-                    self.editState = .edit
-                    config.image = nil
-                    config.attributedTitle = attributedCompleteText
-                    button.configuration = config
-                    self.checklistCollectionView.reloadData()
-                }
+            guard let self = self else { return }
+            if self.editState == .edit {
+                self.editState = .none
+                config.image = UIImage.fromSystemImage(name: "pencil", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+                config.attributedTitle = attributedEditText
+                button.configuration = config
+                self.checklistCollectionView.reloadData()
+            } else {
+                self.editState = .edit
+                config.image = nil
+                config.attributedTitle = attributedCompleteText
+                button.configuration = config
+                self.checklistCollectionView.reloadData()
             }
         }), for: .touchUpInside)
         
@@ -113,23 +112,21 @@ final class CheckListViewController: UIViewController {
     private func bind() {
         checkListViewModel.editCheckListPublisher
             .sink { [weak self] checkList in
-                if let self = self {
-                    guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == checkList.cid }) else { return }
-                    self.checkListViewModel.updateCheckList(at: index, checkList: checkList)
-                    self.checklistCollectionView.reloadData()
-                }
+                guard let self = self else { return }
+                guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == checkList.cid }) else { return }
+                self.checkListViewModel.updateCheckList(at: index, checkList: checkList)
+                self.checklistCollectionView.reloadData()
             }
             .store(in: &cancellables)
         
         checkListViewModel.deleteCheckListPublisher
             .sink { [weak self] cid in
-                if let self = self {
-                    guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
-                    self.checkListViewModel.deleteCheckList(at: index)
-                    self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-                    for trailingIndex in stride(from: index, through: self.checkListViewModel.checkList.count-1, by: 1) {
-                        self.checklistCollectionView.reloadItems(at: [IndexPath(row: trailingIndex, section: 0)])
-                    }
+                guard let self = self else { return }
+                guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
+                self.checkListViewModel.deleteCheckList(at: index)
+                self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                for trailingIndex in stride(from: index, through: self.checkListViewModel.checkList.count-1, by: 1) {
+                    self.checklistCollectionView.reloadItems(at: [IndexPath(row: trailingIndex, section: 0)])
                 }
             }
             .store(in: &cancellables)

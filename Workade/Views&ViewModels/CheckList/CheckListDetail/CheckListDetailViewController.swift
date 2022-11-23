@@ -38,19 +38,18 @@ class CheckListDetailViewController: UIViewController {
         button.backgroundColor = .theme.workadeBackgroundBlue
         button.layer.cornerRadius = 20
         button.addAction(UIAction(handler: { [weak self] _ in
-            if let self = self {
-                let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
-                
-                alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
-                    guard let cid = self?.selectedCheckList?.cid else { return }
-                    self?.deleteCheckListPublisher?.send(cid)
-                    self?.navigationController?.popViewController(animated: true)
-                }))
-                
-                alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-                
-                self.present(alert, animated: true)
-            }
+            guard let self = self else { return }
+            let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+                guard let cid = self?.selectedCheckList?.cid else { return }
+                self?.deleteCheckListPublisher?.send(cid)
+                self?.navigationController?.popViewController(animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            self.present(alert, animated: true)
         }), for: .touchUpInside)
         
         let barButtonItem = UIBarButtonItem(customView: button)
@@ -245,22 +244,21 @@ extension CheckListDetailViewController {
     private func bind() {
         checkListDetailViewModel.addTemplatePublisher
             .sink { [weak self] todoList in
-                if let self = self {
-                    guard let targetCheckList = self.selectedCheckList else { return }
-                    let todosCount = self.checkListDetailViewModel.todos.count
+                guard let self = self else { return }
+                guard let targetCheckList = self.selectedCheckList else { return }
+                let todosCount = self.checkListDetailViewModel.todos.count
+                
+                for todo in todoList {
+                    self.checkListDetailViewModel.addTodo(todo)
+                    self.updateCheckListTableViewConstant()
+                    self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
                     
-                    for todo in todoList {
-                        self.checkListDetailViewModel.addTodo(todo)
-                        self.updateCheckListTableViewConstant()
-                        self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
-                        
-                    }
-                    let indexPathArray = stride(from: todosCount, to: todosCount + todoList.count, by: 1).map { index in
-                        IndexPath(row: index, section: 0)
-                    }
-                    self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
-                    self.editCheckListPublisher?.send(targetCheckList)
                 }
+                let indexPathArray = stride(from: todosCount, to: todosCount + todoList.count, by: 1).map { index in
+                    IndexPath(row: index, section: 0)
+                }
+                self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+                self.editCheckListPublisher?.send(targetCheckList)
             }
             .store(in: &cancellables)
     }
