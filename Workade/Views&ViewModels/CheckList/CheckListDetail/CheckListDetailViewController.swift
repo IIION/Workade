@@ -5,10 +5,12 @@
 //  Created by Wonhyuk Choi on 2022/10/21.
 //
 
+import Combine
 import UIKit
 
 class CheckListDetailViewController: UIViewController {
     private var checkListDetailViewModel = CheckListDetailViewModel()
+    private lazy var cancellables = Set<AnyCancellable>()
     
     var selectedCheckList: CheckList? {
         didSet {
@@ -175,17 +177,11 @@ class CheckListDetailViewController: UIViewController {
         view.backgroundColor = .theme.background
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        self.titleLabel.delegate = self
+        titleLabel.delegate = self
         
-        self.setupNavigationBar()
-        self.setupLayout()
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(addTodolistNotification(_:)),
-            name: NSNotification.Name("addTodoList"),
-            object: nil
-        )
+        setupNavigationBar()
+        setupLayout()
+        bind()
     }
 }
 
@@ -217,6 +213,7 @@ extension CheckListDetailViewController {
         let bottomSheetViewController = CheckListBottomSheetViewController()
         
         bottomSheetViewController.modalPresentationStyle = .overFullScreen
+        bottomSheetViewController.addTemplatePublisher = checkListDetailViewModel.addTemplatePublisher
         
         self.present(bottomSheetViewController, animated: false, completion: nil)
     }
@@ -242,22 +239,27 @@ extension CheckListDetailViewController {
         }
     }
     
-    @objc func addTodolistNotification(_ notification: Notification) {
-        guard let todoList = notification.object as? [String] else { return }
-        guard let targetCheckList = selectedCheckList else { return }
-        let todosCount = checkListDetailViewModel.todos.count
-        
-        for todo in todoList {
-            checkListDetailViewModel.addTodo(todo)
-            updateCheckListTableViewConstant()
-            self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
-            
-        }
-        let indexPathArray = stride(from: todosCount, to: todosCount + todoList.count, by: 1).map { index in
-            IndexPath(row: index, section: 0)
-        }
-        self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
-        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+    private func bind() {
+        checkListDetailViewModel.addTemplatePublisher
+            .sink { [weak self] todoList in
+                if let self = self {
+                    guard let targetCheckList = self.selectedCheckList else { return }
+                    let todosCount = self.checkListDetailViewModel.todos.count
+                    
+                    for todo in todoList {
+                        self.checkListDetailViewModel.addTodo(todo)
+                        self.updateCheckListTableViewConstant()
+                        self.checklistTableView.insertRows(at: [IndexPath(row: todosCount, section: 0)], with: .automatic)
+                        
+                    }
+                    let indexPathArray = stride(from: todosCount, to: todosCount + todoList.count, by: 1).map { index in
+                        IndexPath(row: index, section: 0)
+                    }
+                    self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
+                    self.checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 

@@ -5,6 +5,7 @@
 //  Created by Wonhyuk Choi on 2022/10/23.
 //
 
+import Combine
 import CoreData
 import UIKit
 
@@ -13,6 +14,7 @@ final class CheckListDetailViewModel {
     private let coreDataManager = CoreDataManager.shared
     
     var todos = [Todo]()
+    let addTemplatePublisher = PassthroughSubject<[String], Never>()
 
     var selectedCheckList: CheckList? {
         didSet {

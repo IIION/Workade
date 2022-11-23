@@ -5,12 +5,14 @@
 //  Created by Wonhyuk Choi on 2022/10/25.
 //
 
+import Combine
 import UIKit
 
-class CheckListBottomSheetViewController: UIViewController {
+final class CheckListBottomSheetViewController: UIViewController {
     var defaultHeight: CGFloat = 250
     
     private let checkListBottomSheetViewModel = CheckListBottomSheetViewModel()
+    var addTemplatePublisher: PassthroughSubject<[String], Never>? = nil
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -190,7 +192,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
         
         cell.setupCell(checkListTemplate: template)
         cell.addTemplate = { [weak self] in
-            self?.checkListBottomSheetViewModel.addTemplateTodo(template.list)
+            self?.addTemplatePublisher?.send(template.list)
         }
         
         return cell
@@ -201,6 +203,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let checkListTemplateViewController = CheckListTemplateViewController()
         checkListTemplateViewController.modalPresentationStyle = .overFullScreen
+        checkListTemplateViewController.addTemplatePublisher = addTemplatePublisher
         
         let template = checkListBottomSheetViewModel.checkListTemplateResource.content[indexPath.row]
         
