@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LocationButton: UIButton {
+class RegionButton: UIButton {
     var region: String
     var selectedRegion: Binder<RegionModel?>
     let peopleCount: Int
