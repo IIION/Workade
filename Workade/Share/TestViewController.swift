@@ -20,7 +20,7 @@ class TestViewController: UIViewController {
     
     // 현재 선택된 버튼과 일치할 경우
     private lazy var selectButton: RegionButton = {
-        let button = RegionButton(region: RegionModel.gangwondo.rawValue, selectedRegion: selectedRegion, peopleCount: 23)
+        let button = RegionButton(region: RegionModel.gangwondo, selectedRegion: selectedRegion, peopleCount: 23)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -28,7 +28,7 @@ class TestViewController: UIViewController {
     
     // 현재 선택되지 않은 버튼일 경우
     private lazy var basicButton: RegionButton = {
-        let button = RegionButton(region: RegionModel.gyeonggido.rawValue, selectedRegion: selectedRegion, peopleCount: 23)
+        let button = RegionButton(region: RegionModel.gyeonggido, selectedRegion: selectedRegion, peopleCount: 23)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button

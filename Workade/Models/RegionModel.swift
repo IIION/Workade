@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RegionModel: String, Hashable {
+enum RegionModel: String, Hashable, CaseIterable {
     case gyeonggido
     case gangwondo
     case chungcheongbukdo
@@ -44,5 +44,28 @@ enum RegionModel: String, Hashable {
     var imageName: String {
         let backgroundString = "background"
         return self.rawValue + backgroundString
+    }
+    
+    var relativePos: CGPoint {
+        switch self {
+        case .gyeonggido:
+            return .init(x: 8.65, y: 33)
+        case .gangwondo:
+            return .init(x: 68.54, y: 32)
+        case .chungcheongbukdo:
+            return .init(x: 36.94, y: 16)
+        case .chungcheongnamdo:
+            return .init(x: 4.22, y: 9)
+        case .jeollabukdo:
+            return .init(x: 26.03, y: -6)
+        case .jeollanamdo:
+            return .init(x: 4.22, y: -21)
+        case .gyeongsangbukdo:
+            return .init(x: 69.25, y: 4)
+        case .gyeongsangnamdo:
+            return .init(x: 60.91, y: -22)
+        case .jeju:
+            return .init(x: 15.13, y: -42)
+        }
     }
 }

@@ -14,7 +14,7 @@ class RegionButton: UIButton {
     
     private lazy var regionLabel: UILabel = {
         let label = UILabel()
-        label.text = self.region.rawValue
+        label.text = self.region.name
         label.font = .customFont(for: .footnote2)
         label.translatesAutoresizingMaskIntoConstraints = false
         

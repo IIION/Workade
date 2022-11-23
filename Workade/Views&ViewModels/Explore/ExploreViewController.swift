@@ -12,6 +12,7 @@ class ExploreViewController: UIViewController {
     
     let viewModel = ExploreViewModel()
     var regionInfoViewBottomConstraint: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -41,6 +42,19 @@ class ExploreViewController: UIViewController {
             animator.startAnimation()
         }
     }
+    
+    lazy var regionButtons: [RegionButton] = {
+        var regionButtons: [RegionButton] = []
+        
+        for region in RegionModel.allCases {
+            let newButton = RegionButton(region: region, selectedRegion: viewModel.selectedRegion, peopleCount: 0)
+            newButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            regionButtons.append(newButton)
+        }
+        
+        return regionButtons
+    }()
     
     lazy var mainContainerView: UIImageView = {
         let view = UIImageView(frame: .zero)
@@ -191,7 +205,7 @@ class ExploreViewController: UIViewController {
         ])
         
         view.addSubview(regionInfoView)
-        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 180)
+        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 140 + CGFloat.bottomSafeArea)
         NSLayoutConstraint.activate([
             regionInfoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             regionInfoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
@@ -199,5 +213,15 @@ class ExploreViewController: UIViewController {
             regionInfoViewBottomConstraint!,
             regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: 4)
         ])
+
+        regionButtons.forEach { regionButton in
+            view.addSubview(regionButton)
+            let constantX = regionButton.region.relativePos.x * mapImageView.bounds.width / 100
+            let constantY = regionButton.region.relativePos.y * mapImageView.bounds.height / 100
+            NSLayoutConstraint.activate([
+                regionButton.leadingAnchor.constraint(equalTo: mapImageView.leadingAnchor, constant: constantX),
+                regionButton.centerYAnchor.constraint(equalTo: mapImageView.centerYAnchor, constant: -constantY)
+            ])
+        }
     }
 }
