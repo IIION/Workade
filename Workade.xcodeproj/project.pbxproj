@@ -97,12 +97,13 @@
 		96972ED12903011500197DEE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ED02903011500197DEE /* CellImageView.swift */; };
 		96A28420292A6BB50084E479 /* OfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2841F292A6BB50084E479 /* OfficeViewModel.swift */; };
 		96A28422292A77E20084E479 /* PrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A28421292A77E20084E479 /* PrepareView.swift */; };
+		96AB1F8F292CEAB500AEC0BF /* OfficeTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */; };
+		96AB1F91292D3A4E00AEC0BF /* MagazineTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB1F90292D3A4E00AEC0BF /* MagazineTransitionManager.swift */; };
 		96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */; };
 		96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836929014361009F2BC6 /* UICollectionView+.swift */; };
 		96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */; };
 		96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */; };
 		96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDE02923E079008A67BB /* UINavigationController+.swift */; };
-		96F9DEC8292BCB53006DFD00 /* SheetTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F9DEC7292BCB53006DFD00 /* SheetTransitionManager.swift */; };
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
 		A34AB347291B99C600065212 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AB346291B99C600065212 /* CGFloat+.swift */; };
@@ -222,12 +223,13 @@
 		96972ED02903011500197DEE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
 		96A2841F292A6BB50084E479 /* OfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeViewModel.swift; sourceTree = "<group>"; };
 		96A28421292A77E20084E479 /* PrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareView.swift; sourceTree = "<group>"; };
+		96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeTransitionManager.swift; sourceTree = "<group>"; };
+		96AB1F90292D3A4E00AEC0BF /* MagazineTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTransitionManager.swift; sourceTree = "<group>"; };
 		96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReuableView+.swift"; sourceTree = "<group>"; };
 		96B1836929014361009F2BC6 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeCollectionViewCell.swift; sourceTree = "<group>"; };
 		96E0CDDB2923CDA8008A67BB /* MagazineResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineResource.swift; sourceTree = "<group>"; };
 		96E0CDE02923E079008A67BB /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
-		96F9DEC7292BCB53006DFD00 /* SheetTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTransitionManager.swift; sourceTree = "<group>"; };
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A34AB346291B99C600065212 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
@@ -561,7 +563,8 @@
 				961CC480290AE69700921F24 /* UserDefaultsManager.swift */,
 				961CC484290AF80500921F24 /* BookmarkManager.swift */,
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
-				96F9DEC7292BCB53006DFD00 /* SheetTransitionManager.swift */,
+				96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */,
+				96AB1F90292D3A4E00AEC0BF /* MagazineTransitionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -837,7 +840,6 @@
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
-				96F9DEC8292BCB53006DFD00 /* SheetTransitionManager.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
@@ -845,6 +847,7 @@
 				96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
+				96AB1F8F292CEAB500AEC0BF /* OfficeTransitionManager.swift in Sources */,
 				2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */,
 				96A28422292A77E20084E479 /* PrepareView.swift in Sources */,
 				9646763829092D4A0047ED34 /* MyPageViewController.swift in Sources */,
@@ -872,6 +875,7 @@
 				96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */,
 				96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */,
 				5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */,
+				96AB1F91292D3A4E00AEC0BF /* MagazineTransitionManager.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
 				A354F47929262615003E601A /* StickerView.swift in Sources */,
@@ -1066,7 +1070,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B2RV52W8G3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1101,7 +1105,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B2RV52W8G3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
