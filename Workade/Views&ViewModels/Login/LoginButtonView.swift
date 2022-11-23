@@ -21,7 +21,7 @@ final class LoginButtonView: UIView {
     private let textLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.font = .customFont(for: .footnote2) // TODO: footnote2New 부재
+        textLabel.font = .customFont(for: .footnote2)
         textLabel.textColor = .black
         
         return textLabel
