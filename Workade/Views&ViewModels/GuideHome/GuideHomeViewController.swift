@@ -12,6 +12,7 @@ enum GuideHomeSection: Int, CaseIterable {
 }
 
 final class GuideHomeViewController: UIViewController {
+    private let transitionManager = OfficeTransitionManager()
     private let viewModel = GuideHomeViewModel()
     
     private let divider = Divider()
@@ -192,7 +193,14 @@ extension GuideHomeViewController: UICollectionViewDelegate {
         case .office:
             let officeModel = viewModel.officeResource.content[indexPath.row]
             let viewController = NearbyPlaceViewController(officeModel: officeModel)
-            viewController.modalPresentationStyle = .fullScreen
+            
+            // Transition Manager가 사용할 수 있는 정보를 Cell에서 제공.
+            guard let cell = collectionView.cellForItem(at: indexPath) as? OfficeCollectionViewCell else { return }
+            let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
+            transitionManager.absoluteCellFrame = absoluteFrame
+            transitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
+            viewController.transitioningDelegate = transitionManager
+            viewController.modalPresentationStyle = .custom
             present(viewController, animated: true)
         case .magazine:
             let magazine = viewModel.magazineResource.content[indexPath.row]

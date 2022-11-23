@@ -98,7 +98,6 @@
 		96A28420292A6BB50084E479 /* OfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2841F292A6BB50084E479 /* OfficeViewModel.swift */; };
 		96A28422292A77E20084E479 /* PrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A28421292A77E20084E479 /* PrepareView.swift */; };
 		96AB1F8F292CEAB500AEC0BF /* OfficeTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */; };
-		96AB1F91292D3A4E00AEC0BF /* MagazineTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB1F90292D3A4E00AEC0BF /* MagazineTransitionManager.swift */; };
 		96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */; };
 		96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836929014361009F2BC6 /* UICollectionView+.swift */; };
 		96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */; };
@@ -224,7 +223,6 @@
 		96A2841F292A6BB50084E479 /* OfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeViewModel.swift; sourceTree = "<group>"; };
 		96A28421292A77E20084E479 /* PrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareView.swift; sourceTree = "<group>"; };
 		96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeTransitionManager.swift; sourceTree = "<group>"; };
-		96AB1F90292D3A4E00AEC0BF /* MagazineTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTransitionManager.swift; sourceTree = "<group>"; };
 		96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReuableView+.swift"; sourceTree = "<group>"; };
 		96B1836929014361009F2BC6 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		96B1836D290148D4009F2BC6 /* OfficeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -564,7 +562,6 @@
 				961CC484290AF80500921F24 /* BookmarkManager.swift */,
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
 				96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */,
-				96AB1F90292D3A4E00AEC0BF /* MagazineTransitionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -875,7 +872,6 @@
 				96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */,
 				96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */,
 				5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */,
-				96AB1F91292D3A4E00AEC0BF /* MagazineTransitionManager.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
 				A354F47929262615003E601A /* StickerView.swift in Sources */,

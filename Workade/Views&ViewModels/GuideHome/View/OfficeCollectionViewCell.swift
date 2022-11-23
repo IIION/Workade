@@ -12,7 +12,7 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
     var office: OfficeModel?
     var task: Task<Void, Error>?
     
-    private lazy var backgroundImageView: CellImageView = {
+    lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
