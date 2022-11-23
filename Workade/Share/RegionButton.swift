@@ -8,13 +8,13 @@
 import UIKit
 
 class RegionButton: UIButton {
-    var region: String
+    var region: RegionModel
     var selectedRegion: Binder<RegionModel?>
     let peopleCount: Int
     
-    private lazy var locationLabel: UILabel = {
+    private lazy var regionLabel: UILabel = {
         let label = UILabel()
-        label.text = self.region
+        label.text = self.region.rawValue
         label.font = .customFont(for: .footnote2)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -51,13 +51,13 @@ class RegionButton: UIButton {
         return label
     }()
     
-    init(region: String, selectedRegion: Binder<RegionModel?>, peopleCount: Int) {
+    init(region: RegionModel, selectedRegion: Binder<RegionModel?>, peopleCount: Int) {
         self.region = region
         self.selectedRegion = selectedRegion
         self.peopleCount = peopleCount
         
         super.init(frame: .zero)
-        if selectedRegion.value?.rawValue == region {
+        if selectedRegion.value == region {
             setupSelectLayout()
         } else {
             setupBasicLayout()
@@ -73,15 +73,15 @@ class RegionButton: UIButton {
         stackView.addArrangedSubview(peopleImage)
         stackView.addArrangedSubview(peopleCountLabel)
         
-        addSubview(locationLabel)
+        addSubview(regionLabel)
         NSLayoutConstraint.activate([
-            locationLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            locationLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            regionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            regionLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
         addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: regionLabel.bottomAnchor),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
@@ -89,10 +89,10 @@ class RegionButton: UIButton {
     private func setupSelectLayout() {
         setupButtonScale(scale: 72)
         
-        addSubview(locationLabel)
+        addSubview(regionLabel)
         NSLayoutConstraint.activate([
-            locationLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            locationLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            regionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            regionLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
@@ -101,7 +101,7 @@ class RegionButton: UIButton {
         
         if scale == 64 {
             backgroundColor = .theme.background
-            locationLabel.textColor = .theme.primary
+            regionLabel.textColor = .theme.primary
             
             NSLayoutConstraint.activate([
                 widthAnchor.constraint(equalToConstant: scale),
@@ -109,7 +109,7 @@ class RegionButton: UIButton {
             ])
         } else {
             backgroundColor = .theme.primary
-            locationLabel.textColor = .theme.background
+            regionLabel.textColor = .theme.background
             
             NSLayoutConstraint.activate([
                 widthAnchor.constraint(equalToConstant: scale),
