@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginModalViewController: UIViewController {
+class LoginSheetView: UIView {
     private let logoImageView: UIImageView = {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ class LoginModalViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .default)
         
         let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
+        
         button.tintColor = .theme.tertiary
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .theme.groupedBackground
@@ -56,58 +56,67 @@ class LoginModalViewController: UIViewController {
         return loginButton
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .clear
-        
+    private var handleCloseButton: () -> Void
+    
+    init(handleCloseButton: @escaping () -> Void) {
+        self.handleCloseButton = handleCloseButton
+        super.init(frame: .zero)
+        layer.cornerRadius = 30
+        backgroundColor = .theme.background
         setupLayout()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupLayout() {
-        view.addSubview(logoImageView)
+        addSubview(logoImageView)
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
-            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
+            logoImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 32),
             logoImageView.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        view.addSubview(guideLable)
+        addSubview(guideLable)
         NSLayoutConstraint.activate([
-            guideLable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            guideLable.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             guideLable.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 36.5)
         ])
         
         closeButton.addAction(UIAction{ [weak self] _ in
-            self?.dismiss(animated: true)
+            UIView.animate(withDuration: 0.3) {
+                self?.handleCloseButton()
+            }
+            print("Hello") // TODO: Dismiss 할 것 @Toby
         }, for: .touchUpInside)
-        view.addSubview(closeButton)
+        addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
-            closeButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50), // -(22 + 28)
-            closeButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 48) // 20 + 28
+            closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -22),
+            closeButton.leadingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50), // -(22 + 28)
+            closeButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 48) // 20 + 28
         ])
         
         let appleTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleAppleLogin))
         appleLoginButton.addGestureRecognizer(appleTabGesture)
-        view.addSubview(appleLoginButton)
+        addSubview(appleLoginButton)
         NSLayoutConstraint.activate([
-            appleLoginButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 173),
-            appleLoginButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -6),
-            appleLoginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            appleLoginButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 280)
+            appleLoginButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 173),
+            appleLoginButton.trailingAnchor.constraint(equalTo: self.centerXAnchor, constant: -6),
+            appleLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            appleLoginButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 280)
         ])
         
         let googleTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleGoogleLogin))
         googleLoginButton.addGestureRecognizer(googleTabGesture)
-        view.addSubview(googleLoginButton)
+        addSubview(googleLoginButton)
         NSLayoutConstraint.activate([
-            googleLoginButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 173),
-            googleLoginButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 6),
-            googleLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            googleLoginButton.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 280)
+            googleLoginButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 173),
+            googleLoginButton.leadingAnchor.constraint(equalTo: self.centerXAnchor, constant: 6),
+            googleLoginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            googleLoginButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 280)
         ])
     }
     

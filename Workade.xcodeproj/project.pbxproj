@@ -54,11 +54,14 @@
 		5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA334292B7026003EF7F2 /* UIVIew+.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
+		5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */; };
+		5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFF292D76F3007498E2 /* JobModel.swift */; };
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */; };
-		5F83AD12292BBA3F00F5CFB4 /* LoginModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD11292BBA3E00F5CFB4 /* LoginModalViewController.swift */; };
+		5F83AD12292BBA3F00F5CFB4 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */; };
 		5F83AD14292CB04E00F5CFB4 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */; };
+		5F83AD18292CEB1200F5CFB4 /* LoginNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */; };
 		5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBADE4F29056811008CCC58 /* MapViewController.swift */; };
 		5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */; };
 		5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD22E8E290B17E2003CF909 /* MapViewModel.swift */; };
@@ -169,11 +172,14 @@
 		5F1EA334292B7026003EF7F2 /* UIVIew+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+.swift"; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
+		5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewController.swift; sourceTree = "<group>"; };
+		5F44CCFF292D76F3007498E2 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
-		5F83AD11292BBA3E00F5CFB4 /* LoginModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModalViewController.swift; sourceTree = "<group>"; };
+		5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSheetView.swift; sourceTree = "<group>"; };
 		5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
+		5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNameViewController.swift; sourceTree = "<group>"; };
 		5FBADE4F29056811008CCC58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinModel.swift; sourceTree = "<group>"; };
 		5FD22E8E290B17E2003CF909 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -374,7 +380,9 @@
 			isa = PBXGroup;
 			children = (
 				5F1EA332292B4911003EF7F2 /* LoginView.swift */,
-				5F83AD11292BBA3E00F5CFB4 /* LoginModalViewController.swift */,
+				5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */,
+				5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */,
+				5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */,
 				5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */,
 			);
 			path = Login;
@@ -390,6 +398,7 @@
 				A35A982B290ADE1300220755 /* MagazineDetailResource.swift */,
 				2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */,
 				A37D28432923C62E009F0ED6 /* GalleryResource.swift */,
+				5F44CCFF292D76F3007498E2 /* JobModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -795,12 +804,15 @@
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
 				961CC483290AF34600921F24 /* MultiBinder.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
+				5F83AD18292CEB1200F5CFB4 /* LoginNameViewController.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
+				5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
+				5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
 				96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
@@ -838,7 +850,7 @@
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
 				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
-				5F83AD12292BBA3F00F5CFB4 /* LoginModalViewController.swift in Sources */,
+				5F83AD12292BBA3F00F5CFB4 /* LoginSheetView.swift in Sources */,
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,

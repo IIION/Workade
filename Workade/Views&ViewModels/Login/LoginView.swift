@@ -75,6 +75,7 @@ class  LoginView: UIView {
         super.init(frame: .zero)
         backgroundColor = .blue
         layer.cornerRadius = 32
+        
         setupLayout()
     }
     
@@ -116,6 +117,5 @@ class  LoginView: UIView {
         ])
         
         loginButtonView.addArrangedSubview(loginButtonText)
-        
     }
 }
