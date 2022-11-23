@@ -11,6 +11,8 @@ import UIKit
 class CheckListDetailViewController: UIViewController {
     private var checkListDetailViewModel = CheckListDetailViewModel()
     private lazy var cancellables = Set<AnyCancellable>()
+    var editCheckListPublisher: PassthroughSubject<CheckList, Never>? = nil
+    var deleteCheckListPublisher: PassthroughSubject<String, Never>? = nil
     
     var selectedCheckList: CheckList? {
         didSet {
@@ -39,9 +41,10 @@ class CheckListDetailViewController: UIViewController {
             if let self = self {
                 let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
                 
-                alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-                    self.checkListDetailViewModel.deleteCheckList()
-                    self.navigationController?.popViewController(animated: true)
+                alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+                    guard let cid = self?.selectedCheckList?.cid else { return }
+                    self?.deleteCheckListPublisher?.send(cid)
+                    self?.navigationController?.popViewController(animated: true)
                 }))
                 
                 alert.addAction(UIAlertAction(title: "취소", style: .cancel))
@@ -206,7 +209,7 @@ extension CheckListDetailViewController {
             IndexPath(row: index, section: 0)
         }
         self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
-        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+        editCheckListPublisher?.send(targetCheckList)
     }
     
     @objc private func templateButtonPressed(_ sender: UIButton) {
@@ -223,14 +226,14 @@ extension CheckListDetailViewController {
         let todo = checkListDetailViewModel.todos[sender.tag]
         todo.done.toggle()
         checkListDetailViewModel.updateTodo(at: sender.tag, todo: todo)
-        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+        editCheckListPublisher?.send(targetCheckList)
         checklistTableView.reloadData()
     }
     
     @objc private func dateChanged() {
         guard let targetCheckList = selectedCheckList else { return }
         targetCheckList.travelDate = datePicker.date
-        checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+        editCheckListPublisher?.send(targetCheckList)
     }
     
     @objc private func titleLabelDidChange(_ textField: UITextField) {
@@ -256,7 +259,7 @@ extension CheckListDetailViewController {
                         IndexPath(row: index, section: 0)
                     }
                     self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
-                    self.checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+                    self.editCheckListPublisher?.send(targetCheckList)
                 }
             }
             .store(in: &cancellables)
@@ -337,7 +340,7 @@ extension CheckListDetailViewController: UITableViewDelegate {
                 IndexPath(row: index, section: 0)
             }
             self.checklistTableView.reloadRows(at: indexPathArray, with: .automatic)
-            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+            editCheckListPublisher?.send(targetCheckList)
             updateCheckListTableViewConstant()
         }
     }
@@ -373,7 +376,7 @@ extension CheckListDetailViewController: UITextFieldDelegate {
                 textField.text = "제목없음"
             }
             targetCheckList.title = textField.text
-            checkListDetailViewModel.updateCheckList(checkList: targetCheckList)
+            editCheckListPublisher?.send(targetCheckList)
         } else {
             let todo = checkListDetailViewModel.todos[textField.tag]
             if textField.text == "" {

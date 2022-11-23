@@ -37,27 +37,10 @@ final class CheckListDetailViewModel {
         )
     }
     
-    func updateCheckList(checkList: CheckList) {
-        NotificationCenter.default.post(
-            name: NSNotification.Name("editCheckList"),
-            object: checkList,
-            userInfo: nil
-        )
-    }
-    
     func updateTodo(at index: Int, todo: Todo) {
         todos[index] = todo
         todos[index].editedTime = Date()
         coreDataManager.saveData()
-    }
-    
-    func deleteCheckList() {
-        guard let cid = self.selectedCheckList?.cid else { return }
-        NotificationCenter.default.post(
-            name: NSNotification.Name("deleteCheckList"),
-            object: cid,
-            userInfo: nil
-        )
     }
     
     func deleteTodo(at index: Int) {

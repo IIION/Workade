@@ -5,6 +5,7 @@
 //  Created by Wonhyuk Choi on 2022/10/22.
 //
 
+import Combine
 import UIKit
 
 @MainActor
@@ -12,6 +13,8 @@ final class CheckListViewModel {
     private let coreDataManager = CoreDataManager.shared
     
     var checkList = [CheckList]()
+    let editCheckListPublisher = PassthroughSubject<CheckList, Never>()
+    let deleteCheckListPublisher = PassthroughSubject<String, Never>()
     
     func addCheckList() {
         guard let newCheckList = coreDataManager.addCheckList() else { return }
