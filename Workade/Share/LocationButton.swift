@@ -9,7 +9,7 @@ import UIKit
 
 class LocationButton: UIButton {
     var region: String
-    var selectedRegion: Binder<Region?>
+    var selectedRegion: Binder<RegionModel?>
     let peopleCount: Int
     
     private lazy var locationLabel: UILabel = {
@@ -51,7 +51,7 @@ class LocationButton: UIButton {
         return label
     }()
     
-    init(region: String, selectedRegion: Binder<Region?>, peopleCount: Int) {
+    init(region: String, selectedRegion: Binder<RegionModel?>, peopleCount: Int) {
         self.region = region
         self.selectedRegion = selectedRegion
         self.peopleCount = peopleCount

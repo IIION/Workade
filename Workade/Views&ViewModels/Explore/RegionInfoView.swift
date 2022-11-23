@@ -9,7 +9,7 @@ import UIKit
 
 class RegionInfoView: UIView {
     
-    let selectedRegion: Binder<Region?>
+    let selectedRegion: Binder<RegionModel?>
     
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -76,7 +76,7 @@ class RegionInfoView: UIView {
         return button
     }()
     
-    init(frame: CGRect, selectedRegion: Binder<Region?>) {
+    init(frame: CGRect, selectedRegion: Binder<RegionModel?>) {
         self.selectedRegion = selectedRegion
         super.init(frame: frame)
         

@@ -16,11 +16,11 @@ import UIKit
 
 class TestViewController: UIViewController {
     // 테스트를 위해 현재 바인더 값은 Busan으로 설정합니다.
-    var selectedRegion: Binder<Region?> = Binder(Region(rawValue: Region.busan.rawValue))
+    var selectedRegion: Binder<RegionModel?> = Binder(RegionModel(rawValue: RegionModel.gangwondo.rawValue))
     
     // 현재 선택된 버튼과 일치할 경우
     private lazy var selectButton: LocationButton = {
-        let button = LocationButton(region: Region.busan.rawValue, selectedRegion: selectedRegion, peopleCount: 23)
+        let button = LocationButton(region: RegionModel.gangwondo.rawValue, selectedRegion: selectedRegion, peopleCount: 23)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -28,7 +28,7 @@ class TestViewController: UIViewController {
     
     // 현재 선택되지 않은 버튼일 경우
     private lazy var basicButton: LocationButton = {
-        let button = LocationButton(region: Region.seoul.rawValue, selectedRegion: selectedRegion, peopleCount: 23)
+        let button = LocationButton(region: RegionModel.gyeonggido.rawValue, selectedRegion: selectedRegion, peopleCount: 23)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
