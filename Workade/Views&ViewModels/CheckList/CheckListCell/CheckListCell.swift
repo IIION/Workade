@@ -12,14 +12,8 @@ class CheckListCell: UICollectionViewCell {
     
     var isDeleteMode = false {
         didSet {
-            if isDeleteMode {
-                self.displayStack.isHidden = true
-                self.deleteButton.isHidden = false
-            } else {
-                self.displayStack.isHidden = false
-                self.deleteButton.isHidden = true
-            }
-            self.contentView.layoutIfNeeded()
+            displayStack.isHidden = isDeleteMode
+            deleteButton.isHidden = !isDeleteMode
         }
     }
     
