@@ -95,6 +95,7 @@
 		9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690404C292AB61500F5E590 /* MagazineCategory.swift */; };
 		969285E2292E64F8008F0389 /* MagazineTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */; };
 		969285E4292E849E008F0389 /* NSLayoutConstraints+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E3292E849E008F0389 /* NSLayoutConstraints+.swift */; };
+		969285E6292E92DB008F0389 /* TitleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E5292E92DB008F0389 /* TitleImageView.swift */; };
 		96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */; };
 		96972ED12903011500197DEE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96972ED02903011500197DEE /* CellImageView.swift */; };
 		96A28420292A6BB50084E479 /* OfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2841F292A6BB50084E479 /* OfficeViewModel.swift */; };
@@ -222,6 +223,7 @@
 		9690404C292AB61500F5E590 /* MagazineCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCategory.swift; sourceTree = "<group>"; };
 		969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTransitionManager.swift; sourceTree = "<group>"; };
 		969285E3292E849E008F0389 /* NSLayoutConstraints+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraints+.swift"; sourceTree = "<group>"; };
+		969285E5292E92DB008F0389 /* TitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleImageView.swift; sourceTree = "<group>"; };
 		96972ECE2903008800197DEE /* MagazineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCollectionViewCell.swift; sourceTree = "<group>"; };
 		96972ED02903011500197DEE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
 		96A2841F292A6BB50084E479 /* OfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeViewModel.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
 				A33835232903C96C009882BF /* CellItemDetailViewController.swift */,
+				969285E5292E92DB008F0389 /* TitleImageView.swift */,
 				A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */,
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
 			);
@@ -862,6 +865,7 @@
 				169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */,
 				5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */,
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
+				969285E6292E92DB008F0389 /* TitleImageView.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
 				16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */,
