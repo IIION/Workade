@@ -76,7 +76,7 @@
 		5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */; };
 		5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17DE28FE7F320060DBB7 /* GuideHomeViewController.swift */; };
 		5FDC17E128FE7F430060DBB7 /* GuideHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17E028FE7F430060DBB7 /* GuideHomeViewModel.swift */; };
-		5FF24619292F887500B97D2D /* LoginNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF24618292F887500B97D2D /* LoginNameViewModel.swift */; };
+		5FF2461B292F8A1900B97D2D /* LoginJobViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2461A292F8A1900B97D2D /* LoginJobViewModel.swift */; };
 		961C56212902BF77003E238F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C56202902BF77003E238F /* HeaderView.swift */; };
 		961CC481290AE69700921F24 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961CC480290AE69700921F24 /* UserDefaultsManager.swift */; };
 		961CC483290AF34600921F24 /* MultiBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961CC482290AF34600921F24 /* MultiBinder.swift */; };
@@ -199,7 +199,7 @@
 		5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5FDC17DE28FE7F320060DBB7 /* GuideHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideHomeViewController.swift; sourceTree = "<group>"; };
 		5FDC17E028FE7F430060DBB7 /* GuideHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideHomeViewModel.swift; sourceTree = "<group>"; };
-		5FF24618292F887500B97D2D /* LoginNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNameViewModel.swift; sourceTree = "<group>"; };
+		5FF2461A292F8A1900B97D2D /* LoginJobViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewModel.swift; sourceTree = "<group>"; };
 		6C25E273370A5639B8396DFB /* Pods_Workade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Workade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961C56202902BF77003E238F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		961CC480290AE69700921F24 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -519,7 +519,6 @@
 			isa = PBXGroup;
 			children = (
 				5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */,
-				5FF24618292F887500B97D2D /* LoginNameViewModel.swift */,
 			);
 			path = LoginName;
 			sourceTree = "<group>";
@@ -528,6 +527,7 @@
 			isa = PBXGroup;
 			children = (
 				5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */,
+				5FF2461A292F8A1900B97D2D /* LoginJobViewModel.swift */,
 			);
 			path = LoginJob;
 			sourceTree = "<group>";
@@ -859,7 +859,6 @@
 				16CBD46C2902FB480056A641 /* UITableViewCell+.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
-				5FF24619292F887500B97D2D /* LoginNameViewModel.swift in Sources */,
 				16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */,
 				A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
@@ -925,6 +924,7 @@
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */,
+				5FF2461B292F8A1900B97D2D /* LoginJobViewModel.swift in Sources */,
 				5F44CD02292DFB32007498E2 /* LoginNextButtonView.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,

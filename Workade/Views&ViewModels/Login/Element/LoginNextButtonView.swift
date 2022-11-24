@@ -34,7 +34,6 @@ class LoginNextButtonView: UIView {
         
         layer.cornerRadius = 24
         tintColor = .white
-        backgroundColor = .blue // Gradient 적용하기
         
         setupLayout()
         
@@ -61,12 +60,16 @@ class LoginNextButtonView: UIView {
         guideLabel.isHidden = true
     }
     
-    func appearGuidLabel() {
+    func ableToSignup() {
         guideLabel.isHidden = false
+        isUserInteractionEnabled = true
+        backgroundColor = .blue // TODO: Gradient 적용하기
     }
     
-    func disappearGuidLabel() {
+    func disableToSignup() {
         guideLabel.isHidden = true
+        isUserInteractionEnabled = false
+        backgroundColor = .gray
     }
     
     @objc func handleTapGesture() {

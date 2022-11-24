@@ -8,18 +8,15 @@
 import UIKit
 
 class LoginJobViewController: UIViewController {
-    private var name: String?
-    private var selectedJob: Job? = nil
-    private var isPickerOpened = false
+    private var viewModel = LoginJobViewModel()
     private var nextButtonWidth: NSLayoutConstraint!
     private var jobPickerHeight: NSLayoutConstraint!
-    let imageConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .default)
     
     lazy private var guideLabel: UILabel = {
         let guideLable = UILabel()
         guideLable.translatesAutoresizingMaskIntoConstraints = false
         guideLable.numberOfLines = 0
-        if let name = name {
+        if let name = viewModel.name {
             guideLable.text = "\(name)님은 현재\n무슨 일을 하고 계신가요?"
         } else {
             guideLable.text = "XXX님의 현재\n무슨 일을 하고 계신가요?"
@@ -32,10 +29,10 @@ class LoginJobViewController: UIViewController {
         return guideLable
     }()
     
-    lazy private var defaultPickerImage: UIImageView = { [weak self] in
+    lazy private var defaultPickerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "chevron.down", withConfiguration: self?.imageConfig)
+        imageView.image = DefaultPickerImage.chevronDown.image
         imageView.isUserInteractionEnabled = false
         imageView.tintColor = .black
         
@@ -85,10 +82,10 @@ class LoginJobViewController: UIViewController {
         return choiceView
     }()
     
-    lazy private var nextButton: LoginNextButtonView = {
+    lazy var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             guard let self = self else { return }
-            print(self.name, self.selectedJob?.rawValue)
+            print(self.viewModel.name, self.viewModel.selectedJob?.rawValue)
         }) // TODO: 다음 페이지 연결하기
         nextView.translatesAutoresizingMaskIntoConstraints = false
         nextView.backgroundColor = .gray
@@ -98,7 +95,7 @@ class LoginJobViewController: UIViewController {
     }()
     
     init(name: String?) {
-        self.name = name
+        viewModel.name = name
         super.init(nibName: nil, bundle: nil)
         
         view.backgroundColor = .white
@@ -144,7 +141,7 @@ class LoginJobViewController: UIViewController {
         ])
         defaultPickerButton.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
-            self.handlePicker(self.selectedJob?.rawValue ?? "선택하기")
+            self.handlePicker(self.viewModel.selectedJob?.rawValue ?? "선택하기")
         }, for: .touchUpInside)
         
         view.addSubview(jobPickerScrollView)
@@ -159,51 +156,48 @@ class LoginJobViewController: UIViewController {
     
     private func setDefaultTitle(_ job: Job?) {
         defaultPickerLabel.text = job?.rawValue ?? "선택하기"
-        selectedJob = job
+        viewModel.selectedJob = job
     }
         
     private func handlePicker(_ title: String) {
-        self.isPickerOpened.toggle()
+        self.viewModel.isPickerOpened.toggle()
         UIButton.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
             guard let self = self else { return }
-            if self.isPickerOpened {
+            if self.viewModel.isPickerOpened {
                 self.jobPickerScrollView.isScrollEnabled = true
-                self.toggleJobPicker(self.isPickerOpened)
+                self.toggleJobPicker(self.viewModel.isPickerOpened)
             } else {
-                self.toggleJobPicker(self.isPickerOpened)
+                self.toggleJobPicker(self.viewModel.isPickerOpened)
             }
+            
             self.setDefaultTitle(Job(rawValue: title))
-            if self.selectedJob != nil {
+            if self.viewModel.selectedJob != nil {
                 self.toggleNextButton()
             }
+            
             self.view.layoutIfNeeded()
         }
     }
     
     private func toggleNextButton() {
-        if selectedJob != nil {
-            nextButton.backgroundColor = .blue
-            nextButton.isUserInteractionEnabled = true
+        if viewModel.selectedJob != nil {
             nextButtonWidth.constant = 116
-            nextButton.appearGuidLabel()
+            nextButton.ableToSignup()
         } else {
-            nextButton.backgroundColor = .gray
-            nextButton.isUserInteractionEnabled = false
             nextButtonWidth.constant = 48
-            nextButton.disappearGuidLabel()
+            nextButton.disableToSignup()
         }
     }
     
     private func toggleJobPicker(_ isOpend: Bool) {
         if isOpend {
             jobPickerHeight.constant = CGFloat(297) // 54 * 5.5개
-            defaultPickerImage.image =  UIImage(systemName: "chevron.up", withConfiguration: imageConfig)
+            defaultPickerImage.image = DefaultPickerImage.chevronUp.image
             defaultPickerButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         } else {
             jobPickerHeight.constant = .zero
-            defaultPickerImage.image =  UIImage(systemName: "chevron.down", withConfiguration: imageConfig)
+            defaultPickerImage.image = DefaultPickerImage.chevronDown.image
             defaultPickerButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         }
     }
 }
-    
