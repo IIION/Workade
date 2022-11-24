@@ -70,6 +70,8 @@ class RegionButton: UIButton {
     
     private func setupLayout() {
         backgroundColor = .theme.background
+        layer.borderColor = UIColor.theme.workadeBlue.cgColor
+        
         regionLabel.textColor = .theme.primary
         let sizeConstant: CGFloat = 64
         translatesAutoresizingMaskIntoConstraints = false
@@ -99,26 +101,17 @@ class RegionButton: UIButton {
     }
     
     func changeLayout() {
-        if let selectedRegion = selectedRegion?.value {
-            layer.borderWidth = 0
-            if selectedRegion == region {
-                backgroundColor = .theme.primary
-                regionLabel.textColor = .theme.background
-                peopleCountLabel.textColor = .theme.background
-                peopleImage.tintColor = .theme.background
-            } else {
-                backgroundColor = .theme.background
-                regionLabel.textColor = .theme.primary
-                peopleCountLabel.textColor = .theme.primary
-                peopleImage.tintColor = .theme.primary
-            }
+        layer.borderWidth = selectedRegion?.value == nil ? 1 : 0
+        if let selectRegion = selectedRegion?.value, selectRegion == region {
+            backgroundColor = .theme.primary
+            regionLabel.textColor = .theme.background
+            peopleCountLabel.textColor = .theme.background
+            peopleImage.tintColor = .theme.background
         } else {
             backgroundColor = .theme.background
             regionLabel.textColor = .theme.primary
             peopleCountLabel.textColor = .theme.primary
             peopleImage.tintColor = .theme.primary
-            layer.borderWidth = 1
-            layer.borderColor = UIColor.theme.workadeBlue.cgColor
         }
     }
 }
