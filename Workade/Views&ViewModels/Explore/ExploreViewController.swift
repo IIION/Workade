@@ -191,7 +191,7 @@ class ExploreViewController: UIViewController {
         NSLayoutConstraint.activate([
             mapImageView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             mapImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            mapImageView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -20)
+            mapImageView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -20 - CGFloat.topSafeArea)
         ])
         
         view.addSubview(guideButton)
