@@ -16,6 +16,7 @@ class RegionButton: UIButton {
         let label = UILabel()
         label.text = self.region.name
         label.font = .customFont(for: .footnote2)
+        label.isUserInteractionEnabled = false
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -26,6 +27,7 @@ class RegionButton: UIButton {
         stackView.axis = .horizontal
         stackView.spacing = 2
         stackView.alignment = .center
+        stackView.isUserInteractionEnabled = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -37,6 +39,7 @@ class RegionButton: UIButton {
         let peopleImage = UIImageView()
         peopleImage.image = UIImage(systemName: "person.fill", withConfiguration: config)
         peopleImage.tintColor = .theme.primary
+        peopleImage.isUserInteractionEnabled = false
         peopleImage.translatesAutoresizingMaskIntoConstraints = false
         
         return peopleImage
@@ -47,6 +50,7 @@ class RegionButton: UIButton {
         label.textColor = .theme.primary
         label.font = .customFont(for: .caption2)
         label.text = "\(peopleCount)"
+        label.isUserInteractionEnabled = false
         
         return label
     }()
