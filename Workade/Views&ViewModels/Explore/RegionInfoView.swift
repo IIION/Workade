@@ -56,7 +56,7 @@ class RegionInfoView: UIView {
         titleAttr.foregroundColor = .theme.background
 
         config.attributedTitle = titleAttr
-        config.image = UIImage(named: "star")
+        config.image = UIImage(named: "Star")
         config.imagePadding = 4
         button.configuration = config
         button.translatesAutoresizingMaskIntoConstraints = false
