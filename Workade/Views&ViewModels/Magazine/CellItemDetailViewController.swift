@@ -288,7 +288,7 @@ extension CellItemDetailViewController: MagazineViewShareDelegate {
     func defaultShare() {
         // scrollView를 UIImage로 변환.
         let image = scrollView.toImage()
-        let context = "사진의 화질이 좋지 않다면, 카카오톡 설정에서 화질을 원본화질로 변경해주세요"
+        let context = "[Workade] 카카오톡으로 공유 시 사진의 화질이 좋지 않다면, 카카오톡 설정에서 화질을 원본화질로 변경해주세요"
         guard let image = image else { return }
         
         // 여기서 문제 터진다. 공유 시트에서 오토레이아웃 깨지는건 어쩔 수 없는듯. 내가 커스텀 할 수 있는 영역이 아님.
