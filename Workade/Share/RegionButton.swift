@@ -71,12 +71,15 @@ class RegionButton: UIButton {
     private func setupLayout() {
         backgroundColor = .theme.background
         regionLabel.textColor = .theme.primary
-        
+        let sizeConstant: CGFloat = 64
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: 64),
-            heightAnchor.constraint(equalToConstant: 64)
+            widthAnchor.constraint(equalToConstant: sizeConstant),
+            heightAnchor.constraint(equalToConstant: sizeConstant)
         ])
+        
+        layer.cornerCurve = .continuous
+        layer.cornerRadius = sizeConstant / 2
         
         stackView.addArrangedSubview(peopleImage)
         stackView.addArrangedSubview(peopleCountLabel)
@@ -100,14 +103,20 @@ class RegionButton: UIButton {
             layer.borderWidth = 0
             if selectedRegion == region {
                 backgroundColor = .theme.primary
-                tintColor = .theme.background
+                regionLabel.textColor = .theme.background
+                peopleCountLabel.textColor = .theme.background
+                peopleImage.tintColor = .theme.background
             } else {
                 backgroundColor = .theme.background
-                tintColor = .theme.primary
+                regionLabel.textColor = .theme.primary
+                peopleCountLabel.textColor = .theme.primary
+                peopleImage.tintColor = .theme.primary
             }
         } else {
             backgroundColor = .theme.background
-            tintColor = .theme.primary
+            regionLabel.textColor = .theme.primary
+            peopleCountLabel.textColor = .theme.primary
+            peopleImage.tintColor = .theme.primary
             layer.borderWidth = 1
             layer.borderColor = UIColor.theme.workadeBlue.cgColor
         }
