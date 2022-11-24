@@ -29,8 +29,9 @@ final class OfficeTransitionManager: NSObject {
     
     /// ContainerView의 배경 블러뷰.
     private let blurEffectView: UIView = {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+        let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         
         return blurEffectView
@@ -40,7 +41,11 @@ final class OfficeTransitionManager: NSObject {
     private func makePlaceView(origin view: NearbyPlaceImageView) -> NearbyPlaceImageView {
         let officeModel = view.officeModel
         let copyPlaceView = NearbyPlaceImageView(officeModel: officeModel)
+        cellTextLabel.text = copyPlaceView.placeLabel.text
         copyPlaceView.layer.masksToBounds = true
+        copyPlaceView.layer.cornerRadius = isPresent ? 16 : 0
+        copyPlaceView.placeLabel.alpha = isPresent ? 1 : 0
+        copyPlaceView.locationLabel.alpha = isPresent ? 1 : 0
         copyPlaceView.translatesAutoresizingMaskIntoConstraints = false
         
         return copyPlaceView
@@ -68,16 +73,18 @@ final class OfficeTransitionManager: NSObject {
     private let whiteView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.background
+        view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
     /// dismiss시의 textLabel 전환 자연스럽게 하기위한 보여주기식 label.
-    private let cellTextLabel: UILabel = {
+    private lazy var cellTextLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .captionHeadline)
         label.textColor = .white
+        label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -94,7 +101,6 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
         containerView.subviews.forEach { $0.removeFromSuperview() }
         containerView.addSubview(blurEffectView)
-        blurEffectView.alpha = isPresent ? 0 : 1
         blurEffectView.frame = containerView.frame
         
         // 2. viewController 탐색
@@ -111,30 +117,23 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         // 4. NearbyPlaceImageView의 copy본 생성. (원본이 가진 officeModel을 기반으로 만들어야만 하기에 이 경우는 copy가 필요함.)
         let copyPlaceView = makePlaceView(origin: nearbyVC.nearbyPlaceImageView)
         
-        // 5. AutoLayout 외의 설정들.
-        copyPlaceView.layer.cornerRadius = isPresent ? 16 : 0
-        copyPlaceView.placeLabel.alpha = isPresent ? 1 : 0
-        copyPlaceView.locationLabel.alpha = isPresent ? 1 : 0
-        cellTextLabel.alpha = isPresent ? 0 : 1
-        cellTextLabel.text = copyPlaceView.placeLabel.text
-        whiteView.layer.cornerRadius = isPresent ? 16 : 0
-        
-        // 6. containerView에 각종 컴포넌트 추가.
+        // 5. containerView에 각종 컴포넌트 추가.
         [whiteView, segmentControl, segmentUnderLine, copyPlaceView, cellTextLabel].forEach {
             containerView.addSubview($0)
         }
         
-        // 7. 시작점 잡고 즉시 업데이트(해당위치에서 애니메이션 시작하도록.) -> 시작점 해제 -> 도착점 설정 -> 애니메이션 클로저 안에서 업데이트.
+        // 6. 시작점 잡고 즉시 업데이트(해당위치에서 애니메이션 시작하도록.) -> 시작점 해제 -> 도착점 설정 -> 애니메이션 클로저 안에서 업데이트.
         setupLayoutConstraints(placeView: copyPlaceView, in: containerView, cellFrame: absoluteCellFrame)
         
-        // 8. 애니메이션 설정
+        // 7. 애니메이션 설정
         let animator = UIViewPropertyAnimator(duration: duration, timingParameters: springTiming)
+        cellTextLabel.alpha = isPresent ? 0 : 1
         animator.addAnimations { [weak self] in
             guard let self = self else { return }
             self.blurEffectView.alpha = self.isPresent ? 1 : 0
             self.whiteView.layer.cornerRadius = self.isPresent ? 0 : 16
             copyPlaceView.layer.cornerRadius = self.isPresent ? 0 : 16
-            containerView.layoutIfNeeded() // (시작점 -> 도착점) 애니메이션 적용되면서 업데이트.
+            containerView.layoutIfNeeded() // (시작점 -> 도착점) 애니메이션 적용되면서 레이아웃 업데이트.
         }
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
@@ -193,7 +192,7 @@ private extension OfficeTransitionManager {
             cellTextLabel.leadingAnchor.constraint(equalTo: placeView.leadingAnchor, constant: 20),
             cellTextLabel.bottomAnchor.constraint(equalTo: placeView.bottomAnchor, constant: -20),
             cellTextLabel.trailingAnchor.constraint(equalTo: placeView.trailingAnchor, constant: -20),
-            cellTextLabel.heightAnchor.constraint(equalToConstant: 20),
+            cellTextLabel.heightAnchor.constraint(equalToConstant: cellTextLabel.intrinsicContentSize.height),
             
             segmentControl.topAnchor.constraint(equalTo: placeView.bottomAnchor, constant: -100),
             segmentControl.leadingAnchor.constraint(equalTo: placeView.leadingAnchor),

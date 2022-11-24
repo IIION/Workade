@@ -8,6 +8,8 @@
 import UIKit
 
 final class MagazineViewController: UIViewController {
+    private let transitionManager = MagazineTransitionManager()
+    
     private let viewModel = MagazineViewModel()
     private var category: MagazineCategory {
         return MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
@@ -182,7 +184,13 @@ extension MagazineViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let magazineModel = snapshot.itemIdentifiers[indexPath.row]
         let viewController = CellItemDetailViewController(magazine: magazineModel)
-        viewController.modalPresentationStyle = .fullScreen
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
+        let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
+        transitionManager.absoluteCellFrame = absoluteFrame
+        transitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
+        viewController.transitioningDelegate = transitionManager
+        viewController.modalPresentationStyle = .custom
         present(viewController, animated: true)
     }
 }

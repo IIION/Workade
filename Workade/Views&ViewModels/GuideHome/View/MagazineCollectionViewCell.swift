@@ -22,7 +22,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: CollectionViewCellDelegate?
     
-    private lazy var backgroundImageView: CellImageView = {
+    lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

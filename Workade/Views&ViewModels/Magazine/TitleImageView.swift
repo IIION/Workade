@@ -12,7 +12,7 @@ class MagazineTitleImageView: UIImageView {
     let magazine: MagazineModel
     var bookmarkPublisher: PassthroughSubject<Void, Never>?
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .theme.background
         label.font = .customFont(for: .title1)
@@ -22,7 +22,7 @@ class MagazineTitleImageView: UIImageView {
         return label
     }()
     
-    private lazy var bookmarkButton: UIButton = {
+    lazy var bookmarkButton: UIButton = {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
         let button = UIButton()
         button.tintColor = .theme.background
