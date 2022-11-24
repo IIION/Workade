@@ -85,11 +85,10 @@ class LoginSheetView: UIView {
             guideLable.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 36.5)
         ])
         
-        closeButton.addAction(UIAction{ [weak self] _ in
+        closeButton.addAction(UIAction { [weak self] _ in
             UIView.animate(withDuration: 0.3) {
                 self?.handleCloseButton()
             }
-            print("Hello") // TODO: Dismiss 할 것 @Toby
         }, for: .touchUpInside)
         addSubview(closeButton)
         NSLayoutConstraint.activate([
