@@ -53,9 +53,11 @@
 		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA334292B7026003EF7F2 /* UIVIew+.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
+		5F3208C4292E36EC00B9F09A /* JobPickerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */; };
 		5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFF292D76F3007498E2 /* JobModel.swift */; };
+		5F44CD02292DFB32007498E2 /* LoginNextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */; };
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */; };
@@ -171,9 +173,11 @@
 		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F1EA334292B7026003EF7F2 /* UIVIew+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+.swift"; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
+		5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPickerScrollView.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewController.swift; sourceTree = "<group>"; };
 		5F44CCFF292D76F3007498E2 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
+		5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextButtonView.swift; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 				5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */,
 				5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */,
 				5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */,
+				5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */,
+				5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -839,6 +845,7 @@
 				A37D28442923C62E009F0ED6 /* GalleryResource.swift in Sources */,
 				96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */,
 				96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */,
+				5F3208C4292E36EC00B9F09A /* JobPickerScrollView.swift in Sources */,
 				5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */,
@@ -890,6 +897,7 @@
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */,
+				5F44CD02292DFB32007498E2 /* LoginNextButtonView.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
 				0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */,
