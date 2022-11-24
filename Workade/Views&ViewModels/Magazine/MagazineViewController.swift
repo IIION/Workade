@@ -63,13 +63,6 @@ final class MagazineViewController: UIViewController {
         observeFetchCompletion()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel.setupMagazineModelsBookmark()
-        applySnapshot(category: category, animated: false)
-    }
-    
     private func observeFetchCompletion() {
         viewModel.isCompleteFetch.bindAndFire { [weak self] _ in
             guard let self = self else { return }
@@ -188,7 +181,14 @@ extension MagazineViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
         let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
         transitionManager.absoluteCellFrame = absoluteFrame
-        transitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
+        transitionManager.cellHidden = { [weak self] isHidden in
+            guard let self = self else { return }
+            cell.backgroundImageView.isHidden = isHidden
+            if !isHidden {
+                self.viewModel.setupMagazineModelsBookmark()
+                self.applySnapshot(category: self.category, animated: false)
+            }
+        }
         viewController.transitioningDelegate = transitionManager
         viewController.modalPresentationStyle = .custom
         present(viewController, animated: true)

@@ -112,10 +112,9 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.layoutIfNeeded()
         }
         
-        self.cellHidden?(true)
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
-            self.cellHidden?(false)
+            self.cellHidden?(self.isPresent)
             containerView.subviews.forEach {
                 $0.removeFromSuperview()
                 NSLayoutConstraint.deactivate($0.constraints)
