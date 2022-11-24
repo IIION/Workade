@@ -12,6 +12,7 @@ import KakaoSDKShare
 
 class ShareView: UIView {
     var magazine: MagazineModel
+    weak var delegate: MagazineViewShareDelegate?
     
     private lazy var divider: UIView = {
         let divider = UIView()
@@ -59,7 +60,10 @@ class ShareView: UIView {
     private lazy var defaultShareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "DefaultButton"), for: .normal)
-
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.defaultShare()
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -133,6 +137,9 @@ extension ShareView {
             print("카카오톡 미설치")
         }
     }
-
+    
+    private func defaultShare() {
+        delegate?.defaultShare()
+    }
     
 }

@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol MagazineViewShareDelegate: AnyObject {
+    func defaultShare()
+}
 
 class CellItemDetailViewController: UIViewController {
     var magazine: MagazineModel
@@ -121,6 +124,7 @@ class CellItemDetailViewController: UIViewController {
         }
         
         scrollView.delegate = self
+        shareView.delegate = self
         
         setupBookmarkImage()
         setupCustomNavigationBar()
@@ -277,5 +281,17 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
             titleImageView.alpha = 1
             closeButton.alpha = 1
         }
+    }
+}
+
+extension CellItemDetailViewController: MagazineViewShareDelegate {
+    func defaultShare() {
+        // scrollView를 UIImage로 변환.
+        let image = scrollView.toImage()
+        let context = "사진의 화질이 좋지 않다면, 카카오톡 설정에서 화질을 원본화질로 변경해주세요"
+        guard let image = image else { return }
+        let activityViewController = UIActivityViewController(activityItems: [image, context], applicationActivities: nil)
+
+        present(activityViewController, animated: true, completion: nil)
     }
 }
