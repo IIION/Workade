@@ -5,12 +5,14 @@
 //  Created by Wonhyuk Choi on 2022/10/25.
 //
 
+import Combine
 import UIKit
 
-class CheckListBottomSheetViewController: UIViewController {
-    var defaultHeight: CGFloat = 200
+final class CheckListBottomSheetViewController: UIViewController {
+    var defaultHeight: CGFloat = 250
     
     private let checkListBottomSheetViewModel = CheckListBottomSheetViewModel()
+    var addTemplatePublisher: PassthroughSubject<[String], Never>? = nil
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -51,6 +53,30 @@ class CheckListBottomSheetViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var backButton: UIButton = {
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 6
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+        
+        var attributedText = AttributedString.init("돌아가기")
+        attributedText.font = .customFont(for: .caption)
+        config.attributedTitle = attributedText
+        config.image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .semibold), color: .theme.background)
+        
+        button.configuration = config
+        button.tintColor = .theme.background
+        button.backgroundColor = .theme.primary
+        button.layer.cornerRadius = 20
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.hideBottomSheetAndGoBack()
+        }), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     private var bottomSheetViewTopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -74,6 +100,7 @@ class CheckListBottomSheetViewController: UIViewController {
         view.addSubview(bottomSheetView)
         view.addSubview(dimmedView)
         view.addSubview(templateCollectionView)
+        view.addSubview(backButton)
         
         let guide = view.safeAreaLayoutGuide
         let topConstant: CGFloat = view.safeAreaInsets.bottom + guide.layoutFrame.height
@@ -105,6 +132,11 @@ class CheckListBottomSheetViewController: UIViewController {
             templateCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 20),
             templateCollectionView.widthAnchor.constraint(equalTo: guide.widthAnchor, constant: -20),
             templateCollectionView.heightAnchor.constraint(equalToConstant: 150)
+        ])
+        
+        NSLayoutConstraint.activate([
+            backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            backButton.topAnchor.constraint(equalTo: templateCollectionView.bottomAnchor, constant: 20)
         ])
     }
     
@@ -160,7 +192,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDataSource {
         
         cell.setupCell(checkListTemplate: template)
         cell.addTemplate = { [weak self] in
-            self?.checkListBottomSheetViewModel.addTemplateTodo(template.list)
+            self?.addTemplatePublisher?.send(template.list)
         }
         
         return cell
@@ -171,6 +203,7 @@ extension CheckListBottomSheetViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let checkListTemplateViewController = CheckListTemplateViewController()
         checkListTemplateViewController.modalPresentationStyle = .overFullScreen
+        checkListTemplateViewController.addTemplatePublisher = addTemplatePublisher
         
         let template = checkListBottomSheetViewModel.checkListTemplateResource.content[indexPath.row]
         

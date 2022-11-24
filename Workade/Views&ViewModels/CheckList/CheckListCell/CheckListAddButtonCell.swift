@@ -12,7 +12,7 @@ class CheckListAddButtonCell: UICollectionViewCell {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 40, weight: .bold)
         let image = UIImage(systemName: "plus.circle.fill", withConfiguration: imageConfig)
         let imageView = UIImageView(image: image)
-        imageView.tintColor = .theme.primary
+        imageView.tintColor = .theme.workadeBlue
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -22,7 +22,9 @@ class CheckListAddButtonCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.layer.cornerRadius = 20
-        contentView.backgroundColor = .theme.groupedBackground
+        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.theme.workadeBackgroundBlue.cgColor
+        contentView.backgroundColor = .theme.background
         
         self.setupLayout()
     }
