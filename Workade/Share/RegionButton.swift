@@ -111,11 +111,13 @@ class RegionButton: UIButton {
             regionLabel.textColor = .theme.background
             peopleCountLabel.textColor = .theme.background
             peopleImage.tintColor = .theme.background
+            self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         } else {
             backgroundColor = .theme.background
             regionLabel.textColor = .theme.primary
             peopleCountLabel.textColor = .theme.primary
             peopleImage.tintColor = .theme.primary
+            self.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
     }
 }
