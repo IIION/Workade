@@ -13,6 +13,11 @@ class ExploreViewController: UIViewController {
     let viewModel = ExploreViewModel()
     var regionInfoViewBottomConstraint: NSLayoutConstraint?
     
+    private let animator: UIViewPropertyAnimator = {
+        let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
+        return UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -20,27 +25,16 @@ class ExploreViewController: UIViewController {
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
         setupLayout()
         
-        let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
-        let animator = UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
         viewModel.selectedRegion.bind { [weak self] region in
-            self?.regionButtons.forEach{ $0.changeLayout() }
-            if let region = region {
-                self?.regionInfoViewBottomConstraint?.constant = 0
-                self?.regionInfoView.titleLabel.text = region.name
-                self?.regionInfoView.subTitleLabel.text = region.rawValue
-                self?.titleLabel.alpha = 0
-                self?.mainContainerView.image = UIImage(named: region.imageName)
-                self?.mapImageView.tintColor = .white
-            } else {
-                self?.regionInfoViewBottomConstraint?.constant = 180
-                self?.mainContainerView.image = UIImage(named: "")
-                self?.titleLabel.alpha = 1
-                self?.mapImageView.tintColor = .theme.workadeBlue
+            guard let self = self else { return }
+            // 선택된 Region에 따라 RegionButton 업데이트
+            self.regionButtons.forEach { $0.changeLayout() }
+            self.changeLayout(by: region)
+            
+            self.animator.addAnimations {
+                self.view.layoutIfNeeded()
             }
-            animator.addAnimations {
-                self?.view.layoutIfNeeded()
-            }
-            animator.startAnimation()
+            self.animator.startAnimation()
         }
     }
     
@@ -84,8 +78,9 @@ class ExploreViewController: UIViewController {
         config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 14, bottom: 12, trailing: 14)
         
         var background = UIButton.Configuration.plain().background
-        background.strokeWidth = 1
-        background.strokeColor = .theme.groupedBackground
+        let effect = UIBlurEffect(style: .systemMaterialLight)
+        let effectView = UIVisualEffectView(effect: effect)
+        background.customView = effectView
         config.background = background
         
         var titleAttr = AttributedString.init("오픈채팅")
@@ -224,5 +219,22 @@ class ExploreViewController: UIViewController {
                 regionButton.centerYAnchor.constraint(equalTo: mapImageView.centerYAnchor, constant: -constantY)
             ])
         }
+    }
+    
+    private func changeLayout(by region: RegionModel?) {
+        let isRegionNil = region == nil
+        
+        regionInfoViewBottomConstraint?.constant = isRegionNil ? 180 : 0
+        titleLabel.alpha = isRegionNil ? 1 : 0
+        regionInfoView.titleLabel.text = region?.name ?? ""
+        regionInfoView.subTitleLabel.text = region?.rawValue ?? ""
+        mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
+        
+        UIView.transition(with: mainContainerView,
+                          duration: 0.25,
+                          options: .transitionCrossDissolve,
+                          animations: {
+            self.mainContainerView.image = UIImage(named: region?.imageName ?? "")
+        }, completion: nil)
     }
 }
