@@ -8,7 +8,6 @@
 import UIKit
 
 final class LoginNameViewController: UIViewController, UITextFieldDelegate {
-    private var name: String? = nil
     private let guideLabel: UILabel = {
         let guideLabel = UILabel()
         guideLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +54,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.topItem?.title = "회원가입"
         navigationItem.backButtonTitle = ""
+        self.navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupLayout() {
