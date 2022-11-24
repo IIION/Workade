@@ -10,6 +10,7 @@ import UIKit
 /// **CellItemDetailViewController가 띄어지는 상황에서 Transition애니메이션을 위임해서 맡아주는 매니저.**
 final class MagazineTransitionManager: NSObject {
     var absoluteCellFrame: CGRect?
+    var labelHeight: CGFloat?
     var cellHidden: ((Bool) -> Void)?
     
     private var transitionType: TransitionType = .presentation
@@ -172,7 +173,7 @@ private extension MagazineTransitionManager {
             cellTextLabel.leadingAnchor.constraint(equalTo: titleImageView.leadingAnchor, constant: 12),
             cellTextLabel.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -12),
             cellTextLabel.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -16),
-            cellTextLabel.heightAnchor.constraint(equalToConstant: cellTextLabel.intrinsicContentSize.height),
+            cellTextLabel.heightAnchor.constraint(equalToConstant: labelHeight!),
             
             whiteView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: cellFrame.origin.y),
             whiteView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: cellFrame.origin.x),

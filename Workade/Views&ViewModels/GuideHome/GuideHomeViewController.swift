@@ -210,6 +210,7 @@ extension GuideHomeViewController: UICollectionViewDelegate {
             guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
             let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
             magazineTransitionManager.absoluteCellFrame = absoluteFrame
+            magazineTransitionManager.labelHeight = cell.titleLabel.intrinsicContentSize.height
             magazineTransitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
             viewController.transitioningDelegate = magazineTransitionManager
             viewController.modalPresentationStyle = .custom

@@ -181,6 +181,7 @@ extension MagazineViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
         let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
         transitionManager.absoluteCellFrame = absoluteFrame
+        transitionManager.labelHeight = cell.titleLabel.intrinsicContentSize.height
         transitionManager.cellHidden = { [weak self] isHidden in
             guard let self = self else { return }
             cell.backgroundImageView.isHidden = isHidden
