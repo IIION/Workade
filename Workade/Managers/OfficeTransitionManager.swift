@@ -22,7 +22,7 @@ final class OfficeTransitionManager: NSObject {
     }
     private let springTiming = UISpringTimingParameters(dampingRatio: 0.75)
     private var duration: Double {
-        return isPresent ? 5 : 5
+        return isPresent ? 0.75 : 0.65
     }
     
     /// ContainerView의 배경 블러뷰.
@@ -78,12 +78,12 @@ final class OfficeTransitionManager: NSObject {
     }()
     
     /// dismiss시의 textLabel 전환 자연스럽게 하기위한 보여주기식 label.
-    private lazy var cellTextLabel: UILabel = {
+    private let cellTextLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .captionHeadline)
         label.textColor = .white
-        label.reservations = [.init(.alpha, from: 1, to: 0, animated: false)]
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.reservations = [.init(.alpha, from: 1, to: 0, animated: false)]
         
         return label
     }()

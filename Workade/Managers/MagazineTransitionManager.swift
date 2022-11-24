@@ -9,24 +9,23 @@ import UIKit
 
 /// **CellItemDetailViewController가 띄어지는 상황에서 Transition애니메이션을 위임해서 맡아주는 매니저.**
 final class MagazineTransitionManager: NSObject {
+    var absoluteCellFrame: CGRect?
+    var cellHidden: ((Bool) -> Void)?
+    
     private var transitionType: TransitionType = .presentation
     private var isPresent: Bool {
         return transitionType == .presentation
     }
-    
     private let springTiming = UISpringTimingParameters(dampingRatio: 0.75)
     private var duration: Double {
         return isPresent ? 0.75 : 0.65
     }
     
-    var absoluteCellFrame: CGRect?
-    var cellHidden: ((Bool) -> Void)?
-    
     private let blurEffectView: UIView = {
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.reservations = [.init(.alpha, from: 0, to: 1, animated: true)]
         
         return blurEffectView
     }()
@@ -35,9 +34,10 @@ final class MagazineTransitionManager: NSObject {
         let magazine = view.magazine
         let copyTitleImageView = MagazineTitleImageView(by: magazine)
         cellTextLabel.text = copyTitleImageView.magazine.title
-        copyTitleImageView.layer.cornerRadius = isPresent ? 16 : 0
-        copyTitleImageView.titleLabel.alpha = isPresent ? 1 : 0
         copyTitleImageView.backgroundColor = .theme.groupedBackground
+        copyTitleImageView.reservations = [.init(.cornerRadius, from: 16, to: 0)]
+        copyTitleImageView.titleLabel.reservations = [.init(.alpha, from: 0, to: 1, animated: isPresent)]
+        copyTitleImageView.bookmarkButton.reservations = [.init(.alpha, from: 0, to: 1, animated: isPresent)]
         
         return copyTitleImageView
     }
@@ -45,26 +45,29 @@ final class MagazineTransitionManager: NSObject {
     private let whiteView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.background
-        view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.reservations = [.init(.cornerRadius, from: 16, to: 0)]
         
         return view
     }()
     
-    private lazy var bookmarkButton: UIButton = {
+    private let bookmarkButton: UIButton = {
         let button = UIButton()
         button.setImage(SFSymbol.bookmark.image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.reservations = [.init(.alpha, from: 1, to: 0, animated: false)]
         
         return button
     }()
 
-    private lazy var cellTextLabel: UILabel = {
+    private let cellTextLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .caption2)
         label.textColor = .white
         label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.reservations = [.init(.alpha, from: 1, to: 0, animated: false)]
         
         return label
     }()
@@ -78,7 +81,6 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         containerView.subviews.forEach { $0.removeFromSuperview() }
-        containerView.addSubview(blurEffectView)
         blurEffectView.frame = containerView.frame
         
         let fromVC = transitionContext.viewController(forKey: .from)
@@ -92,26 +94,28 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
         
         let copyTitleImageView = makeTitleImageView(origin: magazineDetailVC.titleImageView)
         
-        [whiteView, copyTitleImageView, cellTextLabel, bookmarkButton].forEach {
+        let magazine = copyTitleImageView.magazine
+        let isWishMagazine = UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine.title)
+        bookmarkButton.setImage(isWishMagazine ? SFSymbol.bookmarkFill.image : SFSymbol.bookmark.image, for: .normal)
+        
+        [blurEffectView, whiteView, copyTitleImageView, cellTextLabel, bookmarkButton].forEach {
             containerView.addSubview($0)
         }
         
         setupLayoutConstraints(placeView: copyTitleImageView, in: containerView, cellFrame: absoluteCellFrame)
         
+        let reservedViews = containerView.subviews + [copyTitleImageView.titleLabel, copyTitleImageView.bookmarkButton]
+        
         let animator = UIViewPropertyAnimator(duration: duration, timingParameters: springTiming)
-        cellTextLabel.alpha = isPresent ? 0 : 1
-        bookmarkButton.alpha = isPresent ? 0 : 1
-        copyTitleImageView.bookmarkButton.alpha = isPresent ? 1 : 0
-        animator.addAnimations { [weak self] in
-            guard let self = self else { return }
-            self.blurEffectView.alpha = self.isPresent ? 1 : 0
-            self.whiteView.layer.cornerRadius = self.isPresent ? 0 : 16
-            copyTitleImageView.layer.cornerRadius = self.isPresent ? 0 : 16
+        
+        animator.addAnimation(views: reservedViews, isForward: isPresent) {
             containerView.layoutIfNeeded()
         }
+        
+        self.cellHidden?(true)
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
-            self.cellHidden?(self.isPresent)
+            self.cellHidden?(false)
             containerView.subviews.forEach {
                 $0.removeFromSuperview()
                 NSLayoutConstraint.deactivate($0.constraints)
@@ -119,6 +123,7 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(magazineDetailVC.view)
             transitionContext.completeTransition(true)
         }
+        
         animator.startAnimation()
     }
 }

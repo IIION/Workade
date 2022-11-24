@@ -30,7 +30,6 @@ class MagazineTitleImageView: UIImageView {
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.bookmarkPublisher?.send()
             self?.setupBookmarkImage()
-            print("하윙")
         }), for: .touchUpInside)
         
         return button
