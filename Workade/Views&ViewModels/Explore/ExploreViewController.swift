@@ -235,11 +235,15 @@ class ExploreViewController: UIViewController {
         regionInfoView.subTitleLabel.text = region?.rawValue ?? ""
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
-        UIView.transition(with: mainContainerView,
-                          duration: 0.25,
-                          options: .transitionCrossDissolve,
-                          animations: {
-            self.mainContainerView.image = UIImage(named: region?.imageName ?? "")
-        }, completion: nil)
+        if let region = region {
+            UIView.transition(with: mainContainerView,
+                              duration: 0.25,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                self.mainContainerView.image = UIImage(named: region.imageName)
+            }, completion: nil)
+        } else {
+            self.mainContainerView.image = UIImage(named: "")
+        }
     }
 }
