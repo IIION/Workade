@@ -17,7 +17,13 @@ final class CheckListViewModel {
     let deleteCheckListPublisher = PassthroughSubject<String, Never>()
     
     func addCheckList() {
-        guard let newCheckList = coreDataManager.addCheckList() else { return }
+        guard let context = coreDataManager.context else { return }
+        
+        let newCheckList = CheckList(context: context)
+        newCheckList.cid = UUID().uuidString
+        newCheckList.title = "제목없음"
+        newCheckList.travelDate = Date()
+        coreDataManager.saveData()
         checkList.append(newCheckList)
         sortCheckList()
     }

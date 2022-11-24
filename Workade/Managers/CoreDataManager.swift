@@ -12,7 +12,7 @@ final class CoreDataManager {
     
     static let shared = CoreDataManager()
     
-    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
     func saveData() {
         guard let context = context else { return }
@@ -43,32 +43,5 @@ final class CoreDataManager {
         guard let context = context else { return }
         context.delete(data)
         saveData()
-    }
-    
-    // MARK: - CheckList
-    func addCheckList() -> CheckList? {
-        guard let context = context else { return nil }
-        
-        let newCheckList = CheckList(context: context)
-        newCheckList.cid = UUID().uuidString
-        newCheckList.title = "제목없음"
-        newCheckList.travelDate = Date()
-        saveData()
-        
-        return newCheckList
-    }
-    
-    // MARK: - Todo
-    func addTodo(_ content: String, parentCheckList: CheckList?) -> Todo? {
-        guard let context = context else { return nil }
-        
-        let newTodo = Todo(context: context)
-        newTodo.content = content
-        newTodo.done = false
-        newTodo.editedTime = Date()
-        newTodo.parentCheckList = parentCheckList
-        saveData()
-        
-        return newTodo
     }
 }

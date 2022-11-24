@@ -23,7 +23,14 @@ final class CheckListDetailViewModel {
     }
     
     func addTodo(_ content: String = "내용없음") {
-        guard let newTodo = coreDataManager.addTodo(content, parentCheckList: selectedCheckList) else { return }
+        guard let context = coreDataManager.context else { return }
+        
+        let newTodo = Todo(context: context)
+        newTodo.content = content
+        newTodo.done = false
+        newTodo.editedTime = Date()
+        newTodo.parentCheckList = selectedCheckList
+        coreDataManager.saveData()
         todos.append(newTodo)
     }
     
