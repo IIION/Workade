@@ -64,7 +64,11 @@ class RegionButton: UIButton {
         setupLayout()
         
         self.addAction(UIAction(handler: { [weak self] _ in
-            self?.selectedRegion?.value = self?.region
+            if let selectRegion = selectedRegion.value, selectRegion == region {
+                self?.selectedRegion?.value = nil
+            } else {
+                self?.selectedRegion?.value = self?.region
+            }
         }), for: .touchUpInside)
     }
     
