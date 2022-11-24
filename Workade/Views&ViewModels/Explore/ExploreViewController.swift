@@ -23,6 +23,7 @@ class ExploreViewController: UIViewController {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
         let animator = UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
         viewModel.selectedRegion.bind { [weak self] region in
+            self?.regionButtons.forEach{ $0.changeLayout() }
             if let region = region {
                 self?.regionInfoViewBottomConstraint?.constant = 0
                 self?.regionInfoView.titleLabel.text = region.name

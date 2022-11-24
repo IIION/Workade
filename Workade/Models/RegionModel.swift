@@ -42,7 +42,7 @@ enum RegionModel: String, Hashable, CaseIterable {
     }
     
     var imageName: String {
-        let backgroundString = "background"
+        let backgroundString = "Background"
         return self.rawValue + backgroundString
     }
     

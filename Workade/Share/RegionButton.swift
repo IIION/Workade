@@ -9,7 +9,7 @@ import UIKit
 
 class RegionButton: UIButton {
     var region: RegionModel
-    var selectedRegion: Binder<RegionModel?>
+    weak var selectedRegion: Binder<RegionModel?>?
     let peopleCount: Int
     
     private lazy var regionLabel: UILabel = {
@@ -57,19 +57,27 @@ class RegionButton: UIButton {
         self.peopleCount = peopleCount
         
         super.init(frame: .zero)
-        if selectedRegion.value == region {
-            setupSelectLayout()
-        } else {
-            setupBasicLayout()
-        }
+        setupLayout()
+        
+        self.addAction(UIAction(handler: { [weak self] _ in
+            self?.selectedRegion?.value = self?.region
+        }), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBasicLayout() {
-        setupButtonScale(scale: 64)
+    private func setupLayout() {
+        backgroundColor = .theme.background
+        regionLabel.textColor = .theme.primary
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: 64),
+            heightAnchor.constraint(equalToConstant: 64)
+        ])
+        
         stackView.addArrangedSubview(peopleImage)
         stackView.addArrangedSubview(peopleCountLabel)
         
@@ -84,37 +92,24 @@ class RegionButton: UIButton {
             stackView.topAnchor.constraint(equalTo: regionLabel.bottomAnchor),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
+        changeLayout()
     }
     
-    private func setupSelectLayout() {
-        setupButtonScale(scale: 72)
-        
-        addSubview(regionLabel)
-        NSLayoutConstraint.activate([
-            regionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            regionLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-    }
-    
-    private func setupButtonScale(scale: CGFloat) {
-        layer.cornerRadius = scale / 2
-        
-        if scale == 64 {
-            backgroundColor = .theme.background
-            regionLabel.textColor = .theme.primary
-            
-            NSLayoutConstraint.activate([
-                widthAnchor.constraint(equalToConstant: scale),
-                heightAnchor.constraint(equalToConstant: scale)
-            ])
+    func changeLayout() {
+        if let selectedRegion = selectedRegion?.value {
+            layer.borderWidth = 0
+            if selectedRegion == region {
+                backgroundColor = .theme.primary
+                tintColor = .theme.background
+            } else {
+                backgroundColor = .theme.background
+                tintColor = .theme.primary
+            }
         } else {
-            backgroundColor = .theme.primary
-            regionLabel.textColor = .theme.background
-            
-            NSLayoutConstraint.activate([
-                widthAnchor.constraint(equalToConstant: scale),
-                heightAnchor.constraint(equalToConstant: scale)
-            ])
+            backgroundColor = .theme.background
+            tintColor = .theme.primary
+            layer.borderWidth = 1
+            layer.borderColor = UIColor.theme.workadeBlue.cgColor
         }
     }
 }
