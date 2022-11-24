@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class CellItemDetailViewController: UIViewController {
     var magazine: MagazineModel
     let detailViewModel = MagazineDetailViewModel()

@@ -21,6 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = UINavigationController(rootViewController: GuideHomeViewController())
         window?.makeKeyAndVisible()
+        
+        guard let _ = (scene as? UIWindowScene) else { return }
+        if let url = connectionOptions.urlContexts.first?.url {
+            presentModal(url: url)
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -56,19 +61,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
-            let params = self.queryParams(url: url)
-            let title = params["title"]?.decodeUrl()
-            let imageURL = params["imageURL"]
-            let introduceURL = params["introduceURL"]
-            guard let title = title, let imageURL = imageURL, let introduceURL = introduceURL else { return }
-            let testVC = CellItemDetailViewController(magazine: MagazineModel(title: title, imageURL: imageURL, introduceURL: introduceURL))
-            DispatchQueue.main.async {
-                testVC.modalPresentationStyle = .fullScreen
-                self.window?.rootViewController?.present(testVC, animated: true)
-            }
+            presentModal(url: url)
         }
     }
     
+    // 카카오톡으로 공유한 매거진을 모달로 띄우는 함수
+    func presentModal(url: URL) {
+        let params = self.queryParams(url: url)
+        let title = params["title"]?.decodeUrl()
+        let imageURL = params["imageURL"]
+        let introduceURL = params["introduceURL"]
+        guard let title = title, let imageURL = imageURL, let introduceURL = introduceURL else { return }
+        let testVC = CellItemDetailViewController(magazine: MagazineModel(title: title, imageURL: imageURL, introduceURL: introduceURL))
+        testVC.modalPresentationStyle = .fullScreen
+        DispatchQueue.main.async {
+            self.window?.rootViewController?.present(testVC, animated: true)
+        }
+    }
+    
+    // 쿼리를 딕셔너리 형태로 반환하는 함수
     func queryParams(url: URL) -> Dictionary<String, String> {
         var parameters = Dictionary<String, String>()
         if let queryComponents = url.query?.components(separatedBy: "&") {

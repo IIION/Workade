@@ -18,6 +18,7 @@
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
 		0EFCAA00292D17CC00C84817 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 0EFCA9FF292D17CC00C84817 /* KakaoSDK */; };
 		0EFCAA02292D240C00C84817 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCAA01292D240C00C84817 /* String+.swift */; };
+		0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCAA03292E01A700C84817 /* UIScrollView+.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
 		1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */; };
@@ -129,6 +130,7 @@
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		0EFB5BCA29017FBB00174291 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		0EFCAA01292D240C00C84817 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		0EFCAA03292E01A700C84817 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				A33835272903E03A009882BF /* UIButton+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
 				0EFCAA01292D240C00C84817 /* String+.swift */,
+				0EFCAA03292E01A700C84817 /* UIScrollView+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
 				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
@@ -792,6 +795,7 @@
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
+				0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,

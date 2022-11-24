@@ -56,17 +56,10 @@ class ShareView: UIView {
         return button
     }()
     
-    private lazy var clipboardButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "ClipboardButton"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
-    
     private lazy var defaultShareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "DefaultButton"), for: .normal)
+
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -106,17 +99,10 @@ class ShareView: UIView {
             defaultShareButton.bottomAnchor.constraint(equalTo: shareViewContrainer.bottomAnchor)
         ])
         
-        shareViewContrainer.addSubview(clipboardButton)
-        NSLayoutConstraint.activate([
-            clipboardButton.topAnchor.constraint(equalTo: shareViewContrainer.topAnchor),
-            clipboardButton.trailingAnchor.constraint(equalTo: defaultShareButton.leadingAnchor, constant: -14),
-            clipboardButton.bottomAnchor.constraint(equalTo: shareViewContrainer.bottomAnchor)
-        ])
-        
         shareViewContrainer.addSubview(kakaoShareButton)
         NSLayoutConstraint.activate([
             kakaoShareButton.topAnchor.constraint(equalTo: shareViewContrainer.topAnchor),
-            kakaoShareButton.trailingAnchor.constraint(equalTo: clipboardButton.leadingAnchor, constant: -14),
+            kakaoShareButton.trailingAnchor.constraint(equalTo: defaultShareButton.leadingAnchor, constant: -14),
             kakaoShareButton.bottomAnchor.constraint(equalTo: shareViewContrainer.bottomAnchor)
         ])
     }
@@ -147,5 +133,6 @@ extension ShareView {
             print("카카오톡 미설치")
         }
     }
+
     
 }
