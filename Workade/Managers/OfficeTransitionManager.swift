@@ -9,30 +9,28 @@ import UIKit
 
 /// **NearbyViewController가 띄어지는 상황에서 Transition애니메이션을 위임해서 맡아주는 매니저.**
 ///
-/// Transition될 ViewController의 컴포넌트들을 객체로 캡슐화시킬수록 여기서의 구현코드가 짧아집니다.
+/// Transition될 ViewController의 컴포넌트들을 객체로 캡슐화시킬수록 여기서의 구현코드가 좀 더 짧아집니다.
 final class OfficeTransitionManager: NSObject {
+    // 컬렉션뷰의 Cell로부터 받을 정보들
+    var absoluteCellFrame: CGRect?
+    var cellHidden: ((Bool) -> Void)?
+    
+    // 상태, 설정 관련 프로퍼티들
     private var transitionType: TransitionType = .presentation
     private var isPresent: Bool {
         return transitionType == .presentation
     }
-    
     private let springTiming = UISpringTimingParameters(dampingRatio: 0.75)
     private var duration: Double {
-        return isPresent ? 0.75 : 0.65
+        return isPresent ? 5 : 5
     }
-    
-    /// 컬렉션뷰의 Cell로부터 해당 Cell의 frame을 받음.
-    var absoluteCellFrame: CGRect?
-    
-    /// 해당 Cell과 연결. 전환이 이뤄질 때, 실제로 해당 셀이 움직이는 것처럼 보이기위해 isHidden 조절.
-    var cellHidden: ((Bool) -> Void)?
     
     /// ContainerView의 배경 블러뷰.
     private let blurEffectView: UIView = {
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.reservations = [.init(.alpha, from: 0, to: 1, animated: true)]
         
         return blurEffectView
     }()
@@ -41,12 +39,12 @@ final class OfficeTransitionManager: NSObject {
     private func makePlaceView(origin view: NearbyPlaceImageView) -> NearbyPlaceImageView {
         let officeModel = view.officeModel
         let copyPlaceView = NearbyPlaceImageView(officeModel: officeModel)
-        cellTextLabel.text = copyPlaceView.placeLabel.text
         copyPlaceView.layer.masksToBounds = true
-        copyPlaceView.layer.cornerRadius = isPresent ? 16 : 0
-        copyPlaceView.placeLabel.alpha = isPresent ? 1 : 0
-        copyPlaceView.locationLabel.alpha = isPresent ? 1 : 0
+        cellTextLabel.text = copyPlaceView.placeLabel.text
         copyPlaceView.translatesAutoresizingMaskIntoConstraints = false
+        copyPlaceView.reservations = [.init(.cornerRadius, from: 16, to: 0)]
+        copyPlaceView.placeLabel.reservations = [.init(.alpha, from: 0, to: 1, animated: isPresent)]
+        copyPlaceView.locationLabel.reservations = [.init(.alpha, from: 0, to: 1, animated: isPresent)]
         
         return copyPlaceView
     }
@@ -73,8 +71,8 @@ final class OfficeTransitionManager: NSObject {
     private let whiteView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.background
-        view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.reservations = [.init(.cornerRadius, from: 16, to: 0)]
         
         return view
     }()
@@ -84,13 +82,14 @@ final class OfficeTransitionManager: NSObject {
         let label = UILabel()
         label.font = .customFont(for: .captionHeadline)
         label.textColor = .white
-        label.alpha = 0
+        label.reservations = [.init(.alpha, from: 1, to: 0, animated: false)]
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
 }
 
+// MARK: Animation 등록
 extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -100,25 +99,24 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         // 1. containerView(==transitionView) 초기화 및 blur 배경 설정
         let containerView = transitionContext.containerView
         containerView.subviews.forEach { $0.removeFromSuperview() }
-        containerView.addSubview(blurEffectView)
         blurEffectView.frame = containerView.frame
         
         // 2. viewController 탐색
         let fromVC = transitionContext.viewController(forKey: .from)
         let toVC = transitionContext.viewController(forKey: .to)
         
-        // 3. nearbyVC가 나타날 상황인지, dismiss될 상황인지를 판단하여 알맞은 viewController를 선정하고 다운캐스팅
+        // 3. 다운캐스팅 및 Cell프레임 옵셔널바인딩
         guard let nearbyVC = (isPresent ? toVC : fromVC) as? NearbyPlaceViewController,
               let absoluteCellFrame = absoluteCellFrame else {
             transitionContext.completeTransition(true)
             return
         }
         
-        // 4. NearbyPlaceImageView의 copy본 생성. (원본이 가진 officeModel을 기반으로 만들어야만 하기에 이 경우는 copy가 필요함.)
+        // 4. NearbyPlaceImageView의 copy본 생성.
         let copyPlaceView = makePlaceView(origin: nearbyVC.nearbyPlaceImageView)
         
         // 5. containerView에 각종 컴포넌트 추가.
-        [whiteView, segmentControl, segmentUnderLine, copyPlaceView, cellTextLabel].forEach {
+        [blurEffectView, whiteView, segmentControl, segmentUnderLine, copyPlaceView, cellTextLabel].forEach {
             containerView.addSubview($0)
         }
         
@@ -126,15 +124,14 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         setupLayoutConstraints(placeView: copyPlaceView, in: containerView, cellFrame: absoluteCellFrame)
         
         // 7. 애니메이션 설정
+        let reservedViews = containerView.subviews + [copyPlaceView.placeLabel, copyPlaceView.locationLabel]
+        
         let animator = UIViewPropertyAnimator(duration: duration, timingParameters: springTiming)
-        cellTextLabel.alpha = isPresent ? 0 : 1
-        animator.addAnimations { [weak self] in
-            guard let self = self else { return }
-            self.blurEffectView.alpha = self.isPresent ? 1 : 0
-            self.whiteView.layer.cornerRadius = self.isPresent ? 0 : 16
-            copyPlaceView.layer.cornerRadius = self.isPresent ? 0 : 16
-            containerView.layoutIfNeeded() // (시작점 -> 도착점) 애니메이션 적용되면서 레이아웃 업데이트.
+        
+        animator.addAnimation(views: reservedViews, isForward: isPresent) {
+            containerView.layoutIfNeeded() // 애니메이션 적용되면서 레이아웃 업데이트.
         }
+        
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
             self.cellHidden?(self.isPresent)
@@ -145,10 +142,12 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(nearbyVC.view)
             transitionContext.completeTransition(true)
         }
+        
         animator.startAnimation()
     }
 }
 
+// MARK: Present 상태 변경
 extension OfficeTransitionManager: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transitionType = .presentation
@@ -165,7 +164,7 @@ extension OfficeTransitionManager: UIViewControllerTransitioningDelegate {
 private extension OfficeTransitionManager {
     /// 애니메이션 동작할 컴포넌트의 AutoLayout을 설정하는 메서드.
     ///
-    /// 일련의 순서를 분리해서 보여주는 게 가독성이 좋을 듯하여 이와 같이 구성했습니다.
+    /// 일련의 순서를 분리해서 보여주는 게 가독성이 좋을 듯하여 이와 같이 구성.
     func setupLayoutConstraints(placeView: NearbyPlaceImageView, in containerView: UIView, cellFrame: CGRect) {
         let startingLayoutConstraints: [NSLayoutConstraint]?
         if isPresent {
@@ -175,9 +174,9 @@ private extension OfficeTransitionManager {
             activateUpstairs(placeView: placeView, in: containerView, cellFrame: cellFrame) // 도착점 레이아웃 설정해놓기만.
         } else {
             startingLayoutConstraints = activateUpstairs(placeView: placeView, in: containerView, cellFrame: cellFrame)
-            containerView.layoutIfNeeded() // 시작점 레이아웃 즉시 업데이트.
-            startingLayoutConstraints!.forEach { $0.isActive = false } // 시작점 잘 잡았으니 이제 false
-            activateDownstairs(placeView: placeView, in: containerView, cellFrame: cellFrame) // 도착점 레이아웃 설정해놓기만.
+            containerView.layoutIfNeeded()
+            startingLayoutConstraints!.forEach { $0.isActive = false }
+            activateDownstairs(placeView: placeView, in: containerView, cellFrame: cellFrame)
         }
     }
     
