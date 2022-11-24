@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LoginNameViewController: UIViewController {
+final class LoginNameViewController: UIViewController, UITextFieldDelegate {
     private var name: String? = nil
     private let guideLabel: UILabel = {
         let guideLabel = UILabel()
@@ -33,23 +33,21 @@ final class LoginNameViewController: UIViewController {
         return textField
     }()
     
-    lazy private var nextButton: UIButton = {
-        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .default)
+    lazy private var nextButton: LoginNextButtonView = {
+        let nextView = LoginNextButtonView(tapGesture: { [weak self] in
+            self?.show(LoginJobViewController(name: self?.textField.text), sender: self)
+        })
+        nextView.translatesAutoresizingMaskIntoConstraints = false
+        nextView.backgroundColor = .gray
+        nextView.isUserInteractionEnabled = false
         
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .blue // Gradient 설정하기
-        button.setImage(UIImage(systemName: "greaterthan", withConfiguration: config), for: .normal)
-        button.tintColor = .white
-        button.layer.cornerRadius = 24
-        
-        return button
+        return nextView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        textField.delegate = self
         setupNavigationBar()
         setupLayout()
     }
@@ -81,8 +79,17 @@ final class LoginNameViewController: UIViewController {
             nextButton.heightAnchor.constraint(equalToConstant: 48),
             nextButton.widthAnchor.constraint(equalToConstant: 48)
         ])
-        nextButton.addAction(UIAction { [weak self] _ in
-            self?.show(LoginJobViewController(name: self?.textField.text), sender: self)
-        }, for: .touchUpInside)
+    }
+}
+
+extension LoginNameViewController {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text?.count != 0 {
+            nextButton.isUserInteractionEnabled = true
+            nextButton.backgroundColor = .blue
+        } else {
+            nextButton.isUserInteractionEnabled = false
+            nextButton.backgroundColor = .gray
+        }
     }
 }
