@@ -19,7 +19,7 @@ final class OfficeCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let officeNameLabel: UILabel = {
+    let officeNameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .captionHeadline)
         label.textColor = .white

@@ -11,10 +11,6 @@ import UIKit
 ///
 /// Transition될 ViewController의 컴포넌트들을 객체로 캡슐화시킬수록 여기서의 구현코드가 좀 더 짧아집니다.
 final class OfficeTransitionManager: NSObject {
-    // 컬렉션뷰의 Cell로부터 받을 정보들
-    var absoluteCellFrame: CGRect?
-    var cellHidden: ((Bool) -> Void)?
-    
     // 상태, 설정 관련 프로퍼티들
     private var transitionType: TransitionType = .presentation
     private var isPresent: Bool {
@@ -24,6 +20,7 @@ final class OfficeTransitionManager: NSObject {
     private var duration: Double {
         return isPresent ? 0.75 : 0.65
     }
+    private var cellLabelHeight: CGFloat?
     
     /// ContainerView의 배경 블러뷰.
     private let blurEffectView: UIView = {
@@ -106,11 +103,23 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         let toVC = transitionContext.viewController(forKey: .to)
         
         // 3. 다운캐스팅 및 Cell프레임 옵셔널바인딩
+        var collectionView: UICollectionView?
+        if let guideHomeVC = (isPresent ? fromVC : toVC)?.children.last as? GuideHomeViewController {
+            collectionView = guideHomeVC.guideCollectionView
+        } else if let officeVC = (isPresent ? fromVC : toVC)?.children.last as? OfficeViewController {
+            collectionView = officeVC.officeCollectionView
+        }
+        
         guard let nearbyVC = (isPresent ? toVC : fromVC) as? NearbyPlaceViewController,
-              let absoluteCellFrame = absoluteCellFrame else {
+              let collectionView = collectionView,
+              let indexPath = collectionView.indexPathsForSelectedItems?.first,
+              let cell = collectionView.cellForItem(at: indexPath) as? OfficeCollectionViewCell else {
             transitionContext.completeTransition(true)
             return
         }
+        
+        let cellFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
+        cellLabelHeight = cell.officeNameLabel.intrinsicContentSize.height
         
         // 4. NearbyPlaceImageView의 copy본 생성.
         let copyPlaceView = makePlaceView(origin: nearbyVC.nearbyPlaceImageView)
@@ -121,7 +130,7 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         }
         
         // 6. 시작점 잡고 즉시 업데이트(해당위치에서 애니메이션 시작하도록.) -> 시작점 해제 -> 도착점 설정 -> 애니메이션 클로저 안에서 업데이트.
-        setupLayoutConstraints(placeView: copyPlaceView, in: containerView, cellFrame: absoluteCellFrame)
+        setupLayoutConstraints(placeView: copyPlaceView, in: containerView, cellFrame: cellFrame)
         
         // 7. 애니메이션 설정
         let reservedViews = containerView.subviews + [copyPlaceView.placeLabel, copyPlaceView.locationLabel]
@@ -131,10 +140,9 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         animator.addAnimation(views: reservedViews, isForward: isPresent) {
             containerView.layoutIfNeeded() // 애니메이션 적용되면서 레이아웃 업데이트.
         }
-        
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
-            self.cellHidden?(self.isPresent)
+            cell.isHidden = self.isPresent
             containerView.subviews.forEach {
                 $0.removeFromSuperview()
                 NSLayoutConstraint.deactivate($0.constraints)
@@ -142,7 +150,6 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(nearbyVC.view)
             transitionContext.completeTransition(true)
         }
-        
         animator.startAnimation()
     }
 }
@@ -191,7 +198,7 @@ private extension OfficeTransitionManager {
             cellTextLabel.leadingAnchor.constraint(equalTo: placeView.leadingAnchor, constant: 20),
             cellTextLabel.bottomAnchor.constraint(equalTo: placeView.bottomAnchor, constant: -20),
             cellTextLabel.trailingAnchor.constraint(equalTo: placeView.trailingAnchor, constant: -20),
-            cellTextLabel.heightAnchor.constraint(equalToConstant: cellTextLabel.intrinsicContentSize.height),
+            cellTextLabel.heightAnchor.constraint(equalToConstant: cellLabelHeight ?? 30),
             
             segmentControl.topAnchor.constraint(equalTo: placeView.bottomAnchor, constant: -100),
             segmentControl.leadingAnchor.constraint(equalTo: placeView.leadingAnchor),

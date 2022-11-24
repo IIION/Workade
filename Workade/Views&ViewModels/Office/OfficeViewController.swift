@@ -177,14 +177,6 @@ extension OfficeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let officeModel = snapshot.itemIdentifiers[indexPath.row]
         let viewController = NearbyPlaceViewController(officeModel: officeModel)
-        
-        // Transition Manager가 사용할 수 있는 정보를 Cell에서 제공.
-        guard let cell = collectionView.cellForItem(at: indexPath) as? OfficeCollectionViewCell else { return }
-        let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
-        transitionManager.absoluteCellFrame = absoluteFrame
-        // 여기는 weak self를 안걸어줘도 되는 이유가 무엇일까? 클래스가 가지고 있는 무언가가 아니라, 즉석으로 만들어낸 무언가라 그런가?
-        // 근데 그런걸로 치면, manager에서 weak var로 받았을때는 서로 완전히 연관성이... 음 그건 말그대로 연관성이고, 순환참조는 아닌건가. 흠...
-        transitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
         viewController.transitioningDelegate = transitionManager
         viewController.modalPresentationStyle = .custom
         present(viewController, animated: true)

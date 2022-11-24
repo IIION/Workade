@@ -18,7 +18,7 @@ final class GuideHomeViewController: UIViewController {
     
     private let divider = Divider()
     
-    private lazy var guideCollectionView: UICollectionView = {
+    lazy var guideCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -190,23 +190,18 @@ extension GuideHomeViewController: UICollectionViewDelegate {
     // 반드시 office 혹은 magazine이 있어야하는 요소는 init으로 넘깁니다.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let sectionCase = GuideHomeSection(rawValue: indexPath.section) else { return }
+        
         switch sectionCase {
         case .office:
             let officeModel = viewModel.officeResource.content[indexPath.row]
             let viewController = NearbyPlaceViewController(officeModel: officeModel)
-            
-            // Transition Manager가 사용할 수 있는 정보를 Cell에서 제공.
-            guard let cell = collectionView.cellForItem(at: indexPath) as? OfficeCollectionViewCell else { return }
-            let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
-            officeTransitionManager.absoluteCellFrame = absoluteFrame
-            officeTransitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
             viewController.transitioningDelegate = officeTransitionManager
             viewController.modalPresentationStyle = .custom
             present(viewController, animated: true)
+            
         case .magazine:
             let magazine = viewModel.magazineResource.content[indexPath.row]
             let viewController = CellItemDetailViewController(magazine: magazine)
-            
             guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
             let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
             magazineTransitionManager.absoluteCellFrame = absoluteFrame
@@ -215,6 +210,7 @@ extension GuideHomeViewController: UICollectionViewDelegate {
             viewController.transitioningDelegate = magazineTransitionManager
             viewController.modalPresentationStyle = .custom
             present(viewController, animated: true)
+            
         case .checkList:
             pushToCheckListVC()
         }
