@@ -22,7 +22,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         return guideLabel
     }()
     
-    private let textField: UITextField = {
+    private let nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .theme.groupedBackground
@@ -35,7 +35,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
     
     lazy private var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
-            self?.show(LoginJobViewController(name: self?.textField.text), sender: self)
+            self?.show(LoginJobViewController(name: self?.nameTextField.text), sender: self)
         })
         nextView.translatesAutoresizingMaskIntoConstraints = false
         nextView.backgroundColor = .gray
@@ -47,7 +47,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        textField.delegate = self
+        nameTextField.delegate = self
         setupNavigationBar()
         setupLayout()
     }
@@ -64,12 +64,12 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
             guideLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        view.addSubview(textField)
+        view.addSubview(nameTextField)
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 208),
-            textField.widthAnchor.constraint(equalToConstant: 180),
-            textField.heightAnchor.constraint(equalToConstant: 50),
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 208),
+            nameTextField.widthAnchor.constraint(equalToConstant: 180),
+            nameTextField.heightAnchor.constraint(equalToConstant: 50),
+            nameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         view.addSubview(nextButton)
