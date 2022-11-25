@@ -12,6 +12,9 @@ final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     
+    private let sectionPadding: CGFloat = 4
+    private let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
+    
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
         return UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
@@ -205,13 +208,13 @@ final class ExploreViewController: UIViewController {
         ])
         
         view.addSubview(regionInfoView)
-        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 140 + CGFloat.bottomSafeArea)
+        regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: regionInfoViewHeight + sectionPadding)
         NSLayoutConstraint.activate([
             regionInfoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             regionInfoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            regionInfoView.heightAnchor.constraint(equalToConstant: 140 + CGFloat.bottomSafeArea),
+            regionInfoView.heightAnchor.constraint(equalToConstant: regionInfoViewHeight),
             regionInfoViewBottomConstraint!,
-            regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: 4)
+            regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: sectionPadding)
         ])
 
         regionButtons.forEach { regionButton in
@@ -228,7 +231,7 @@ final class ExploreViewController: UIViewController {
     private func changeLayout(by region: RegionModel?) {
         let isRegionNil = region == nil
         
-        regionInfoViewBottomConstraint?.constant = isRegionNil ? 180 : 0
+        regionInfoViewBottomConstraint?.constant = isRegionNil ? regionInfoViewHeight + sectionPadding : 0
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
         regionInfoView.subTitleLabel.text = region?.rawValue ?? ""
