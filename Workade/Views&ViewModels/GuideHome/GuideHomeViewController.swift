@@ -44,13 +44,13 @@ final class GuideHomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.guideCollectionView.reloadData() // snapshot 체제로 변경 전까지 임시.
+        self.guideCollectionView.reloadData()
     }
     
     private func setupNavigationBar() {
         title = "가이드"
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.customFont(for: .subHeadline)]
-        navigationController?.navigationBar.shadowImage = UIImage() // remove default underline
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
@@ -202,11 +202,7 @@ extension GuideHomeViewController: UICollectionViewDelegate {
         case .magazine:
             let magazine = viewModel.magazineResource.content[indexPath.row]
             let viewController = CellItemDetailViewController(magazine: magazine)
-            guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
-            let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
-            magazineTransitionManager.absoluteCellFrame = absoluteFrame
-            magazineTransitionManager.labelHeight = cell.titleLabel.intrinsicContentSize.height
-            magazineTransitionManager.cellHidden = { isHidden in cell.backgroundImageView.isHidden = isHidden }
+            magazineTransitionManager.cellIndexPath = indexPath
             viewController.transitioningDelegate = magazineTransitionManager
             viewController.modalPresentationStyle = .custom
             present(viewController, animated: true)

@@ -9,10 +9,7 @@ import UIKit
 
 /// **CellItemDetailViewController가 띄어지는 상황에서 Transition애니메이션을 위임해서 맡아주는 매니저.**
 final class MagazineTransitionManager: NSObject {
-    var absoluteCellFrame: CGRect?
-    var labelHeight: CGFloat?
-    var cellHidden: ((Bool) -> Void)?
-    
+    var cellIndexPath: IndexPath?
     private var transitionType: TransitionType = .presentation
     private var isPresent: Bool {
         return transitionType == .presentation
@@ -21,6 +18,7 @@ final class MagazineTransitionManager: NSObject {
     private var duration: Double {
         return isPresent ? 0.75 : 0.65
     }
+    private var cellLabelHeight: CGFloat?
     
     private let blurEffectView: UIView = {
         let blurEffect = UIBlurEffect(style: .dark)
@@ -87,13 +85,25 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
         let fromVC = transitionContext.viewController(forKey: .from)
         let toVC = transitionContext.viewController(forKey: .to)
         
-        guard let magazineDetailVC = (isPresent ? toVC : fromVC) as? CellItemDetailViewController,
-              let absoluteCellFrame = absoluteCellFrame else {
+        var collectionView: UICollectionView?
+        if let guideHomeVC = (isPresent ? fromVC : toVC)?.children.last as? GuideHomeViewController {
+            collectionView = guideHomeVC.guideCollectionView
+        } else if let magazineVC = (isPresent ? fromVC : toVC)?.children.last as? MagazineViewController {
+            collectionView = magazineVC.magazineCollectionView
+        }
+        
+        guard let cellItemDetailVC = (isPresent ? toVC : fromVC) as? CellItemDetailViewController,
+              let collectionView = collectionView,
+              let indexPath = cellIndexPath,
+              let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else {
             transitionContext.completeTransition(true)
             return
         }
         
-        let copyTitleImageView = makeTitleImageView(origin: magazineDetailVC.titleImageView)
+        let cellFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
+        cellLabelHeight = cell.titleLabel.intrinsicContentSize.height
+        
+        let copyTitleImageView = makeTitleImageView(origin: cellItemDetailVC.titleImageView)
         
         let magazine = copyTitleImageView.magazine
         let isWishMagazine = UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine.title)
@@ -103,7 +113,7 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview($0)
         }
         
-        setupLayoutConstraints(placeView: copyTitleImageView, in: containerView, cellFrame: absoluteCellFrame)
+        setupLayoutConstraints(placeView: copyTitleImageView, in: containerView, cellFrame: cellFrame)
         
         let reservedViews = containerView.subviews + [copyTitleImageView.titleLabel, copyTitleImageView.bookmarkButton]
         
@@ -113,14 +123,15 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.layoutIfNeeded()
         }
         
+        cell.isHidden = true
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
-            self.cellHidden?(self.isPresent)
+            cell.isHidden = self.isPresent
             containerView.subviews.forEach {
                 $0.removeFromSuperview()
                 NSLayoutConstraint.deactivate($0.constraints)
             }
-            containerView.addSubview(magazineDetailVC.view)
+            containerView.addSubview(cellItemDetailVC.view)
             transitionContext.completeTransition(true)
         }
         
@@ -173,7 +184,7 @@ private extension MagazineTransitionManager {
             cellTextLabel.leadingAnchor.constraint(equalTo: titleImageView.leadingAnchor, constant: 12),
             cellTextLabel.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -12),
             cellTextLabel.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -16),
-            cellTextLabel.heightAnchor.constraint(equalToConstant: labelHeight!),
+            cellTextLabel.heightAnchor.constraint(equalToConstant: cellLabelHeight ?? 30),
             
             whiteView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: cellFrame.origin.y),
             whiteView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: cellFrame.origin.x),

@@ -37,7 +37,7 @@ final class MagazineViewController: UIViewController {
     
     private let divider = Divider()
     
-    private lazy var magazineCollectionView: UICollectionView = {
+    lazy var magazineCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +169,7 @@ extension MagazineViewController: CollectionViewCellDelegate {
         // viewModel의 magazines update
         viewModel.setupMagazineModelsBookmark()
         // apply snapshot - bookmark Tap 시 wishList일 때만 애니메이션.
-        applySnapshot(category: category, animated: category == .wishList)
+        applySnapshot(category: category, animated: false)
     }
 }
 
@@ -177,19 +177,7 @@ extension MagazineViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let magazineModel = snapshot.itemIdentifiers[indexPath.row]
         let viewController = CellItemDetailViewController(magazine: magazineModel)
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else { return }
-        let absoluteFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
-        transitionManager.absoluteCellFrame = absoluteFrame
-        transitionManager.labelHeight = cell.titleLabel.intrinsicContentSize.height
-        transitionManager.cellHidden = { [weak self] isHidden in
-            guard let self = self else { return }
-            cell.backgroundImageView.isHidden = isHidden
-            if !isHidden {
-                self.viewModel.setupMagazineModelsBookmark()
-                self.applySnapshot(category: self.category, animated: false)
-            }
-        }
+        transitionManager.cellIndexPath = indexPath
         viewController.transitioningDelegate = transitionManager
         viewController.modalPresentationStyle = .custom
         present(viewController, animated: true)
