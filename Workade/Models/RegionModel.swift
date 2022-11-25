@@ -42,8 +42,7 @@ enum RegionModel: String, Hashable, CaseIterable {
     }
     
     var imageName: String {
-        let backgroundString = "Background"
-        return self.rawValue + backgroundString
+        return self.rawValue + "Background"
     }
     
     var relativePos: CGPoint {
