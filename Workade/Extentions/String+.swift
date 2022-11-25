@@ -7,7 +7,7 @@
 
 extension String {
     func encodeUrl() -> String? {
-        return self.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
+        return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
     
     func decodeUrl() -> String? {
