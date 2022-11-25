@@ -71,10 +71,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let imageURL = params["imageURL"]
         let introduceURL = params["introduceURL"]
         guard let title = title, let imageURL = imageURL, let introduceURL = introduceURL else { return }
-        let testVC = CellItemDetailViewController(magazine: MagazineModel(title: title, imageURL: imageURL, introduceURL: introduceURL))
-        testVC.modalPresentationStyle = .fullScreen
+        let MagazineCellDetailViewController = CellItemDetailViewController(magazine: MagazineModel(title: title, imageURL: imageURL, introduceURL: introduceURL))
+        MagazineCellDetailViewController.modalPresentationStyle = .fullScreen
         DispatchQueue.main.async {
-            self.window?.rootViewController?.present(testVC, animated: true)
+            self.window?.rootViewController?.present(MagazineCellDetailViewController, animated: true)
         }
     }
     
