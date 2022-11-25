@@ -25,6 +25,7 @@ struct OfficeModel: Codable, Hashable {
     let latitude: Double
     let longitude: Double
     let spots: [Spot]
+    let feature: [Feature]
     
     enum CodingKeys: String, CodingKey {
         case officeName = "officename"
@@ -32,7 +33,7 @@ struct OfficeModel: Codable, Hashable {
         case imageURL = "imageurl"
         case introduceURL = "introduceurl"
         case galleryURL = "galleryurl"
-        case latitude, longitude, spots
+        case latitude, longitude, spots, feature
     }
     
     // uuid를 해시값으로 삼겠다고 명시. (uuid 안쓰면, 다른 프로퍼티 중에서 알아서 기준값 잡아줌 <- 중복 위험있음)
@@ -68,7 +69,7 @@ enum SpotType: String {
     case sea
 }
 
-struct Feature: Codable {
+struct Feature: Codable, Hashable {
     let featureImage: String
     let featureDescription: String
 }
