@@ -123,7 +123,7 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.layoutIfNeeded()
         }
         
-        cell.isHidden = true
+        cell.isHidden = !isPresent
         animator.addCompletion { [weak self] _ in
             guard let self = self else { return }
             cell.isHidden = self.isPresent

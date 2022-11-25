@@ -120,7 +120,10 @@ extension GuideHomeViewController {
             guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
             let sectionIndex = GuideHomeSection.allCases.firstIndex(of: .magazine)!
             DispatchQueue.main.async {
-                self.guideCollectionView.reloadItems(at: [.init(item: index, section: sectionIndex)])
+                let indexPath = IndexPath(item: index, section: sectionIndex)
+                self.guideCollectionView.reloadItems(at: [indexPath])
+                let cell = self.guideCollectionView.cellForItem(at: indexPath)
+                cell?.isHidden = false
             }
         }
     }
