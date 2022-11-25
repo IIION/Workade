@@ -9,7 +9,6 @@ import UIKit
 
 final class MagazineViewController: UIViewController {
     private let transitionManager = MagazineTransitionManager()
-    
     private let viewModel = MagazineViewModel()
     private var category: MagazineCategory {
         return MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
@@ -166,10 +165,14 @@ extension MagazineViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) {
         // UserDefaults update
         UserDefaultsManager.shared.updateUserDefaults(id: id, key: Constants.Key.wishMagazine)
+        applyBookmarkStatus()
+    }
+    
+    func applyBookmarkStatus() {
         // viewModel의 magazines update
         viewModel.setupMagazineModelsBookmark()
         // apply snapshot - bookmark Tap 시 wishList일 때만 애니메이션.
-        applySnapshot(category: category, animated: false)
+        applySnapshot(category: category, animated: category == .wishList)
     }
 }
 
@@ -180,6 +183,9 @@ extension MagazineViewController: UICollectionViewDelegate {
         transitionManager.cellIndexPath = indexPath
         viewController.transitioningDelegate = transitionManager
         viewController.modalPresentationStyle = .custom
+        viewController.onDismiss = { [weak self] in
+            self?.applyBookmarkStatus()
+        }
         present(viewController, animated: true)
     }
 }

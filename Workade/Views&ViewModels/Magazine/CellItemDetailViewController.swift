@@ -11,6 +11,7 @@ import Combine
 class CellItemDetailViewController: UIViewController {
     private let bookmarkPublisher = PassthroughSubject<Void, Never>()
     private var anyCancellable = Set<AnyCancellable>()
+    var onDismiss: (() -> Void)?
     
     var magazine: MagazineModel
     let detailViewModel = MagazineDetailViewModel()
@@ -85,6 +86,12 @@ class CellItemDetailViewController: UIViewController {
         setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        onDismiss?()
     }
     
     func setupLayout() {
