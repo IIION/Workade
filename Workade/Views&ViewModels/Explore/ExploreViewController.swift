@@ -27,11 +27,11 @@ final class ExploreViewController: UIViewController {
         viewModel.selectedRegion.bind { [weak self] region in
             guard let self = self else { return }
             // 선택된 Region에 따라 RegionButton 업데이트
-            self.regionButtons.forEach { button in
-                self.animator.addAnimations {
+            self.regionButtons.forEach { [weak self] button in
+                self?.animator.addAnimations {
                     button.changeLayout()
                 }
-                self.animator.startAnimation()
+                self?.animator.startAnimation()
             }
             self.changeLayout(by: region)
             
@@ -238,8 +238,8 @@ final class ExploreViewController: UIViewController {
             UIView.transition(with: mainContainerView,
                               duration: 0.25,
                               options: .transitionCrossDissolve,
-                              animations: {
-                self.mainContainerView.image = UIImage(named: region.imageName)
+                              animations: { [weak self] in
+                self?.mainContainerView.image = UIImage(named: region.imageName)
             }, completion: nil)
         } else {
             self.mainContainerView.image = UIImage(named: "")
