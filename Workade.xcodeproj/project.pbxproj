@@ -10,11 +10,15 @@
 		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
 		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
 		0E29E46029275B3F00889984 /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29E45F29275B3F00889984 /* FeatureView.swift */; };
+		0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36ABA2292CABEB00D6B2DD /* ShareView.swift */; };
 		0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */; };
 		0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
 		0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceView.swift */; };
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
+		0EFCAA00292D17CC00C84817 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 0EFCA9FF292D17CC00C84817 /* KakaoSDK */; };
+		0EFCAA02292D240C00C84817 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCAA01292D240C00C84817 /* String+.swift */; };
+		0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCAA03292E01A700C84817 /* UIScrollView+.swift */; };
 		160572BE292CFB9900B4EE40 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160572BD292CFB9900B4EE40 /* CoreDataManager.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
@@ -133,11 +137,14 @@
 		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0E29E45F29275B3F00889984 /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
+		0E36ABA2292CABEB00D6B2DD /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeDetailResource.swift; sourceTree = "<group>"; };
 		0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		0EFB5BCA29017FBB00174291 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		0EFCAA01292D240C00C84817 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		0EFCAA03292E01A700C84817 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
 		160572BD292CFB9900B4EE40 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
@@ -262,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */,
+				0EFCAA00292D17CC00C84817 /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +459,8 @@
 				A33835272903E03A009882BF /* UIButton+.swift */,
 				A3CBB16529275F97009AD4E1 /* UITextField+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
+				0EFCAA01292D240C00C84817 /* String+.swift */,
+				0EFCAA03292E01A700C84817 /* UIScrollView+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
 				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
@@ -644,6 +654,7 @@
 			children = (
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
 				A33835232903C96C009882BF /* CellItemDetailViewController.swift */,
+				0E36ABA2292CABEB00D6B2DD /* ShareView.swift */,
 				A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */,
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
 			);
@@ -714,6 +725,9 @@
 			dependencies = (
 			);
 			name = Workade;
+			packageProductDependencies = (
+				0EFCA9FF292D17CC00C84817 /* KakaoSDK */,
+			);
 			productName = Workade;
 			productReference = 5FDC17B728FE799C0060DBB7 /* Workade.app */;
 			productType = "com.apple.product-type.application";
@@ -742,6 +756,9 @@
 				Base,
 			);
 			mainGroup = 5FDC17AE28FE799C0060DBB7;
+			packageReferences = (
+				0EFCA9FE292D17CC00C84817 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			productRefGroup = 5FDC17B828FE799C0060DBB7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -849,9 +866,11 @@
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
 				169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */,
 				961CC483290AF34600921F24 /* MultiBinder.swift in Sources */,
+				0EFCAA02292D240C00C84817 /* String+.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
+				0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
@@ -901,6 +920,7 @@
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,
+				0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */,
 				A3924B0E292B5F0B009BBBDE /* PickerTableViewCell.swift in Sources */,
 				A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */,
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
@@ -1170,6 +1190,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0EFCA9FE292D17CC00C84817 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0EFCA9FF292D17CC00C84817 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EFCA9FE292D17CC00C84817 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5FDC17C328FE799C0060DBB7 /* Workade.xcdatamodeld */ = {

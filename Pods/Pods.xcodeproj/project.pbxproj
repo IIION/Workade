@@ -16,6 +16,8 @@
 			dependencies = (
 			);
 			name = NMapsMap;
+			packageProductDependencies = (
+			);
 			productName = NMapsMap;
 		};
 /* End PBXAggregateTarget section */
@@ -214,6 +216,8 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			packageReferences = (
+			);
 			productRefGroup = 15409ED6CC9B104E6D3915EABE57B32B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
