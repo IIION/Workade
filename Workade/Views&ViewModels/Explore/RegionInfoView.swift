@@ -7,8 +7,7 @@
 
 import UIKit
 
-class RegionInfoView: UIView {
-    
+final class RegionInfoView: UIView {
     let selectedRegion: Binder<RegionModel?>
     
     lazy var titleLabel: UILabel = {

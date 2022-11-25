@@ -8,9 +8,8 @@
 import UIKit
 import SafariServices
 
-class ExploreViewController: UIViewController {
-    
-    let viewModel = ExploreViewModel()
+final class ExploreViewController: UIViewController {
+    private let viewModel = ExploreViewModel()
     var regionInfoViewBottomConstraint: NSLayoutConstraint?
     
     private let animator: UIViewPropertyAnimator = {
