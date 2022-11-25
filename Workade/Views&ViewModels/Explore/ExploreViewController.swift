@@ -10,7 +10,7 @@ import SafariServices
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
-    var regionInfoViewBottomConstraint: NSLayoutConstraint?
+    private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
@@ -42,7 +42,7 @@ final class ExploreViewController: UIViewController {
         }
     }
     
-    lazy var regionButtons: [RegionButton] = {
+    private lazy var regionButtons: [RegionButton] = {
         var regionButtons: [RegionButton] = []
         
         for region in RegionModel.allCases {
@@ -55,7 +55,7 @@ final class ExploreViewController: UIViewController {
         return regionButtons
     }()
     
-    lazy var mainContainerView: UIImageView = {
+    private lazy var mainContainerView: UIImageView = {
         let view = UIImageView(frame: .zero)
         view.backgroundColor = .theme.sectionBackground
         view.contentMode = .scaleAspectFill
@@ -68,14 +68,14 @@ final class ExploreViewController: UIViewController {
         return view
     }()
     
-    lazy var regionInfoView: RegionInfoView = {
+    private lazy var regionInfoView: RegionInfoView = {
         let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    lazy var openChatButton: UIButton = {
+    private lazy var openChatButton: UIButton = {
         let button = UIButton(type: .custom)
         var config = UIButton.Configuration.plain()
         config.cornerStyle = .capsule
@@ -106,7 +106,7 @@ final class ExploreViewController: UIViewController {
         return button
     }()
     
-    lazy var infoButton: UIButton = {
+    private lazy var infoButton: UIButton = {
         let button = UIButton(type: .custom)
         var config = UIButton.Configuration.plain()
         config.cornerStyle = .capsule
@@ -133,7 +133,7 @@ final class ExploreViewController: UIViewController {
         return button
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "이번엔 어디로\n떠나볼까요?"
         label.numberOfLines = 0
@@ -143,7 +143,7 @@ final class ExploreViewController: UIViewController {
         return label
     }()
     
-    lazy var mapImageView: UIImageView = {
+    private lazy var mapImageView: UIImageView = {
         let image = UIImage(named: "map")?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
@@ -152,7 +152,7 @@ final class ExploreViewController: UIViewController {
         return imageView
     }()
     
-    lazy var guideButton: UIButton = {
+    private lazy var guideButton: UIButton = {
         let button = GradientButton(type: .custom)
         button.layerCornerRadius = 24
         var config = UIButton.Configuration.plain()

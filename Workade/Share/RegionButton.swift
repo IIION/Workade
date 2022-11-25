@@ -8,7 +8,7 @@
 import UIKit
 
 final class RegionButton: UIButton {
-    var region: RegionModel
+    let region: RegionModel
     weak var selectedRegion: Binder<RegionModel?>?
     let peopleCount: Int
     
