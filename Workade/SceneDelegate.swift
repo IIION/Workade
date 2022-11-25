@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: GuideHomeViewController())
         window?.makeKeyAndVisible()
         
-        guard let _ = (scene as? UIWindowScene) else { return }
         if let url = connectionOptions.urlContexts.first?.url {
             presentModal(url: url)
         }
