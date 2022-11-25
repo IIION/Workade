@@ -7,14 +7,7 @@
 
 import UIKit
 
-class CheckListTemplateViewModel {
+@MainActor
+final class CheckListTemplateViewModel {
     var todos = [String]()
-    
-    func addTemplateContents() {
-        NotificationCenter.default.post(
-            name: NSNotification.Name("addTodoList"),
-            object: todos,
-            userInfo: nil
-        )
-    }
 }

@@ -5,10 +5,12 @@
 //  Created by 김예훈 on 2022/10/26.
 //
 
+import Combine
 import UIKit
 
 class CheckListTemplateViewController: UIViewController {
     private let viewModel = CheckListTemplateViewModel()
+    var addTemplatePublisher: PassthroughSubject<[String], Never>? = nil
     
     var viewDidDissmiss: (() -> Void)?
     
@@ -103,7 +105,7 @@ class CheckListTemplateViewController: UIViewController {
     @objc
     private func add() {
         presentingViewController?.dismiss(animated: true)
-        viewModel.addTemplateContents()
+        addTemplatePublisher?.send(viewModel.todos)
         self.viewDidDissmiss?()
     }
     

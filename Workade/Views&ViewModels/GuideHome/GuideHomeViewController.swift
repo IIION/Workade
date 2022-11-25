@@ -39,6 +39,12 @@ final class GuideHomeViewController: UIViewController {
         observingChangedMagazineId()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.guideCollectionView.reloadData() // snapshot 체제로 변경 전까지 임시.
+    }
+    
     private func setupNavigationBar() {
         title = "가이드"
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.customFont(for: .subHeadline)]
