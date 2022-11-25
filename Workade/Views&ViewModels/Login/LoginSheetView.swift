@@ -120,10 +120,15 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleAppleLogin() {
-        print("Apple Login")
+        FirebaseManager.shared.touchUpAppleButton { [weak self] user in
+            
+        }
      }
     
     @objc func handleGoogleLogin() {
-        print("Google Login")
+//        FirebaseManager.shared.isUserLogin()
+        FirebaseManager.shared.touchUpGoogleButton { [weak self] user in
+            
+        }
     }
 }
