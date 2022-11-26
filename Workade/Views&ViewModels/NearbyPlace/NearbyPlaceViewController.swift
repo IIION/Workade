@@ -20,6 +20,7 @@ class NearbyPlaceViewController: UIViewController {
     // 스크롤 뷰 하나에서, 세그먼트 컨트롤의 스티키 효과를 주기위해 2가지의 constraints 사용.
     var segmentedControlTopConstraintsToNavbar: NSLayoutConstraint!
     var segmentedControlTopConstraintsToImage: NSLayoutConstraint!
+    var imageViewTopConstraints: NSLayoutConstraint!
     
     let segmentedControllerHeight: CGFloat = 52
     var customNavigationBarHeight: CGFloat!
@@ -131,9 +132,9 @@ class NearbyPlaceViewController: UIViewController {
     
     func setupLayout() {
         contentsContainerView.addSubview(nearbyPlaceImageView)
-        
+        imageViewTopConstraints = nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor)
         NSLayoutConstraint.activate([
-            nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageViewTopConstraints,
             nearbyPlaceImageView.imageView.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor),
             nearbyPlaceImageView.imageView.trailingAnchor.constraint(equalTo: nearbyPlaceImageView.trailingAnchor),
             nearbyPlaceImageView.imageView.bottomAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor)
@@ -370,9 +371,11 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
                 if totalOffset > imageHeight - customNavigationBarHeight {
                     segmentedControlTopConstraintsToImage.isActive = false
                     segmentedControlTopConstraintsToNavbar.isActive = true
+                    imageViewTopConstraints.isActive = false
                 } else {
                     segmentedControlTopConstraintsToImage.isActive = true
                     segmentedControlTopConstraintsToNavbar.isActive = false
+                    imageViewTopConstraints.isActive = true
                 }
             } else {
                 customNavigationBar.view.alpha = 0

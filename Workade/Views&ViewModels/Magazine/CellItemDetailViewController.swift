@@ -8,6 +8,10 @@
 import UIKit
 import Combine
 
+protocol MagazineViewShareDelegate: AnyObject {
+    func defaultShare()
+}
+
 class CellItemDetailViewController: UIViewController {
     private let bookmarkPublisher = PassthroughSubject<Void, Never>()
     private var anyCancellable = Set<AnyCancellable>()
@@ -17,7 +21,6 @@ class CellItemDetailViewController: UIViewController {
     let detailViewModel = MagazineDetailViewModel()
     
     private var defaultScrollYOffset: CGFloat = 0
-    private var bottomConstraints: NSLayoutConstraint!
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -64,6 +67,21 @@ class CellItemDetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var divider: UIView = {
+        let divider = UIView()
+        divider.backgroundColor = .rgb(0xF2F2F7)
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        
+        return divider
+    }()
+    
+    private lazy var shareView: ShareView = {
+        let view = ShareView(magazine: self.magazine)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     private var customNavigationBar = CustomNavigationBar()
     
     init(magazine: MagazineModel) {
@@ -79,8 +97,8 @@ class CellItemDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         
-        bottomConstraints = magazineDetailView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor)
         scrollView.delegate = self
+        shareView.delegate = self
         
         bindBookmark()
         setupCustomNavigationBar()
@@ -109,8 +127,23 @@ class CellItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             magazineDetailView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 20),
             magazineDetailView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
-            magazineDetailView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
-            bottomConstraints
+            magazineDetailView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20)
+        ])
+        
+        contentsContainer.addSubview(divider)
+        NSLayoutConstraint.activate([
+            divider.topAnchor.constraint(equalTo: magazineDetailView.bottomAnchor, constant: 50),
+            divider.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor),
+            divider.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 5)
+        ])
+        
+        contentsContainer.addSubview(shareView)
+        NSLayoutConstraint.activate([
+            shareView.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 25),
+            shareView.leadingAnchor.constraint(equalTo: contentsContainer.leadingAnchor, constant: 20),
+            shareView.trailingAnchor.constraint(equalTo: contentsContainer.trailingAnchor, constant: -20),
+            shareView.bottomAnchor.constraint(equalTo: contentsContainer.bottomAnchor, constant: -.bottomSafeArea)
         ])
     }
     
@@ -211,5 +244,19 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
             titleImageView.alpha = 1
             closeButton.alpha = 1
         }
+    }
+}
+
+extension CellItemDetailViewController: MagazineViewShareDelegate {
+    func defaultShare() {
+        // scrollView를 UIImage로 변환.
+        let image = scrollView.toImage()
+        let context = "[Workade] 카카오톡으로 공유 시 사진의 화질이 좋지 않다면, 카카오톡 설정에서 화질을 원본화질로 변경해주세요"
+        guard let image = image else { return }
+        
+        // 여기서 문제 터진다. 공유 시트에서 오토레이아웃 깨지는건 어쩔 수 없는듯. 내가 커스텀 할 수 있는 영역이 아님.
+        let activityViewController = UIActivityViewController(activityItems: [image, context], applicationActivities: nil)
+
+        present(activityViewController, animated: true, completion: nil)
     }
 }

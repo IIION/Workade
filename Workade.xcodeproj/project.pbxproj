@@ -10,11 +10,16 @@
 		0E1E8872290AE6180021E788 /* IntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */; };
 		0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8873290AFCEF0021E788 /* UILabel+.swift */; };
 		0E29E46029275B3F00889984 /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29E45F29275B3F00889984 /* FeatureView.swift */; };
+		0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36ABA2292CABEB00D6B2DD /* ShareView.swift */; };
 		0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */; };
 		0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
 		0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceView.swift */; };
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
+		0EFCAA00292D17CC00C84817 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 0EFCA9FF292D17CC00C84817 /* KakaoSDK */; };
+		0EFCAA02292D240C00C84817 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCAA01292D240C00C84817 /* String+.swift */; };
+		0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCAA03292E01A700C84817 /* UIScrollView+.swift */; };
+		160572BE292CFB9900B4EE40 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160572BD292CFB9900B4EE40 /* CoreDataManager.swift */; };
 		16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4929013F9A008056D4 /* CheckListCell.swift */; };
 		16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16083B4A29013F9A008056D4 /* CheckListViewController.swift */; };
 		163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */; };
@@ -56,6 +61,7 @@
 		21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */; };
 		21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */; };
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
+		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
@@ -109,6 +115,8 @@
 		96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CDE02923E079008A67BB /* UINavigationController+.swift */; };
 		A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835232903C96C009882BF /* CellItemDetailViewController.swift */; };
 		A33835282903E03A009882BF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33835272903E03A009882BF /* UIButton+.swift */; };
+		A3479C96292BA84800AE1528 /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3479C95292BA84800AE1528 /* LoginInformationView.swift */; };
+		A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3479C97292BB10B00AE1528 /* SettingButton.swift */; };
 		A34AB347291B99C600065212 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34AB346291B99C600065212 /* CGFloat+.swift */; };
 		A354F477292625F5003E601A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F476292625F5003E601A /* ProfileView.swift */; };
 		A354F47929262615003E601A /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47829262615003E601A /* StickerView.swift */; };
@@ -134,12 +142,16 @@
 		0E1E8871290AE6180021E788 /* IntroduceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewModel.swift; sourceTree = "<group>"; };
 		0E1E8873290AFCEF0021E788 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0E29E45F29275B3F00889984 /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
+		0E36ABA2292CABEB00D6B2DD /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeDetailResource.swift; sourceTree = "<group>"; };
 		0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		0EFB5BCA29017FBB00174291 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		0EFCAA01292D240C00C84817 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		0EFCAA03292E01A700C84817 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		1059D311A3C80FA6501F0AB3 /* Pods-Workade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.release.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.release.xcconfig"; sourceTree = "<group>"; };
+		160572BD292CFB9900B4EE40 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		16083B4929013F9A008056D4 /* CheckListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		16083B4A29013F9A008056D4 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +194,7 @@
 		21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
+		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
@@ -238,6 +251,8 @@
 		96E0CDE02923E079008A67BB /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		A33835232903C96C009882BF /* CellItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemDetailViewController.swift; sourceTree = "<group>"; };
 		A33835272903E03A009882BF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		A3479C95292BA84800AE1528 /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
+		A3479C97292BB10B00AE1528 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		A34AB346291B99C600065212 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		A354F476292625F5003E601A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A354F47829262615003E601A /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
@@ -264,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */,
+				0EFCAA00292D17CC00C84817 /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +435,14 @@
 			path = "Views&ViewModels";
 			sourceTree = "<group>";
 		};
+		5F1EA331292B48E8003EF7F2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5F1EA332292B4911003EF7F2 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		5F5C074B28FE81B40089DD4B /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +469,8 @@
 				A33835272903E03A009882BF /* UIButton+.swift */,
 				A3CBB16529275F97009AD4E1 /* UITextField+.swift */,
 				96601F4728FEEF9C0064FEE2 /* UIImage+.swift */,
+				0EFCAA01292D240C00C84817 /* String+.swift */,
+				0EFCAA03292E01A700C84817 /* UIScrollView+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
 				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
@@ -521,12 +547,12 @@
 		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				5F1EA331292B48E8003EF7F2 /* Login */,
 				0EFB5BA128FF088A00174291 /* NearbyPlace */,
 				A35BD48028FE85A800D1FA7C /* Magazine */,
 				96554EE32927F15000BBE26A /* Office */,
 				5FDC17DD28FE7F1B0060DBB7 /* GuideHome */,
 				9646763629092D340047ED34 /* MyPage */,
-				9646763D2909346A0047ED34 /* SettingViewController */,
 				16083B4729013F9A008056D4 /* CheckList */,
 				163A0FA729260DAF00BFF0D2 /* Workation */,
 			);
@@ -573,6 +599,7 @@
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
 				96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */,
 				969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */,
+				160572BD292CFB9900B4EE40 /* CoreDataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -586,16 +613,18 @@
 				A354F47829262615003E601A /* StickerView.swift */,
 				A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */,
 				A3BB02BB2926A7C8000DE275 /* EditProfile */,
+				9646763D2909346A0047ED34 /* Setting */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
 		};
-		9646763D2909346A0047ED34 /* SettingViewController */ = {
+		9646763D2909346A0047ED34 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				9646763E2909347C0047ED34 /* SettingViewController.swift */,
+				A3479C95292BA84800AE1528 /* LoginInformationView.swift */,
 			);
-			path = SettingViewController;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		96554EE32927F15000BBE26A /* Office */ = {
@@ -640,6 +669,7 @@
 				A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */,
 				A33835232903C96C009882BF /* CellItemDetailViewController.swift */,
 				969285E5292E92DB008F0389 /* TitleImageView.swift */,
+				0E36ABA2292CABEB00D6B2DD /* ShareView.swift */,
 				A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */,
 				A35A982D290ADE1F00220755 /* MagazineViewModel */,
 			);
@@ -665,6 +695,7 @@
 				9646763929092EBF0047ED34 /* TitleLabel.swift */,
 				5F28285B290793D800882FF3 /* BasePaddingLabel.swift */,
 				A3DD5E6D2917A193008FDFBF /* GradientView.swift */,
+				A3479C97292BB10B00AE1528 /* SettingButton.swift */,
 				96554EE12927C78C00BBE26A /* Divider.swift */,
 				169E1F00292A5A5E007F9E0A /* GradientButton.swift */,
 				96A28421292A77E20084E479 /* PrepareView.swift */,
@@ -709,6 +740,9 @@
 			dependencies = (
 			);
 			name = Workade;
+			packageProductDependencies = (
+				0EFCA9FF292D17CC00C84817 /* KakaoSDK */,
+			);
 			productName = Workade;
 			productReference = 5FDC17B728FE799C0060DBB7 /* Workade.app */;
 			productType = "com.apple.product-type.application";
@@ -737,6 +771,9 @@
 				Base,
 			);
 			mainGroup = 5FDC17AE28FE799C0060DBB7;
+			packageReferences = (
+				0EFCA9FE292D17CC00C84817 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			productRefGroup = 5FDC17B828FE799C0060DBB7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -844,9 +881,11 @@
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
 				169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */,
 				961CC483290AF34600921F24 /* MultiBinder.swift in Sources */,
+				0EFCAA02292D240C00C84817 /* String+.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
+				0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
@@ -889,6 +928,7 @@
 				969285E2292E64F8008F0389 /* MagazineTransitionManager.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
+				160572BE292CFB9900B4EE40 /* CoreDataManager.swift in Sources */,
 				A354F47929262615003E601A /* StickerView.swift in Sources */,
 				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
 				96554E9C292779D200BBE26A /* CheckListNavigationCell.swift in Sources */,
@@ -899,6 +939,7 @@
 				96433233290A74C600FBECAF /* ImageCacheManager.swift in Sources */,
 				5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */,
 				A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */,
+				0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */,
 				A3924B0E292B5F0B009BBBDE /* PickerTableViewCell.swift in Sources */,
 				A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */,
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
@@ -908,6 +949,7 @@
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,
+				A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				A354F477292625F5003E601A /* ProfileView.swift in Sources */,
 				96433235290A776600FBECAF /* Constants.swift in Sources */,
@@ -918,6 +960,7 @@
 				A34AB347291B99C600065212 /* CGFloat+.swift in Sources */,
 				5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */,
 				5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */,
+				5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */,
 				A33835282903E03A009882BF /* UIButton+.swift in Sources */,
 				961C56212902BF77003E238F /* HeaderView.swift in Sources */,
 				16B29988290AF65F00136E62 /* TitlePopOverViewController.swift in Sources */,
@@ -933,6 +976,7 @@
 				5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */,
 				21DF04BC2907E9BE007B6270 /* EmojiPickerController.swift in Sources */,
 				A3CBB16629275F97009AD4E1 /* UITextField+.swift in Sources */,
+				A3479C96292BA84800AE1528 /* LoginInformationView.swift in Sources */,
 				A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
@@ -1166,6 +1210,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0EFCA9FE292D17CC00C84817 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0EFCA9FF292D17CC00C84817 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EFCA9FE292D17CC00C84817 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5FDC17C328FE799C0060DBB7 /* Workade.xcdatamodeld */ = {
