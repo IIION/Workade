@@ -52,20 +52,21 @@
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
 		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA334292B7026003EF7F2 /* UIVIew+.swift */; };
+		5F26303829320B88004BD0A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F26303729320B88004BD0A8 /* GoogleService-Info.plist */; };
 		5F27B83A29308F0200ED1B02 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F27B83929308F0200ED1B02 /* FirebaseManager.swift */; };
 		5F27B83D293090C400ED1B02 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5F27B83C293090C400ED1B02 /* FirebaseAuth */; };
 		5F27B83F2930911100ED1B02 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5F27B83E2930911100ED1B02 /* FirebaseFirestore */; };
 		5F27B8412930911C00ED1B02 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F27B8402930911C00ED1B02 /* FirebaseFirestoreSwift */; };
-		5F27B84329309EB700ED1B02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F27B84229309EB600ED1B02 /* GoogleService-Info.plist */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3208C4292E36EC00B9F09A /* JobPickerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */; };
-		5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFF292D76F3007498E2 /* JobModel.swift */; };
 		5F44CD02292DFB32007498E2 /* LoginNextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */; };
 		5F55D34F2930EC84000589E9 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5F55D34E2930EC84000589E9 /* GoogleSignIn */; };
 		5F55D3512930EC84000589E9 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F55D3502930EC84000589E9 /* GoogleSignInSwift */; };
 		5F55D353293135E8000589E9 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F55D352293135E8000589E9 /* FirestoreManager.swift */; };
+		5F55D35529313BA2000589E9 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F55D35429313BA2000589E9 /* Encodable+.swift */; };
+		5F55D35729313BDB000589E9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F55D35629313BDB000589E9 /* UserModel.swift */; };
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */; };
@@ -181,16 +182,17 @@
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F1EA334292B7026003EF7F2 /* UIVIew+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+.swift"; sourceTree = "<group>"; };
+		5F26303729320B88004BD0A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F27B83829308EDA00ED1B02 /* Workade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Workade.entitlements; sourceTree = "<group>"; };
 		5F27B83929308F0200ED1B02 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		5F27B84229309EB600ED1B02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPickerScrollView.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewController.swift; sourceTree = "<group>"; };
-		5F44CCFF292D76F3007498E2 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
 		5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextButtonView.swift; sourceTree = "<group>"; };
 		5F55D352293135E8000589E9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		5F55D35429313BA2000589E9 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		5F55D35629313BDB000589E9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
@@ -421,7 +423,7 @@
 				A35A982B290ADE1300220755 /* MagazineDetailResource.swift */,
 				2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */,
 				A37D28432923C62E009F0ED6 /* GalleryResource.swift */,
-				5F44CCFF292D76F3007498E2 /* JobModel.swift */,
+				5F55D35629313BDB000589E9 /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -442,6 +444,7 @@
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
 				96E0CDE02923E079008A67BB /* UINavigationController+.swift */,
 				5F1EA334292B7026003EF7F2 /* UIVIew+.swift */,
+				5F55D35429313BA2000589E9 /* Encodable+.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -467,7 +470,7 @@
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
-				5F27B84229309EB600ED1B02 /* GoogleService-Info.plist */,
+				5F26303729320B88004BD0A8 /* GoogleService-Info.plist */,
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
@@ -778,10 +781,10 @@
 			files = (
 				2103BBA729261F4D00BBCB2C /* Satoshi-Bold.otf in Resources */,
 				2103BBA829261F4D00BBCB2C /* Satoshi-Black.otf in Resources */,
-				5F27B84329309EB700ED1B02 /* GoogleService-Info.plist in Resources */,
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
+				5F26303829320B88004BD0A8 /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
@@ -876,7 +879,6 @@
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
-				5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */,
 				0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */,
 				5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */,
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
@@ -903,6 +905,7 @@
 				0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */,
 				A3BB02BD2926A7E3000DE275 /* EditProfileViewController.swift in Sources */,
 				9646763F2909347C0047ED34 /* SettingViewController.swift in Sources */,
+				5F55D35529313BA2000589E9 /* Encodable+.swift in Sources */,
 				A37D28442923C62E009F0ED6 /* GalleryResource.swift in Sources */,
 				96E0CDDC2923CDA8008A67BB /* MagazineResource.swift in Sources */,
 				96B1836A29014361009F2BC6 /* UICollectionView+.swift in Sources */,
@@ -928,6 +931,7 @@
 				96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */,
 				9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
+				5F55D35729313BDB000589E9 /* UserModel.swift in Sources */,
 				A35559A828FED2B2001E4254 /* TapDetailViewController.swift in Sources */,
 				5FDC17C528FE799C0060DBB7 /* Workade.xcdatamodeld in Sources */,
 				A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */,

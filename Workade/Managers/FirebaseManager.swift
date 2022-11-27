@@ -19,14 +19,14 @@ final class FirebaseManager: NSObject {
     static let shared = FirebaseManager()
     private var currentNonce: String?
     lazy private var authorizationController = ASAuthorizationController(authorizationRequests: [createAppleIDRequest()])
-    private var appleLoginCompletion: ((User) -> Void)? = nil
+    private var appleLoginCompletion: (() -> Void)? = nil
     private override init() {
         super.init()
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
     }
     
-    func touchUpAppleButton(completion: @escaping (User) -> Void) {
+    func touchUpAppleButton(completion: @escaping () -> Void) {
 //        request.requestedScopes = [.email, .fullName]
         appleLoginCompletion = completion
         authorizationController.performRequests()
@@ -87,7 +87,7 @@ final class FirebaseManager: NSObject {
         return result
     }
     
-    func touchUpGoogleButton(completion: @escaping (User) -> Void) {
+    func touchUpGoogleButton(completion: @escaping () -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
@@ -107,14 +107,15 @@ final class FirebaseManager: NSObject {
                 }
                 
                 if let user = result?.user {
+                    user.uid
                     // TODO: FireStore에 저장하기
-                    completion(user)
+                    completion()
                 }
             }
         }
     }
     
-    func getUser() -> User? {
+    func getUser() -> Firebase.User? {
         return Auth.auth().currentUser
     }
 }
@@ -143,9 +144,7 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
             }
             
             // 4️⃣
-            let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                      idToken: idTokenString,
-                                                      rawNonce: nonce)
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
             // 5️⃣
             Auth.auth().signIn(with: credential) { [weak self] (authDataResult, error) in
@@ -154,7 +153,7 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
                     let self = self,
                     let appleLoginCompletion = self.appleLoginCompletion {
 //                    print("애플 로그인 성공!", user.uid, user.email ?? "-")
-                    appleLoginCompletion(user)
+                    appleLoginCompletion()
                 }
                 
                 if error != nil {
