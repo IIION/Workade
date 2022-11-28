@@ -140,10 +140,6 @@ class LoginJobViewController: UIViewController {
             defaultPickerButton.widthAnchor.constraint(equalToConstant: 180),
             defaultPickerButton.heightAnchor.constraint(equalToConstant: 54)
         ])
-        defaultPickerButton.addAction(UIAction { [weak self] _ in
-            guard let self = self else { return }
-            self.handlePicker(self.viewModel.selectedJob?.rawValue ?? "선택하기")
-        }, for: .touchUpInside)
         
         view.addSubview(jobPickerScrollView)
         jobPickerHeight = jobPickerScrollView.heightAnchor.constraint(equalToConstant: 0)
@@ -204,6 +200,11 @@ class LoginJobViewController: UIViewController {
     }
     
     private func setupAction() {
+        defaultPickerButton.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.handlePicker(self.viewModel.selectedJob?.rawValue ?? "선택하기")
+        }, for: .touchUpInside)
+        
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
     }
     
