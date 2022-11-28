@@ -11,7 +11,7 @@ import SafariServices
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
-    
+    private var buttonConstraints: [RegionButton: [NSLayoutConstraint]] = [:]
     private let sectionPadding: CGFloat = 4
     private let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
     
@@ -37,12 +37,17 @@ final class ExploreViewController: UIViewController {
                 self?.animator.startAnimation()
             }
             self.changeLayout(by: region)
-            
             self.animator.addAnimations {
                 self.view.layoutIfNeeded()
+                self.setupButtonLayout()
             }
             self.animator.startAnimation()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupButtonLayout()
     }
     
     private lazy var regionButtons: [RegionButton] = {
@@ -141,6 +146,7 @@ final class ExploreViewController: UIViewController {
         label.text = "이번엔 어디로\n떠나볼까요?"
         label.numberOfLines = 0
         label.font = .customFont(for: .title3)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -175,6 +181,7 @@ final class ExploreViewController: UIViewController {
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
         }), for: .touchUpInside)
+        button.setContentHuggingPriority(.defaultHigh, for: .vertical)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -194,17 +201,18 @@ final class ExploreViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
         ])
         
-        view.addSubview(mapImageView)
-        NSLayoutConstraint.activate([
-            mapImageView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            mapImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            mapImageView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -20 - CGFloat.topSafeArea)
-        ])
-        
         view.addSubview(guideButton)
         NSLayoutConstraint.activate([
             guideButton.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            guideButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            guideButton.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -30)
+        ])
+        
+        view.addSubview(mapImageView)
+        NSLayoutConstraint.activate([
+            mapImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            mapImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            mapImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            mapImageView.bottomAnchor.constraint(equalTo: guideButton.topAnchor, constant: -10)
         ])
         
         view.addSubview(regionInfoView)
@@ -216,15 +224,23 @@ final class ExploreViewController: UIViewController {
             regionInfoViewBottomConstraint!,
             regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: sectionPadding)
         ])
-
         regionButtons.forEach { regionButton in
             view.addSubview(regionButton)
-            let constantX = regionButton.region.relativePos.x * mapImageView.bounds.width / 100
-            let constantY = regionButton.region.relativePos.y * mapImageView.bounds.height / 100
-            NSLayoutConstraint.activate([
-                regionButton.leadingAnchor.constraint(equalTo: mapImageView.leadingAnchor, constant: constantX),
-                regionButton.centerYAnchor.constraint(equalTo: mapImageView.centerYAnchor, constant: -constantY)
-            ])
+        }
+    }
+    
+    private func setupButtonLayout() {
+        regionButtons.forEach { regionButton in
+            buttonConstraints[regionButton]?.forEach({ constraint in
+                self.view.removeConstraint(constraint)
+            })
+            print(mapImageView.frame.height)
+            let constantX = regionButton.region.relativePos.x * mapImageView.frame.width / 100
+            let constantY = regionButton.region.relativePos.y * mapImageView.frame.height / 100
+            let constraintX = regionButton.leadingAnchor.constraint(equalTo: mapImageView.leadingAnchor, constant: constantX)
+            let constraintY = regionButton.centerYAnchor.constraint(equalTo: mapImageView.centerYAnchor, constant: -constantY)
+            NSLayoutConstraint.activate([constraintX, constraintY])
+            buttonConstraints[regionButton] = [constraintX, constraintY]
         }
     }
     
