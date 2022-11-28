@@ -376,8 +376,8 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
         switch scrollView {
         case totalScrollView:
             if totalOffset > 0 {
-                customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
-                nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
+                customNavigationBar.view.alpha = totalOffset / (imageHeight - customNavigationBarHeight)
+                nearbyPlaceImageView.alpha = 1 - (totalOffset / (imageHeight - customNavigationBarHeight))
                 if totalOffset > imageHeight - customNavigationBarHeight {
                     segmentedControlTopConstraintsToImage.isActive = false
                     segmentedControlTopConstraintsToNavbar.isActive = true

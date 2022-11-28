@@ -8,15 +8,7 @@
 import UIKit
 
 class FeatureView: UIView {
-    
-    // TODO: Layout을 잡기 위해 작성되었습니다. office 모델에 특징에 대한 데이터가 포함되고 나면 삭제될 예정입니다.
-    let officeFeatureSample: [Feature] = [
-        Feature(featureImage: "cafeTest", featureDescription: "커피가 무료에요"),
-        Feature(featureImage: "coffeeTest", featureDescription: "카페같은 분위기에요"),
-        Feature(featureImage: "monitorTest", featureDescription: "모니터를 이용할 수 있어요"),
-        Feature(featureImage: "motelTest", featureDescription: "숙소가 같이 있어요"),
-        Feature(featureImage: "reservationTest", featureDescription: "1일 단위로 예약할 수 있어요")
-    ]
+    var officeFeatures: [Feature]
     
     private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -34,12 +26,13 @@ class FeatureView: UIView {
         return collectionView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(officeFeature: [Feature]) {
+        self.officeFeatures = officeFeature
+        super.init(frame: .zero)
         
         setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -65,15 +58,14 @@ extension FeatureView: UICollectionViewDelegateFlowLayout {
 
 extension FeatureView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // TODO: Office 모델에 파라미터 추가 후 변경 예정.
-        return officeFeatureSample.count
+        return officeFeatures.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: FeatureCollectionViewCell = collectionView.dequeue(for: indexPath)
-        // TODO: Office 모델에 파라미터 추가 후 변경 예정.
-        cell.descriptionLabel.text = officeFeatureSample[indexPath.row].featureDescription
-        cell.imageView.image = UIImage(named: officeFeatureSample[indexPath.row].featureImage) ?? UIImage()
+        
+        cell.descriptionLabel.text = officeFeatures[indexPath.row].featureDescription
+        cell.imageView.image = UIImage(named: officeFeatures[indexPath.row].featureImage) ?? UIImage()
         
         return cell
     }

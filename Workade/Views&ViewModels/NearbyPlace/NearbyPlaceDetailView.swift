@@ -39,13 +39,7 @@ class NearbyPlaceDetailView: UIView {
         return view
     }()
     
-    let featureView: FeatureView = {
-        let view = FeatureView()
-        view.isHidden = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
+    var featureView: FeatureView!
     
     var mapView: UIView!
     
@@ -55,14 +49,21 @@ class NearbyPlaceDetailView: UIView {
         
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        setFeatureView()
         setupMapView()
         setupViewBottomConstraints()
         setupIntroduceView()
         setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setFeatureView() {
+        featureView = FeatureView(officeFeature: officeModel.feature)
+        featureView.isHidden = true
+        featureView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupMapView() {
