@@ -8,8 +8,6 @@
 import UIKit
 
 final class StickerProgressView: UIView {
-    private let stickerProgressViewModel = StickerProgressViewModel()
-    
     private lazy var progressStack: UIStackView = {
         let progressView = UIProgressView()
         progressView.progress = 14/35
