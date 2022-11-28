@@ -25,6 +25,7 @@
 		163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */; };
 		163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */; };
 		1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */; };
+		1687DD3D292E08DD0084B360 /* StickerProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1687DD3C292E08DD0084B360 /* StickerProgressView.swift */; };
 		169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F00292A5A5E007F9E0A /* GradientButton.swift */; };
 		169E1F04292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */; };
 		169E1F07292A9553007F9E0A /* StickerSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */; };
@@ -152,6 +153,7 @@
 		163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewController.swift; sourceTree = "<group>"; };
 		163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkationViewModel.swift; sourceTree = "<group>"; };
 		1646C99129082FAC008D510D /* CheckListBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListBottomSheetViewController.swift; sourceTree = "<group>"; };
+		1687DD3C292E08DD0084B360 /* StickerProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerProgressView.swift; sourceTree = "<group>"; };
 		169E1F00292A5A5E007F9E0A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		169E1F03292A7F3D007F9E0A /* WorkerStatusSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerStatusSheetViewController.swift; sourceTree = "<group>"; };
 		169E1F06292A9553007F9E0A /* StickerSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSheetViewController.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			children = (
 				163A0FA829260E1500BFF0D2 /* WorkationViewController.swift */,
 				163A0FAA29260E2400BFF0D2 /* WorkationViewModel.swift */,
+				1687DD3B292E08BF0084B360 /* StickerProgress */,
 				169E1F02292A7F01007F9E0A /* WorkerStatusSheet */,
 				169E1F05292A9529007F9E0A /* StickerSheet */,
 			);
@@ -341,6 +344,14 @@
 				16B29989290B16E800136E62 /* CheckListBottomSheetViewModel.swift */,
 			);
 			path = CheckListBottomSheet;
+			sourceTree = "<group>";
+		};
+		1687DD3B292E08BF0084B360 /* StickerProgress */ = {
+			isa = PBXGroup;
+			children = (
+				1687DD3C292E08DD0084B360 /* StickerProgressView.swift */,
+			);
+			path = StickerProgress;
 			sourceTree = "<group>";
 		};
 		169E1F02292A7F01007F9E0A /* WorkerStatusSheet */ = {
@@ -933,6 +944,7 @@
 				A3479C98292BB10B00AE1528 /* SettingButton.swift in Sources */,
 				16CBD45D290272F50056A641 /* CheckListDetailViewController.swift in Sources */,
 				A354F477292625F5003E601A /* ProfileView.swift in Sources */,
+				1687DD3D292E08DD0084B360 /* StickerProgressView.swift in Sources */,
 				96433235290A776600FBECAF /* Constants.swift in Sources */,
 				16CBD462290290910056A641 /* CheckListDetailCell.swift in Sources */,
 				A3947B2329013EE200DA4E0D /* CustomSegmentedControl.swift in Sources */,

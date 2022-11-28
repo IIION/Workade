@@ -201,15 +201,12 @@ final class WorkationViewController: UIViewController {
         label.textColor = .theme.primary
         label.text = "스티커"
         
-        let progressView = UIProgressView()
-        progressView.progress = 30/31
-        progressView.backgroundColor = .theme.groupedBackground
-        progressView.tintColor = .theme.workadeBlue
+        let progressView = StickerProgressView()
         
         let stackView = UIStackView(arrangedSubviews: [label, progressView])
         stackView.axis = .vertical
+        stackView.distribution = .fill
         stackView.spacing = 16
-        stackView.distribution = .equalCentering
         stackView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layer.borderColor = UIColor.theme.groupedBackground.cgColor
@@ -296,7 +293,7 @@ private extension WorkationViewController {
         
         bottomPaneView.addSubview(bottomBottomStack)
         NSLayoutConstraint.activate([
-            bottomBottomStack.heightAnchor.constraint(equalToConstant: 138),
+            bottomBottomStack.heightAnchor.constraint(equalToConstant: 140),
             bottomBottomStack.leadingAnchor.constraint(equalTo: bottomPaneView.leadingAnchor, constant: 20),
             bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
