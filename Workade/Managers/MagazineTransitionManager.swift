@@ -82,17 +82,17 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
         containerView.subviews.forEach { $0.removeFromSuperview() }
         blurEffectView.frame = containerView.frame
         
-        let fromVC = transitionContext.viewController(forKey: .from)
-        let toVC = transitionContext.viewController(forKey: .to)
+        let fromViewController = transitionContext.viewController(forKey: .from)
+        let toViewController = transitionContext.viewController(forKey: .to)
         
         var collectionView: UICollectionView?
-        if let guideHomeVC = (isPresent ? fromVC : toVC)?.children.last as? GuideHomeViewController {
-            collectionView = guideHomeVC.guideCollectionView
-        } else if let magazineVC = (isPresent ? fromVC : toVC)?.children.last as? MagazineViewController {
-            collectionView = magazineVC.magazineCollectionView
+        if let guideHomeViewController = (isPresent ? fromViewController : toViewController)?.children.last as? GuideHomeViewController {
+            collectionView = guideHomeViewController.guideCollectionView
+        } else if let magazineViewController = (isPresent ? fromViewController : toViewController)?.children.last as? MagazineViewController {
+            collectionView = magazineViewController.magazineCollectionView
         }
         
-        guard let cellItemDetailVC = (isPresent ? toVC : fromVC) as? CellItemDetailViewController,
+        guard let cellItemDetailViewController = (isPresent ? toViewController : fromViewController) as? CellItemDetailViewController,
               let collectionView = collectionView,
               let indexPath = cellIndexPath,
               let cell = collectionView.cellForItem(at: indexPath) as? MagazineCollectionViewCell else {
@@ -103,7 +103,7 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
         let cellFrame = cell.backgroundImageView.convert(cell.backgroundImageView.frame, to: nil)
         cellLabelHeight = cell.titleLabel.intrinsicContentSize.height
         
-        let copyTitleImageView = makeTitleImageView(origin: cellItemDetailVC.titleImageView)
+        let copyTitleImageView = makeTitleImageView(origin: cellItemDetailViewController.titleImageView)
         
         let magazine = copyTitleImageView.magazine
         let isWishMagazine = UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine.title)
@@ -131,7 +131,7 @@ extension MagazineTransitionManager: UIViewControllerAnimatedTransitioning {
                 $0.removeFromSuperview()
                 NSLayoutConstraint.deactivate($0.constraints)
             }
-            containerView.addSubview(cellItemDetailVC.view)
+            containerView.addSubview(cellItemDetailViewController.view)
             transitionContext.completeTransition(true)
         }
         
@@ -192,6 +192,7 @@ private extension MagazineTransitionManager {
             whiteView.heightAnchor.constraint(equalToConstant: cellFrame.height)
         ]
         NSLayoutConstraint.activate(downstairsConstraints)
+        
         return downstairsConstraints
     }
     
@@ -219,6 +220,7 @@ private extension MagazineTransitionManager {
             whiteView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ]
         NSLayoutConstraint.activate(upstairsConstraints)
+        
         return upstairsConstraints
     }
 }

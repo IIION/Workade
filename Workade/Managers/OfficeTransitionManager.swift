@@ -99,18 +99,18 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         blurEffectView.frame = containerView.frame
         
         // 2. viewController 탐색
-        let fromVC = transitionContext.viewController(forKey: .from)
-        let toVC = transitionContext.viewController(forKey: .to)
+        let fromViewController = transitionContext.viewController(forKey: .from)
+        let toViewController = transitionContext.viewController(forKey: .to)
         
         // 3. 다운캐스팅 및 Cell프레임 옵셔널바인딩
         var collectionView: UICollectionView?
-        if let guideHomeVC = (isPresent ? fromVC : toVC)?.children.last as? GuideHomeViewController {
-            collectionView = guideHomeVC.guideCollectionView
-        } else if let officeVC = (isPresent ? fromVC : toVC)?.children.last as? OfficeViewController {
-            collectionView = officeVC.officeCollectionView
+        if let guideHomeViewController = (isPresent ? fromViewController : toViewController)?.children.last as? GuideHomeViewController {
+            collectionView = guideHomeViewController.guideCollectionView
+        } else if let officeViewController = (isPresent ? fromViewController : toViewController)?.children.last as? OfficeViewController {
+            collectionView = officeViewController.officeCollectionView
         }
         
-        guard let nearbyVC = (isPresent ? toVC : fromVC) as? NearbyPlaceViewController,
+        guard let nearybyPlaceViewController = (isPresent ? toViewController : fromViewController) as? NearbyPlaceViewController,
               let collectionView = collectionView,
               let indexPath = collectionView.indexPathsForSelectedItems?.first,
               let cell = collectionView.cellForItem(at: indexPath) as? OfficeCollectionViewCell else {
@@ -122,7 +122,7 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
         cellLabelHeight = cell.officeNameLabel.intrinsicContentSize.height
         
         // 4. NearbyPlaceImageView의 copy본 생성.
-        let copyPlaceView = makePlaceView(origin: nearbyVC.nearbyPlaceImageView)
+        let copyPlaceView = makePlaceView(origin: nearybyPlaceViewController.nearbyPlaceImageView)
         
         // 5. containerView에 각종 컴포넌트 추가.
         [blurEffectView, whiteView, segmentControl, segmentUnderLine, copyPlaceView, cellTextLabel].forEach {
@@ -147,7 +147,7 @@ extension OfficeTransitionManager: UIViewControllerAnimatedTransitioning {
                 $0.removeFromSuperview()
                 NSLayoutConstraint.deactivate($0.constraints)
             }
-            containerView.addSubview(nearbyVC.view)
+            containerView.addSubview(nearybyPlaceViewController.view)
             transitionContext.completeTransition(true)
         }
         animator.startAnimation()
@@ -216,6 +216,7 @@ private extension OfficeTransitionManager {
             whiteView.heightAnchor.constraint(equalToConstant: cellFrame.height)
         ]
         NSLayoutConstraint.activate(downstairsConstraints)
+        
         return downstairsConstraints
     }
     
@@ -248,6 +249,7 @@ private extension OfficeTransitionManager {
             whiteView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ]
         NSLayoutConstraint.activate(upstairsConstraints)
+        
         return upstairsConstraints
     }
 }
