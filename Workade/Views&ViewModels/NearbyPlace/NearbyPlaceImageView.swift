@@ -17,11 +17,12 @@ class NearbyPlaceImageView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .theme.groupedBackground
         
         return imageView
     }()
     
-    private let placeLabel: UILabel = {
+    let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.font = UIFont.customFont(for: .title1)
         placeLabel.textColor = .theme.background
@@ -30,7 +31,7 @@ class NearbyPlaceImageView: UIView {
         return placeLabel
     }()
     
-    private let locationLabel: UILabel = {
+    let locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.font = UIFont.customFont(for: .footnote)
         locationLabel.textColor = .theme.background
@@ -70,6 +71,13 @@ class NearbyPlaceImageView: UIView {
         addSubview(imageView)
         
         imageView.addSubview(locationLabel)
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
         NSLayoutConstraint.activate([
             locationLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
             locationLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)

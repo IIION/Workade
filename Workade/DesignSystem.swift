@@ -56,8 +56,12 @@ struct DesignSystem: View {
             } else {
                 HStack(alignment: .top, spacing: 10) {
                     VStack(spacing: 20) {
-                        Color(UIColor.theme.workadeBlue)
-                            .frame(width: 44, height: 44)
+                        Group {
+                            Color(UIColor.theme.workadeBlue)
+                                .frame(width: 44, height: 44)
+                            Color(UIColor.theme.workadeBackgroundBlue)
+                                .frame(width: 44, height: 44)
+                        }
                         Color(UIColor.theme.primary)
                             .frame(width: 44, height: 44)
                         Color(UIColor.theme.secondary)
@@ -74,9 +78,9 @@ struct DesignSystem: View {
                             .frame(width: 44, height: 44)
                         Color(UIColor.theme.labelBackground)
                             .frame(width: 44, height: 44)
+                        Color(UIColor.theme.sectionBackground)
+                            .frame(width: 44, height: 44)
                     }
-                    
-                    
                     
                     VStack(spacing: 20) {
                         Text("Content Color")

@@ -20,6 +20,7 @@ class NearbyPlaceViewController: UIViewController {
     // 스크롤 뷰 하나에서, 세그먼트 컨트롤의 스티키 효과를 주기위해 2가지의 constraints 사용.
     var segmentedControlTopConstraintsToNavbar: NSLayoutConstraint!
     var segmentedControlTopConstraintsToImage: NSLayoutConstraint!
+    var imageViewTopConstraints: NSLayoutConstraint!
     
     let segmentedControllerHeight: CGFloat = 52
     var customNavigationBarHeight: CGFloat!
@@ -71,21 +72,11 @@ class NearbyPlaceViewController: UIViewController {
         return button
     }()
     
-    lazy var segmentedControl: UISegmentedControl = {
+    private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentedControl(items: ["정보", "특징", "갤러리", "주변"])
-        segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
-            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
-                                                for: .normal)
-        segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.theme.primary,
-            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
-                                                for: .selected)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        segmentedControl.backgroundColor = .white
         
         return segmentedControl
     }()
@@ -141,9 +132,9 @@ class NearbyPlaceViewController: UIViewController {
     
     func setupLayout() {
         contentsContainerView.addSubview(nearbyPlaceImageView)
-        
+        imageViewTopConstraints = nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor)
         NSLayoutConstraint.activate([
-            nearbyPlaceImageView.imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageViewTopConstraints,
             nearbyPlaceImageView.imageView.leadingAnchor.constraint(equalTo: nearbyPlaceImageView.leadingAnchor),
             nearbyPlaceImageView.imageView.trailingAnchor.constraint(equalTo: nearbyPlaceImageView.trailingAnchor),
             nearbyPlaceImageView.imageView.bottomAnchor.constraint(equalTo: nearbyPlaceImageView.bottomAnchor)
@@ -375,14 +366,16 @@ extension NearbyPlaceViewController: UIScrollViewDelegate {
         switch scrollView {
         case totalScrollView:
             if totalOffset > 0 {
-                customNavigationBar.view.alpha = totalOffset / (.topSafeArea + 259)
-                nearbyPlaceImageView.alpha = 1 - (totalOffset / (.topSafeArea + 259))
+                customNavigationBar.view.alpha = totalOffset / (imageHeight - customNavigationBarHeight)
+                nearbyPlaceImageView.alpha = 1 - (totalOffset / (imageHeight - customNavigationBarHeight))
                 if totalOffset > imageHeight - customNavigationBarHeight {
                     segmentedControlTopConstraintsToImage.isActive = false
                     segmentedControlTopConstraintsToNavbar.isActive = true
+                    imageViewTopConstraints.isActive = false
                 } else {
                     segmentedControlTopConstraintsToImage.isActive = true
                     segmentedControlTopConstraintsToNavbar.isActive = false
+                    imageViewTopConstraints.isActive = true
                 }
             } else {
                 customNavigationBar.view.alpha = 0

@@ -10,8 +10,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.972849804148-6k930o5f5lclk83mkbb7bq8d3mt8uc0u</string>
+        <string>kakaobeed144107e0a7f9f2886481b17872ff</string>
 			</array>
 		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompathauth</string>
+		<string>kakaolink</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>
