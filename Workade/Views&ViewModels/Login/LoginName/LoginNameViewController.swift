@@ -47,8 +47,10 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         nameTextField.delegate = self
+        
         setupNavigationBar()
         setupLayout()
+        setupAction()
     }
     
     private func setupNavigationBar() {
@@ -79,6 +81,14 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
             nextButton.heightAnchor.constraint(equalToConstant: 48),
             nextButton.widthAnchor.constraint(equalToConstant: 48)
         ])
+    }
+    
+    private func setupAction() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+    }
+    
+    @objc private func endEditing() {
+        view.endEditing(true)
     }
 }
 

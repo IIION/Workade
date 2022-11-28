@@ -110,6 +110,7 @@ class LoginJobViewController: UIViewController {
         
         setupNavigation()
         setupLayout()
+        setupAction()
     }
     
     private func setupNavigation() {
@@ -159,7 +160,7 @@ class LoginJobViewController: UIViewController {
         viewModel.selectedJob = job
     }
         
-    private func handlePicker(_ title: String) {
+    private func handlePicker(_ title: String? = nil) {
         self.viewModel.isPickerOpened.toggle()
         UIButton.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
             guard let self = self else { return }
@@ -169,8 +170,9 @@ class LoginJobViewController: UIViewController {
             } else {
                 self.toggleJobPicker(self.viewModel.isPickerOpened)
             }
-            
-            self.setDefaultTitle(Job(rawValue: title))
+            if let title = title {
+                self.setDefaultTitle(Job(rawValue: title))
+            }
             if self.viewModel.selectedJob != nil {
                 self.toggleNextButton()
             }
@@ -199,5 +201,13 @@ class LoginJobViewController: UIViewController {
             defaultPickerImage.image = DefaultPickerImage.chevronDown.image
             defaultPickerButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         }
+    }
+    
+    private func setupAction() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+    }
+    
+    @objc private func endEditing() {
+        handlePicker()
     }
 }

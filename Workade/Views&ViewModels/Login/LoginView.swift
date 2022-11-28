@@ -77,6 +77,7 @@ class  LoginView: UIView {
         layer.cornerRadius = 32
         
         setupLayout()
+        setButtonAction()
     }
     
     required init?(coder: NSCoder) {
@@ -109,6 +110,7 @@ class  LoginView: UIView {
             loginButtonView.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
             loginButtonView.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
         ])
+        loginButtonView.isUserInteractionEnabled = false
         
         loginButtonView.addArrangedSubview(umbrellaImageView)
         NSLayoutConstraint.activate([
@@ -117,5 +119,9 @@ class  LoginView: UIView {
         ])
         
         loginButtonView.addArrangedSubview(loginButtonText)
+    }
+    
+    private func setButtonAction() {
+        loginButton.addAction(buttonAction, for: .touchUpInside)
     }
 }
