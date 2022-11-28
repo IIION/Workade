@@ -102,4 +102,9 @@ extension LoginNameViewController {
             nextButton.backgroundColor = .gray
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.show(LoginJobViewController(name: nameTextField.text), sender: self)
+        return true
+    }
 }
