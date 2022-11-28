@@ -12,11 +12,13 @@ enum GuideHomeSection: Int, CaseIterable {
 }
 
 final class GuideHomeViewController: UIViewController {
+    private let officeTransitionManager = OfficeTransitionManager()
+    private let magazineTransitionManager = MagazineTransitionManager()
     private let viewModel = GuideHomeViewModel()
     
     private let divider = Divider()
     
-    private lazy var guideCollectionView: UICollectionView = {
+    lazy var guideCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -39,10 +41,16 @@ final class GuideHomeViewController: UIViewController {
         observingChangedMagazineId()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.guideCollectionView.reloadData()
+    }
+    
     private func setupNavigationBar() {
         title = "가이드"
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.customFont(for: .subHeadline)]
-        navigationController?.navigationBar.shadowImage = UIImage() // remove default underline
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: SFSymbol.chevronLeft.image,
@@ -112,7 +120,10 @@ extension GuideHomeViewController {
             guard let index = self.viewModel.magazineResource.content.firstIndex(where: { $0.title == id }) else { return }
             let sectionIndex = GuideHomeSection.allCases.firstIndex(of: .magazine)!
             DispatchQueue.main.async {
-                self.guideCollectionView.reloadItems(at: [.init(item: index, section: sectionIndex)])
+                let indexPath = IndexPath(item: index, section: sectionIndex)
+                self.guideCollectionView.reloadItems(at: [indexPath])
+                let cell = self.guideCollectionView.cellForItem(at: indexPath)
+                cell?.isHidden = false
             }
         }
     }
@@ -182,17 +193,23 @@ extension GuideHomeViewController: UICollectionViewDelegate {
     // 반드시 office 혹은 magazine이 있어야하는 요소는 init으로 넘깁니다.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let sectionCase = GuideHomeSection(rawValue: indexPath.section) else { return }
+        
         switch sectionCase {
         case .office:
             let officeModel = viewModel.officeResource.content[indexPath.row]
             let viewController = NearbyPlaceViewController(officeModel: officeModel)
-            viewController.modalPresentationStyle = .fullScreen
+            viewController.transitioningDelegate = officeTransitionManager
+            viewController.modalPresentationStyle = .custom
             present(viewController, animated: true)
+            
         case .magazine:
             let magazine = viewModel.magazineResource.content[indexPath.row]
             let viewController = CellItemDetailViewController(magazine: magazine)
-            viewController.modalPresentationStyle = .fullScreen
+            magazineTransitionManager.cellIndexPath = indexPath
+            viewController.transitioningDelegate = magazineTransitionManager
+            viewController.modalPresentationStyle = .custom
             present(viewController, animated: true)
+            
         case .checkList:
             pushToCheckListVC()
         }

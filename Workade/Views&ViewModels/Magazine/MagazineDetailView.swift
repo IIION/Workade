@@ -10,7 +10,7 @@ import UIKit
 class MagazineDetailView: UIView {
     var magazine: MagazineModel
     
-    let magazineViewModel = MagazineDetailViewModel()
+    let viewModel = MagazineDetailViewModel()
     
     private var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -35,9 +35,9 @@ class MagazineDetailView: UIView {
     }
     
     func setupMagazineDetailData() {
-        magazineViewModel.requestMagazineDetailData(from: magazine.introduceURL)
+        viewModel.requestMagazineDetailData(from: magazine.introduceURL)
         // 메모리누수2: weak self
-        magazineViewModel.data.bind { [weak self] content in
+        viewModel.data.bind { [weak self] content in
             guard let self = self else { return }
             for data in content {
                 switch data.type {
