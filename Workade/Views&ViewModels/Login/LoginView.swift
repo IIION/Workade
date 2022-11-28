@@ -31,7 +31,7 @@ class  LoginView: UIView {
         return image
     }()
     
-    private let loginButtonView: UIStackView = {
+    private let loginButtonBackgroundView: UIStackView = {
         let stack = UIStackView()
         stack.spacing = 6
         stack.axis = .horizontal
@@ -63,7 +63,7 @@ class  LoginView: UIView {
     lazy var loginButton: UIButton = {
        let loginButton = UIButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-//        loginButton.addAction(buttonAction, for: .touchUpInside)
+        loginButton.addAction(buttonAction, for: .touchUpInside)
         loginButton.layer.cornerRadius = 30
         loginButton.backgroundColor = .black
         
@@ -77,7 +77,7 @@ class  LoginView: UIView {
         layer.cornerRadius = 32
         
         setupLayout()
-        setButtonAction()
+        setupLoginButtonLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -104,24 +104,22 @@ class  LoginView: UIView {
             loginButton.heightAnchor.constraint(equalToConstant: 52),
             loginButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
-        
-        loginButton.addSubview(loginButtonView)
+    }
+    
+    private func setupLoginButtonLayout() {
+        loginButton.addSubview(loginButtonBackgroundView)
         NSLayoutConstraint.activate([
-            loginButtonView.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
-            loginButtonView.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
+            loginButtonBackgroundView.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
+            loginButtonBackgroundView.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
         ])
-        loginButtonView.isUserInteractionEnabled = false
+        loginButtonBackgroundView.isUserInteractionEnabled = false
         
-        loginButtonView.addArrangedSubview(umbrellaImageView)
+        loginButtonBackgroundView.addArrangedSubview(umbrellaImageView)
         NSLayoutConstraint.activate([
             umbrellaImageView.heightAnchor.constraint(equalToConstant: 18),
             umbrellaImageView.widthAnchor.constraint(equalToConstant: 18)
         ])
         
-        loginButtonView.addArrangedSubview(loginButtonText)
-    }
-    
-    private func setButtonAction() {
-        loginButton.addAction(buttonAction, for: .touchUpInside)
+        loginButtonBackgroundView.addArrangedSubview(loginButtonText)
     }
 }
