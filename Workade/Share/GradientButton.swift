@@ -8,6 +8,8 @@
 import UIKit
 
 class GradientButton: UIButton {
+    
+    var layerCornerRadius: CGFloat = 20
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -24,7 +26,7 @@ class GradientButton: UIButton {
         ]
         subLayer.startPoint = CGPoint(x: 0.75, y: 0.25)
         subLayer.endPoint = CGPoint(x: 0.25, y: 0.75)
-        subLayer.cornerRadius = 20
+        subLayer.cornerRadius = layerCornerRadius
         layer.insertSublayer(subLayer, at: 0)
         
         return subLayer

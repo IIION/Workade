@@ -50,6 +50,10 @@
 		2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89429091AE600486344 /* CheckListTemplateViewController.swift */; };
 		2154A89B29092F8800486344 /* CheckListTemplateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */; };
 		2163F30B290958A0007CB6DC /* CheckListTemplateResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */; };
+		2170C28F292BB0BC005146C3 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C28E292BB0BC005146C3 /* ExploreViewController.swift */; };
+		2170C291292C974B005146C3 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C290292C974B005146C3 /* ExploreViewModel.swift */; };
+		2170C293292CA689005146C3 /* RegionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C292292CA689005146C3 /* RegionInfoView.swift */; };
+		2170C295292DF848005146C3 /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C294292DF848005146C3 /* RegionModel.swift */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
 		218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */; };
@@ -123,6 +127,7 @@
 		A354F47B29263C52003E601A /* StickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */; };
 		A35A982C290ADE1300220755 /* MagazineDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982B290ADE1300220755 /* MagazineDetailResource.swift */; };
 		A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A982E290ADE1F00220755 /* MagazineViewModel.swift */; };
+		A35B7096292CF6EE0083E0A2 /* RegionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35B7095292CF6EE0083E0A2 /* RegionButton.swift */; };
 		A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */; };
 		A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */; };
 		A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */; };
@@ -182,6 +187,10 @@
 		2154A89429091AE600486344 /* CheckListTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewController.swift; sourceTree = "<group>"; };
 		2154A89A29092F8800486344 /* CheckListTemplateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateViewModel.swift; sourceTree = "<group>"; };
 		2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTemplateResource.swift; sourceTree = "<group>"; };
+		2170C28E292BB0BC005146C3 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		2170C290292C974B005146C3 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
+		2170C292292CA689005146C3 /* RegionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionInfoView.swift; sourceTree = "<group>"; };
+		2170C294292DF848005146C3 /* RegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenAnimationView.swift; sourceTree = "<group>"; };
@@ -259,6 +268,7 @@
 		A354F47A29263C52003E601A /* StickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		A35A982B290ADE1300220755 /* MagazineDetailResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailResource.swift; sourceTree = "<group>"; };
 		A35A982E290ADE1F00220755 /* MagazineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewModel.swift; sourceTree = "<group>"; };
+		A35B7095292CF6EE0083E0A2 /* RegionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionButton.swift; sourceTree = "<group>"; };
 		A35BD48128FE85B200D1FA7C /* MagazineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineViewController.swift; sourceTree = "<group>"; };
 		A37D283F2923BC8F009F0ED6 /* NearbyPlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceImageView.swift; sourceTree = "<group>"; };
 		A37D28412923BD53009F0ED6 /* NearbyPlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceDetailView.swift; sourceTree = "<group>"; };
@@ -408,6 +418,16 @@
 			path = CheckListTemplate;
 			sourceTree = "<group>";
 		};
+		2170C28D292BB08A005146C3 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				2170C28E292BB0BC005146C3 /* ExploreViewController.swift */,
+				2170C292292CA689005146C3 /* RegionInfoView.swift */,
+				2170C290292C974B005146C3 /* ExploreViewModel.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
 		218E4F7629012FFB003CF215 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +483,7 @@
 				A35A982B290ADE1300220755 /* MagazineDetailResource.swift */,
 				2163F30A290958A0007CB6DC /* CheckListTemplateResource.swift */,
 				A37D28432923C62E009F0ED6 /* GalleryResource.swift */,
+				2170C294292DF848005146C3 /* RegionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -555,6 +576,7 @@
 		5FDC17D928FE7C720060DBB7 /* Views&ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2170C28D292BB08A005146C3 /* Explore */,
 				5F1EA331292B48E8003EF7F2 /* Login */,
 				0EFB5BA128FF088A00174291 /* NearbyPlace */,
 				A35BD48028FE85A800D1FA7C /* Magazine */,
@@ -707,6 +729,7 @@
 				96554EE12927C78C00BBE26A /* Divider.swift */,
 				169E1F00292A5A5E007F9E0A /* GradientButton.swift */,
 				96A28421292A77E20084E479 /* PrepareView.swift */,
+				A35B7095292CF6EE0083E0A2 /* RegionButton.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -884,6 +907,7 @@
 				0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */,
 				0E29E46029275B3F00889984 /* FeatureView.swift in Sources */,
 				961CC481290AE69700921F24 /* UserDefaultsManager.swift in Sources */,
+				2170C291292C974B005146C3 /* ExploreViewModel.swift in Sources */,
 				2154A8932909142E00486344 /* CheckListTemplateCell.swift in Sources */,
 				A37D28422923BD53009F0ED6 /* NearbyPlaceDetailView.swift in Sources */,
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
@@ -918,6 +942,7 @@
 				969285E6292E92DB008F0389 /* TitleImageView.swift in Sources */,
 				5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */,
 				16083B4C29013F9A008056D4 /* CheckListViewController.swift in Sources */,
+				2170C28F292BB0BC005146C3 /* ExploreViewController.swift in Sources */,
 				16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */,
 				A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */,
 				9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */,
@@ -941,6 +966,7 @@
 				0E1E8874290AFCEF0021E788 /* UILabel+.swift in Sources */,
 				96554E9C292779D200BBE26A /* CheckListNavigationCell.swift in Sources */,
 				5FDC17E128FE7F430060DBB7 /* GuideHomeViewModel.swift in Sources */,
+				2170C293292CA689005146C3 /* RegionInfoView.swift in Sources */,
 				2154A89529091AE600486344 /* CheckListTemplateViewController.swift in Sources */,
 				A35BD48228FE85B200D1FA7C /* MagazineViewController.swift in Sources */,
 				21096F8429069ECF007EC889 /* GalleryViewModel.swift in Sources */,
@@ -988,8 +1014,10 @@
 				A35A982F290ADE1F00220755 /* MagazineViewModel.swift in Sources */,
 				96B1836E290148D4009F2BC6 /* OfficeCollectionViewCell.swift in Sources */,
 				96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */,
+				2170C295292DF848005146C3 /* RegionModel.swift in Sources */,
 				5FDC17DF28FE7F320060DBB7 /* GuideHomeViewController.swift in Sources */,
 				1646C99229082FAC008D510D /* CheckListBottomSheetViewController.swift in Sources */,
+				A35B7096292CF6EE0083E0A2 /* RegionButton.swift in Sources */,
 				21BD196D29276FCB005D6D1A /* CAGradientLayer+.swift in Sources */,
 				163A0FAB29260E2400BFF0D2 /* WorkationViewModel.swift in Sources */,
 				5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */,
