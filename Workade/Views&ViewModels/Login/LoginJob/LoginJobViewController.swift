@@ -78,6 +78,7 @@ class LoginJobViewController: UIViewController {
         choiceView.backgroundColor = .theme.groupedBackground
         choiceView.layer.cornerRadius = 15
         choiceView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        choiceView.isScrollEnabled = true
         
         return choiceView
     }()
@@ -157,14 +158,12 @@ class LoginJobViewController: UIViewController {
     }
         
     private func handlePicker(_ title: String? = nil) {
-        self.viewModel.isPickerOpened.toggle()
         UIButton.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
             guard let self = self else { return }
             if self.viewModel.isPickerOpened {
-                self.jobPickerScrollView.isScrollEnabled = true
-                self.toggleJobPicker(self.viewModel.isPickerOpened)
+                self.toggleJobPicker(shouldOpen: false)
             } else {
-                self.toggleJobPicker(self.viewModel.isPickerOpened)
+                self.toggleJobPicker(shouldOpen: true)
             }
             if let title = title {
                 self.setDefaultTitle(Job(rawValue: title))
@@ -172,8 +171,8 @@ class LoginJobViewController: UIViewController {
             if self.viewModel.selectedJob != nil {
                 self.toggleNextButton()
             }
-            
             self.view.layoutIfNeeded()
+            self.viewModel.isPickerOpened.toggle()
         }
     }
     
@@ -187,8 +186,8 @@ class LoginJobViewController: UIViewController {
         }
     }
     
-    private func toggleJobPicker(_ isOpend: Bool) {
-        if isOpend {
+    private func toggleJobPicker(shouldOpen: Bool) {
+        if shouldOpen {
             jobPickerHeight.constant = CGFloat(297) // 54 * 5.5개
             defaultPickerImage.image = DefaultPickerImage.chevronUp.image
             defaultPickerButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -209,6 +208,8 @@ class LoginJobViewController: UIViewController {
     }
     
     @objc private func endEditing() {
-        handlePicker()
+        if viewModel.isPickerOpened {
+            handlePicker()
+        }
     }
 }
