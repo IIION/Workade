@@ -30,11 +30,11 @@ final class ExploreViewController: UIViewController {
         viewModel.selectedRegion.bind { [weak self] region in
             guard let self = self else { return }
             // 선택된 Region에 따라 RegionButton 업데이트
-            self.regionButtons.forEach { [weak self] button in
-                self?.animator.addAnimations {
+            self.regionButtons.forEach { button in
+                self.animator.addAnimations {
                     button.changeLayout()
                 }
-                self?.animator.startAnimation()
+                self.animator.startAnimation()
             }
             self.changeLayout(by: region)
             self.animator.addAnimations {
