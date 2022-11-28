@@ -32,7 +32,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    lazy private var nextButton: LoginNextButtonView = {
+    private lazy var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             self?.show(LoginJobViewController(name: self?.nameTextField.text), sender: self)
         })
