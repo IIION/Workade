@@ -209,9 +209,9 @@ final class ExploreViewController: UIViewController {
         
         view.addSubview(mapImageView)
         NSLayoutConstraint.activate([
-            mapImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            mapImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            mapImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            mapImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+            mapImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30),
+            mapImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30),
             mapImageView.bottomAnchor.constraint(equalTo: guideButton.topAnchor, constant: -10)
         ])
         
