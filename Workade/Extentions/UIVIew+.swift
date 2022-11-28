@@ -11,7 +11,6 @@ extension UIView {
     func setGradient(_ colors: [CGColor]) {
         let gradient = CAGradientLayer()
         gradient.colors = [UIColor.white.cgColor, UIColor.blue.cgColor]
-//        gradient.locations = [0.0, 1.0]
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
         gradient.frame = self.bounds
