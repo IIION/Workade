@@ -68,6 +68,10 @@ class FirestoreDAO {
     func getActiveUsersNumber(region: Region) async throws -> Int {
         try await dto.getDocuments(collectionName: region.rawValue).count
     }
+    
+    func setRegionListener(region: Region, listenerAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
+        return dto.setLinstener(collectionName: region.rawValue, listenderAction: listenerAction)
+    }
 }
 
 class FirestoreDTO {
@@ -89,5 +93,9 @@ class FirestoreDTO {
     
     func getDocuments(collectionName: String) async throws -> [QueryDocumentSnapshot] {
         return try await database.collection(collectionName).getDocuments().documents
+    }
+    
+    func setLinstener(collectionName: String, listenderAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
+        return database.collection(collectionName).addSnapshotListener(listenderAction)
     }
 }

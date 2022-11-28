@@ -20,7 +20,7 @@ struct ActiveUser: Codable {
     let region: Region
 }
 
-enum Region: String, Codable {
+enum Region: String, CaseIterable, Codable {
     case gyeongGiDo
     case jeJuDo
     case gangWonDo
