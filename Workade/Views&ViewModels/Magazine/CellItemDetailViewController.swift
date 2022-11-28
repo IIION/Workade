@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 protocol MagazineViewShareDelegate: AnyObject {
     func defaultShare()
 }
 
 class CellItemDetailViewController: UIViewController {
+    private let bookmarkPublisher = PassthroughSubject<Void, Never>()
+    private var anyCancellable = Set<AnyCancellable>()
+    var onDismiss: (() -> Void)?
+    
     var magazine: MagazineModel
     let detailViewModel = MagazineDetailViewModel()
     
@@ -20,6 +25,7 @@ class CellItemDetailViewController: UIViewController {
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
@@ -32,15 +38,6 @@ class CellItemDetailViewController: UIViewController {
         return contentsContainer
     }()
     
-    let titleImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
     private let imageContainer: UIView = {
         let imageContainer = UIView()
         imageContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -48,31 +45,17 @@ class CellItemDetailViewController: UIViewController {
         return imageContainer
     }()
     
+    lazy var titleImageView: MagazineTitleImageView = {
+        let imageView = MagazineTitleImageView(by: magazine)
+        imageView.bookmarkPublisher = bookmarkPublisher
+        
+        return imageView
+    }()
+    
     lazy var closeButton: UIButton = {
         let button = UIButton().closeButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(clickedCloseButton(sender:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .theme.background
-        label.font = .customFont(for: .title1)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
-    private lazy var bookmarkButton: UIButton = {
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-        
-        let button = UIButton()
-        button.tintColor = .theme.background
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(clickedBookmarkButton(sender:)), for: .touchUpInside)
         
         return button
     }()
@@ -113,23 +96,20 @@ class CellItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        titleLabel.text = magazine.title
-        Task {
-            do {
-                try await titleImageView.setImageURL(from: magazine.imageURL)
-            } catch {
-                let error = error as? NetworkError ?? .unknownError
-                print(error.message)
-            }
-        }
         
         scrollView.delegate = self
         shareView.delegate = self
         
-        setupBookmarkImage()
+        bindBookmark()
         setupCustomNavigationBar()
         setupScrollViewLayout()
         setupLayout()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        onDismiss?()
     }
     
     func setupLayout() {
@@ -141,20 +121,6 @@ class CellItemDetailViewController: UIViewController {
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             closeButton.widthAnchor.constraint(equalToConstant: 44),
             closeButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
-        contentsContainer.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: titleImageView.leadingAnchor, constant: 20),
-            titleLabel.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20)
-        ])
-        
-        contentsContainer.addSubview(bookmarkButton)
-        NSLayoutConstraint.activate([
-            bookmarkButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: -20),
-            bookmarkButton.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: -20),
-            bookmarkButton.widthAnchor.constraint(equalToConstant: 48),
-            bookmarkButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         
         contentsContainer.addSubview(magazineDetailView)
@@ -223,7 +189,7 @@ class CellItemDetailViewController: UIViewController {
     }
     
     func setupCustomNavigationBar() {
-        customNavigationBar = CustomNavigationBar(titleText: titleLabel.text, rightButtonImage: UIImage())
+        customNavigationBar = CustomNavigationBar(titleText: magazine.title, rightButtonImage: UIImage())
         customNavigationBar.magazine = magazine
         setupCustomNavigationRightItem()
         customNavigationBar.view.alpha = 0
@@ -238,13 +204,8 @@ class CellItemDetailViewController: UIViewController {
         customNavigationBar.rightButton.setImage(rightImage, for: .normal)
     }
     
-    private func setupBookmarkImage() {
-        bookmarkButton.setImage(userDefaultsCheck() ? SFSymbol.bookmarkFillInDetail.image : SFSymbol.bookmarkInDetail.image, for: .normal)
-    }
-    
     private func userDefaultsCheck() -> Bool {
         return UserDefaultsManager.shared.loadUserDefaults(key: Constants.Key.wishMagazine).contains(magazine.title)
-        
     }
     
     @objc
@@ -252,10 +213,12 @@ class CellItemDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc
-    func clickedBookmarkButton(sender: UIButton) {
-        detailViewModel.notifyClickedMagazineId(title: magazine.title, key: Constants.Key.wishMagazine)
-        setupBookmarkImage()
+    private func bindBookmark() {
+        bookmarkPublisher.sink { [weak self] _ in
+            guard let self = self else { return }
+            self.detailViewModel.notifyClickedMagazineId(title: self.magazine.title, key: Constants.Key.wishMagazine)
+        }
+        .store(in: &anyCancellable)
     }
 }
 
@@ -272,7 +235,7 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         
         if currentScrollYOffset > defaultScrollYOffset {
             setupCustomNavigationRightItem()
-            setupBookmarkImage()
+            titleImageView.setupBookmarkImage()
             customNavigationBar.view.alpha = currentScrollYOffset / (.topSafeArea + 259)
             titleImageView.alpha = 1 - (currentScrollYOffset / (.topSafeArea + 259))
             closeButton.alpha = 1 - (currentScrollYOffset / (.topSafeArea + 259))

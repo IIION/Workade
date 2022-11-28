@@ -72,21 +72,11 @@ class NearbyPlaceViewController: UIViewController {
         return button
     }()
     
-    lazy var segmentedControl: UISegmentedControl = {
+    private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentedControl(items: ["정보", "특징", "갤러리", "주변"])
-        segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.theme.quaternary,
-            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
-                                                for: .normal)
-        segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.theme.primary,
-            NSAttributedString.Key.font: UIFont.customFont(for: .headline)],
-                                                for: .selected)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(indexChanged(_ :)), for: UIControl.Event.valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        segmentedControl.backgroundColor = .white
         
         return segmentedControl
     }()

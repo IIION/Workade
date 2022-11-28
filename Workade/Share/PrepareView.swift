@@ -21,7 +21,7 @@ final class PrepareView: UIView {
     }
     
     private let prepareImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "folder")) // 임시 이미지. 추후 Asset PR 반영된 후 수정 예정.
+        let imageView = UIImageView(image: UIImage(named: "blank")) // 임시 이미지. 추후 Asset PR 반영된 후 수정 예정.
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

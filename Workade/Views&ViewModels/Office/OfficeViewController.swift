@@ -8,6 +8,8 @@
 import UIKit
 
 final class OfficeViewController: UIViewController {
+    private let transitionManager = OfficeTransitionManager()
+    
     private let viewModel = OfficeViewModel()
     private let startRegion: String // 시작 화면 설정용
     
@@ -34,7 +36,7 @@ final class OfficeViewController: UIViewController {
     
     private let divider = Divider()
     
-    private lazy var officeCollectionView: UICollectionView = {
+    lazy var officeCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -175,7 +177,8 @@ extension OfficeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let officeModel = snapshot.itemIdentifiers[indexPath.row]
         let viewController = NearbyPlaceViewController(officeModel: officeModel)
-        viewController.modalPresentationStyle = .fullScreen
+        viewController.transitioningDelegate = transitionManager
+        viewController.modalPresentationStyle = .custom
         present(viewController, animated: true)
     }
 }

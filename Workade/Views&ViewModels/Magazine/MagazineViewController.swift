@@ -8,6 +8,7 @@
 import UIKit
 
 final class MagazineViewController: UIViewController {
+    private let transitionManager = MagazineTransitionManager()
     private let viewModel = MagazineViewModel()
     private var category: MagazineCategory {
         return MagazineCategory.allCases[ellipseSegment.currentSegmentIndex]
@@ -35,7 +36,7 @@ final class MagazineViewController: UIViewController {
     
     private let divider = Divider()
     
-    private lazy var magazineCollectionView: UICollectionView = {
+    lazy var magazineCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewModel.createLayout())
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,13 +60,6 @@ final class MagazineViewController: UIViewController {
         setupLayout()
         configureDataSource()
         observeFetchCompletion()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel.setupMagazineModelsBookmark()
-        applySnapshot(category: category, animated: false)
     }
     
     private func observeFetchCompletion() {
@@ -171,6 +165,10 @@ extension MagazineViewController: CollectionViewCellDelegate {
     func didTapBookmarkButton(id: String) {
         // UserDefaults update
         UserDefaultsManager.shared.updateUserDefaults(id: id, key: Constants.Key.wishMagazine)
+        applyBookmarkStatus()
+    }
+    
+    func applyBookmarkStatus() {
         // viewModel의 magazines update
         viewModel.setupMagazineModelsBookmark()
         // apply snapshot - bookmark Tap 시 wishList일 때만 애니메이션.
@@ -182,7 +180,12 @@ extension MagazineViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let magazineModel = snapshot.itemIdentifiers[indexPath.row]
         let viewController = CellItemDetailViewController(magazine: magazineModel)
-        viewController.modalPresentationStyle = .fullScreen
+        transitionManager.cellIndexPath = indexPath
+        viewController.transitioningDelegate = transitionManager
+        viewController.modalPresentationStyle = .custom
+        viewController.onDismiss = { [weak self] in
+            self?.applyBookmarkStatus()
+        }
         present(viewController, animated: true)
     }
 }

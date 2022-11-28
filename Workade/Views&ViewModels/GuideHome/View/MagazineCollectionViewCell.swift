@@ -22,7 +22,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: CollectionViewCellDelegate?
     
-    private lazy var backgroundImageView: CellImageView = {
+    lazy var backgroundImageView: CellImageView = {
         let imageView = CellImageView(bounds: bounds)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -38,7 +38,7 @@ final class MagazineCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = .customFont(for: .caption2)
