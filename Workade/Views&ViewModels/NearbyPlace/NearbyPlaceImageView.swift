@@ -69,15 +69,9 @@ class NearbyPlaceImageView: UIView {
     // AutoLayout
     private func setupLayout() {
         addSubview(imageView)
+        // imageView의 레이아웃은 상위 VC에서 맞춰줍니다.
         
         imageView.addSubview(locationLabel)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        
         NSLayoutConstraint.activate([
             locationLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
             locationLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)

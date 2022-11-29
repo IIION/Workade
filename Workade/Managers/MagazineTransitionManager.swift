@@ -202,7 +202,7 @@ private extension MagazineTransitionManager {
             titleImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             titleImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            titleImageView.heightAnchor.constraint(equalToConstant: .topSafeArea + 375),
+            titleImageView.heightAnchor.constraint(equalToConstant: 375),
             
             bookmarkButton.topAnchor.constraint(equalTo: titleImageView.topAnchor),
             bookmarkButton.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor),
