@@ -75,7 +75,7 @@ final class RegionInfoView: UIView {
         return button
     }()
     
-    init(frame: CGRect, selectedRegion: Binder<RegionModel?>) {
+    init(frame: CGRect, selectedRegion: Binder<RegionModel?>, completion: @escaping () -> Void) {
         self.selectedRegion = selectedRegion
         super.init(frame: frame)
         
@@ -107,6 +107,9 @@ final class RegionInfoView: UIView {
             workationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             workationButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
+        workationButton.addAction(UIAction { _ in
+            completion()
+        }, for: .touchUpInside)
         
         self.addSubview(dismissButton)
         NSLayoutConstraint.activate([

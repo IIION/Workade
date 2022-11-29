@@ -56,10 +56,12 @@ class LoginSheetView: UIView {
         return loginButton
     }()
     
-    private var handleCloseButton: () -> Void
+    let appleComletion: (() -> Void)
+    let googleCompletion: (() -> Void)
     
-    init(handleCloseButton: @escaping () -> Void) {
-        self.handleCloseButton = handleCloseButton
+    init(appleCompletion: @escaping () -> Void, googleCompletion: @escaping () -> Void) {
+        self.appleComletion = appleCompletion
+        self.googleCompletion = googleCompletion
         super.init(frame: .zero)
         layer.cornerRadius = 30
         backgroundColor = .theme.background
@@ -87,7 +89,7 @@ class LoginSheetView: UIView {
         
         closeButton.addAction(UIAction { [weak self] _ in
             UIView.animate(withDuration: 0.3) {
-                self?.handleCloseButton()
+                print("HELLO") // TODO: Toby
             }
         }, for: .touchUpInside)
         addSubview(closeButton)
@@ -120,13 +122,15 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleAppleLogin() {
-        FirebaseManager.shared.touchUpAppleButton {
+        FirebaseManager.shared.touchUpAppleButton { [weak self] in
+            self?.appleComletion()
         }
      }
     
     @objc func handleGoogleLogin() {
 //        FirebaseManager.shared.isUserLogin()
-        FirebaseManager.shared.touchUpGoogleButton {
+        FirebaseManager.shared.touchUpGoogleButton { [weak self] in
+            self?.googleCompletion()
         }
     }
 }

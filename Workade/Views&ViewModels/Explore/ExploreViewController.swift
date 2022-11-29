@@ -77,7 +77,11 @@ final class ExploreViewController: UIViewController {
     }()
     
     private lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion)
+        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion) { [weak self] in
+            let navigationViewController = UINavigationController(rootViewController: WorkationViewController())
+            navigationViewController.modalPresentationStyle = .overFullScreen
+            self?.present(navigationViewController, animated: true)
+        }
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -234,7 +238,6 @@ final class ExploreViewController: UIViewController {
             buttonConstraints[regionButton]?.forEach({ constraint in
                 self.view.removeConstraint(constraint)
             })
-            print(mapImageView.frame.height)
             let constantX = regionButton.region.relativePos.x * mapImageView.frame.width / 100
             let constantY = regionButton.region.relativePos.y * mapImageView.frame.height / 100
             let constraintX = regionButton.leadingAnchor.constraint(equalTo: mapImageView.leadingAnchor, constant: constantX)

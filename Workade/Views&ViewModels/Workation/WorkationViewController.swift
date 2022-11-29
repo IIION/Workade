@@ -24,7 +24,8 @@ final class WorkationViewController: UIViewController {
     
     private lazy var guideButton = UIBarButtonItem(
         image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
-        primaryAction: UIAction(handler: { _ in
+        primaryAction: UIAction(handler: { [weak self] _ in
+            self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
         })
     )
     
@@ -119,6 +120,20 @@ final class WorkationViewController: UIViewController {
         
         return label
     }()
+    
+    private lazy var loginPaneView: LoginSheetView = {
+        let login = LoginSheetView(appleCompletion: { [weak self] in
+            self?.bottomPaneView.isHidden = false
+            self?.loginPaneView.isHidden = true
+        }, googleCompletion: { [weak self] in
+            self?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+//            self?.bottomPaneView.isHidden = false
+//            self?.loginPaneView.isHidden = true
+        })
+        login.translatesAutoresizingMaskIntoConstraints = false
+        
+        return login
+    }() // TODO: LoginSheetView 말고 LoginView로 하기 VC 적용 후
     
     private lazy var endButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -229,6 +244,7 @@ final class WorkationViewController: UIViewController {
 private extension WorkationViewController {
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [closeButton, guideButton]
+        navigationItem.title = ""
     }
     
     private func setupLayout() {
@@ -236,10 +252,19 @@ private extension WorkationViewController {
         
         view.addSubview(bottomPaneView)
         NSLayoutConstraint.activate([
-            bottomPaneView.heightAnchor.constraint(equalToConstant: 300),
+            bottomPaneView.heightAnchor.constraint(equalToConstant: 320),
             bottomPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        bottomPaneView.isHidden = true
+        
+        view.addSubview(loginPaneView)
+        NSLayoutConstraint.activate([
+            loginPaneView.heightAnchor.constraint(equalToConstant: 320),
+            loginPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loginPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loginPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         view.addSubview(topPaneView)
@@ -298,5 +323,7 @@ private extension WorkationViewController {
             bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
+        
+        
     }
 }

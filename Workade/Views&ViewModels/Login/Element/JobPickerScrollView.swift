@@ -27,7 +27,7 @@ final class JobPickerScrollView: UIScrollView {
         backgroundColor = .clear
         isScrollEnabled = true
         contentSize = CGSize(width: 180, height: CGFloat(Job.allCases.count * 54))
-        
+        self.showsVerticalScrollIndicator = false
         setupLayout()
     }
     

@@ -115,7 +115,7 @@ class LoginJobViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationItem.title = "회원가입"
+//        navigationItem.title = "회원가입"
     }
     
     private func setupLayout() {
