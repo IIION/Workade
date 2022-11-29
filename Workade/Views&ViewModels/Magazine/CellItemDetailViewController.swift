@@ -174,7 +174,7 @@ class CellItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             imageContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageContainer.heightAnchor.constraint(equalToConstant: .topSafeArea + 375),
+            imageContainer.heightAnchor.constraint(equalToConstant: 375),
             imageContainer.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
         
