@@ -35,6 +35,7 @@ final class LoginButtonView: UIView {
         layer.cornerRadius = 20
         backgroundColor = .theme.groupedBackground
         
+        setData()
         setupLayout()
     }
     
@@ -42,9 +43,7 @@ final class LoginButtonView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayout() {
-        logoImageView.image = logoImage
-        addSubview(logoImageView)
+    private func setupLayout() {        addSubview(logoImageView)
         NSLayoutConstraint.activate([
             logoImageView.widthAnchor.constraint(equalToConstant: 24),
             logoImageView.heightAnchor.constraint(equalToConstant: 24),
@@ -52,11 +51,15 @@ final class LoginButtonView: UIView {
             logoImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 22.5)
         ])
         
-        textLabel.text = guideance
         addSubview(textLabel)
         NSLayoutConstraint.activate([
             textLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
             textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+    }
+    
+    private func setData() {
+        logoImageView.image = logoImage
+        textLabel.text = guideance
     }
 }
