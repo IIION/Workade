@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginNextButtonView: UIView {
-    let tapGesture: () -> Void
+    private let tapGesture: () -> Void
     private let nextImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
