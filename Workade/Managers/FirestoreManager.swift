@@ -70,7 +70,7 @@ class FirestoreDAO {
     }
     
     func setRegionListener(region: Region, listenerAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
-        return dto.setLinstener(collectionName: region.rawValue, listenderAction: listenerAction)
+        return dto.setListener(collectionName: region.rawValue, listenderAction: listenerAction)
     }
 }
 

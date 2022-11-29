@@ -12,7 +12,7 @@ class LoginJobViewController: UIViewController {
     private var nextButtonWidth: NSLayoutConstraint!
     private var jobPickerHeight: NSLayoutConstraint!
     
-    private var guideLabel: UILabel = {
+    private lazy var guideLabel: UILabel = {
         let guideLable = UILabel()
         guideLable.translatesAutoresizingMaskIntoConstraints = false
         guideLable.numberOfLines = 0
@@ -182,10 +182,10 @@ class LoginJobViewController: UIViewController {
     private func toggleNextButton() {
         if viewModel.selectedJob != nil {
             nextButtonWidth.constant = 116
-            nextButton.ableToSignup()
+            nextButton.readyToSignup(isReady: true)
         } else {
             nextButtonWidth.constant = 48
-            nextButton.disableToSignup()
+            nextButton.readyToSignup(isReady: false)
         }
     }
     
