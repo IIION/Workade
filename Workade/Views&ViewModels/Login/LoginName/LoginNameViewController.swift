@@ -32,7 +32,8 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    lazy private var nextButton: LoginNextButtonView = {
+
+    private lazy var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             self?.show(LoginJobViewController(name: self?.nameTextField.text), sender: self)
         })
@@ -47,8 +48,10 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         nameTextField.delegate = self
+
         setupNavigationBar()
         setupLayout()
+        setupAction()
     }
     
     private func setupNavigationBar() {
@@ -80,6 +83,14 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
             nextButton.widthAnchor.constraint(equalToConstant: 48)
         ])
     }
+
+    private func setupAction() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+    }
+    
+    @objc private func endEditing() {
+        view.endEditing(true)
+    }
 }
 
 extension LoginNameViewController {
@@ -91,5 +102,10 @@ extension LoginNameViewController {
             nextButton.isUserInteractionEnabled = false
             nextButton.backgroundColor = .gray
         }
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.show(LoginJobViewController(name: nameTextField.text), sender: self)
+        return true
     }
 }
