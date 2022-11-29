@@ -8,10 +8,7 @@
 import UIKit
 
 final class JobPickerScrollView: UIScrollView {
-    private let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .default)
-    private var isClicked = false
     private var handelJobButton: (String) -> Void
-    private var currentJobTitle: String? = nil
     
     lazy var jobListCell: [(String, UIButton)] = {
         var cells = [(String, UIButton)]()

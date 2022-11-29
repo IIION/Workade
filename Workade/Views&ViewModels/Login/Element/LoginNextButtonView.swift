@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginNextButtonView: UIView {
-    let tapGesture: () -> Void
+    private let tapGesture: () -> Void
     private let nextImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,16 +60,10 @@ class LoginNextButtonView: UIView {
         guideLabel.isHidden = true
     }
     
-    func ableToSignup() {
-        guideLabel.isHidden = false
-        isUserInteractionEnabled = true
-        backgroundColor = .blue // TODO: Gradient 적용하기
-    }
-    
-    func disableToSignup() {
-        guideLabel.isHidden = true
-        isUserInteractionEnabled = false
-        backgroundColor = .gray
+    func readyToSignup(isReady: Bool) {
+        guideLabel.isHidden = !isReady
+        isUserInteractionEnabled = isReady
+        backgroundColor = isReady ? .blue : .gray
     }
     
     @objc func handleTapGesture() {

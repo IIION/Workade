@@ -79,7 +79,7 @@ class LoginJobViewController: UIViewController {
         choiceView.layer.cornerRadius = 15
         choiceView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         choiceView.isScrollEnabled = true
-        
+
         return choiceView
     }()
     
@@ -102,7 +102,7 @@ class LoginJobViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -157,6 +157,7 @@ class LoginJobViewController: UIViewController {
         viewModel.selectedJob = job
     }
         
+
     private func handlePicker(_ title: String? = nil) {
         UIButton.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
             guard let self = self else { return }
@@ -179,10 +180,10 @@ class LoginJobViewController: UIViewController {
     private func toggleNextButton() {
         if viewModel.selectedJob != nil {
             nextButtonWidth.constant = 116
-            nextButton.ableToSignup()
+            nextButton.readyToSignup(isReady: true)
         } else {
             nextButtonWidth.constant = 48
-            nextButton.disableToSignup()
+            nextButton.readyToSignup(isReady: false)
         }
     }
     
@@ -197,7 +198,7 @@ class LoginJobViewController: UIViewController {
             defaultPickerButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         }
     }
-    
+
     private func setupAction() {
         defaultPickerButton.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
