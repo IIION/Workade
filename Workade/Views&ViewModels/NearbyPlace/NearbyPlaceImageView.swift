@@ -41,7 +41,6 @@ class NearbyPlaceImageView: UIView {
     }()
     
     init(officeModel: OfficeModel) {
-        print("중복중복")
         self.officeModel = officeModel
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
