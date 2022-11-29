@@ -39,7 +39,7 @@ class LoginJobViewController: UIViewController {
         return imageView
     }()
     
-    private var defaultPickerLabel: UILabel = {
+    private lazy var defaultPi
         let jobLabel = UILabel()
         jobLabel.translatesAutoresizingMaskIntoConstraints = false
         jobLabel.isUserInteractionEnabled = false
@@ -78,11 +78,12 @@ class LoginJobViewController: UIViewController {
         choiceView.backgroundColor = .theme.groupedBackground
         choiceView.layer.cornerRadius = 15
         choiceView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        
+        choiceView.isScrollEnabled = true
+
         return choiceView
     }()
     
-    lazy var nextButton: LoginNextButtonView = {
+    private lazy var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             guard let self = self else { return }
             print(self.viewModel.name, self.viewModel.selectedJob?.rawValue)
@@ -110,6 +111,7 @@ class LoginJobViewController: UIViewController {
         
         setupNavigation()
         setupLayout()
+        setupAction()
     }
     
     private func setupNavigation() {
@@ -139,10 +141,6 @@ class LoginJobViewController: UIViewController {
             defaultPickerButton.widthAnchor.constraint(equalToConstant: 180),
             defaultPickerButton.heightAnchor.constraint(equalToConstant: 54)
         ])
-        defaultPickerButton.addAction(UIAction { [weak self] _ in
-            guard let self = self else { return }
-            self.handlePicker(self.viewModel.selectedJob?.rawValue ?? "선택하기")
-        }, for: .touchUpInside)
         
         view.addSubview(jobPickerScrollView)
         jobPickerHeight = jobPickerScrollView.heightAnchor.constraint(equalToConstant: 0)
@@ -159,23 +157,23 @@ class LoginJobViewController: UIViewController {
         viewModel.selectedJob = job
     }
         
-    private func handlePicker(_ title: String) {
-        self.viewModel.isPickerOpened.toggle()
+
+    private func handlePicker(_ title: String? = nil) {
         UIButton.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
             guard let self = self else { return }
             if self.viewModel.isPickerOpened {
-                self.jobPickerScrollView.isScrollEnabled = true
-                self.toggleJobPicker(self.viewModel.isPickerOpened)
+                self.toggleJobPicker(shouldOpen: false)
             } else {
-                self.toggleJobPicker(self.viewModel.isPickerOpened)
+                self.toggleJobPicker(shouldOpen: true)
             }
-            
-            self.setDefaultTitle(Job(rawValue: title))
+            if let title = title {
+                self.setDefaultTitle(Job(rawValue: title))
+            }
             if self.viewModel.selectedJob != nil {
                 self.toggleNextButton()
             }
-            
             self.view.layoutIfNeeded()
+            self.viewModel.isPickerOpened.toggle()
         }
     }
     
@@ -189,8 +187,8 @@ class LoginJobViewController: UIViewController {
         }
     }
     
-    private func toggleJobPicker(_ isOpend: Bool) {
-        if isOpend {
+    private func toggleJobPicker(shouldOpen: Bool) {
+        if shouldOpen {
             jobPickerHeight.constant = CGFloat(297) // 54 * 5.5개
             defaultPickerImage.image = DefaultPickerImage.chevronUp.image
             defaultPickerButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -198,6 +196,21 @@ class LoginJobViewController: UIViewController {
             jobPickerHeight.constant = .zero
             defaultPickerImage.image = DefaultPickerImage.chevronDown.image
             defaultPickerButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        }
+    }
+
+    private func setupAction() {
+        defaultPickerButton.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.handlePicker(self.viewModel.selectedJob?.rawValue ?? "선택하기")
+        }, for: .touchUpInside)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+    }
+    
+    @objc private func endEditing() {
+        if viewModel.isPickerOpened {
+            handlePicker()
         }
     }
 }
