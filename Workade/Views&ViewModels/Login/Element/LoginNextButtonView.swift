@@ -60,16 +60,10 @@ class LoginNextButtonView: UIView {
         guideLabel.isHidden = true
     }
     
-    func ableToSignup() {
-        guideLabel.isHidden = false
-        isUserInteractionEnabled = true
-        backgroundColor = .blue // TODO: Gradient 적용하기
-    }
-    
-    func disableToSignup() {
-        guideLabel.isHidden = true
-        isUserInteractionEnabled = false
-        backgroundColor = .gray
+    func readyToSignup(isReady: Bool) {
+        guideLabel.isHidden = !isReady
+        isUserInteractionEnabled = isReady
+        backgroundColor = isReady ? .blue : .gray
     }
     
     @objc func handleTapGesture() {
