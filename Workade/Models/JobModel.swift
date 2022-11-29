@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Job: String, CaseIterable {
-    case devloper = "개발"
+enum Job: String, CaseIterable, Codable {
+    case developer = "개발"
     case designer = "디자인"
     case PM = "기획"
     case marketer = "마케팅"
@@ -18,4 +18,3 @@ enum Job: String, CaseIterable {
     case freelancer = "프리랜서"
     case etc = "기타"
 }
-

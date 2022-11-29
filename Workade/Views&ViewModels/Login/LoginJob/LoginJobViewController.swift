@@ -39,7 +39,7 @@ class LoginJobViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var defaultPi
+    private lazy var defaultPickerLabel: UILabel = {
         let jobLabel = UILabel()
         jobLabel.translatesAutoresizingMaskIntoConstraints = false
         jobLabel.isUserInteractionEnabled = false
@@ -102,7 +102,7 @@ class LoginJobViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
