@@ -55,7 +55,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title = "회원가입"
+//        self.navigationController?.navigationBar.topItem?.title = "회원가입"
         navigationItem.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
     }

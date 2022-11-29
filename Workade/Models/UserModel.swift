@@ -18,6 +18,7 @@ struct ActiveUser: Codable {
     let id: String
     let email: String
     let region: Region
+    let startDate: Date
 }
 
 enum Region: String, CaseIterable, Codable {
@@ -27,7 +28,7 @@ enum Region: String, CaseIterable, Codable {
     case chungCheongNamDo
     case chungCheongBukDo
     case jeolLaNamDo
-    case jeolLBbukDo
+    case jeolLaBukDo
     case gyeongSangNamDo
     case gyeongSangBukDo
 }

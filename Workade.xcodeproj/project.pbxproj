@@ -71,6 +71,7 @@
 		5F3208C4292E36EC00B9F09A /* JobPickerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */; };
+		5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFF292D76F3007498E2 /* JobModel.swift */; };
 		5F44CD02292DFB32007498E2 /* LoginNextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */; };
 		5F55D353293135E8000589E9 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F55D352293135E8000589E9 /* FirestoreManager.swift */; };
 		5F55D35529313BA2000589E9 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F55D35429313BA2000589E9 /* Encodable+.swift */; };
@@ -88,15 +89,10 @@
 		5F6AB60F2934FBF000EFDDC6 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AB60E2934FBF000EFDDC6 /* KakaoSDKCommon */; };
 		5F6AB6112934FBF000EFDDC6 /* KakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AB6102934FBF000EFDDC6 /* KakaoSDKShare */; };
 		5F6AB6132934FBF000EFDDC6 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AB6122934FBF000EFDDC6 /* KakaoSDKTemplate */; };
-		5F6AB6172934FD4400EFDDC6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F6AB6162934FD4300EFDDC6 /* GoogleService-Info.plist */; };
-		5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFF292D76F3007498E2 /* JobModel.swift */; };
-		5F44CD02292DFB32007498E2 /* LoginNextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */; };
-		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
-		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
-		5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */; };
 		5F83AD12292BBA3F00F5CFB4 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */; };
 		5F83AD14292CB04E00F5CFB4 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */; };
 		5F83AD18292CEB1200F5CFB4 /* LoginNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */; };
+		5FA6FC4F2935FD0F004EECEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FA6FC4E2935FD0F004EECEC /* GoogleService-Info.plist */; };
 		5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBADE4F29056811008CCC58 /* MapViewController.swift */; };
 		5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */; };
 		5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD22E8E290B17E2003CF909 /* MapViewModel.swift */; };
@@ -237,6 +233,7 @@
 		5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPickerScrollView.swift; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewController.swift; sourceTree = "<group>"; };
+		5F44CCFF292D76F3007498E2 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
 		5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextButtonView.swift; sourceTree = "<group>"; };
 		5F55D352293135E8000589E9 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		5F55D35429313BA2000589E9 /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
@@ -244,15 +241,10 @@
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
-		5F6AB6162934FD4300EFDDC6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5F44CCFF292D76F3007498E2 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
-		5F44CD01292DFB32007498E2 /* LoginNextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextButtonView.swift; sourceTree = "<group>"; };
-		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
-		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
-		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
 		5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSheetView.swift; sourceTree = "<group>"; };
 		5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNameViewController.swift; sourceTree = "<group>"; };
+		5FA6FC4E2935FD0F004EECEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FBADE4F29056811008CCC58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinModel.swift; sourceTree = "<group>"; };
 		5FD22E8E290B17E2003CF909 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -562,7 +554,6 @@
 				0EFCAA03292E01A700C84817 /* UIScrollView+.swift */,
 				96433230290A746400FBECAF /* UIImageView+.swift */,
 				16CBD4692902FB0F0056A641 /* UITableView+.swift */,
-				5F6AB61A293504E000EFDDC6 /* UIView+.swift */,
 				16CBD46B2902FB480056A641 /* UITableViewCell+.swift */,
 				96B1836929014361009F2BC6 /* UICollectionView+.swift */,
 				96B18367290142B7009F2BC6 /* UICollectionReuableView+.swift */,
@@ -594,7 +585,7 @@
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
-				5F6AB6162934FD4300EFDDC6 /* GoogleService-Info.plist */,
+				5FA6FC4E2935FD0F004EECEC /* GoogleService-Info.plist */,
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
@@ -927,7 +918,7 @@
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
-				5F6AB6172934FD4400EFDDC6 /* GoogleService-Info.plist in Resources */,
+				5FA6FC4F2935FD0F004EECEC /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
@@ -1071,7 +1062,6 @@
 				5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */,
 				969285E2292E64F8008F0389 /* MagazineTransitionManager.swift in Sources */,
 				A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */,
-				5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */,
 				21DF04BE2907EA18007B6270 /* EmojiSupplementaryViews.swift in Sources */,
 				160572BE292CFB9900B4EE40 /* CoreDataManager.swift in Sources */,
 				A354F47929262615003E601A /* StickerView.swift in Sources */,
@@ -1111,7 +1101,6 @@
 				5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */,
 				5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */,
 				5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */,
-				5F6AB61B293504E100EFDDC6 /* UIView+.swift in Sources */,
 				A33835282903E03A009882BF /* UIButton+.swift in Sources */,
 				961C56212902BF77003E238F /* HeaderView.swift in Sources */,
 				16B29988290AF65F00136E62 /* TitlePopOverViewController.swift in Sources */,

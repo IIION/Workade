@@ -152,7 +152,7 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
                 if let user = authDataResult?.user,
                     let self = self,
                     let appleLoginCompletion = self.appleLoginCompletion {
-//                    print("애플 로그인 성공!", user.uid, user.email ?? "-")
+                    print("LOGIN DOEN")
                     appleLoginCompletion()
                 }
                 
