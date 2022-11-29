@@ -33,7 +33,7 @@ enum Region: String, CaseIterable, Codable {
 }
 
 enum Job: String, CaseIterable, Codable {
-    case devloper = "개발"
+    case developer = "개발"
     case designer = "디자인"
     case projectManager = "기획"
     case marketer = "마케팅"

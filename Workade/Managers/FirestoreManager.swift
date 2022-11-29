@@ -95,7 +95,7 @@ class FirestoreDTO {
         return try await database.collection(collectionName).getDocuments().documents
     }
     
-    func setLinstener(collectionName: String, listenderAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
+    func setListener(collectionName: String, listenderAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
         return database.collection(collectionName).addSnapshotListener(listenderAction)
     }
 }

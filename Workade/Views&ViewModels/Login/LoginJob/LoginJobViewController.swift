@@ -12,7 +12,7 @@ class LoginJobViewController: UIViewController {
     private var nextButtonWidth: NSLayoutConstraint!
     private var jobPickerHeight: NSLayoutConstraint!
     
-    lazy private var guideLabel: UILabel = {
+    private var guideLabel: UILabel = {
         let guideLable = UILabel()
         guideLable.translatesAutoresizingMaskIntoConstraints = false
         guideLable.numberOfLines = 0
@@ -29,7 +29,7 @@ class LoginJobViewController: UIViewController {
         return guideLable
     }()
     
-    lazy private var defaultPickerImage: UIImageView = {
+    private lazy var defaultPickerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = DefaultPickerImage.chevronDown.image
@@ -39,7 +39,7 @@ class LoginJobViewController: UIViewController {
         return imageView
     }()
     
-    lazy private var defaultPickerLabel: UILabel = {
+    private var defaultPickerLabel: UILabel = {
         let jobLabel = UILabel()
         jobLabel.translatesAutoresizingMaskIntoConstraints = false
         jobLabel.isUserInteractionEnabled = false
@@ -49,7 +49,7 @@ class LoginJobViewController: UIViewController {
         return jobLabel
     }()
     
-    lazy private var defaultPickerButton: UIButton = { [weak self] in
+    private lazy var defaultPickerButton: UIButton = { [weak self] in
         guard let self = self else { return UIButton() }
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ class LoginJobViewController: UIViewController {
         return button
     }()
     
-    lazy private var jobPickerScrollView: JobPickerScrollView = { [weak self] in
+    private lazy var jobPickerScrollView: JobPickerScrollView = { [weak self] in
         guard let self = self else { return JobPickerScrollView(handleJobButton: { _ in }) }
         let choiceView = JobPickerScrollView(handleJobButton: handlePicker)
         choiceView.translatesAutoresizingMaskIntoConstraints = false
