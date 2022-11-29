@@ -43,6 +43,13 @@ final class OfficeTransitionManager: NSObject {
         copyPlaceView.placeLabel.reservations = [.init(.alpha, from: 0, to: 1, animated: isPresent)]
         copyPlaceView.locationLabel.reservations = [.init(.alpha, from: 0, to: 1, animated: isPresent)]
         
+        NSLayoutConstraint.activate([
+            copyPlaceView.imageView.topAnchor.constraint(equalTo: copyPlaceView.topAnchor),
+            copyPlaceView.imageView.leadingAnchor.constraint(equalTo: copyPlaceView.leadingAnchor),
+            copyPlaceView.imageView.trailingAnchor.constraint(equalTo: copyPlaceView.trailingAnchor),
+            copyPlaceView.imageView.bottomAnchor.constraint(equalTo: copyPlaceView.bottomAnchor)
+        ])
+        
         return copyPlaceView
     }
     

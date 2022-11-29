@@ -1222,7 +1222,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치기반 워케이션 활동을 위해 GPS 정보가 필요합니다.";
@@ -1259,7 +1259,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치기반 워케이션 활동을 위해 GPS 정보가 필요합니다.";
