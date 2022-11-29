@@ -8,6 +8,7 @@
 import UIKit
 
 class  LoginView: UIView {
+    var buttonAction: UIAction
     private let guideLabel: UILabel = {
         let guidance = UILabel()
         guidance.text = "워케이션을 즐기고\n다양한 스티커를 얻어보세요"
@@ -30,7 +31,7 @@ class  LoginView: UIView {
         return image
     }()
     
-    private let loginButtonView: UIStackView = {
+    private let loginButtonBackgroundView: UIStackView = {
         let stack = UIStackView()
         stack.spacing = 6
         stack.axis = .horizontal
@@ -49,7 +50,7 @@ class  LoginView: UIView {
         return umbrellaImage
     }()
     
-    let loginButtonText: UILabel = {
+    private let loginButtonText: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "나도 같이 동참하기"
@@ -59,26 +60,24 @@ class  LoginView: UIView {
         return textLabel
     }()
     
-    private let loginButton: UIButton = {
+    lazy var loginButton: UIButton = {
        let loginButton = UIButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.addAction(
-            UIAction(handler: {_ in
-                print("hello")
-            })
-            , for: .touchUpInside)
+        loginButton.addAction(buttonAction, for: .touchUpInside)
         loginButton.layer.cornerRadius = 30
         loginButton.backgroundColor = .black
         
         return loginButton
     }()
     
-    init() {
+    init(action: UIAction) {
+        self.buttonAction = action
         super.init(frame: .zero)
         backgroundColor = .blue
         layer.cornerRadius = 32
         
         setupLayout()
+        setupLoginButtonLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -105,19 +104,22 @@ class  LoginView: UIView {
             loginButton.heightAnchor.constraint(equalToConstant: 52),
             loginButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
-        
-        loginButton.addSubview(loginButtonView)
+    }
+    
+    private func setupLoginButtonLayout() {
+        loginButton.addSubview(loginButtonBackgroundView)
         NSLayoutConstraint.activate([
-            loginButtonView.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
-            loginButtonView.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
+            loginButtonBackgroundView.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
+            loginButtonBackgroundView.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
         ])
+        loginButtonBackgroundView.isUserInteractionEnabled = false
         
-        loginButtonView.addArrangedSubview(umbrellaImageView)
+        loginButtonBackgroundView.addArrangedSubview(umbrellaImageView)
         NSLayoutConstraint.activate([
             umbrellaImageView.heightAnchor.constraint(equalToConstant: 18),
             umbrellaImageView.widthAnchor.constraint(equalToConstant: 18)
         ])
         
-        loginButtonView.addArrangedSubview(loginButtonText)
+        loginButtonBackgroundView.addArrangedSubview(loginButtonText)
     }
 }
