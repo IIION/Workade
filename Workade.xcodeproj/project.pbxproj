@@ -65,6 +65,7 @@
 		21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */; };
 		21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */; };
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
+		21FC23E7293732D700606436 /* ExploreTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC23E6293732D700606436 /* ExploreTransitionManager.swift */; };
 		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F27B83A29308F0200ED1B02 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F27B83929308F0200ED1B02 /* FirebaseManager.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
@@ -95,7 +96,6 @@
 		5F83AD12292BBA3F00F5CFB4 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */; };
 		5F83AD14292CB04E00F5CFB4 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */; };
 		5F83AD18292CEB1200F5CFB4 /* LoginNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */; };
-		5FA6FC4F2935FD0F004EECEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FA6FC4E2935FD0F004EECEC /* GoogleService-Info.plist */; };
 		5FBADE5029056811008CCC58 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBADE4F29056811008CCC58 /* MapViewController.swift */; };
 		5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */; };
 		5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD22E8E290B17E2003CF909 /* MapViewModel.swift */; };
@@ -228,6 +228,7 @@
 		21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../Fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		21FC23E6293732D700606436 /* ExploreTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTransitionManager.swift; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F27B83829308EDA00ED1B02 /* Workade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Workade.entitlements; sourceTree = "<group>"; };
@@ -250,7 +251,6 @@
 		5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSheetView.swift; sourceTree = "<group>"; };
 		5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNameViewController.swift; sourceTree = "<group>"; };
-		5FA6FC4E2935FD0F004EECEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FBADE4F29056811008CCC58 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinModel.swift; sourceTree = "<group>"; };
 		5FD22E8E290B17E2003CF909 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -593,7 +593,6 @@
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
-				5FA6FC4E2935FD0F004EECEC /* GoogleService-Info.plist */,
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
@@ -720,6 +719,7 @@
 				5F55D352293135E8000589E9 /* FirestoreManager.swift */,
 				96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */,
 				969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */,
+				21FC23E6293732D700606436 /* ExploreTransitionManager.swift */,
 				160572BD292CFB9900B4EE40 /* CoreDataManager.swift */,
 				5F5D33B42937234300C8F80C /* UserManager.swift */,
 			);
@@ -927,7 +927,6 @@
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
-				5FA6FC4F2935FD0F004EECEC /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
@@ -1094,6 +1093,7 @@
 				218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */,
 				16CBD4742905673D0056A641 /* CheckListDetailViewModel.swift in Sources */,
 				96E0CDE12923E079008A67BB /* UINavigationController+.swift in Sources */,
+				21FC23E7293732D700606436 /* ExploreTransitionManager.swift in Sources */,
 				9643323B290A9B2000FBECAF /* MyPageViewModel.swift in Sources */,
 				96972ECF2903008800197DEE /* MagazineCollectionViewCell.swift in Sources */,
 				5F55D35729313BDB000589E9 /* UserModel.swift in Sources */,
@@ -1282,7 +1282,7 @@
 				CODE_SIGN_ENTITLEMENTS = Workade/Workade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P2UJWPTGRX;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치기반 워케이션 활동을 위해 GPS 정보가 필요합니다.";
@@ -1301,6 +1301,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = developer.ILION.Workade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1320,7 +1321,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P2UJWPTGRX;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치기반 워케이션 활동을 위해 GPS 정보가 필요합니다.";
