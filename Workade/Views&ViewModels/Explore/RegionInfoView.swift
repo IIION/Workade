@@ -161,6 +161,7 @@ final class RegionInfoView: UIView {
         ])
         
         self.addSubview(warningView)
+        warningView.isHidden = true
         NSLayoutConstraint.activate([
             warningView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             warningView.trailingAnchor.constraint(equalTo: self.trailingAnchor),

@@ -256,7 +256,7 @@ final class ExploreViewController: UIViewController {
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
         regionInfoView.subTitleLabel.text = region?.romaName ?? ""
-        regionInfoView.warningView.isHidden = region?.isCanWorkation == true
+        regionInfoView.warningView.isHidden = (region?.isCanWorkation ?? true) == true
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {
