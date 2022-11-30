@@ -154,6 +154,10 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
         button.addAction(UIAction(handler: { [weak self] _ in
+            Task {
+                guard let user = UserManager.shared.user.value else { return }
+                try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: .jeJuDo) // TODO: 지역 설정하기
+            }
             let stickerShetViewController = StickerSheetViewController()
             stickerShetViewController.modalPresentationStyle = .overFullScreen
             
@@ -164,6 +168,7 @@ final class WorkationViewController: UIViewController {
             stickerShetViewController.viewDidDismiss = {
                 dimView.removeFromSuperview()
             }
+            
             
             self?.present( stickerShetViewController, animated: true)
         }), for: .touchUpInside)

@@ -5,6 +5,7 @@
 //  Created by Inho Choi on 2022/10/18.
 //
 
+import FirebaseAuth
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -21,6 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = UINavigationController(rootViewController: ExploreViewController())
         window?.makeKeyAndVisible()
+        
+        Task {
+            guard let user = Auth.auth().currentUser else { return }
+            print(user)
+            UserManager.shared.user.value = try await FirestoreDAO.shared.getUser(userID: user.uid)
+        }
         
         if let url = connectionOptions.urlContexts.first?.url {
             presentModal(url: url)
