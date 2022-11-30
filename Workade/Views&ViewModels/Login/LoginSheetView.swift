@@ -31,13 +31,18 @@ class LoginSheetView: UIView {
     
     lazy var closeButton: UIButton = {
         let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .default)
-        
         let button = UIButton()
         
         button.tintColor = .theme.tertiary
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .theme.groupedBackground
         button.layer.cornerRadius = 14
+        button.addAction(UIAction { [weak self] _ in
+            self?.parentViewController?.dismiss(animated: true)
+        }, for: .touchUpInside)
+        
+        guard let image = UIImage(systemName: "xmark", withConfiguration: config) else { return button }
+        button.setImage(image, for: .normal)
         
         return button
     }()
@@ -56,12 +61,7 @@ class LoginSheetView: UIView {
         return loginButton
     }()
     
-    let appleComletion: (() -> Void)
-    let googleCompletion: (() -> Void)
-    
-    init(appleCompletion: @escaping () -> Void, googleCompletion: @escaping () -> Void) {
-        self.appleComletion = appleCompletion
-        self.googleCompletion = googleCompletion
+    init() {
         super.init(frame: .zero)
         layer.cornerRadius = 30
         backgroundColor = .theme.background
@@ -87,11 +87,6 @@ class LoginSheetView: UIView {
             guideLable.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 36.5)
         ])
         
-        closeButton.addAction(UIAction { [weak self] _ in
-            UIView.animate(withDuration: 0.3) {
-                print("HELLO") // TODO: Toby
-            }
-        }, for: .touchUpInside)
         addSubview(closeButton)
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
@@ -122,15 +117,20 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleAppleLogin() {
-        FirebaseManager.shared.touchUpAppleButton { [weak self] in
-            self?.appleComletion()
-        }
-     }
+        FirebaseManager.shared.touchUpAppleButton(appleSignupCompletion: {[weak self] in
+            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+        },
+                                                  appleSigninCompletion: { [weak self] in
+            self?.parentViewController?.navigationController?.dismiss(animated: true)
+        })
+    }
     
     @objc func handleGoogleLogin() {
-//        FirebaseManager.shared.isUserLogin()
-        FirebaseManager.shared.touchUpGoogleButton { [weak self] in
-            self?.googleCompletion()
-        }
+        FirebaseManager.shared.touchUpGoogleButton(signupCompletion: { [weak self] in
+            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+        },
+                                                   signinCompletion: { [weak self] in
+            self?.parentViewController?.navigationController?.dismiss(animated: true)
+        })
     }
 }

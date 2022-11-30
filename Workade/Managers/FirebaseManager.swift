@@ -19,16 +19,17 @@ final class FirebaseManager: NSObject {
     static let shared = FirebaseManager()
     private var currentNonce: String?
     lazy private var authorizationController = ASAuthorizationController(authorizationRequests: [createAppleIDRequest()])
-    private var appleLoginCompletion: (() -> Void)? = nil
+    private var appleSigninCompletion: (() -> Void)!
+    private var appleSignupCompletion: (() -> Void)!
     private override init() {
         super.init()
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
     }
     
-    func touchUpAppleButton(completion: @escaping () -> Void) {
-//        request.requestedScopes = [.email, .fullName]
-        appleLoginCompletion = completion
+    func touchUpAppleButton(appleSignupCompletion: @escaping () -> Void, appleSigninCompletion: @escaping () -> Void) {
+        self.appleSigninCompletion = appleSigninCompletion
+        self.appleSignupCompletion = appleSignupCompletion
         authorizationController.performRequests()
     }
     
@@ -87,7 +88,7 @@ final class FirebaseManager: NSObject {
         return result
     }
     
-    func touchUpGoogleButton(completion: @escaping () -> Void) {
+    func touchUpGoogleButton(signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
@@ -107,9 +108,21 @@ final class FirebaseManager: NSObject {
                 }
                 
                 if let user = result?.user {
-                    user.uid
-                    // TODO: FireStore에 저장하기
-                    completion()
+                    Task {
+                        if try await FirestoreDAO.shared.getUser(userID: user.uid) != nil {
+                            DispatchQueue.main.async { [weak self] in
+                                Task {
+                                    guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
+                                    UserManager.shared.user.value = userInfo
+                                }
+                                signinCompletion()
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                signupCompletion()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -149,11 +162,22 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
             // 5️⃣
             Auth.auth().signIn(with: credential) { [weak self] (authDataResult, error) in
                 // 인증 결과에서 Firebase 사용자를 검색하고 사용자 정보를 표시할 수 있다.
-                if let user = authDataResult?.user,
-                    let self = self,
-                    let appleLoginCompletion = self.appleLoginCompletion {
-                    print("LOGIN DOEN")
-                    appleLoginCompletion()
+                if let user = authDataResult?.user {
+                    Task { [weak self] in
+                        if (try await FirestoreDAO.shared.getUser(userID: user.uid)) == nil {
+                            DispatchQueue.main.async { [weak self] in
+                                self?.appleSignupCompletion()
+                            }
+                        } else {
+                            DispatchQueue.main.async { [weak self] in
+                                Task {
+                                    guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
+                                    UserManager.shared.user.value = userInfo
+                                }
+                                self?.appleSigninCompletion()
+                            }
+                        }
+                    }
                 }
                 
                 if error != nil {

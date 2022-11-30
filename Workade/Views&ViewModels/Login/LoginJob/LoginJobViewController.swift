@@ -79,15 +79,22 @@ class LoginJobViewController: UIViewController {
         choiceView.layer.cornerRadius = 15
         choiceView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         choiceView.isScrollEnabled = true
-
+        
         return choiceView
     }()
     
     private lazy var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             guard let self = self else { return }
-            print(self.viewModel.name, self.viewModel.selectedJob?.rawValue)
-        }) // TODO: 다음 페이지 연결하기
+            Task { [weak self] in
+                guard let loginInfo = FirebaseManager.shared.getUser() else { return }
+                let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: self?.viewModel.selectedJob)
+                UserManager.shared.user.value = user
+                try await FirestoreDAO.shared.createUser(user: user)
+            }
+            self.navigationController?.dismiss(animated: true)
+            
+        })
         nextView.translatesAutoresizingMaskIntoConstraints = false
         nextView.backgroundColor = .gray
         nextView.isUserInteractionEnabled = false
@@ -157,7 +164,6 @@ class LoginJobViewController: UIViewController {
         viewModel.selectedJob = job
     }
         
-
     private func handlePicker(_ title: String? = nil) {
         UIButton.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
             guard let self = self else { return }
