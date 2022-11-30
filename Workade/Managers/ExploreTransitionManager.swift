@@ -91,7 +91,7 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
             topPaneView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
             let regionInfoViewCopy = makeRegionInfoViewCopy(selectedRegion: fakeBinder)
             regionInfoViewCopy.titleLabel.text = regionInfoViewCopy.selectedRegion.value?.name
-            regionInfoViewCopy.subTitleLabel.text = regionInfoViewCopy.selectedRegion.value?.rawValue
+            regionInfoViewCopy.subTitleLabel.text = regionInfoViewCopy.selectedRegion.value?.romaName
             
             guard let workationView = workationView else {
                 transitionContext.completeTransition(true)

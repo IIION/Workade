@@ -255,7 +255,7 @@ final class ExploreViewController: UIViewController {
         regionInfoViewBottomConstraint?.constant = isRegionNil ? regionInfoViewHeight + sectionPadding : 0
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
-        regionInfoView.subTitleLabel.text = region?.rawValue ?? ""
+        regionInfoView.subTitleLabel.text = region?.romaName ?? ""
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {
