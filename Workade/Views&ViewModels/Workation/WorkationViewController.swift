@@ -5,12 +5,15 @@
 //  Created by Wonhyuk Choi on 2022/11/17.
 //
 
+import Combine
 import UIKit
 
 final class WorkationViewController: UIViewController {
     private let workationViewModel = WorkationViewModel()
     
     var dismissAction: (() -> Void)?
+    
+    var cancellable = Set<AnyCancellable>()
     
     private let titleView = TitleLabel(title: "제주도")
     
@@ -121,19 +124,18 @@ final class WorkationViewController: UIViewController {
         return label
     }()
     
-    private lazy var loginPaneView: LoginSheetView = {
-        let login = LoginSheetView(appleCompletion: { [weak self] in
-            self?.bottomPaneView.isHidden = false
-            self?.loginPaneView.isHidden = true
-        }, googleCompletion: { [weak self] in
-            self?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
-//            self?.bottomPaneView.isHidden = false
-//            self?.loginPaneView.isHidden = true
-        })
+    private lazy var loginPaneView: LoginView = {
+        let login = LoginView(action: UIAction { [weak self] _ in
+            let loginInitViewController = LoginInitViewController()
+            let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
+            loginNavigation.modalPresentationStyle = .overFullScreen
+            self?.present(loginNavigation, animated: true)
+        }
+        )
         login.translatesAutoresizingMaskIntoConstraints = false
         
         return login
-    }() // TODO: LoginSheetView 말고 LoginView로 하기 VC 적용 후
+    }()
     
     private lazy var endButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -238,6 +240,7 @@ final class WorkationViewController: UIViewController {
         
         setupLayout()
         setupNavigationBar()
+        bind()
     }
 }
 
@@ -266,7 +269,7 @@ private extension WorkationViewController {
             loginPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             loginPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+
         view.addSubview(topPaneView)
         NSLayoutConstraint.activate([
             topPaneView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -324,6 +327,18 @@ private extension WorkationViewController {
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
         
-        
+    }
+}
+
+extension WorkationViewController {
+    private func bind() {
+        UserManager.shared.user
+            .sink { [weak self] user in
+                DispatchQueue.main.async { [weak self] in
+                    self?.loginPaneView.isHidden = (user != nil)
+                    self?.bottomPaneView.isHidden = !(user != nil)
+                }
+            }
+            .store(in: &cancellable)
     }
 }

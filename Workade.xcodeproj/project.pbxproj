@@ -69,6 +69,7 @@
 		5F27B83A29308F0200ED1B02 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F27B83929308F0200ED1B02 /* FirebaseManager.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3208C4292E36EC00B9F09A /* JobPickerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */; };
+		5F3A172A2937375D004B5C7F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A17292937375D004B5C7F /* UIView+.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */; };
 		5F44CD00292D76F3007498E2 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFF292D76F3007498E2 /* JobModel.swift */; };
@@ -79,6 +80,8 @@
 		5F5C074828FE803C0089DD4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074728FE803C0089DD4B /* UIColor+.swift */; };
 		5F5C074A28FE80450089DD4B /* ExampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074928FE80450089DD4B /* ExampleDelegate.swift */; };
 		5F5C074E28FE81DE0089DD4B /* OfficeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */; };
+		5F5D33B52937234300C8F80C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5D33B42937234300C8F80C /* UserManager.swift */; };
+		5F5D33B7293726B100C8F80C /* LoginInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5D33B6293726B100C8F80C /* LoginInitViewController.swift */; };
 		5F6AB5FF2934F8CB00EFDDC6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AB5FE2934F8CB00EFDDC6 /* FirebaseAuth */; };
 		5F6AB6012934F8CB00EFDDC6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AB6002934F8CB00EFDDC6 /* FirebaseFirestore */; };
 		5F6AB6032934F8CB00EFDDC6 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6AB6022934F8CB00EFDDC6 /* FirebaseFirestoreCombine-Community */; };
@@ -231,6 +234,7 @@
 		5F27B83929308F0200ED1B02 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPickerScrollView.swift; sourceTree = "<group>"; };
+		5F3A17292937375D004B5C7F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewController.swift; sourceTree = "<group>"; };
 		5F44CCFF292D76F3007498E2 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 		5F5C074728FE803C0089DD4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+.swift"; path = "Workade/Extentions/UIColor+.swift"; sourceTree = SOURCE_ROOT; };
 		5F5C074928FE80450089DD4B /* ExampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExampleDelegate.swift; path = Workade/Delegate/ExampleDelegate.swift; sourceTree = SOURCE_ROOT; };
 		5F5C074D28FE81DE0089DD4B /* OfficeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeResource.swift; sourceTree = "<group>"; };
+		5F5D33B42937234300C8F80C /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5F5D33B6293726B100C8F80C /* LoginInitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInitViewController.swift; sourceTree = "<group>"; };
 		5F83AD11292BBA3E00F5CFB4 /* LoginSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSheetView.swift; sourceTree = "<group>"; };
 		5F83AD13292CB04E00F5CFB4 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		5F83AD17292CEB1200F5CFB4 /* LoginNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNameViewController.swift; sourceTree = "<group>"; };
@@ -517,6 +523,7 @@
 				5FF24615292F883A00B97D2D /* LoginName */,
 				5FF24616292F884700B97D2D /* LoginJob */,
 				5FF24617292F885200B97D2D /* Element */,
+				5F5D33B6293726B100C8F80C /* LoginInitViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -545,6 +552,7 @@
 				A34AB346291B99C600065212 /* CGFloat+.swift */,
 				5F5C074728FE803C0089DD4B /* UIColor+.swift */,
 				21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */,
+				5F3A17292937375D004B5C7F /* UIView+.swift */,
 				21BD196C29276FCB005D6D1A /* CAGradientLayer+.swift */,
 				0E1E8873290AFCEF0021E788 /* UILabel+.swift */,
 				A33835272903E03A009882BF /* UIButton+.swift */,
@@ -713,6 +721,7 @@
 				96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */,
 				969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */,
 				160572BD292CFB9900B4EE40 /* CoreDataManager.swift */,
+				5F5D33B42937234300C8F80C /* UserManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1014,6 +1023,7 @@
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
 				0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */,
+				5F5D33B52937234300C8F80C /* UserManager.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
 				96554EE52927F16900BBE26A /* OfficeViewController.swift in Sources */,
 				96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */,
@@ -1023,6 +1033,7 @@
 				0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */,
 				163A0FA929260E1500BFF0D2 /* WorkationViewController.swift in Sources */,
 				96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */,
+				5F5D33B7293726B100C8F80C /* LoginInitViewController.swift in Sources */,
 				16CBD46A2902FB0F0056A641 /* UITableView+.swift in Sources */,
 				96B18368290142B7009F2BC6 /* UICollectionReuableView+.swift in Sources */,
 				96AB1F8F292CEAB500AEC0BF /* OfficeTransitionManager.swift in Sources */,
@@ -1044,6 +1055,7 @@
 				16B29984290A7BAE00136E62 /* CheckListCellViewModel.swift in Sources */,
 				A37D28402923BC8F009F0ED6 /* NearbyPlaceImageView.swift in Sources */,
 				9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */,
+				5F3A172A2937375D004B5C7F /* UIView+.swift in Sources */,
 				16083B4B29013F9A008056D4 /* CheckListCell.swift in Sources */,
 				16CBD470290411ED0056A641 /* CheckListAddButtonCell.swift in Sources */,
 				5F55D353293135E8000589E9 /* FirestoreManager.swift in Sources */,
