@@ -41,6 +41,19 @@ enum RegionModel: String, Hashable, CaseIterable {
         }
     }
     
+    var romaName: String {
+        return self.rawValue.prefix(1).uppercased() + self.rawValue.dropFirst()
+    }
+    
+    var isCanWorkation: Bool {
+        switch self {
+        case .jeju:
+            return true
+        default:
+            return false
+        }
+    }
+    
     var imageName: String {
         return self.rawValue + "Background"
     }

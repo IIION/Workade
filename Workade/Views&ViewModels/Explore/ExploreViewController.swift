@@ -10,10 +10,11 @@ import SafariServices
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
+    private let transitionManager = ExploreTransitionManager()
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     private var buttonConstraints: [RegionButton: [NSLayoutConstraint]] = [:]
     private let sectionPadding: CGFloat = 4
-    private let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
+    let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
     
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
@@ -76,11 +77,12 @@ final class ExploreViewController: UIViewController {
         return view
     }()
     
-    private lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion) { [weak self] in
-            let navigationViewController = UINavigationController(rootViewController: WorkationViewController())
-            navigationViewController.modalPresentationStyle = .overFullScreen
-            self?.present(navigationViewController, animated: true)
+    lazy var regionInfoView: RegionInfoView = {
+        let view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: viewModel.selectedRegion) { [weak self] in
+            let workationViewController = WorkationViewController()
+            workationViewController.transitioningDelegate = self?.transitionManager
+            workationViewController.modalPresentationStyle = .custom
+            self?.present(workationViewController, animated: true)
         }
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -253,7 +255,8 @@ final class ExploreViewController: UIViewController {
         regionInfoViewBottomConstraint?.constant = isRegionNil ? regionInfoViewHeight + sectionPadding : 0
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
-        regionInfoView.subTitleLabel.text = region?.rawValue ?? ""
+        regionInfoView.subTitleLabel.text = region?.romaName ?? ""
+        regionInfoView.warningView.isHidden = (region?.isCanWorkation ?? true) == true
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {
