@@ -66,6 +66,7 @@
 		21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */; };
 		21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */; };
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
+		21FC23E52935DF9C00606436 /* ExploreTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC23E42935DF9C00606436 /* ExploreTransitionManager.swift */; };
 		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F1EA335292B7026003EF7F2 /* UIVIew+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA334292B7026003EF7F2 /* UIVIew+.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
@@ -212,6 +213,7 @@
 		21F6DE5A28FFED5D00ED72C6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Bold.otf"; path = "../Fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		21FC23E42935DF9C00606436 /* ExploreTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTransitionManager.swift; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F1EA334292B7026003EF7F2 /* UIVIew+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+.swift"; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 				21862A92290280BD00518EBC /* CardTransitionManager.swift */,
 				96AB1F8E292CEAB500AEC0BF /* OfficeTransitionManager.swift */,
 				969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */,
+				21FC23E42935DF9C00606436 /* ExploreTransitionManager.swift */,
 				160572BD292CFB9900B4EE40 /* CoreDataManager.swift */,
 			);
 			path = Managers;
@@ -954,6 +957,7 @@
 			files = (
 				A33835242903C96C009882BF /* CellItemDetailViewController.swift in Sources */,
 				96554EE22927C78C00BBE26A /* Divider.swift in Sources */,
+				21FC23E52935DF9C00606436 /* ExploreTransitionManager.swift in Sources */,
 				2120F566290130870035D36E /* UICollectionViewTwoLineLayout.swift in Sources */,
 				0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */,
 				0E29E46029275B3F00889984 /* FeatureView.swift in Sources */,
@@ -1222,7 +1226,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VT69ZW2DRC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치기반 워케이션 활동을 위해 GPS 정보가 필요합니다.";
@@ -1259,7 +1263,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VT69ZW2DRC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Workade/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치기반 워케이션 활동을 위해 GPS 정보가 필요합니다.";

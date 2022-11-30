@@ -10,10 +10,11 @@ import SafariServices
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
+    private let transitionManager = ExploreTransitionManager()
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     private var buttonConstraints: [RegionButton: [NSLayoutConstraint]] = [:]
     private let sectionPadding: CGFloat = 4
-    private let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
+    let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
     
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
@@ -76,8 +77,14 @@ final class ExploreViewController: UIViewController {
         return view
     }()
     
-    private lazy var regionInfoView: RegionInfoView = {
+    lazy var regionInfoView: RegionInfoView = {
         let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion)
+        view.onPresent = { [weak self] in
+            let viewController = WorkationViewController()
+            viewController.transitioningDelegate = self?.transitionManager
+            viewController.modalPresentationStyle = .custom
+            self?.present(viewController, animated: true)
+        }
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view

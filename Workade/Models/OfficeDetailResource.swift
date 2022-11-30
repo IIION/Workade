@@ -14,7 +14,7 @@ struct OfficeDetailResource: Codable {
         self.content = []
     }
 }
-
+ 
 struct OfficeDetailModel: Codable {
     let type: String
     let font: String?

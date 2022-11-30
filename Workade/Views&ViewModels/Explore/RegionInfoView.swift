@@ -8,7 +8,8 @@
 import UIKit
 
 final class RegionInfoView: UIView {
-    private let selectedRegion: Binder<RegionModel?>
+    let selectedRegion: Binder<RegionModel?>
+    var onPresent: (() -> Void)?
     
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -30,7 +31,7 @@ final class RegionInfoView: UIView {
         return label
     }()
     
-    private lazy var desciptionLabel: UILabel = {
+    lazy var desciptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         let text = "지금 29명의 사람들이\n워케이션 중이에요"
         let attributedString = NSMutableAttributedString(string: text)
@@ -44,7 +45,7 @@ final class RegionInfoView: UIView {
         return label
     }()
     
-    private lazy var workationButton: UIButton = {
+    lazy var workationButton: UIButton = {
         let button = GradientButton(type: .custom)
         var config = UIButton.Configuration.plain()
         config.cornerStyle = .capsule
@@ -58,6 +59,9 @@ final class RegionInfoView: UIView {
         config.image = UIImage(named: "Star")
         config.imagePadding = 4
         button.configuration = config
+        button.addAction(UIAction(handler: { _ in
+            self.onPresent?()
+        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
