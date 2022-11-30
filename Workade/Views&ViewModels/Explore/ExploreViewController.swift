@@ -78,7 +78,7 @@ final class ExploreViewController: UIViewController {
     }()
     
     lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion) { [weak self] in
+        let view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: viewModel.selectedRegion) { [weak self] in
             let workationViewController = WorkationViewController()
             workationViewController.transitioningDelegate = self?.transitionManager
             workationViewController.modalPresentationStyle = .custom
@@ -256,6 +256,7 @@ final class ExploreViewController: UIViewController {
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
         regionInfoView.subTitleLabel.text = region?.romaName ?? ""
+        regionInfoView.warningView.isHidden = region?.isCanWorkation == true
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {

@@ -42,7 +42,7 @@ enum RegionModel: String, Hashable, CaseIterable {
     }
     
     var romaName: String {
-        return self.rawValue.prefix(1).uppercased() + self.rawValue.dropFirst() + "Background"
+        return self.rawValue.prefix(1).uppercased() + self.rawValue.dropFirst()
     }
     
     var isCanWorkation: Bool {
@@ -55,7 +55,7 @@ enum RegionModel: String, Hashable, CaseIterable {
     }
     
     var imageName: String {
-        return self.rawValue.prefix(1) + "Background"
+        return self.rawValue + "Background"
     }
     
     var relativePos: CGPoint {

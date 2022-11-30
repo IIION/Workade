@@ -41,9 +41,11 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
         
         if transition == .presentation {
             let regionInfoViewCopy = makeRegionInfoViewCopy(selectedRegion: fakeBinder)
+            regionInfoViewCopy.peopleCount = exploreViewController.regionInfoView.peopleCount
             regionInfoViewCopy.subviews.forEach { $0.isHidden = true }
             containerView.addSubview(regionInfoViewCopy)
             exploreViewController.regionInfoView.alpha = 0
+            
             
             let heightConstraint = regionInfoViewCopy.heightAnchor.constraint(equalToConstant: exploreViewController.regionInfoViewHeight)
             let bottomConstraint = regionInfoViewCopy.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
@@ -136,7 +138,7 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
     }
     
     private func makeRegionInfoViewCopy(selectedRegion: Binder<RegionModel?>) -> RegionInfoView {
-        let view = RegionInfoView(frame: .zero, selectedRegion: selectedRegion) { }
+        let view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: selectedRegion) { }
         view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         

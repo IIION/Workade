@@ -8,7 +8,7 @@
 import UIKit
 
 final class RegionInfoView: UIView {
-    let peopleCount: Int
+    var peopleCount: Int
     let selectedRegion: Binder<RegionModel?>
     
     lazy var titleLabel: UILabel = {
@@ -76,14 +76,54 @@ final class RegionInfoView: UIView {
         return button
     }()
     
-    init(frame: CGRect, selectedRegion: Binder<RegionModel?>, completion: @escaping () -> Void) {
+    lazy var warningView: UIView = {
+        let warningIcon = UIImage.fromSystemImage(name: "exclamationmark.triangle.fill", font: .systemFont(ofSize: 24), color: .white)
+        let warningImageView = UIImageView(image: warningIcon)
+        warningImageView.contentMode = .scaleAspectFit
+        let warningLabel = UILabel(frame: .zero)
+        warningLabel.text = "아직 준비중인 지역이에요!"
+        warningLabel.font = .customFont(for: .captionHeadline)
+        warningLabel.textColor = .white
+        
+        let stackView = UIStackView(arrangedSubviews: [warningImageView, warningLabel])
+        stackView.spacing = 12
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialDark))
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let warningView = UIView(frame: .zero)
+        
+        warningView.addSubview(blurView)
+        NSLayoutConstraint.activate([
+            blurView.leadingAnchor.constraint(equalTo: warningView.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: warningView.trailingAnchor),
+            blurView.topAnchor.constraint(equalTo: warningView.topAnchor),
+            blurView.bottomAnchor.constraint(equalTo: warningView.bottomAnchor)
+        ])
+        
+        warningView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: warningView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: warningView.centerYAnchor)
+        ])
+        
+        warningView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return warningView
+    }()
+    
+    init(frame: CGRect, peopleCount: Int, selectedRegion: Binder<RegionModel?>, completion: @escaping () -> Void) {
         self.selectedRegion = selectedRegion
+        self.peopleCount = peopleCount
         super.init(frame: frame)
         
         self.backgroundColor = .theme.sectionBackground
         self.layer.cornerCurve = .continuous
         self.layer.cornerRadius = 30
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        self.clipsToBounds = true
         
         let labelStackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
         labelStackView.spacing = 0
@@ -118,6 +158,14 @@ final class RegionInfoView: UIView {
             dismissButton.heightAnchor.constraint(equalToConstant: 28),
             dismissButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             dismissButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20)
+        ])
+        
+        self.addSubview(warningView)
+        NSLayoutConstraint.activate([
+            warningView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            warningView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            warningView.topAnchor.constraint(equalTo: self.topAnchor),
+            warningView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
