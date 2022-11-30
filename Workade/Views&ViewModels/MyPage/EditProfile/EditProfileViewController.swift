@@ -71,13 +71,12 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var pickerTableView: UITableView = {
         let pickerTableView = UITableView()
-        pickerTableView.backgroundColor = .theme.background
+        pickerTableView.backgroundColor = .theme.groupedBackground
         pickerTableView.separatorStyle = .none
         pickerTableView.showsVerticalScrollIndicator = false
         
         pickerTableView.layer.cornerRadius = 15
-        pickerTableView.layer.borderWidth = 0.2
-        pickerTableView.layer.borderColor = UIColor.theme.tertiary.cgColor
+        pickerTableView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
         pickerTableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -176,14 +175,14 @@ final class EditProfileViewController: UIViewController {
     // 화면 터치시 Keyboard 내리기 & picker 접기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let frames = self.jobPickerButton.frame
-         self.view.endEditing(true)
+        self.view.endEditing(true)
         
         if pickerCheck {
             pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
         }
         pickerCheck = false
         presentPickerAnimation(frames: frames, height: 0)
-   }
+    }
 }
 
 private extension EditProfileViewController {
@@ -216,6 +215,7 @@ private extension EditProfileViewController {
         if pickerCheck {
             presentPickerAnimation(frames: frames, height: 300)
             pickerImage.transform = pickerImage.transform.rotated(by: .pi)
+            jobPickerButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         } else {
             presentPickerAnimation(frames: frames, height: 0)
             pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
@@ -224,12 +224,18 @@ private extension EditProfileViewController {
     
     // tableView를 애니메이션을 통해 Picker처럼 표현
     private func presentPickerAnimation(frames: CGRect, height: CGFloat) {
-        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
+        //        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self]  in
+        UIView.animate(withDuration: 0.3) { [weak self]  in
             guard let self = self else { return }
             self.pickerTableView.frame = CGRect(x: frames.origin.x,
                                                 y: frames.origin.y + frames.height,
                                                 width: frames.width,
                                                 height: height)
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
+            if !self.pickerCheck {
+                self.jobPickerButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            }
         }
     }
 }
@@ -241,8 +247,6 @@ extension EditProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let frames = self.jobPickerButton.frame
-        
         pickerLabel.text = pickerList[indexPath.row]
         presentPickerView()
     }
