@@ -8,6 +8,7 @@
 import UIKit
 
 final class RegionInfoView: UIView {
+    let peopleCount: Int
     let selectedRegion: Binder<RegionModel?>
     
     lazy var titleLabel: UILabel = {
@@ -32,9 +33,9 @@ final class RegionInfoView: UIView {
     
     private lazy var desciptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        let text = "지금 29명의 사람들이\n워케이션 중이에요"
+        let text = "지금 \(peopleCount)명의 사람들이\n워케이션 중이에요"
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: (text as NSString).range(of: "29"))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: (text as NSString).range(of: "\(peopleCount)"))
         label.attributedText = attributedString
         label.textAlignment = .left
         label.font = .customFont(for: .captionHeadline)
