@@ -31,7 +31,7 @@ final class WorkationViewController: UIViewController {
     
     // MARK: - Top Pane's Contents
     
-    private let topPaneView: UIView = {
+    let topPaneView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.background
         view.layer.cornerRadius = 30
@@ -234,7 +234,7 @@ final class WorkationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .theme.primary
+        view.backgroundColor = .clear
         
         setupLayout()
         setupNavigationBar()
@@ -323,7 +323,5 @@ private extension WorkationViewController {
             bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
-        
-        
     }
 }
