@@ -40,11 +40,6 @@ final class MyPageViewController: UIViewController {
         setupLayout()
     }
     
-    // TODO: Login Check Logic
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     private func editProfileButtonTapped() {
         profileView.editProfileButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
