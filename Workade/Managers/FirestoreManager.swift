@@ -61,8 +61,8 @@ class FirestoreDAO {
         try await dto.createDocument(collectionName: user.region.rawValue, documentName: user.id, data: data)
     }
     
-    func deleteActiveUser(user: ActiveUser) async throws {
-        try await dto.deleteDocument(collectionName: user.region.rawValue, documentName: user.id)
+    func deleteActiveUser(userID: String, region: Region) async throws {
+        try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
     }
     
     func getActiveUsersNumber(region: Region) async throws -> Int {

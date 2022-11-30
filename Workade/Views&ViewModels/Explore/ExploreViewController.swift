@@ -77,12 +77,17 @@ final class ExploreViewController: UIViewController {
         return view
     }()
     
-    lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: viewModel.selectedRegion) { [weak self] in
-            let workationViewController = WorkationViewController()
-            workationViewController.transitioningDelegate = self?.transitionManager
-            workationViewController.modalPresentationStyle = .custom
-            self?.present(workationViewController, animated: true)
+    private lazy var regionInfoView: RegionInfoView = {
+        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion) { [weak self] in
+            Task { [weak self] in
+                guard let user = UserManager.shared.user.value,
+                      let region = self?.viewModel.selectedRegion.value
+                else { return }
+//                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: Region(rawValue: region.rawValue)!, startDate: .now)) // TODO: RegionModel Region 통일하기  With @Toby @Evan
+            }
+            let navigationViewController = UINavigationController(rootViewController: WorkationViewController())
+            navigationViewController.modalPresentationStyle = .overFullScreen
+            self?.present(navigationViewController, animated: true)
         }
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -141,7 +146,16 @@ final class ExploreViewController: UIViewController {
         config.imagePadding = 4
         button.configuration = config
         button.addAction(UIAction(handler: { [weak self] _ in
-            self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            
+            if UserManager.shared.user.value != nil {
+                self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            } else {
+                let loginViewController = LoginInitViewController()
+                let loginNavigation = UINavigationController(rootViewController: loginViewController)
+                loginNavigation.modalPresentationStyle = .overFullScreen
+                self?.present(loginNavigation, animated: true)
+            }
+            
         }), for: .touchUpInside)
         
         return button
