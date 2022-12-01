@@ -68,14 +68,7 @@ import CoreHaptics
 
 ## 🔀 Git
 1. Commit 컨벤션
-    - `feat` : 새로운 기능 추가
-    - `fix` : 버그 수정
-    - `docs` : 문서 (README, 포팅메뉴얼)
-    - `test` : 테스트 코드
-    - `refactor` : 코드 리팩토링 (기능 말고 성능 개선)
-    - `style` : 코드 의미에 영향을 주지 않는 변경 사항
-    - `chore` : 빌드, 설정 파일
-    - `comment` : 주석이 추가되는 경우.
+    [Commit Convention Wiki 바로가기](https://github.com/IIION/Workade/wiki/Commit-Convention)
     
 2. 규칙
     - 제목의 길이는 50글자를 넘기지 않는다
@@ -93,7 +86,7 @@ This is a body part. Please describe the details of commit.
     - `develop` : 개발된 기능(feature)을 통합하는 브랜치
     - `docs` : 문서작업 브랜치
     - `feature/[function name]` : 각 기능별 개발을 진행하는 브랜치
-    - `release/[version]` : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
+    - `release/[version]` : 배포 전, TestFlight를 통해서 제품을 테스트하는 브랜치
     - `hotfix/[version]` : 배포한 것을 급하게 수정
     - 띄어쓰기, 구분 필요한 경우 대쉬
 
