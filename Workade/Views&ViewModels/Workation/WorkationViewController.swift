@@ -15,7 +15,8 @@ final class WorkationViewController: UIViewController {
     
     var cancellable = Set<AnyCancellable>()
     
-    private let titleView = TitleLabel(title: "제주도")
+    private var titleView = TitleLabel(title: "")
+    private var region: Region
     
     private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
@@ -31,6 +32,16 @@ final class WorkationViewController: UIViewController {
             self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
         })
     )
+    
+    init(region: Region) {
+        self.region = region
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Top Pane's Contents
     
@@ -242,6 +253,7 @@ final class WorkationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        titleView.text = region.rawValue
         
         setupLayout()
         setupNavigationBar()

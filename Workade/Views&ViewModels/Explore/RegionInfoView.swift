@@ -8,7 +8,7 @@
 import UIKit
 
 final class RegionInfoView: UIView {
-    var peopleCount: Int
+    var peopleCount: Int = 0
     let selectedRegion: Binder<RegionModel?>
     
     lazy var titleLabel: UILabel = {
@@ -114,9 +114,8 @@ final class RegionInfoView: UIView {
         return warningView
     }()
     
-    init(frame: CGRect, peopleCount: Int, selectedRegion: Binder<RegionModel?>, completion: @escaping () -> Void) {
+    init(frame: CGRect, selectedRegion: Binder<RegionModel?>, completion: @escaping () -> Void) {
         self.selectedRegion = selectedRegion
-        self.peopleCount = peopleCount
         super.init(frame: frame)
         
         self.backgroundColor = .theme.sectionBackground

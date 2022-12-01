@@ -77,7 +77,7 @@ final class ExploreViewController: UIViewController {
         return view
     }()
     
-    private lazy var regionInfoView: RegionInfoView = {
+    lazy var regionInfoView: RegionInfoView = {
         let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion) { [weak self] in
             Task { [weak self] in
                 guard let user = UserManager.shared.user.value,
@@ -85,7 +85,7 @@ final class ExploreViewController: UIViewController {
                 else { return }
 //                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: Region(rawValue: region.rawValue)!, startDate: .now)) // TODO: RegionModel Region 통일하기  With @Toby @Evan
             }
-            let navigationViewController = UINavigationController(rootViewController: WorkationViewController())
+            let navigationViewController = UINavigationController(rootViewController: WorkationViewController(region: .jeJuDo))
             navigationViewController.modalPresentationStyle = .overFullScreen
             self?.present(navigationViewController, animated: true)
         }
