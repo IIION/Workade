@@ -34,10 +34,6 @@ class LoginInformationView: UIView {
         button.setTitleColor(.theme.background, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
-        button.addAction(UIAction(handler: { _ in
-            FirebaseManager.shared.signout()
-            UserManager.shared.user.value = nil // TODO: UserManager에서 Firebase signOut 관리하기
-        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
