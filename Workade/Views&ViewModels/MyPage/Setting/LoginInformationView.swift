@@ -34,10 +34,6 @@ class LoginInformationView: UIView {
         button.setTitleColor(.theme.background, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
-//        button.addAction(UIAction(handler: { _ in
-//            // TODO: Logout 로직
-//            print("로그아웃")
-//        }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
