@@ -61,12 +61,32 @@ class FirestoreDAO {
         try await dto.createDocument(collectionName: user.region.rawValue, documentName: user.id, data: data)
     }
     
-    func deleteActiveUser(user: ActiveUser) async throws {
-        try await dto.deleteDocument(collectionName: user.region.rawValue, documentName: user.id)
+    func deleteActiveUser(userID: String, region: Region) async throws {
+        try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
     }
     
     func getActiveUsersNumber(region: Region) async throws -> Int {
         try await dto.getDocuments(collectionName: region.rawValue).count
+    }
+    
+    func getActiveUsers(region: Region) async throws -> [Job: Int]? {
+        let documents = try await dto.getDocuments(collectionName: region.rawValue)
+        let decoder = JSONDecoder()
+        var users = [Job: Int]()
+        for job in Job.allCases {
+            users[job] = 0
+        }
+        
+        for document in documents {
+            let data = document.data()
+            let jsonData = try JSONSerialization.data(withJSONObject: data)
+            let activeUser = try decoder.decode(ActiveUser.self, from: jsonData)
+            guard let job = activeUser.job,
+                  var userJob = users[job]
+            else { return users }
+            userJob += 1
+        }
+        return users
     }
     
     func setRegionListener(region: Region, listenerAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {

@@ -16,7 +16,7 @@ struct User: Codable {
 
 struct ActiveUser: Codable {
     let id: String
-    let email: String
+    let job: Job?
     let region: Region
     let startDate: Date
 }
