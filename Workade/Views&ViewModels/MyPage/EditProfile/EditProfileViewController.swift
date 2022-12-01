@@ -21,11 +21,6 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        // TODO: Placeholder를 현재 사용자의 이름으로 설정
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "이름 입력하기",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
-        )
         textField.font = .customFont(for: .footnote2)
         textField.textColor = .theme.tertiary
         textField.backgroundColor = .theme.groupedBackground
@@ -84,8 +79,6 @@ final class EditProfileViewController: UIViewController {
     
     private let pickerLabel: UILabel = {
         let pickerLabel = UILabel()
-        // TODO: 현재 사용자의 직업으로 설정
-        pickerLabel.text = "선택하기"
         pickerLabel.font = .customFont(for: .footnote2)
         pickerLabel.textColor = .theme.tertiary
         pickerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -119,6 +112,8 @@ final class EditProfileViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        
+        setData()
     }
     
     private func setupLayout() {
@@ -181,6 +176,14 @@ final class EditProfileViewController: UIViewController {
         }
         pickerCheck = false
         presentPickerAnimation(frames: frames, height: 0)
+    }
+    
+    func setData() {
+        pickerLabel.text = UserManager.shared.user.value?.job?.rawValue
+        nameTextField.attributedPlaceholder = NSAttributedString(
+            string: UserManager.shared.user.value?.name ?? "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
+        )
     }
 }
 
