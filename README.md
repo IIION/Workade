@@ -67,7 +67,7 @@ import CoreHaptics
 ```
 
 ## 🔀 Git
-1. Commit 컨벤션
+1. Commit 컨벤션  
     [Commit Convention Wiki 바로가기](https://github.com/IIION/Workade/wiki/Commit-Convention)
     
 2. 규칙
