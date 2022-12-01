@@ -8,9 +8,13 @@
 import UIKit
 
 final class RegionButton: UIButton {
-    let region: RegionModel
-    weak var selectedRegion: Binder<RegionModel?>?
-    let peopleCount: Int
+    let region: Region
+    weak var selectedRegion: Binder<Region?>?
+    var peopleCount: Int {
+        didSet {
+            peopleCountLabel.text = "\(peopleCount)"
+        }
+    }
     
     private lazy var regionLabel: UILabel = {
         let label = UILabel()
@@ -55,7 +59,7 @@ final class RegionButton: UIButton {
         return label
     }()
     
-    init(region: RegionModel, selectedRegion: Binder<RegionModel?>, peopleCount: Int) {
+    init(region: Region, selectedRegion: Binder<Region?>, peopleCount: Int) {
         self.region = region
         self.selectedRegion = selectedRegion
         self.peopleCount = peopleCount
