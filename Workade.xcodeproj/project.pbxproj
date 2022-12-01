@@ -165,6 +165,7 @@
 		A3D592ED2914CF6C009D9493 /* MagazineDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */; };
 		A3DD5E6E2917A193008FDFBF /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD5E6D2917A193008FDFBF /* GradientView.swift */; };
 		A3EB64242937879200BEAE11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A3EB64232937879200BEAE11 /* GoogleService-Info.plist */; };
+		A3EB642629387B7900BEAE11 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EB642529387B7900BEAE11 /* SettingViewModel.swift */; };
 		A3ED13102906F7B400B43E07 /* MagazineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */; };
 		BFB810A8D6A03DAAA429B8C7 /* Pods_Workade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C25E273370A5639B8396DFB /* Pods_Workade.framework */; };
 /* End PBXBuildFile section */
@@ -324,6 +325,7 @@
 		A3D592EC2914CF6C009D9493 /* MagazineDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineDetailViewModel.swift; sourceTree = "<group>"; };
 		A3DD5E6D2917A193008FDFBF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		A3EB64232937879200BEAE11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A3EB642529387B7900BEAE11 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		A3ED130F2906F7B400B43E07 /* MagazineDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagazineDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -775,6 +777,7 @@
 			isa = PBXGroup;
 			children = (
 				9643323A290A9B2000FBECAF /* MyPageViewModel.swift */,
+				A3EB642529387B7900BEAE11 /* SettingViewModel.swift */,
 			);
 			path = MyPageViewModel;
 			sourceTree = "<group>";
@@ -1025,6 +1028,7 @@
 				5F83AD18292CEB1200F5CFB4 /* LoginNameViewController.swift in Sources */,
 				5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */,
 				96433231290A746400FBECAF /* UIImageView+.swift in Sources */,
+				A3EB642629387B7900BEAE11 /* SettingViewModel.swift in Sources */,
 				0EFCAA04292E01A700C84817 /* UIScrollView+.swift in Sources */,
 				5F5D33B52937234300C8F80C /* UserManager.swift in Sources */,
 				0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */,
