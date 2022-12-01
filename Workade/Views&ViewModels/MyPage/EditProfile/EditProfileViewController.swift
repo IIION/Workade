@@ -93,9 +93,8 @@ final class EditProfileViewController: UIViewController {
         button.setTitleColor(.theme.background, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
-        button.addAction(UIAction(handler: { _ in
-            // TODO: UserInfo와 연결하여 유저정보 업데이트
-            print("설정된 이름 : \(self.nameTextField.text ?? "")\n설정된 직업: \(self.pickerLabel.text ?? "")")
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.updateUser()
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -184,6 +183,20 @@ final class EditProfileViewController: UIViewController {
             string: UserManager.shared.user.value?.name ?? "",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
         )
+    }
+    
+    func updateUser() {
+        Task {
+            guard let loginInfo = FirebaseManager.shared.getUser() else { return }
+            if self.nameTextField.text == "" {
+                self.nameTextField.text = UserManager.shared.user.value?.name
+            }
+            let user = User(id: loginInfo.uid, name: self.nameTextField.text, email: loginInfo.email, job: Job(rawValue: self.pickerLabel.text ?? ""))
+            UserManager.shared.user.value = user
+            try await FirestoreDAO.shared.createUser(user: user)
+            
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 
