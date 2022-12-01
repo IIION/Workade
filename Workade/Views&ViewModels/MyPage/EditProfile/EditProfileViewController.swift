@@ -9,7 +9,6 @@ import UIKit
 
 final class EditProfileViewController: UIViewController {
     private var pickerCheck = false
-    private let pickerList = ["개발", "디자인", "기획", "마케팅", "콘텐츠 제작", "작가(글,웹툰)", "예술가", "프리랜서", "기타"]
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -247,7 +246,7 @@ extension EditProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pickerLabel.text = pickerList[indexPath.row]
+        pickerLabel.text = Job.allCases[indexPath.row].rawValue
         presentPickerView()
     }
 }
@@ -256,13 +255,13 @@ extension EditProfileViewController: UITableViewDelegate {
 extension EditProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.pickerList.count
+        return Job.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PickerTableViewCell.cellId, for: indexPath) as? PickerTableViewCell
         guard let cell = cell else { return UITableViewCell() }
-        cell.pickerLabel.text = pickerList[indexPath.row]
+        cell.pickerLabel.text = Job.allCases[indexPath.row].rawValue
         
         return cell
     }
