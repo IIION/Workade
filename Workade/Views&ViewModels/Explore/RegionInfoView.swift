@@ -123,6 +123,7 @@ final class RegionInfoView: UIView {
     
     init(frame: CGRect, peopleCount: Int, selectedRegion: Binder<Region?>, completion: @escaping () -> Void) {
         self.selectedRegion = selectedRegion
+        self.peopleCount = peopleCount
         super.init(frame: frame)
         
         self.backgroundColor = .theme.sectionBackground

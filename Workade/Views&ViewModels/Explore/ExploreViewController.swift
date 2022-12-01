@@ -100,7 +100,8 @@ final class ExploreViewController: UIViewController {
     }()
     
     lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion) { [weak self] in
+        let view = RegionInfoView(frame: .zero, peopleCount: 0,
+                                  selectedRegion: viewModel.selectedRegion) { [weak self] in
             Task { [weak self] in
                 guard let user = UserManager.shared.user.value,
                       let region = self?.viewModel.selectedRegion.value
