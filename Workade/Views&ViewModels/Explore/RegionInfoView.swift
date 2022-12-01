@@ -8,8 +8,15 @@
 import UIKit
 
 final class RegionInfoView: UIView {
-    var peopleCount: Int = 0
-    let selectedRegion: Binder<RegionModel?>
+    var peopleCount: Int {
+        didSet {
+            let text = "지금 \(peopleCount)명의 사람들이\n워케이션 중이에요"
+            let attributedString = NSMutableAttributedString(string: text)
+            attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: (text as NSString).range(of: "\(peopleCount)"))
+            desciptionLabel.attributedText = attributedString
+        }
+    }
+    let selectedRegion: Binder<Region?>
     
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -114,7 +121,7 @@ final class RegionInfoView: UIView {
         return warningView
     }()
     
-    init(frame: CGRect, selectedRegion: Binder<RegionModel?>, completion: @escaping () -> Void) {
+    init(frame: CGRect, peopleCount: Int, selectedRegion: Binder<Region?>, completion: @escaping () -> Void) {
         self.selectedRegion = selectedRegion
         super.init(frame: frame)
         
