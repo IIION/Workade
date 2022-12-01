@@ -21,12 +21,25 @@ final class ExploreViewController: UIViewController {
         return UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
     }()
     
+    private lazy var regionPeopleCounts = [Region: Int]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon")?.withRenderingMode(.alwaysOriginal), primaryAction: nil)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
         setupLayout()
+        
+        for region in Region.allCases {
+            Task { [weak self] in
+                self?.regionPeopleCounts[region] = try await FirestoreDAO.shared.getActiveUsersNumber(region: region)
+            }
+        }
+        
+        for button in regionButtons {
+            guard let count = regionPeopleCounts[button.region] else { continue }
+            button.peopleCount = count
+        }
         
         viewModel.selectedRegion.bind { [weak self] region in
             guard let self = self else { return }
@@ -46,6 +59,15 @@ final class ExploreViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.regionButtons.forEach { button in
+            Task { @MainActor [weak self] in
+                button.peopleCount = await self?.viewModel.getUserCount(region: button.region) ?? 0
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupButtonLayout()
@@ -54,7 +76,7 @@ final class ExploreViewController: UIViewController {
     private lazy var regionButtons: [RegionButton] = {
         var regionButtons: [RegionButton] = []
         
-        for region in RegionModel.allCases {
+        for region in Region.allCases {
             let newButton = RegionButton(region: region, selectedRegion: viewModel.selectedRegion, peopleCount: 0)
             newButton.translatesAutoresizingMaskIntoConstraints = false
             
@@ -249,7 +271,7 @@ final class ExploreViewController: UIViewController {
         }
     }
     
-    private func changeLayout(by region: RegionModel?) {
+    private func changeLayout(by region: Region?) {
         let isRegionNil = region == nil
         
         regionInfoViewBottomConstraint?.constant = isRegionNil ? regionInfoViewHeight + sectionPadding : 0
@@ -260,6 +282,7 @@ final class ExploreViewController: UIViewController {
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {
+            regionInfoView.peopleCount = regionPeopleCounts[region] ?? 0
             UIView.transition(with: mainContainerView,
                               duration: 0.25,
                               options: .transitionCrossDissolve,
