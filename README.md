@@ -21,14 +21,18 @@ GPS 지역기반 커뮤니티를 형성할 수 있게 도와주는 서비스입�
 
 
 ## :pushpin: Features
+- 소셜 로그인 : 애플/구글
+- 오픈 채팅방 연결 : 카카오
+- 워케이션 인원 정보 : 지역별 인원수, 직군별 인원수, 동일 직군 표시
+- 워케이션 체크리스트 : 개발, 디자인, 기획자 체크리스트 템플릿 제공, 기간 설명 및 간단한 준비물 확인
+- 워케이션 공유 오피스 정보 : 공유 오피스 설명, 특징, 사진 및 분위기, 주변 편의시설 정보 제공
+- 워케이션 매거진 정보 : 다양한 꿀팁 및 지역 정보 제공
+- 정보 공유 기능 : 워케이션 관련 정보를 Url 스킴을 사용한 딥링크로 공유
+- 지역별 스티커 획득 기능 : 워케이션 기간에 따라 지역의 특색을 담은 스티커 획득
+- GPS 위치 정보 : GPS를 통해 내 위치 및 주변 정보 제공
 
 ## :framed_picture: Demo
 ### [⭐️ Workade ⭐️](https://youtu.be/bBylSazJQlQ)유튜브 영상데모 보러가기
-
-
-## 🌈 Design Guide 
-
-
 
 ## :fireworks: Screenshots
 
@@ -43,7 +47,6 @@ GPS 지역기반 커뮤니티를 형성할 수 있게 도와주는 서비스입�
 |![App Screenshot](https://user-images.githubusercontent.com/74142881/204989093-96d418e8-4c61-4a4e-a8dc-87259782042f.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989084-92bce886-6cff-4dce-9687-d83e5c05ce85.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989098-f2d2ebfb-adaa-4a68-bd56-2cf5c5b9b231.png)|
 
 
-
 ## :sparkles: Skills & Tech Stack
 1. 이슈관리 : FigJam
 2. 형상관리 : Github
@@ -56,26 +59,17 @@ GPS 지역기반 커뮤니티를 형성할 수 있게 도와주는 서비스입�
 - Design : Figma, Illustrator<br>
 6. 라이브러리
 ```swift
-import swiftUI
-import UIKit
-import NearbyInteraction
-import MultipeerConnectivity
-import Lottie
-import CoreData
-import CoreMotion
-import CoreHaptics
+import CocoaPod
+import SwiftLint
+import KakaoSDK
+import FirebaseSDK
+import GoogleSignIn
+import NaverMap
 ```
 
 ## 🔀 Git
-1. Commit 컨벤션
-    - `feat` : 새로운 기능 추가
-    - `fix` : 버그 수정
-    - `docs` : 문서 (README, 포팅메뉴얼)
-    - `test` : 테스트 코드
-    - `refactor` : 코드 리팩토링 (기능 말고 성능 개선)
-    - `style` : 코드 의미에 영향을 주지 않는 변경 사항
-    - `chore` : 빌드, 설정 파일
-    - `comment` : 주석이 추가되는 경우.
+1. Commit 컨벤션  
+    [Commit Convention Wiki 바로가기](https://github.com/IIION/Workade/wiki/Commit-Convention)
     
 2. 규칙
     - 제목의 길이는 50글자를 넘기지 않는다
@@ -93,18 +87,13 @@ This is a body part. Please describe the details of commit.
     - `develop` : 개발된 기능(feature)을 통합하는 브랜치
     - `docs` : 문서작업 브랜치
     - `feature/[function name]` : 각 기능별 개발을 진행하는 브랜치
-    - `release/[version]` : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
+    - `release/[version]` : 배포 전, TestFlight를 통해서 제품을 테스트하는 브랜치
     - `hotfix/[version]` : 배포한 것을 급하게 수정
     - 띄어쓰기, 구분 필요한 경우 대쉬
 
 
 ## :people_hugging: Authors
 - [@김예훈](https://github.com/eraser3031) | [@김현수](https://github.com/BrightHyeon) | [@류현선](https://www.github.com/hs-ryu) | [@이준영](https://github.com/User-Lawn) | [@최인호](https://github.com/E-know) | [@최원혁](https://github.com/DevLuce) | [@홍정민](https://github.com/jeohong)
-  
-
-## :books: Documentation
-
-[Documentation](./Docs/)
 
 
 ## :lock_with_ink_pen: License

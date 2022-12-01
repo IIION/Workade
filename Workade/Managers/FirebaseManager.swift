@@ -27,6 +27,7 @@ final class FirebaseManager: NSObject {
         authorizationController.presentationContextProvider = self
     }
     
+    
     func touchUpAppleButton(appleSignupCompletion: @escaping () -> Void, appleSigninCompletion: @escaping () -> Void) {
         self.appleSigninCompletion = appleSigninCompletion
         self.appleSignupCompletion = appleSignupCompletion
@@ -45,6 +46,14 @@ final class FirebaseManager: NSObject {
         currentNonce = nonce
         
         return request
+    }
+    
+    func signout() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Sign Out Missing")
+        }
     }
     
     @available(iOS 13, *)
@@ -110,10 +119,11 @@ final class FirebaseManager: NSObject {
                 if let user = result?.user {
                     Task {
                         if try await FirestoreDAO.shared.getUser(userID: user.uid) != nil {
-                            DispatchQueue.main.async { [weak self] in
+                            DispatchQueue.main.async {
                                 Task {
                                     guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
                                     UserManager.shared.user.value = userInfo
+                                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: nil, region: .jeJuDo, startDate: .now))
                                 }
                                 signinCompletion()
                             }
