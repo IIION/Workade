@@ -137,7 +137,7 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
         fastOpacityAnimator.startAnimation()
     }
     
-    private func makeRegionInfoViewCopy(selectedRegion: Binder<RegionModel?>) -> RegionInfoView {
+    private func makeRegionInfoViewCopy(selectedRegion: Binder<Region?>) -> RegionInfoView {
         let view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: selectedRegion) { }
         view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
