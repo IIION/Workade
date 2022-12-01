@@ -34,13 +34,13 @@ GPS 지역기반 커뮤니티를 형성할 수 있게 도와주는 서비스입�
 
 | 홈 뷰 | 워케이션 뷰 | 가이드 뷰 |
 |:---:|:---:|:---:|
-|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845513-cb0707fd-6432-4818-b29c-6e98c53c5015.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845509-1b33de95-3e87-4ab2-bd0b-5bda5d53bbb4.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845502-ac5fe7f8-ce3e-40e7-a974-b2b248fb08a3.png)|
+|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989059-b78005f0-56af-4608-9c76-9fbd16ce01b6.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989078-f745eae8-b1e1-4843-8647-e884a24d3a26.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989083-de0fa65d-2465-477f-9285-19c2e7892180.png)|
 
 <br>
 
 | 오피스 뷰 | 매거진 뷰 | 체크리스트 뷰 |
 |:---:|:---:|:---:|
-|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845517-a7926515-d480-4ef2-8fee-33c0ed2b20e3.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845489-8a10572b-86b3-48df-b407-6dde962e5a13.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845505-2cd0a6b2-f64c-483e-b340-bd6d0d48a6a4.png)|
+|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989093-96d418e8-4c61-4a4e-a8dc-87259782042f.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989084-92bce886-6cff-4dce-9687-d83e5c05ce85.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/204989098-f2d2ebfb-adaa-4a68-bd56-2cf5c5b9b231.png)|
 
 
 
