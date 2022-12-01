@@ -8,6 +8,8 @@
 import UIKit
 
 final class SettingViewController: UIViewController {
+    let settingViewModel = SettingViewModel()
+    
     // 현재 앱의 버전 정보 + 빌드 정보 불러오기
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
@@ -96,6 +98,16 @@ final class SettingViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        setData()
+    }
+    
+    func setData() {
+        loginInformationView.eMailLabel.text = UserManager.shared.user.value?.email ?? ""
+        
+        loginInformationView.logOutButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.settingViewModel.settingLogOut()
+            self?.navigationController?.popToRootViewController(animated: true)
+        }), for: .touchUpInside)
     }
 }
 

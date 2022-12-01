@@ -36,6 +36,11 @@ class FirestoreDAO {
         try await dto.createDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
     }
     
+    func updateUser(user: User) async throws {
+        guard let data = user.asDictionary else { return }
+        try await dto.updateDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
+    }
+    
     func deleteUser(user: User) async throws {
         try await dto.deleteDocument(collectionName: allUserCollectionName, documentName: user.id)
     }

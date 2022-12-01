@@ -5,11 +5,10 @@
 //  Created by Hyeonsoo Kim on 2022/10/26.
 //
 
+import Combine
 import UIKit
 
-final class MyPageViewController: UIViewController {
-    private let viewModel = MyPageViewModel()
-    
+final class MyPageViewController: UIViewController {    
     // 특정 모서리만 둥글게 처리 참고 사이트 : https://swieeft.github.io/2020/03/05/UIViewRoundCorners.html
     private let profileView: ProfileView = {
         let profileView = ProfileView()
@@ -38,11 +37,13 @@ final class MyPageViewController: UIViewController {
         editProfileButtonTapped()
         setupNavigationBar()
         setupLayout()
+        setData()
     }
     
-    // TODO: Login Check Logic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setData()
     }
     
     private func editProfileButtonTapped() {
@@ -51,6 +52,11 @@ final class MyPageViewController: UIViewController {
             let viewController = EditProfileViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         }), for: .touchUpInside)
+    }
+    
+    func setData() {
+        profileView.nameLabel.text = UserManager.shared.user.value?.name
+        profileView.jobLabel.text = UserManager.shared.user.value?.job?.rawValue
     }
 }
 

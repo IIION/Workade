@@ -18,10 +18,8 @@ class LoginInformationView: UIView {
         return loginInformationLabel
     }()
     
-    private let eMailLabel: UILabel = {
+    let eMailLabel: UILabel = {
         let eMailLabel = UILabel()
-        // TODO: 현 사용자의 이메일 정보로 업데이트
-        eMailLabel.text = "user@gmail.com"
         eMailLabel.font = .customFont(for: .footnote)
         eMailLabel.textColor = .theme.primary
         eMailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +27,7 @@ class LoginInformationView: UIView {
         return eMailLabel
     }()
     
-    private lazy var logOutButton: UIButton = {
+    lazy var logOutButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .theme.primary
         button.setTitle("로그아웃", for: .normal)

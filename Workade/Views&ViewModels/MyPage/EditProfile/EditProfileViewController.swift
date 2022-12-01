@@ -9,7 +9,6 @@ import UIKit
 
 final class EditProfileViewController: UIViewController {
     private var pickerCheck = false
-    private let pickerList = ["개발", "디자인", "기획", "마케팅", "콘텐츠 제작", "작가(글,웹툰)", "예술가", "프리랜서", "기타"]
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -22,11 +21,6 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        // TODO: Placeholder를 현재 사용자의 이름으로 설정
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "이름 입력하기",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
-        )
         textField.font = .customFont(for: .footnote2)
         textField.textColor = .theme.tertiary
         textField.backgroundColor = .theme.groupedBackground
@@ -85,8 +79,6 @@ final class EditProfileViewController: UIViewController {
     
     private let pickerLabel: UILabel = {
         let pickerLabel = UILabel()
-        // TODO: 현재 사용자의 직업으로 설정
-        pickerLabel.text = "선택하기"
         pickerLabel.font = .customFont(for: .footnote2)
         pickerLabel.textColor = .theme.tertiary
         pickerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -101,9 +93,8 @@ final class EditProfileViewController: UIViewController {
         button.setTitleColor(.theme.background, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
-        button.addAction(UIAction(handler: { _ in
-            // TODO: UserInfo와 연결하여 유저정보 업데이트
-            print("설정된 이름 : \(self.nameTextField.text ?? "")\n설정된 직업: \(self.pickerLabel.text ?? "")")
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.updateUser()
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -120,6 +111,8 @@ final class EditProfileViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        
+        setData()
     }
     
     private func setupLayout() {
@@ -182,6 +175,28 @@ final class EditProfileViewController: UIViewController {
         }
         pickerCheck = false
         presentPickerAnimation(frames: frames, height: 0)
+    }
+    
+    func setData() {
+        pickerLabel.text = UserManager.shared.user.value?.job?.rawValue
+        nameTextField.attributedPlaceholder = NSAttributedString(
+            string: UserManager.shared.user.value?.name ?? "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
+        )
+    }
+    
+    func updateUser() {
+        Task {
+            guard let loginInfo = FirebaseManager.shared.getUser() else { return }
+            if self.nameTextField.text == "" {
+                self.nameTextField.text = UserManager.shared.user.value?.name
+            }
+            let user = User(id: loginInfo.uid, name: self.nameTextField.text, email: loginInfo.email, job: Job(rawValue: self.pickerLabel.text ?? ""))
+            UserManager.shared.user.value = user
+            try await FirestoreDAO.shared.createUser(user: user)
+            
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -247,7 +262,7 @@ extension EditProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pickerLabel.text = pickerList[indexPath.row]
+        pickerLabel.text = Job.allCases[indexPath.row].rawValue
         presentPickerView()
     }
 }
@@ -256,13 +271,13 @@ extension EditProfileViewController: UITableViewDelegate {
 extension EditProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.pickerList.count
+        return Job.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PickerTableViewCell.cellId, for: indexPath) as? PickerTableViewCell
         guard let cell = cell else { return UITableViewCell() }
-        cell.pickerLabel.text = pickerList[indexPath.row]
+        cell.pickerLabel.text = Job.allCases[indexPath.row].rawValue
         
         return cell
     }

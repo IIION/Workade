@@ -23,9 +23,7 @@ class ProfileView: UIView {
         imageView.layer.cornerRadius = 32
         imageView.backgroundColor = .theme.groupedBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // TODO: 로그인 유저 프로필사진 정보로 변경
-        
+                
         return imageView
     }()
     
@@ -41,24 +39,18 @@ class ProfileView: UIView {
         return button
     }()
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .title3)
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        // TODO: 로그인 유저 이름 정보로 변경
-        label.text = "김예훈"
-        
         return label
     }()
     
-    private let jobLabel: UILabel = {
+    let jobLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .footnote)
         label.translatesAutoresizingMaskIntoConstraints = false
-        
-        // TODO: 로그인 유저 직업 정보로 변경
-        label.text = "프리랜서 개발자"
         
         return label
     }()
