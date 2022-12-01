@@ -56,14 +56,12 @@ GPS 지역기반 커뮤니티를 형성할 수 있게 도와주는 서비스입�
 - Design : Figma, Illustrator<br>
 6. 라이브러리
 ```swift
-import swiftUI
-import UIKit
-import NearbyInteraction
-import MultipeerConnectivity
-import Lottie
-import CoreData
-import CoreMotion
-import CoreHaptics
+CocoaPod
+SwiftLint
+KakaoSDK
+FirebaseSDK
+GoogleSignIn
+NaverMap
 ```
 
 ## 🔀 Git
