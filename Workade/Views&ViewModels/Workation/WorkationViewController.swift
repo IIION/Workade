@@ -350,7 +350,6 @@ private extension WorkationViewController {
             bottomPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        bottomPaneView.isHidden = true
         
         view.addSubview(loginPaneView)
         NSLayoutConstraint.activate([
@@ -421,16 +420,6 @@ private extension WorkationViewController {
 
 extension WorkationViewController {
     private func bind() {
-    
-        UserManager.shared.user
-            .sink { [weak self] user in
-                DispatchQueue.main.async { [weak self] in
-                    self?.loginPaneView.isHidden = (user != nil)
-                    self?.bottomPaneView.isHidden = !(user != nil)
-                }
-            }
-            .store(in: &cancellable)
-
         workationViewModel.$subLocality
             .combineLatest(workationViewModel.$throughfare)
             .sink { [weak self] value1, value2 in

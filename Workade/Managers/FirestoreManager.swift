@@ -34,6 +34,7 @@ class FirestoreDAO {
     func createUser(user: User) async throws {
         guard let data = user.asDictionary else { return }
         try await dto.createDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
+        UserManager.shared.user.value = user
     }
     
     func updateUser(user: User) async throws {
@@ -41,8 +42,9 @@ class FirestoreDAO {
         try await dto.updateDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
     }
     
-    func deleteUser(user: User) async throws {
-        try await dto.deleteDocument(collectionName: allUserCollectionName, documentName: user.id)
+    func deleteUser(userid: String) async throws {
+        try await dto.deleteDocument(collectionName: allUserCollectionName, documentName: userid)
+        UserManager.shared.user.value = nil
     }
     
     func getUser(userID: String) async throws -> User? {
@@ -71,7 +73,6 @@ class FirestoreDAO {
     
     func deleteActiveUser(userID: String, region: Region) async throws {
         try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
-        UserManager.shared.user.value = nil
         UserManager.shared.activeRegion = nil
         UserManager.shared.activeMyInfo = nil
         UserManager.shared.isActive = false

@@ -24,7 +24,7 @@ class LoginSheetView: UIView {
         guide.textAlignment = .center
         guide.numberOfLines = 0
         guide.textColor = .black
-        guide.font = .customFont(for: .subHeadline) // TODO: SubheadlineNEW ?? 가 폰트에 없다.
+        guide.font = .customFont(for: .subHeadline)
         
         return guide
     }()
