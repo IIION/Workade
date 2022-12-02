@@ -425,7 +425,8 @@ extension WorkationViewController {
         workationViewModel.$subLocality
             .combineLatest(workationViewModel.$throughfare)
             .sink { [weak self] value1, value2 in
-                guard let subLocality = value1, let throughfare = value2 else { return }
+                let subLocality = value1 ?? ""
+                let throughfare = value2 ?? ""
                 if value1 != value2 {
                     self?.myLocationLabel.text = "\(subLocality) \(throughfare)"
                 } else {
