@@ -128,6 +128,7 @@
 		96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */; };
 		96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F2A29290C4200BBE26A /* EllipseButton.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
+		968C5EC7293A6FB300D222BE /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968C5EC6293A6FB300D222BE /* NetworkMonitor.swift */; };
 		9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690404C292AB61500F5E590 /* MagazineCategory.swift */; };
 		969285E2292E64F8008F0389 /* MagazineTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */; };
 		969285E6292E92DB008F0389 /* TitleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E5292E92DB008F0389 /* TitleImageView.swift */; };
@@ -286,6 +287,7 @@
 		96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseSegmentControl.swift; sourceTree = "<group>"; };
 		96554F2A29290C4200BBE26A /* EllipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseButton.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		968C5EC6293A6FB300D222BE /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		9690404C292AB61500F5E590 /* MagazineCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCategory.swift; sourceTree = "<group>"; };
 		969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTransitionManager.swift; sourceTree = "<group>"; };
 		969285E5292E92DB008F0389 /* TitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleImageView.swift; sourceTree = "<group>"; };
@@ -723,6 +725,7 @@
 				21FC23E6293732D700606436 /* ExploreTransitionManager.swift */,
 				160572BD292CFB9900B4EE40 /* CoreDataManager.swift */,
 				5F5D33B42937234300C8F80C /* UserManager.swift */,
+				968C5EC6293A6FB300D222BE /* NetworkMonitor.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1008,6 +1011,7 @@
 				2120F56A290134D10035D36E /* GalleryCollectionViewCell.swift in Sources */,
 				169E1F01292A5A5E007F9E0A /* GradientButton.swift in Sources */,
 				961CC483290AF34600921F24 /* MultiBinder.swift in Sources */,
+				968C5EC7293A6FB300D222BE /* NetworkMonitor.swift in Sources */,
 				0EFCAA02292D240C00C84817 /* String+.swift in Sources */,
 				96433239290A783100FBECAF /* Binder.swift in Sources */,
 				5F83AD18292CEB1200F5CFB4 /* LoginNameViewController.swift in Sources */,

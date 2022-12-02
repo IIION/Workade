@@ -74,7 +74,7 @@ class  LoginView: UIView {
         self.buttonAction = action
         super.init(frame: .zero)
         backgroundColor = .blue
-        layer.cornerRadius = 32
+        layer.cornerRadius = 30
         
         setupLayout()
         setupLoginButtonLayout()

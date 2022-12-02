@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 @MainActor
 final class GuideHomeViewModel {
     typealias Size = NSCollectionLayoutSize
     private var bookmarkManager = BookmarkManager.shared
+    private var networkMonitor: NetworkMonitor? = NetworkMonitor()
+    private var anyCancellable: AnyCancellable?
     
     private(set) var officeResource = OfficeResource()
     private(set) var magazineResource = MagazineResource()
@@ -19,8 +22,17 @@ final class GuideHomeViewModel {
     private(set) var isCompleteFetch = Binder(false)
     
     init() {
-        requestHomeData()
+        bindMonitor()
         bindingBookmarkManager() // 북마크
+    }
+    
+    private func bindMonitor() {
+        anyCancellable = networkMonitor?.becomeSatisfied
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.requestHomeData()
+                self.networkMonitor = nil
+            }
     }
     
     private func requestHomeData() {
