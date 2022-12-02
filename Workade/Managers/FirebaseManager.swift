@@ -53,7 +53,7 @@ final class FirebaseManager: NSObject {
     func signout() {
         do {
             try Auth.auth().signOut()
-            if UserManager.shared.isActive,
+            if UserManager.shared.user.value?.activeRegion != nil,
                let region = UserManager.shared.activeRegion,
                let id = UserManager.shared.user.value?.id {
                 Task {
@@ -108,6 +108,7 @@ final class FirebaseManager: NSObject {
     }
     
     func touchUpGoogleButton(region: Region?, signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void) {
+        self.region = region
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
@@ -127,13 +128,13 @@ final class FirebaseManager: NSObject {
                 }
                 
                 if let user = result?.user {
-                    Task {
-                        if let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid){
+                    Task { [weak self] in
+                        if var userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) {
+                            if let region = self?.region {
+                                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
+                                try await FirestoreDAO.shared.updateUser(user: User(id: userInfo.id, name: userInfo.name, email: userInfo.email, job: userInfo.job, activeRegion: region))
+                            }
                             DispatchQueue.main.async {
-                                Task {
-                                    guard let region = region else { return }
-                                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
-                                }
                                 signinCompletion()
                             }
                         } else {
@@ -147,7 +148,7 @@ final class FirebaseManager: NSObject {
         }
     }
     
-    func getUser() -> Firebase.User? {
+    func getUser() -> (Firebase.User)? {
         return Auth.auth().currentUser
     }
 }
@@ -190,9 +191,11 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
                         } else {
                             DispatchQueue.main.async { [weak self] in
                                 Task {
-                                    guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
+                                    guard var userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
                                     guard let region = self?.region else { return }
                                     try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
+                                    userInfo.activeRegion = region
+                                    try await FirestoreDAO.shared.createUser(user: userInfo)
                                 }
                                 self?.appleSigninCompletion()
                             }

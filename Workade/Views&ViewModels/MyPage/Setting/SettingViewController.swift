@@ -72,16 +72,15 @@ final class SettingViewController: UIViewController {
         button.addAction(UIAction(handler: { [weak self] _ in
             Task { [weak self] in
                 guard let currentUser = Auth.auth().currentUser else { return }
-                guard let user = try await FirestoreDAO.shared.getUser(userID: currentUser.uid) else { return }
-                print(user)
-                if UserManager.shared.isActive, let region = UserManager.shared.activeRegion {
-                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: region)
+                if var user = try await FirestoreDAO.shared.getUser(userID: currentUser.uid) {
+                    if let region = user.activeRegion {
+                        try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: region)
+                    }
+                    try await FirestoreDAO.shared.deleteUser(userid: user.id)
                 }
-                try await FirestoreDAO.shared.deleteUser(userid: user.id)
                 try Auth.auth().signOut()
                 try await currentUser.delete()
-                guard let self = self else { return }
-                self.navigationController?.popToRootViewController(animated: true)
+                self?.navigationController?.popToRootViewController(animated: true)
             }
         }), for: .touchUpInside)
         

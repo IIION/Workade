@@ -13,6 +13,7 @@ struct User: Codable {
     let email: String?
     let job: Job
     var stickers: [StickerModel]?
+    var activeRegion: Region?
 }
 
 struct ActiveUser: Codable {
