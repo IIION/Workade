@@ -23,13 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: ExploreViewController())
         window?.makeKeyAndVisible()
         Task {
-//            try Auth.auth().signOut()
+            //            try Auth.auth().signOut()
             guard let uid = Auth.auth().currentUser?.uid,
                   let user = try await FirestoreDAO.shared.getUser(userID: uid),
                   let region = user.activeRegion
             else { return }
-                    async let count = try? await FirestoreDAO.shared.getActiveUsersNumber(region: region)
-                    await window?.rootViewController?.navigationController?.pushViewController(WorkationViewController(region: region, peopleCount: count ?? 0), animated: false)
+            try await FirestoreDAO.shared.getActiveUser(region: region, uid: uid)
         }
         
         if let url = connectionOptions.urlContexts.first?.url {

@@ -22,6 +22,7 @@ class StickerCollectionViewCell: UICollectionViewCell {
     
     let stickerImage: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         
         return image
@@ -106,6 +107,6 @@ class StickerCollectionViewCell: UICollectionViewCell {
         
         let labelsHeight = nameLabelHeight + dataLabelHeight + locationLabelHeight
         
-        return labelsHeight + 6 + stickerImageWidth
+        return labelsHeight + 32 + stickerImageWidth
     }
 }

@@ -9,6 +9,9 @@ import Combine
 import UIKit
 
 final class StickerProgressView: UIView {
+    
+    var stickers: [StickerTitle]
+    
     var cancellable = Set<AnyCancellable>()
     
     private let workationProgressView: UIProgressView = {
@@ -68,13 +71,13 @@ final class StickerProgressView: UIView {
     private lazy var lockStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             UIView(),
-            weekStack(image: UIImage(named: "sampleSticker"), isUnlocked: true, week: 1),
+            weekStack(image: UIImage(named: stickers[0].rawValue), isUnlocked: UserManager.shared.activeMyInfo?.progressDay ?? 0 >= 7, week: 1),
             UIView(),
-            weekStack(image: UIImage(named: "sampleSticker"), isUnlocked: true, week: 2),
+            weekStack(image: UIImage(named: stickers[1].rawValue), isUnlocked: UserManager.shared.activeMyInfo?.progressDay ?? 0 >= 14, week: 2),
             UIView(),
-            weekStack(image: UIImage(named: "sampleSticker"), isUnlocked: false, week: 3),
+            weekStack(image: UIImage(named: stickers[2].rawValue), isUnlocked: UserManager.shared.activeMyInfo?.progressDay ?? 0 >= 21, week: 3),
             UIView(),
-            weekStack(image: UIImage(named: "sampleSticker"), isUnlocked: false, week: 4),
+            weekStack(image: UIImage(named: stickers[3].rawValue), isUnlocked: UserManager.shared.activeMyInfo?.progressDay ?? 0 >= 28, week: 4),
             UIView()
         ])
         stackView.axis = .horizontal
@@ -84,8 +87,9 @@ final class StickerProgressView: UIView {
         return stackView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(stickers: [StickerTitle]) {
+        self.stickers = stickers
+        super.init(frame: .zero)
         
         setupLayout()
         bind()
@@ -131,47 +135,10 @@ final class StickerProgressView: UIView {
                 guard let self = self, var user = user else { return }
                 DispatchQueue.main.async {
                     let offsetDate = Date().timeIntervalSince(user.startDate)
-                    let day = Int(offsetDate/86400)
-                    self.workationProgressView.progress = Float(day > 0 ? day/35 : 0)
+                    let day = Float(offsetDate/86400)
+                    self.workationProgressView.setProgress(day > 0 ? day/35 : 0, animated: true)
                 }
             }
             .store(in: &cancellable)
     }
 }
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct StickerProgressViewPreview: PreviewProvider {
-    static var previews: some View {
-        UIViewPreview {
-            let view = StickerProgressView(frame: .zero)
-            return view
-        }
-        .frame(width: 310, height: 90)
-        .previewLayout(.sizeThatFits)
-    }
-}
-#endif
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-struct UIViewPreview<View: UIView>: UIViewRepresentable {
-    let view: View
-
-    init(_ builder: @escaping () -> View) {
-        view = builder()
-    }
-
-    // MARK: - UIViewRepresentable
-
-    func makeUIView(context: Context) -> UIView {
-        return view
-    }
-
-    func updateUIView(_ view: UIView, context: Context) {
-        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        view.setContentHuggingPriority(.defaultHigh, for: .vertical)
-    }
-}
-#endif

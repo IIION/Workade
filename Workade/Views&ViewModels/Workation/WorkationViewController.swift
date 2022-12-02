@@ -15,6 +15,7 @@ final class WorkationViewController: UIViewController {
     var dismissAction: (() -> Void)?
     
     var cancellable = Set<AnyCancellable>()
+    var activeUserCancellable: AnyCancellable? = nil
     
     let canGetStickers: [StickerTitle] = [
         .halLaBong, .dolHaReuBang, .horse, .halLaSan
@@ -200,8 +201,9 @@ final class WorkationViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
                 Task { [weak self] in
                     guard let self = self, var user = UserManager.shared.user.value else { return }
-                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
-                    try await FirestoreDAO.shared.createUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, stickers: user.stickers, activeRegion: nil))
+                    self.activeUserCancellable?.cancel()
+                    try? await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
+                    try? await FirestoreDAO.shared.createUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, stickers: user.stickers, activeRegion: nil))
                 }
 
                 UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
@@ -295,7 +297,7 @@ final class WorkationViewController: UIViewController {
         label.textColor = .theme.primary
         label.text = "스티커"
         
-        let progressView = StickerProgressView()
+        let progressView = StickerProgressView(stickers: canGetStickers)
         
         let stackView = UIStackView(arrangedSubviews: [label, progressView])
         stackView.axis = .vertical
@@ -453,6 +455,9 @@ extension WorkationViewController {
                 DispatchQueue.main.async {
                     let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(ceil(offsetDate/86400))
+                    if let storedDay = user.progressDay {
+                        self.compareProgressDay(presentDay: day, storedDay: storedDay)
+                    }
                     user.progressDay = day
                     self.updateActiveUser(user: user)
                     self.dayLabel.text = "\(day)일째"
@@ -460,7 +465,7 @@ extension WorkationViewController {
             }
             .store(in: &cancellable)
         
-        UserManager.shared.$activeMyInfo
+        activeUserCancellable = UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
                 guard let self = self, var user = user else { return }
                 DispatchQueue.main.async {
@@ -477,12 +482,11 @@ extension WorkationViewController {
                     self.loginPaneView.isHidden = true
                 }
             }
-            .store(in: &cancellable)
     }
     
     private func updateActiveUser(user: ActiveUser) {
         Task {
-            try await FirestoreDAO.shared.updateActiveUser(user: user)
+            try await FirestoreDAO.shared.createActiveUser(user: user)
         }
     }
     
@@ -492,7 +496,15 @@ extension WorkationViewController {
         if storedStep < step {
             let getStickers = [StickerTitle](canGetStickers[storedStep..<step])
             let stickers = getStickers.map { StickerModel(date: Date(), title: $0, region: self.region) }
-            self.present(StickerSheetViewController(stickers: stickers), animated: true)
+            let stickerShetViewController = StickerSheetViewController(stickers: stickers)
+            self.present(stickerShetViewController, animated: true)
+            let dimView = UIView(frame: UIScreen.main.bounds)
+            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+            view.addSubview(dimView)
+            view.bringSubviewToFront(dimView)
+            stickerShetViewController.viewDidDismiss = {
+                dimView.removeFromSuperview()
+            }
         }
     }
 }

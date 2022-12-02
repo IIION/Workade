@@ -66,9 +66,18 @@ class StickerSheetViewController: UIViewController {
     }()
     
     @objc private func backgroundViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        if step < stickers.count {
+        if step < stickers.count-1 {
             step += 1
         } else {
+            Task {
+                guard var user = UserManager.shared.user.value else { return }
+                if user.stickers == nil {
+                    user.stickers = stickers
+                } else {
+                    user.stickers?.append(contentsOf: stickers)
+                }
+                try await FirestoreDAO.shared.createUser(user: user)
+            }
             presentingViewController?.dismiss(animated: true)
             self.viewDidDismiss?()
         }
