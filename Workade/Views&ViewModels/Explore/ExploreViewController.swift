@@ -108,10 +108,10 @@ final class ExploreViewController: UIViewController {
                 else { return }
 //                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: Region(rawValue: region.rawValue)!, startDate: .now)) // TODO: RegionModel Region 통일하기  With @Toby @Evan
             }
-            let workationViewController = WorkationViewController(region: .jeJuDo)
-            workationViewController.transitioningDelegate = self?.transitionManager
-            workationViewController.modalPresentationStyle = .custom
-            self?.present(workationViewController, animated: true)
+            let navigationController = UINavigationController(rootViewController: WorkationViewController(region: .jeJuDo))
+            navigationController.transitioningDelegate = self?.transitionManager
+            navigationController.modalPresentationStyle = .custom
+            self?.present(navigationController, animated: true)
         }
         view.translatesAutoresizingMaskIntoConstraints = false
         

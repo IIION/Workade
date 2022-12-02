@@ -18,18 +18,15 @@ final class WorkationViewController: UIViewController {
     private var titleView = TitleLabel(title: "")
     private var region: Region
     
-    private lazy var closeButton = UIBarButtonItem(
+    private lazy var navButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            self?.dismissAction?()
-            self?.dismiss(animated: true)
-        })
-    )
-    
-    private lazy var guideButton = UIBarButtonItem(
-        image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
-        primaryAction: UIAction(handler: { [weak self] _ in
-            self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+            if UserManager.shared.user.value == nil {
+                self?.dismissAction?()
+                self?.dismiss(animated: true)
+            } else {
+                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+            }
         })
     )
     
@@ -137,10 +134,17 @@ final class WorkationViewController: UIViewController {
     
     private lazy var loginPaneView: LoginView = {
         let login = LoginView(action: UIAction { [weak self] _ in
-            let loginInitViewController = LoginInitViewController()
-            let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
-            loginNavigation.modalPresentationStyle = .overFullScreen
-            self?.present(loginNavigation, animated: true)
+            let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
+                let loginInitViewController = LoginInitViewController()
+                let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
+                loginNavigation.modalPresentationStyle = .overFullScreen
+                self?.present(loginNavigation, animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            self?.present(alert, animated: true)
         }
         )
         login.translatesAutoresizingMaskIntoConstraints = false
@@ -165,23 +169,29 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
         button.addAction(UIAction(handler: { [weak self] _ in
-            Task {
-                guard let user = UserManager.shared.user.value else { return }
-                try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: .jeJuDo) // TODO: 지역 설정하기
-            }
-            let stickerShetViewController = StickerSheetViewController()
-            stickerShetViewController.modalPresentationStyle = .overFullScreen
+            let alert = UIAlertController(title: nil, message: "정말로 워케이션을 종료하시겠어요?", preferredStyle: .actionSheet)
             
-            let dimView = UIView(frame: UIScreen.main.bounds)
-            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
-            self?.view.addSubview(dimView)
-            self?.view.bringSubviewToFront(dimView)
-            stickerShetViewController.viewDidDismiss = {
-                dimView.removeFromSuperview()
-            }
+            alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
+                Task {
+                    guard let user = UserManager.shared.user.value else { return }
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: .jeJuDo)
+                }
+                let stickerShetViewController = StickerSheetViewController()
+                stickerShetViewController.modalPresentationStyle = .overFullScreen
+                
+                let dimView = UIView(frame: UIScreen.main.bounds)
+                dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+                self?.view.addSubview(dimView)
+                self?.view.bringSubviewToFront(dimView)
+                stickerShetViewController.viewDidDismiss = {
+                    dimView.removeFromSuperview()
+                }
+                
+                self?.present( stickerShetViewController, animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
-            
-            self?.present( stickerShetViewController, animated: true)
+            self?.present(alert, animated: true)
         }), for: .touchUpInside)
         
         return button
@@ -263,7 +273,7 @@ final class WorkationViewController: UIViewController {
 
 private extension WorkationViewController {
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItems = [closeButton, guideButton]
+        navigationItem.rightBarButtonItems = [navButton]
         navigationItem.title = ""
     }
     
@@ -352,6 +362,7 @@ extension WorkationViewController {
             .sink { [weak self] user in
                 DispatchQueue.main.async { [weak self] in
                     self?.loginPaneView.isHidden = (user != nil)
+                    self?.navButton.image = (user != nil) ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image
                     self?.bottomPaneView.isHidden = !(user != nil)
                 }
             }
