@@ -424,18 +424,6 @@ extension WorkationViewController {
                 }
             }
             .store(in: &cancellable)
-        
-        UserManager.shared.$isActive
-            .sink { [weak self] isActive in
-                DispatchQueue.main.async { [weak self] in
-                    if isActive {
-                        self?.navButton.image = UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
-                    } else {
-                        self?.navButton.image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.primary)
-                    }
-                }
-             }
-             .store(in: &cancellable)
 
         workationViewModel.$subLocality
             .combineLatest(workationViewModel.$throughfare)
