@@ -21,6 +21,12 @@ final class CellImageView: UIImageView {
         clipsToBounds = true
         layer.cornerRadius = 16
         backgroundColor = .theme.groupedBackground // Skeleton color
+        
+        let blackLayer = CAShapeLayer()
+        let path = UIBezierPath(rect: bounds)
+        blackLayer.path = path.cgPath
+        blackLayer.fillColor = UIColor.black.withAlphaComponent(0.05).cgColor
+        self.layer.addSublayer(blackLayer)
     }
     
     required init?(coder: NSCoder) {

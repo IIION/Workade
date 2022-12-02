@@ -22,6 +22,14 @@ class NearbyPlaceImageView: UIView {
         return imageView
     }()
     
+    private let lightBlackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.05)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.font = UIFont.customFont(for: .title1)
@@ -69,8 +77,6 @@ class NearbyPlaceImageView: UIView {
     // AutoLayout
     private func setupLayout() {
         addSubview(imageView)
-        
-        imageView.addSubview(locationLabel)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -78,6 +84,15 @@ class NearbyPlaceImageView: UIView {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
+        addSubview(lightBlackView)
+        NSLayoutConstraint.activate([
+            lightBlackView.topAnchor.constraint(equalTo: topAnchor),
+            lightBlackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lightBlackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lightBlackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        imageView.addSubview(locationLabel)
         NSLayoutConstraint.activate([
             locationLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
             locationLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)
