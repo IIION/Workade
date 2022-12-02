@@ -129,13 +129,13 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleGoogleLogin() {
-        FirebaseManager.shared.touchUpGoogleButton(signupCompletion: { [weak self] in
+        FirebaseManager.shared.touchUpGoogleButton(region: region,
+                                                   signupCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(region: self?.region), animated: true)
         },
                                                    signinCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.dismiss(animated: true)
-        },
-                                                   region: region
+        }
         )
     }
 }

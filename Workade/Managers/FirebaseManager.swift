@@ -99,7 +99,7 @@ final class FirebaseManager: NSObject {
         return result
     }
     
-    func touchUpGoogleButton(signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void, region: Region?) {
+    func touchUpGoogleButton(region: Region?, signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
