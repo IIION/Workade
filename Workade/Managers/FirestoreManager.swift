@@ -71,6 +71,11 @@ class FirestoreDAO {
         UserManager.shared.activeMyInfo = user
     }
     
+    func updateActiveUser(user: ActiveUser) async throws {
+        guard let data = user.asDictionary else { return }
+        try await dto.updateDocument(collectionName: user.region.rawValue, documentName: user.id, data: data)
+    }
+    
     func deleteActiveUser(userID: String, region: Region) async throws {
         try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
         UserManager.shared.activeRegion = nil

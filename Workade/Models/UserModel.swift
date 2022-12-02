@@ -20,6 +20,7 @@ struct ActiveUser: Codable {
     let job: Job
     let region: Region
     let startDate: Date
+    var progressDay: Int? = nil
 }
 
 enum Region: String, CaseIterable, Codable {
