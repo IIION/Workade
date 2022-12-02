@@ -5,6 +5,7 @@
 //  Created by Wonhyuk Choi on 2022/11/17.
 //
 
+import FirebaseAuth
 import Combine
 import UIKit
 
@@ -140,10 +141,24 @@ final class WorkationViewController: UIViewController {
     private lazy var loginPaneView: LoginView = {
         let login = LoginView(action: UIAction { [weak self] _ in
             guard let self = self else { return }
-            let loginInitViewController = LoginInitViewController(region: self.region)
-            let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
-            loginNavigation.modalPresentationStyle = .overFullScreen
-            self.present(loginNavigation, animated: true)
+            if Auth.auth().currentUser == nil {
+                let loginInitViewController = LoginInitViewController(region: self.region)
+                let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
+                loginNavigation.modalPresentationStyle = .overFullScreen
+                self.present(loginNavigation, animated: true)
+            } else {
+                Task { [weak self] in
+                    guard let self = self,
+                          let uid = Auth.auth().currentUser?.uid,
+                          let user = try await FirestoreDAO.shared.getUser(userID: uid)
+                    else { return }
+                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
+                    try await UserManager.shared.reloadActiveUser(region: self.region)
+                }
+                
+                self.loginPaneView.isHidden = true
+                self.bottomPaneView.isHidden = false
+            }
         }
         )
         login.translatesAutoresizingMaskIntoConstraints = false
@@ -168,23 +183,15 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
         button.addAction(UIAction(handler: { [weak self] _ in
-            Task {
-                guard let user = UserManager.shared.user.value else { return }
-                try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: .jeJuDo) // TODO: 지역 설정하기
-            }
-            let stickerShetViewController = StickerSheetViewController()
-            stickerShetViewController.modalPresentationStyle = .overFullScreen
-            
-            let dimView = UIView(frame: UIScreen.main.bounds)
-            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
-            self?.view.addSubview(dimView)
-            self?.view.bringSubviewToFront(dimView)
-            stickerShetViewController.viewDidDismiss = {
-                dimView.removeFromSuperview()
+            Task { [weak self] in
+                guard let self = self, let user = UserManager.shared.user.value else { return }
+                try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
             }
             
-            
-            self?.present( stickerShetViewController, animated: true)
+            UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
+                self?.loginPaneView.isHidden = false
+                self?.bottomPaneView.isHidden = true
+            }
         }), for: .touchUpInside)
         
         return button
@@ -264,6 +271,21 @@ final class WorkationViewController: UIViewController {
         setupLayout()
         setupNavigationBar()
         bind()
+    }
+    
+    private func showSticker() {
+        let stickerShetViewController = StickerSheetViewController()
+        stickerShetViewController.modalPresentationStyle = .overFullScreen
+        
+        let dimView = UIView(frame: UIScreen.main.bounds)
+        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+        view.addSubview(dimView)
+        view.bringSubviewToFront(dimView)
+        stickerShetViewController.viewDidDismiss = {
+            dimView.removeFromSuperview()
+        }
+        
+        present( stickerShetViewController, animated: true)
     }
 }
 
