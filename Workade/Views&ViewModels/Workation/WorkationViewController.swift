@@ -19,18 +19,15 @@ final class WorkationViewController: UIViewController {
     private var titleView = TitleLabel(title: "")
     private var region: Region
     
-    private lazy var closeButton = UIBarButtonItem(
+    private lazy var navButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            self?.dismissAction?()
-            self?.dismiss(animated: true)
-        })
-    )
-    
-    private lazy var guideButton = UIBarButtonItem(
-        image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
-        primaryAction: UIAction(handler: { [weak self] _ in
-            self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+            if UserManager.shared.user.value == nil {
+                self?.dismissAction?()
+                self?.dismiss(animated: true)
+            } else {
+                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+            }
         })
     )
     
@@ -141,7 +138,10 @@ final class WorkationViewController: UIViewController {
     private lazy var loginPaneView: LoginView = {
         let login = LoginView(action: UIAction { [weak self] _ in
             guard let self = self else { return }
-            if Auth.auth().currentUser == nil {
+            let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
+                if Auth.auth().currentUser == nil {
                 let loginInitViewController = LoginInitViewController(region: self.region)
                 let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
@@ -159,6 +159,10 @@ final class WorkationViewController: UIViewController {
                 self.loginPaneView.isHidden = true
                 self.bottomPaneView.isHidden = false
             }
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            self?.present(alert, animated: true)
         }
         )
         login.translatesAutoresizingMaskIntoConstraints = false
@@ -183,15 +187,22 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
         button.addAction(UIAction(handler: { [weak self] _ in
-            Task { [weak self] in
-                guard let self = self, let user = UserManager.shared.user.value else { return }
-                try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
-            }
+            let alert = UIAlertController(title: nil, message: "정말로 워케이션을 종료하시겠어요?", preferredStyle: .actionSheet)
             
-            UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
-                self?.loginPaneView.isHidden = false
-                self?.bottomPaneView.isHidden = true
-            }
+            alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
+                Task { [weak self] in
+                    guard let self = self, let user = UserManager.shared.user.value else { return }
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
+                }
+
+                UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
+                    self?.loginPaneView.isHidden = false
+                    self?.bottomPaneView.isHidden = true
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            self?.present(alert, animated: true)
         }), for: .touchUpInside)
         
         return button
@@ -291,7 +302,7 @@ final class WorkationViewController: UIViewController {
 
 private extension WorkationViewController {
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItems = [closeButton, guideButton]
+        navigationItem.rightBarButtonItems = [navButton]
         navigationItem.title = ""
     }
     
@@ -380,6 +391,7 @@ extension WorkationViewController {
             .sink { [weak self] user in
                 DispatchQueue.main.async { [weak self] in
                     self?.loginPaneView.isHidden = (user != nil)
+                    self?.navButton.image = (user != nil) ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image
                     self?.bottomPaneView.isHidden = !(user != nil)
                 }
             }

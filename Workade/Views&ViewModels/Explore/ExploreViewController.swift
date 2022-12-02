@@ -103,10 +103,10 @@ final class ExploreViewController: UIViewController {
         let view = RegionInfoView(frame: .zero, peopleCount: 0,
                                   selectedRegion: viewModel.selectedRegion) { [weak self] in
             guard let region = self?.viewModel.selectedRegion.value, let count = self?.regionPeopleCounts[region] else { return }
-            let workationViewController = WorkationViewController(region: region, peopleCount: count)
-            workationViewController.transitioningDelegate = self?.transitionManager
-            workationViewController.modalPresentationStyle = .custom
-            self?.present(workationViewController, animated: true)
+            let navigationController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
+            navigationController.transitioningDelegate = self?.transitionManager
+            navigationController.modalPresentationStyle = .custom
+            self?.present(navigationController, animated: true)
         }
         view.translatesAutoresizingMaskIntoConstraints = false
         
