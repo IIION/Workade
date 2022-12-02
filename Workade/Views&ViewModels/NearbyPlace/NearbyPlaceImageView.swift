@@ -22,6 +22,14 @@ class NearbyPlaceImageView: UIView {
         return imageView
     }()
     
+    private let lightBlackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.05)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.font = UIFont.customFont(for: .title1)
@@ -69,6 +77,23 @@ class NearbyPlaceImageView: UIView {
     // AutoLayout
     private func setupLayout() {
         addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        addSubview(lightBlackView)
+        NSLayoutConstraint.activate([
+            lightBlackView.topAnchor.constraint(equalTo: topAnchor),
+            lightBlackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lightBlackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lightBlackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        imageView.addSubview(locationLabel)
+        NSLayoutConstraint.activate([
         // imageView의 레이아웃은 상위 VC에서 맞춰줍니다.
         
         imageView.addSubview(locationLabel)
