@@ -220,18 +220,24 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
+    private let dayLabel: UILabel = {
+        let label = UILabel()
+        let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
+        let day = Int(ceil(offsetDate/86400))
+        label.font = .customFont(for: .subHeadline)
+        label.textColor = .theme.primary
+        label.text = "\(day)일째"
+        
+        return label
+    }()
+    
     private lazy var periodStack: UIStackView = {
         let titleLabel = UILabel()
         titleLabel.font = .customFont(for: .footnote)
         titleLabel.textColor = .theme.tertiary
         titleLabel.text = "워케이션을 시작한 지"
         
-        let contentLabel = UILabel()
-        contentLabel.font = .customFont(for: .subHeadline)
-        contentLabel.textColor = .theme.primary
-        contentLabel.text = "33일째"
-        
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, dayLabel])
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.alignment = .leading
@@ -437,5 +443,28 @@ extension WorkationViewController {
                 }
             }
             .store(in: &cancellable)
+        
+        NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
+                    let day = Int(ceil(offsetDate/86400))
+                    self.dayLabel.text = "\(day)일째"
+                }
+            }
+            .store(in: &cancellable)
+        
+        UserManager.shared.$activeMyInfo
+            .sink { [weak self] user in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    let offsetDate = Date().timeIntervalSince(user?.startDate ?? Date())
+                    let day = Int(offsetDate/86400)
+                    self.dayLabel.text = "\(day)일째"
+                }
+            }
+            .store(in: &cancellable)
+        
     }
 }
