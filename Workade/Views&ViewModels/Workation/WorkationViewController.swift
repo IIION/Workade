@@ -343,6 +343,11 @@ private extension WorkationViewController {
     private func setupLayout() {
         let guide = view.safeAreaLayoutGuide
         
+        if UserManager.shared.isActive {
+            bottomPaneView.isHidden = false
+            loginPaneView.isHidden = true
+        }
+        
         view.addSubview(bottomPaneView)
         NSLayoutConstraint.activate([
             bottomPaneView.heightAnchor.constraint(equalToConstant: 320),

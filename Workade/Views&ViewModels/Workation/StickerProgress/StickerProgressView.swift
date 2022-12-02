@@ -128,14 +128,22 @@ final class StickerProgressView: UIView {
         
         UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
-                guard let self = self else { return }
+                guard let self = self, var user = user else { return }
                 DispatchQueue.main.async {
-                    let offsetDate = Date().timeIntervalSince(user?.startDate ?? Date())
+                    let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(offsetDate/86400)
                     self.workationProgressView.progress = Float(day > 0 ? day/35 : 0)
+                    user.progressDay = day
+                    self.updateActiveUser(user: user)
                 }
             }
             .store(in: &cancellable)
+    }
+    
+    private func updateActiveUser(user: ActiveUser) {
+        Task {
+            try await FirestoreDAO.shared.updateActiveUser(user: user)
+        }
     }
 }
 
