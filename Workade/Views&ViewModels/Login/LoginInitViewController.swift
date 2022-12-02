@@ -24,9 +24,9 @@ final class LoginInitViewController: UIViewController {
         return sheet
     }()
     
-    private let region: Region
+    private let region: Region?
     
-    init(region: Region) {
+    init(region: Region?) {
         self.region = region
         super.init(nibName: nil, bundle: nil)
     }

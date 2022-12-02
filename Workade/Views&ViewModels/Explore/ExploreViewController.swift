@@ -168,8 +168,7 @@ final class ExploreViewController: UIViewController {
             if UserManager.shared.user.value != nil {
                 self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
             } else {
-                guard let region = self?.viewModel.selectedRegion.value else { return }
-                let loginViewController = LoginInitViewController(region: region)
+                let loginViewController = LoginInitViewController(region: self?.viewModel.selectedRegion.value)
                 let loginNavigation = UINavigationController(rootViewController: loginViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
                 self?.present(loginNavigation, animated: true)

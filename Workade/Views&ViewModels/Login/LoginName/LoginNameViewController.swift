@@ -32,10 +32,11 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
+    private let region: Region?
 
     private lazy var nextButton: LoginNextButtonView = {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
-            self?.show(LoginJobViewController(name: self?.nameTextField.text), sender: self)
+            self?.show(LoginJobViewController(name: self?.nameTextField.text, region: self?.region), sender: self)
         })
         nextView.translatesAutoresizingMaskIntoConstraints = false
         nextView.backgroundColor = .gray
@@ -43,6 +44,17 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         
         return nextView
     }()
+    
+    init(region: Region?) {
+        self.region = region
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +67,6 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupNavigationBar() {
-//        self.navigationController?.navigationBar.topItem?.title = "회원가입"
         navigationItem.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
     }
@@ -105,7 +116,7 @@ extension LoginNameViewController {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.show(LoginJobViewController(name: nameTextField.text), sender: self)
+        self.show(LoginJobViewController(name: nameTextField.text, region: self.region), sender: self)
         return true
     }
 }

@@ -21,6 +21,7 @@ final class FirebaseManager: NSObject {
     lazy private var authorizationController = ASAuthorizationController(authorizationRequests: [createAppleIDRequest()])
     private var appleSigninCompletion: (() -> Void)!
     private var appleSignupCompletion: (() -> Void)!
+    private var region: Region?
     private override init() {
         super.init()
         authorizationController.delegate = self
@@ -28,7 +29,8 @@ final class FirebaseManager: NSObject {
     }
     
     
-    func touchUpAppleButton(appleSignupCompletion: @escaping () -> Void, appleSigninCompletion: @escaping () -> Void) {
+    func touchUpAppleButton(region: Region?, appleSignupCompletion: @escaping () -> Void, appleSigninCompletion: @escaping () -> Void) {
+        self.region = region
         self.appleSigninCompletion = appleSigninCompletion
         self.appleSignupCompletion = appleSignupCompletion
         authorizationController.performRequests()
@@ -97,7 +99,7 @@ final class FirebaseManager: NSObject {
         return result
     }
     
-    func touchUpGoogleButton(signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void, region: Region) {
+    func touchUpGoogleButton(signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void, region: Region?) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
@@ -123,6 +125,7 @@ final class FirebaseManager: NSObject {
                                 Task {
                                     guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
                                     UserManager.shared.user.value = userInfo
+                                    guard let region = region else { return }
                                     try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
                                 }
                                 signinCompletion()
@@ -183,6 +186,9 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
                                 Task {
                                     guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
                                     UserManager.shared.user.value = userInfo
+                                    
+                                    guard let region = self?.region else { return }
+                                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
                                 }
                                 self?.appleSigninCompletion()
                             }

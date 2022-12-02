@@ -61,9 +61,9 @@ class LoginSheetView: UIView {
         return loginButton
     }()
     
-    private let region: Region
+    private let region: Region?
     
-    init(region : Region) {
+    init(region: Region?) {
         self.region = region
         super.init(frame: .zero)
         layer.cornerRadius = 30
@@ -120,8 +120,8 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleAppleLogin() {
-        FirebaseManager.shared.touchUpAppleButton(appleSignupCompletion: {[weak self] in
-            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+        FirebaseManager.shared.touchUpAppleButton(region: region, appleSignupCompletion: {[weak self] in
+            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(region: self?.region), animated: true)
         },
                                                   appleSigninCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.dismiss(animated: true)
@@ -130,7 +130,7 @@ class LoginSheetView: UIView {
     
     @objc func handleGoogleLogin() {
         FirebaseManager.shared.touchUpGoogleButton(signupCompletion: { [weak self] in
-            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(region: self?.region), animated: true)
         },
                                                    signinCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.dismiss(animated: true)
