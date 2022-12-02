@@ -5,12 +5,25 @@
 //  Created by Wonhyuk Choi on 2022/11/23.
 //
 
+import Combine
 import UIKit
 
 final class StickerProgressView: UIView {
+    var cancellable = Set<AnyCancellable>()
+    
     private lazy var progressStack: UIStackView = {
         let progressView = UIProgressView()
-        progressView.progress = 14/35
+        let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
+        var day = Float(offsetDate/86400)
+        
+        NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
+            .sink { _ in
+                let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
+                day = Float(offsetDate/86400)
+            }
+            .store(in: &cancellable)
+        
+        progressView.progress = day > 0 ? day/35 : 0
         progressView.backgroundColor = .theme.groupedBackground
         progressView.tintColor = .theme.workadeBlue
         progressView.transform = progressView.transform.scaledBy(x: 1, y: 0.1)
