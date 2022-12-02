@@ -157,9 +157,10 @@ final class WorkationViewController: UIViewController {
                     Task { [weak self] in
                         guard let self = self,
                               let uid = Auth.auth().currentUser?.uid,
-                              let user = try await FirestoreDAO.shared.getUser(userID: uid)
+                              var user = try await FirestoreDAO.shared.getUser(userID: uid)
                         else { return }
                         try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
+                        try await FirestoreDAO.shared.updateUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, activeRegion: self.region))
                         try await UserManager.shared.reloadActiveUser(region: self.region)
                     }
                     
@@ -198,8 +199,10 @@ final class WorkationViewController: UIViewController {
             
             alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
                 Task { [weak self] in
-                    guard let self = self, let user = UserManager.shared.user.value else { return }
+                    guard let self = self, var user = UserManager.shared.user.value else { return }
                     try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
+                    user.activeRegion = nil
+                    try await FirestoreDAO.shared.updateUser(user: user)
                 }
 
                 UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
@@ -470,6 +473,9 @@ extension WorkationViewController {
                     user.progressDay = day
                     self.updateActiveUser(user: user)
                     self.dayLabel.text = "\(day)일째"
+                    
+                    self.bottomPaneView.isHidden = false
+                    self.loginPaneView.isHidden = true
                 }
             }
             .store(in: &cancellable)

@@ -35,16 +35,20 @@ class FirestoreDAO {
         guard let data = user.asDictionary else { return }
         try await dto.createDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
         UserManager.shared.user.value = user
+        UserManager.shared.isActive = (user.activeRegion != nil)
     }
     
     func updateUser(user: User) async throws {
         guard let data = user.asDictionary else { return }
         try await dto.updateDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
+        UserManager.shared.user.value = user
+        UserManager.shared.isActive = (user.activeRegion != nil)
     }
     
     func deleteUser(userid: String) async throws {
         try await dto.deleteDocument(collectionName: allUserCollectionName, documentName: userid)
         UserManager.shared.user.value = nil
+        UserManager.shared.isActive = false
     }
     
     func getUser(userID: String) async throws -> User? {
@@ -57,6 +61,7 @@ class FirestoreDAO {
             let user = try decoder.decode(User.self, from: jsonData)
             UserManager.shared.user.value = user
             if user.id == userID {
+                UserManager.shared.isActive = (user.activeRegion != nil)
                 return user
             }
         }
@@ -85,6 +90,16 @@ class FirestoreDAO {
     
     func getActiveUsersNumber(region: Region) async throws -> Int {
         try await dto.getDocuments(collectionName: region.rawValue).count
+    }
+    
+    func getActiveUser(region: Region, uid: String) async throws -> ActiveUser {
+        let document = try await dto.getDocument(collectionName: region.rawValue, documentName: uid)
+        let data = document.data()
+        let decoder = JSONDecoder()
+        let jsonData = try JSONSerialization.data(withJSONObject: data)
+        let activeUser = try decoder.decode(ActiveUser.self, from: jsonData)
+        
+        return activeUser
     }
     
     func getActiveUsers(region: Region) async throws -> [Job: [ActiveUser]]? {
@@ -128,6 +143,10 @@ class FirestoreDTO {
     
     func getDocuments(collectionName: String) async throws -> [QueryDocumentSnapshot] {
         return try await database.collection(collectionName).getDocuments().documents
+    }
+    
+    func getDocument(collectionName: String, documentName: String) async throws -> DocumentSnapshot {
+        return try await database.collection(collectionName).document(documentName).getDocument()
     }
     
     func setListener(collectionName: String, listenderAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
