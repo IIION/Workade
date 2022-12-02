@@ -128,10 +128,10 @@ final class FirebaseManager: NSObject {
                 
                 if let user = result?.user {
                     Task {
-                        if let user = Auth.auth().currentUser {
+                        if let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid){
                             DispatchQueue.main.async {
                                 Task {
-                                    guard let region = region, let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
+                                    guard let region = region else { return }
                                     try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
                                 }
                                 signinCompletion()

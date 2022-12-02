@@ -22,10 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = UINavigationController(rootViewController: ExploreViewController())
         window?.makeKeyAndVisible()
-        
         Task {
             guard let user = Auth.auth().currentUser else { return }
-            print(user)
             try await FirestoreDAO.shared.getUser(userID: user.uid)
             if UserManager.shared.isActive {
                 if let region = UserManager.shared.activeRegion {

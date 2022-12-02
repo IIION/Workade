@@ -5,6 +5,7 @@
 //  Created by Hyeonsoo Kim on 2022/10/26.
 //
 
+import FirebaseAuth
 import UIKit
 
 final class SettingViewController: UIViewController {
@@ -57,7 +58,7 @@ final class SettingViewController: UIViewController {
         return button
     }()
     
-    private let withdrawalButton: UIButton = {
+    private lazy var withdrawalButton: UIButton = {
         let button = UIButton()
         button.setTitle("회원탈퇴", for: .normal)
         button.titleLabel?.font = .customFont(for: .caption2)
@@ -68,9 +69,20 @@ final class SettingViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.theme.groupedBackground.cgColor
         
-        button.addAction(UIAction(handler: { _ in
-            // TODO: 회원탈퇴 로직
-            print("회원탈퇴 버튼 클릭")
+        button.addAction(UIAction(handler: { [weak self] _ in
+            Task { [weak self] in
+                guard let currentUser = Auth.auth().currentUser else { return }
+                guard let user = try await FirestoreDAO.shared.getUser(userID: currentUser.uid) else { return }
+                print(user)
+                if UserManager.shared.isActive, let region = UserManager.shared.activeRegion {
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: region)
+                }
+                try await FirestoreDAO.shared.deleteUser(userid: user.id)
+                try Auth.auth().signOut()
+                try await currentUser.delete()
+                guard let self = self else { return }
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
