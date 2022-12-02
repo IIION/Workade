@@ -53,6 +53,14 @@ final class FirebaseManager: NSObject {
     func signout() {
         do {
             try Auth.auth().signOut()
+            if UserManager.shared.isActive,
+               let region = UserManager.shared.activeRegion,
+               let id = UserManager.shared.user.value?.id {
+                Task {
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: id, region: region)
+                }
+            }
+            UserManager.shared.user.value = nil
         } catch {
             print("Sign Out Missing")
         }

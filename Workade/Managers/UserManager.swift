@@ -22,6 +22,8 @@ class UserManager {
     var user = CurrentValueSubject<User?, Never>(nil)
     
     var activeUsers = [Region: [Job: [ActiveUser]]]()
+    var isActive = false
+    var activeRegion: Region? = nil
     
     func reloadActiveUser(region: Region) async throws {
         activeUsers[region] = try await FirestoreDAO.shared.getActiveUsers(region: region)
