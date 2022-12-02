@@ -20,13 +20,13 @@ final class WorkationViewController: UIViewController {
     private var region: Region
     
     private lazy var navButton = UIBarButtonItem(
-        image: SFSymbol.xmarkInNavigation.image,
+        image: UserManager.shared.isActive ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            if UserManager.shared.user.value == nil {
+            if UserManager.shared.isActive {
+                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+            } else {
                 self?.dismissAction?()
                 self?.dismiss(animated: true)
-            } else {
-                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
             }
         })
     )
@@ -301,7 +301,7 @@ final class WorkationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        titleView.text = region.rawValue
+        titleView.text = region.name
         numberOfWorkers.text = "\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
@@ -412,16 +412,28 @@ private extension WorkationViewController {
 
 extension WorkationViewController {
     private func bind() {
+    
         UserManager.shared.user
             .sink { [weak self] user in
                 DispatchQueue.main.async { [weak self] in
                     self?.loginPaneView.isHidden = (user != nil)
-                    self?.navButton.image = (user != nil) ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image
                     self?.bottomPaneView.isHidden = !(user != nil)
                 }
             }
             .store(in: &cancellable)
         
+        UserManager.shared.$isActive
+            .sink { [weak self] isActive in
+                DispatchQueue.main.async { [weak self] in
+                    if isActive {
+                        self?.navButton.image = UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+                    } else {
+                        self?.navButton.image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.primary)
+                    }
+                }
+             }
+             .store(in: &cancellable)
+
         workationViewModel.$subLocality
             .combineLatest(workationViewModel.$throughfare)
             .sink { [weak self] value1, value2 in

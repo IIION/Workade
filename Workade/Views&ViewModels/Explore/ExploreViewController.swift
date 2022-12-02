@@ -5,8 +5,9 @@
 //  Created by 김예훈 on 2022/11/21.
 //
 
-import UIKit
+import FirebaseAuth
 import SafariServices
+import UIKit
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
@@ -103,6 +104,13 @@ final class ExploreViewController: UIViewController {
         let view = RegionInfoView(frame: .zero, peopleCount: 0,
                                   selectedRegion: viewModel.selectedRegion) { [weak self] in
             guard let region = self?.viewModel.selectedRegion.value, let count = self?.regionPeopleCounts[region] else { return }
+            Task {
+                if let userInfo = Auth.auth().currentUser {
+                    guard let user = try await FirestoreDAO.shared.getUser(userID: userInfo.uid) else { return }
+                    let activeUser = ActiveUser(id: user.id, job: user.job, region: region, startDate: .now)
+                    try await FirestoreDAO.shared.createActiveUser(user: activeUser)
+                }
+            }
             let navigationController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
             navigationController.transitioningDelegate = self?.transitionManager
             navigationController.modalPresentationStyle = .custom
