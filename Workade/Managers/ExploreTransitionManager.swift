@@ -46,7 +46,6 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(regionInfoViewCopy)
             exploreViewController.regionInfoView.alpha = 0
             
-            
             let heightConstraint = regionInfoViewCopy.heightAnchor.constraint(equalToConstant: exploreViewController.regionInfoViewHeight)
             let bottomConstraint = regionInfoViewCopy.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             
