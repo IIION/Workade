@@ -13,6 +13,10 @@ final class NetworkMonitor {
         startMonitoring()
     }
     
+    deinit {
+        stopMonitoring()
+    }
+    
     // interface 파트
     let becomeSatisfied = PassthroughSubject<Void, Never>()
     
@@ -26,5 +30,9 @@ final class NetworkMonitor {
                 self?.becomeSatisfied.send()
             }
         }
+    }
+    
+    private func stopMonitoring() {
+        monitor.cancel()
     }
 }

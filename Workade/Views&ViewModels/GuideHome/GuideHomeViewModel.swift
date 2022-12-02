@@ -23,15 +23,16 @@ final class GuideHomeViewModel {
     
     init() {
         bindMonitor()
-        requestHomeData()
         bindingBookmarkManager() // 북마크
     }
     
     private func bindMonitor() {
         anyCancellable = networkMonitor?.becomeSatisfied
             .sink { [weak self] _ in
-                self?.isCompleteFetch.value = true
-                self?.networkMonitor = nil
+                guard let self = self else { return }
+                self.requestHomeData()
+                self.isCompleteFetch.value = true
+                self.networkMonitor = nil
             }
     }
     
