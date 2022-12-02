@@ -61,7 +61,10 @@ class LoginSheetView: UIView {
         return loginButton
     }()
     
-    init() {
+    private let region: Region
+    
+    init(region : Region) {
+        self.region = region
         super.init(frame: .zero)
         layer.cornerRadius = 30
         backgroundColor = .theme.background
@@ -131,6 +134,8 @@ class LoginSheetView: UIView {
         },
                                                    signinCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.dismiss(animated: true)
-        })
+        },
+                                                   region: region
+        )
     }
 }

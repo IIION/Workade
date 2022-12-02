@@ -65,12 +65,10 @@
 		21F6DE6028FFED9C00ED72C6 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */; };
 		21F6DE6228FFEE2100ED72C6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */; };
 		21FC23E7293732D700606436 /* ExploreTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC23E6293732D700606436 /* ExploreTransitionManager.swift */; };
-		21FC23EF2937598000606436 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21FC23EE2937598000606436 /* GoogleService-Info.plist */; };
 		5F1EA333292B4911003EF7F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1EA332292B4911003EF7F2 /* LoginView.swift */; };
 		5F27B83A29308F0200ED1B02 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F27B83929308F0200ED1B02 /* FirebaseManager.swift */; };
 		5F28285C290793D800882FF3 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28285B290793D800882FF3 /* BasePaddingLabel.swift */; };
 		5F3208C4292E36EC00B9F09A /* JobPickerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */; };
-		5F3774532937761D00F51FAE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F3774522937761D00F51FAE /* GoogleService-Info.plist */; };
 		5F3A172A2937375D004B5C7F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A17292937375D004B5C7F /* UIView+.swift */; };
 		5F3DEB39291CE13700119A52 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3DEB38291CE13700119A52 /* MapInfoView.swift */; };
 		5F44CCFE292D16B5007498E2 /* LoginJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */; };
@@ -101,6 +99,7 @@
 		5FD1F5D2290A6BCB00744CCC /* MapPinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */; };
 		5FD22E90290B17E2003CF909 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD22E8E290B17E2003CF909 /* MapViewModel.swift */; };
 		5FDC11D729388D9F00CDA4EC /* WorkerStatusSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC11D629388D9F00CDA4EC /* WorkerStatusSheetViewModel.swift */; };
+		5FDC11DB2938996C00CDA4EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FDC11DA2938996C00CDA4EC /* GoogleService-Info.plist */; };
 		5FDC17BB28FE799C0060DBB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */; };
 		5FDC17BD28FE799C0060DBB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */; };
 		5FDC17BF28FE799C0060DBB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC17BE28FE799C0060DBB7 /* ViewController.swift */; };
@@ -230,14 +229,12 @@
 		21F6DE5F28FFED9C00ED72C6 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		21F6DE6128FFEE2100ED72C6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		21FC23E6293732D700606436 /* ExploreTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTransitionManager.swift; sourceTree = "<group>"; };
-		21FC23EE2937598000606436 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41A2B54C978824B3AD07759F /* Pods-Workade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Workade.debug.xcconfig"; path = "Target Support Files/Pods-Workade/Pods-Workade.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1EA332292B4911003EF7F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F27B83829308EDA00ED1B02 /* Workade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Workade.entitlements; sourceTree = "<group>"; };
 		5F27B83929308F0200ED1B02 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		5F28285B290793D800882FF3 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		5F3208C3292E36EC00B9F09A /* JobPickerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobPickerScrollView.swift; sourceTree = "<group>"; };
-		5F3774522937761D00F51FAE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Dropbox (Developer Academy)/ILION/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F3A17292937375D004B5C7F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		5F3DEB38291CE13700119A52 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		5F44CCFD292D16B5007498E2 /* LoginJobViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJobViewController.swift; sourceTree = "<group>"; };
@@ -258,6 +255,7 @@
 		5FD1F5D1290A6BCB00744CCC /* MapPinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinModel.swift; sourceTree = "<group>"; };
 		5FD22E8E290B17E2003CF909 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		5FDC11D629388D9F00CDA4EC /* WorkerStatusSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerStatusSheetViewModel.swift; sourceTree = "<group>"; };
+		5FDC11DA2938996C00CDA4EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FDC17B728FE799C0060DBB7 /* Workade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FDC17BA28FE799C0060DBB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FDC17BC28FE799C0060DBB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -597,9 +595,8 @@
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
-				21FC23EE2937598000606436 /* GoogleService-Info.plist */,
+				5FDC11DA2938996C00CDA4EC /* GoogleService-Info.plist */,
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
-				5F3774522937761D00F51FAE /* GoogleService-Info.plist */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
 				B7DE360250B0A3F5EC254C91 /* Pods */,
@@ -933,6 +930,7 @@
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
+				5FDC11DB2938996C00CDA4EC /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,

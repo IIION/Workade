@@ -69,22 +69,19 @@ class FirestoreDAO {
         try await dto.getDocuments(collectionName: region.rawValue).count
     }
     
-    func getActiveUsers(region: Region) async throws -> [Job: Int]? {
+    func getActiveUsers(region: Region) async throws -> [Job: [ActiveUser]]? {
         let documents = try await dto.getDocuments(collectionName: region.rawValue)
         let decoder = JSONDecoder()
-        var users = [Job: Int]()
+        var users = [Job: [ActiveUser]]()
         for job in Job.allCases {
-            users[job] = 0
+            users[job] = []
         }
         
         for document in documents {
             let data = document.data()
             let jsonData = try JSONSerialization.data(withJSONObject: data)
             let activeUser = try decoder.decode(ActiveUser.self, from: jsonData)
-            guard let job = activeUser.job,
-                  var userJob = users[job]
-            else { return users }
-            userJob += 1
+            users[activeUser.job]?.append(activeUser)
         }
         return users
     }

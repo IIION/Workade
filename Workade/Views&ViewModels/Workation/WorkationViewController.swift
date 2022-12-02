@@ -33,7 +33,8 @@ final class WorkationViewController: UIViewController {
         })
     )
     
-    init(region: Region) {
+    init(region: Region, peopleCount: Int) {
+        self.peopleCount = peopleCount
         self.region = region
         
         super.init(nibName: nil, bundle: nil)
@@ -81,18 +82,19 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.workadeBlue
         button.layer.cornerRadius = 20
         button.addAction(UIAction(handler: { [weak self] _ in
-            let workStatusSheetViewController = WorkerStatusSheetViewController()
+            guard let self = self else { return }
+            let workStatusSheetViewController = WorkerStatusSheetViewController(peopleCount: self.peopleCount, region: self.region)
             workStatusSheetViewController.modalPresentationStyle = .overFullScreen
             
             let dimView = UIView(frame: UIScreen.main.bounds)
             dimView.backgroundColor = .theme.primary.withAlphaComponent(0.7)
-            self?.view.addSubview(dimView)
-            self?.view.bringSubviewToFront(dimView)
+            self.view.addSubview(dimView)
+            self.view.bringSubviewToFront(dimView)
             workStatusSheetViewController.viewDidDissmiss = {
                 dimView.removeFromSuperview()
             }
             
-            self?.present(workStatusSheetViewController, animated: true)
+            self.present(workStatusSheetViewController, animated: true)
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -104,7 +106,7 @@ final class WorkationViewController: UIViewController {
         label.font = .customFont(for: .caption2)
         label.textColor = .theme.tertiary
         
-        let fullText = "53명이 일하고 있어요"
+        let fullText = "00명이 일하고 있어요"
         let attributedString = NSMutableAttributedString(string: fullText)
         let range = (fullText as NSString).range(of: "53")
         attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: range)
@@ -137,10 +139,11 @@ final class WorkationViewController: UIViewController {
     
     private lazy var loginPaneView: LoginView = {
         let login = LoginView(action: UIAction { [weak self] _ in
-            let loginInitViewController = LoginInitViewController()
+            guard let self = self else { return }
+            let loginInitViewController = LoginInitViewController(region: self.region)
             let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
             loginNavigation.modalPresentationStyle = .overFullScreen
-            self?.present(loginNavigation, animated: true)
+            self.present(loginNavigation, animated: true)
         }
         )
         login.translatesAutoresizingMaskIntoConstraints = false
@@ -250,10 +253,13 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
+    private let peopleCount: Int
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
         titleView.text = region.rawValue
+        numberOfWorkers.text = "\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
         setupNavigationBar()

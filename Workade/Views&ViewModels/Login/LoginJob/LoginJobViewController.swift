@@ -87,8 +87,8 @@ class LoginJobViewController: UIViewController {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             guard let self = self else { return }
             Task { [weak self] in
-                guard let loginInfo = FirebaseManager.shared.getUser() else { return }
-                let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: self?.viewModel.selectedJob)
+                guard let loginInfo = FirebaseManager.shared.getUser(), let job = self?.viewModel.selectedJob else { return }
+                let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: job)
                 UserManager.shared.user.value = user
                 try await FirestoreDAO.shared.createUser(user: user)
             }

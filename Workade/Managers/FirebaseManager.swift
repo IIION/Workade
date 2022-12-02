@@ -97,7 +97,7 @@ final class FirebaseManager: NSObject {
         return result
     }
     
-    func touchUpGoogleButton(signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void) {
+    func touchUpGoogleButton(signupCompletion: @escaping () -> Void, signinCompletion: @escaping () -> Void, region: Region) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let signInConfig = GIDConfiguration.init(clientID: clientID)
         
@@ -123,7 +123,7 @@ final class FirebaseManager: NSObject {
                                 Task {
                                     guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
                                     UserManager.shared.user.value = userInfo
-                                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: nil, region: .jeJuDo, startDate: .now))
+                                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
                                 }
                                 signinCompletion()
                             }

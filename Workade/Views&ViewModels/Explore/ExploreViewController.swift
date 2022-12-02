@@ -108,7 +108,8 @@ final class ExploreViewController: UIViewController {
                 else { return }
 //                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: Region(rawValue: region.rawValue)!, startDate: .now)) // TODO: RegionModel Region 통일하기  With @Toby @Evan
             }
-            let navigationViewController = UINavigationController(rootViewController: WorkationViewController(region: .jeJuDo))
+            guard let region = self?.viewModel.selectedRegion.value, let count = self?.regionPeopleCounts[region] else { return }
+            let navigationViewController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
             navigationViewController.modalPresentationStyle = .overFullScreen
             self?.present(navigationViewController, animated: true)
         }
@@ -169,11 +170,11 @@ final class ExploreViewController: UIViewController {
         config.imagePadding = 4
         button.configuration = config
         button.addAction(UIAction(handler: { [weak self] _ in
-            
             if UserManager.shared.user.value != nil {
                 self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
             } else {
-                let loginViewController = LoginInitViewController()
+                guard let region = self?.viewModel.selectedRegion.value else { return }
+                let loginViewController = LoginInitViewController(region: region)
                 let loginNavigation = UINavigationController(rootViewController: loginViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
                 self?.present(loginNavigation, animated: true)
