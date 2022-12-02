@@ -9,32 +9,27 @@ import Combine
 import Network
 
 final class NetworkMonitor {
-    // Role - trigger&interface
+    init() {
+        startMonitoring()
+    }
+    
+    // interface 파트
     let becomeSatisfied = PassthroughSubject<Void, Never>()
     
-    private var monitor: NWPathMonitor?
-    private var status = NWPath.Status.satisfied {
+    // 구현 파트
+    private var monitor = NWPathMonitor()
+    private var status = NWPath.Status.unsatisfied {
         didSet {
-            if oldValue == .unsatisfied && status == .satisfied {
+            if status == .satisfied {
                 becomeSatisfied.send()
             }
         }
     }
     
-    init() {
-        startMonitoring()
-    }
-    
     private func startMonitoring() {
-        monitor = NWPathMonitor()
-        monitor?.start(queue: DispatchQueue.global(qos: .background))
-        monitor?.pathUpdateHandler = { [weak self] path in
+        monitor.start(queue: DispatchQueue.global(qos: .background))
+        monitor.pathUpdateHandler = { [weak self] path in
             self?.status = path.status
         }
-    }
-    
-    private func stopMonitoring() {
-        monitor?.cancel()
-        monitor = nil
     }
 }

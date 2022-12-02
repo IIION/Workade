@@ -12,8 +12,8 @@ import Combine
 final class GuideHomeViewModel {
     typealias Size = NSCollectionLayoutSize
     private var bookmarkManager = BookmarkManager.shared
-    private var networkMonitor = NetworkMonitor()
-    private var anycancellables = Set<AnyCancellable>()
+    private var networkMonitor: NetworkMonitor? = NetworkMonitor()
+    private var anyCancellable: AnyCancellable?
     
     private(set) var officeResource = OfficeResource()
     private(set) var magazineResource = MagazineResource()
@@ -28,12 +28,11 @@ final class GuideHomeViewModel {
     }
     
     private func bindMonitor() {
-        networkMonitor.becomeSatisfied
+        anyCancellable = networkMonitor?.becomeSatisfied
             .sink { [weak self] _ in
-                print("트리거왔다.")
                 self?.isCompleteFetch.value = true
+                self?.networkMonitor = nil
             }
-            .store(in: &anycancellables)
     }
     
     private func requestHomeData() {
