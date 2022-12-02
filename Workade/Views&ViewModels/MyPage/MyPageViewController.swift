@@ -37,7 +37,6 @@ final class MyPageViewController: UIViewController {
         editProfileButtonTapped()
         setupNavigationBar()
         setupLayout()
-        setData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,8 +54,9 @@ final class MyPageViewController: UIViewController {
     }
     
     func setData() {
-        profileView.nameLabel.text = UserManager.shared.user.value?.name
-        profileView.jobLabel.text = UserManager.shared.user.value?.job.rawValue
+        guard let user = UserManager.shared.user.value else { return }
+        profileView.nameLabel.text = user.name
+        profileView.jobLabel.text = user.job.rawValue
     }
 }
 

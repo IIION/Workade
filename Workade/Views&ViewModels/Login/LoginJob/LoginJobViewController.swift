@@ -89,7 +89,6 @@ class LoginJobViewController: UIViewController {
             Task { [weak self] in
                 guard let loginInfo = FirebaseManager.shared.getUser(), let job = self?.viewModel.selectedJob else { return }
                 let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: job)
-                UserManager.shared.user.value = user
                 try await FirestoreDAO.shared.createUser(user: user)
                 
                 guard let region = self?.region else { return }

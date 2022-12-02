@@ -128,12 +128,10 @@ final class FirebaseManager: NSObject {
                 
                 if let user = result?.user {
                     Task {
-                        if try await FirestoreDAO.shared.getUser(userID: user.uid) != nil {
+                        if let user = Auth.auth().currentUser {
                             DispatchQueue.main.async {
                                 Task {
-                                    guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
-                                    UserManager.shared.user.value = userInfo
-                                    guard let region = region else { return }
+                                    guard let region = region, let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
                                     try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
                                 }
                                 signinCompletion()
@@ -193,8 +191,6 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
                             DispatchQueue.main.async { [weak self] in
                                 Task {
                                     guard let userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) else { return }
-                                    UserManager.shared.user.value = userInfo
-                                    
                                     guard let region = self?.region else { return }
                                     try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
                                 }

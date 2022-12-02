@@ -70,7 +70,6 @@ class FirestoreDAO {
     
     func deleteActiveUser(userID: String, region: Region) async throws {
         try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
-        UserManager.shared.user.value = nil
         UserManager.shared.activeRegion = nil
         UserManager.shared.isActive = false
     }

@@ -173,15 +173,14 @@ final class ExploreViewController: UIViewController {
         config.imagePadding = 4
         button.configuration = config
         button.addAction(UIAction(handler: { [weak self] _ in
-            if UserManager.shared.user.value != nil {
+            if Auth.auth().currentUser != nil {
                 self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
             } else {
-                let loginViewController = LoginInitViewController(region: self?.viewModel.selectedRegion.value)
+                let loginViewController = LoginInitViewController(region: nil)
                 let loginNavigation = UINavigationController(rootViewController: loginViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
                 self?.present(loginNavigation, animated: true)
             }
-            
         }), for: .touchUpInside)
         
         return button

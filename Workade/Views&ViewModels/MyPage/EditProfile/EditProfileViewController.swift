@@ -193,7 +193,6 @@ final class EditProfileViewController: UIViewController {
             }
             guard let job = Job(rawValue: self.pickerLabel.text ?? "") else { return }
             let user = User(id: loginInfo.uid, name: self.nameTextField.text, email: loginInfo.email, job: job)
-            UserManager.shared.user.value = user
             try await FirestoreDAO.shared.createUser(user: user)
             
             navigationController?.popViewController(animated: true)
