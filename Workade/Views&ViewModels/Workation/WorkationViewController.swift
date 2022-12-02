@@ -295,7 +295,7 @@ final class WorkationViewController: UIViewController {
         label.textColor = .theme.primary
         label.text = "스티커"
         
-        let progressView = StickerProgressView()
+        let progressView = StickerProgressView(stickers: canGetStickers)
         
         let stackView = UIStackView(arrangedSubviews: [label, progressView])
         stackView.axis = .vertical
@@ -492,7 +492,15 @@ extension WorkationViewController {
         if storedStep < step {
             let getStickers = [StickerTitle](canGetStickers[storedStep..<step])
             let stickers = getStickers.map { StickerModel(date: Date(), title: $0, region: self.region) }
-            self.present(StickerSheetViewController(stickers: stickers), animated: true)
+            let stickerShetViewController = StickerSheetViewController(stickers: stickers)
+            self.present(stickerShetViewController, animated: true)
+            let dimView = UIView(frame: UIScreen.main.bounds)
+            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+            view.addSubview(dimView)
+            view.bringSubviewToFront(dimView)
+            stickerShetViewController.viewDidDismiss = {
+                dimView.removeFromSuperview()
+            }
         }
     }
 }
