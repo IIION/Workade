@@ -253,7 +253,7 @@ final class WorkationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        titleView.text = region.rawValue
+        titleView.text = region.name
         
         setupLayout()
         setupNavigationBar()
