@@ -26,7 +26,7 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
         
         guard let exploreViewController = (transition == .presentation ? fromViewController : toViewController)?.children.last as? ExploreViewController,
               let workationViewController = (transition == .dismissal ? fromViewController : toViewController)?.children.last as? WorkationViewController,
-            let navigationViewController = (transition == .dismissal ? fromViewController : toViewController) as? UINavigationController
+              let navigationViewController = (transition == .dismissal ? fromViewController : toViewController) as? UINavigationController
         else {
             transitionContext.completeTransition(true)
             return
