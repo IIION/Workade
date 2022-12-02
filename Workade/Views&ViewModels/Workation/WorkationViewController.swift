@@ -142,10 +142,10 @@ final class WorkationViewController: UIViewController {
             
             alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
                 if Auth.auth().currentUser == nil {
-                let loginInitViewController = LoginInitViewController(region: self.region)
+                let loginInitViewController = LoginInitViewController(region: self?.region)
                 let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
-                self.present(loginNavigation, animated: true)
+                self?.present(loginNavigation, animated: true)
             } else {
                 Task { [weak self] in
                     guard let self = self,
@@ -156,13 +156,13 @@ final class WorkationViewController: UIViewController {
                     try await UserManager.shared.reloadActiveUser(region: self.region)
                 }
                 
-                self.loginPaneView.isHidden = true
-                self.bottomPaneView.isHidden = false
+                self?.loginPaneView.isHidden = true
+                self?.bottomPaneView.isHidden = false
             }
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
-            self?.present(alert, animated: true)
+            self.present(alert, animated: true)
         }
         )
         login.translatesAutoresizingMaskIntoConstraints = false
