@@ -96,6 +96,16 @@ final class SettingViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        setData()
+    }
+    
+    func setData() {
+        loginInformationView.eMailLabel.text = UserManager.shared.user.value?.email ?? ""
+        
+        loginInformationView.logOutButton.addAction(UIAction(handler: { [weak self] _ in
+            FirebaseManager.shared.signout()
+            self?.navigationController?.popToRootViewController(animated: true)
+        }), for: .touchUpInside)
     }
 }
 

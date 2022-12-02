@@ -5,13 +5,17 @@
 //  Created by Wonhyuk Choi on 2022/11/17.
 //
 
+import Combine
 import CoreLocation
 import Foundation
 
 final class WorkationViewModel: NSObject, CLLocationManagerDelegate {
     
-    var locationManager: CLLocationManager!
-    let address = CLGeocoder.init()
+    @Published var subLocality: String?
+    @Published var throughfare: String?
+
+    private var locationManager: CLLocationManager!
+    private let address = CLGeocoder.init()
     
     override init() {
         super.init()
@@ -28,15 +32,8 @@ final class WorkationViewModel: NSObject, CLLocationManagerDelegate {
         address.reverseGeocodeLocation(CLLocation.init(latitude: coor.latitude, longitude: coor.longitude)) { (places, error) in
             if error == nil {
                 guard let place = places else { return }
-                print("description : \(place[0].description)")
-                print("country : \(place[0].country ?? "")")
-                print("administrativeArea : \(place[0].administrativeArea ?? "")")
-                print("locality : \(place[0].locality ?? "")")
-                print("subLocality : \(place[0].subLocality ?? "")")
-                print("thoroughfare : \(place[0].thoroughfare ?? "")")
-                print("subThoroughfare : \(place[0].subThoroughfare ?? "")")
-                print("name : \(place[0].name ?? "")")
-                print("postalCode : \(place[0].postalCode ?? "" )")
+                self.subLocality = place[0].subLocality
+                self.throughfare = place[0].thoroughfare
             }
         }
     }

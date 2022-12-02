@@ -5,10 +5,15 @@
 //  Created by Wonhyuk Choi on 2022/11/21.
 //
 
+import Combine
 import UIKit
 
 class WorkerStatusSheetViewController: UIViewController {
+    private let peopleCount: Int
+    private let region: Region
     var viewDidDissmiss: (() -> Void)?
+    
+    private lazy var  workerStatusSheetViewModel = WorkerStatusSheetViewModel(region: region)
     
     private lazy var backgroundView = UIView(frame: view.frame)
     
@@ -63,45 +68,65 @@ class WorkerStatusSheetViewController: UIViewController {
         return label
     }()
     
-    private func jobLabel(job: String, number: Int, isMyJob: Bool) -> UILabel {
+    private func jobLabel(job: Job, number: Int, isMyJob: Bool) -> UILabel {
         let label = UILabel()
         label.font = .customFont(for: .footnote)
         label.textColor = isMyJob ? .theme.workadeBlue : .theme.secondary
-        let fullText = "\(job) \(number)명"
-        let attributedString = NSMutableAttributedString(string: fullText)
-        let range = (fullText as NSString).range(of: "\(number)명")
-        attributedString.addAttribute(.font, value: UIFont.customFont(for: .footnote2), range: range)
-        label.attributedText = attributedString
+        
+        if let count = UserManager.shared.activeUsers[region]?[job]?.count {
+            let fullText = "\(job.rawValue) \(count)명"
+            let attributedString = NSMutableAttributedString(string: fullText)
+            let range = (fullText as NSString).range(of: "\(count)명")
+            attributedString.addAttribute(.font, value: UIFont.customFont(for: .footnote2), range: range)
+            label.attributedText = attributedString
+        }
         
         return label
     }
     
     private lazy var numberOfWorkersStack: UIStackView = {
         let firstStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: "디자이너", number: 4, isMyJob: true),
-            jobLabel(job: "개발자", number: 20, isMyJob: false)
+            jobLabel(job: Job.designer, number: 0, isMyJob: true),
+            jobLabel(job: Job.developer, number: 0, isMyJob: false)
         ])
+        
         firstStack.axis = .horizontal
         firstStack.distribution = .fillEqually
         firstStack.spacing = 30
         
         let secondStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: "작가", number: 7, isMyJob: false),
-            jobLabel(job: "기획", number: 7, isMyJob: false)
+            jobLabel(job: Job.writer, number: 0, isMyJob: false),
+            jobLabel(job: Job.PM, number: 0, isMyJob: false)
         ])
         secondStack.axis = .horizontal
         secondStack.distribution = .fillEqually
         secondStack.spacing = 30
         
         let thirdStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: "컨텐츠 제작", number: 7, isMyJob: false),
-            UIView()
+            jobLabel(job: Job.creater, number: 0, isMyJob: false),
+            jobLabel(job: Job.marketer, number: 0, isMyJob: false)
         ])
         thirdStack.axis = .horizontal
         thirdStack.distribution = .fillEqually
-        secondStack.spacing = 30
+        thirdStack.spacing = 30
         
-        let stackView = UIStackView(arrangedSubviews: [firstStack, secondStack, thirdStack])
+        let fourthStack = UIStackView(arrangedSubviews: [
+            jobLabel(job: Job.artist, number: 0, isMyJob: false),
+            jobLabel(job: Job.freelancer, number: 0, isMyJob: false)
+        ])
+        fourthStack.axis = .horizontal
+        fourthStack.distribution = .fillEqually
+        fourthStack.spacing = 30
+        
+        let fifthStack = UIStackView(arrangedSubviews: [
+            jobLabel(job: Job.etc, number: 0, isMyJob: false),
+            UIView()
+        ])
+        fifthStack.axis = .horizontal
+        fifthStack.distribution = .fillEqually
+        fourthStack.spacing = 30
+        
+        let stackView = UIStackView(arrangedSubviews: [firstStack, secondStack, thirdStack, fourthStack, fifthStack])
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -120,8 +145,19 @@ class WorkerStatusSheetViewController: UIViewController {
         let backgroundViewTap = UITapGestureRecognizer(target: self, action: #selector(backgroundViewTapped(_:)))
         backgroundView.addGestureRecognizer(backgroundViewTap)
         backgroundView.isUserInteractionEnabled = true
+        wholeWorkerLabel.text = "\(region.name)에\n\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
+    }
+    
+    init(peopleCount: Int, region: Region) {
+        self.peopleCount = peopleCount
+        self.region = region
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -134,7 +170,7 @@ extension WorkerStatusSheetViewController {
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            containerView.heightAnchor.constraint(equalToConstant: 300)
+            containerView.heightAnchor.constraint(equalToConstant: 400)
         ])
         
         containerView.addSubview(dismissButton)
@@ -160,8 +196,8 @@ extension WorkerStatusSheetViewController {
         containerView.addSubview(numberOfWorkersStack)
         NSLayoutConstraint.activate([
             numberOfWorkersStack.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 30),
-            numberOfWorkersStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 50),
-            numberOfWorkersStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -50),
+            numberOfWorkersStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
+            numberOfWorkersStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
             numberOfWorkersStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -40)
         ])
     }

@@ -5,6 +5,8 @@
 //  Created by Wonhyuk Choi on 2022/11/17.
 //
 
+import FirebaseAuth
+import Combine
 import UIKit
 
 final class WorkationViewController: UIViewController {
@@ -12,25 +14,37 @@ final class WorkationViewController: UIViewController {
     
     var dismissAction: (() -> Void)?
     
-    private let titleView = TitleLabel(title: "제주도")
+    var cancellable = Set<AnyCancellable>()
     
-    private lazy var closeButton = UIBarButtonItem(
+    private var titleView = TitleLabel(title: "")
+    private var region: Region
+    
+    private lazy var navButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            self?.dismissAction?()
-            self?.dismiss(animated: true)
+            if UserManager.shared.user.value == nil {
+                self?.dismissAction?()
+                self?.dismiss(animated: true)
+            } else {
+                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
+            }
         })
     )
     
-    private lazy var guideButton = UIBarButtonItem(
-        image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
-        primaryAction: UIAction(handler: { _ in
-        })
-    )
+    init(region: Region, peopleCount: Int) {
+        self.peopleCount = peopleCount
+        self.region = region
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Top Pane's Contents
     
-    private let topPaneView: UIView = {
+    let topPaneView: UIView = {
         let view = UIView()
         view.backgroundColor = .theme.background
         view.layer.cornerRadius = 30
@@ -66,18 +80,19 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.workadeBlue
         button.layer.cornerRadius = 20
         button.addAction(UIAction(handler: { [weak self] _ in
-            let workStatusSheetViewController = WorkerStatusSheetViewController()
+            guard let self = self else { return }
+            let workStatusSheetViewController = WorkerStatusSheetViewController(peopleCount: self.peopleCount, region: self.region)
             workStatusSheetViewController.modalPresentationStyle = .overFullScreen
             
             let dimView = UIView(frame: UIScreen.main.bounds)
             dimView.backgroundColor = .theme.primary.withAlphaComponent(0.7)
-            self?.view.addSubview(dimView)
-            self?.view.bringSubviewToFront(dimView)
+            self.view.addSubview(dimView)
+            self.view.bringSubviewToFront(dimView)
             workStatusSheetViewController.viewDidDissmiss = {
                 dimView.removeFromSuperview()
             }
             
-            self?.present(workStatusSheetViewController, animated: true)
+            self.present(workStatusSheetViewController, animated: true)
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -89,7 +104,7 @@ final class WorkationViewController: UIViewController {
         label.font = .customFont(for: .caption2)
         label.textColor = .theme.tertiary
         
-        let fullText = "53명이 일하고 있어요"
+        let fullText = "00명이 일하고 있어요"
         let attributedString = NSMutableAttributedString(string: fullText)
         let range = (fullText as NSString).range(of: "53")
         attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: range)
@@ -120,6 +135,41 @@ final class WorkationViewController: UIViewController {
         return label
     }()
     
+    private lazy var loginPaneView: LoginView = {
+        let login = LoginView(action: UIAction { [weak self] _ in
+            guard let self = self else { return }
+            let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
+                if Auth.auth().currentUser == nil {
+                    let loginInitViewController = LoginInitViewController(region: self?.region)
+                    let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
+                    loginNavigation.modalPresentationStyle = .overFullScreen
+                    self?.present(loginNavigation, animated: true)
+                } else {
+                    Task { [weak self] in
+                        guard let self = self,
+                              let uid = Auth.auth().currentUser?.uid,
+                              let user = try await FirestoreDAO.shared.getUser(userID: uid)
+                        else { return }
+                        try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
+                        try await UserManager.shared.reloadActiveUser(region: self.region)
+                    }
+                    
+                    self?.loginPaneView.isHidden = true
+                    self?.bottomPaneView.isHidden = false
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            self.present(alert, animated: true)
+        }
+        )
+        login.translatesAutoresizingMaskIntoConstraints = false
+        
+        return login
+    }()
+    
     private lazy var endButton: UIButton = {
         let button = UIButton(type: .custom)
         var config = UIButton.Configuration.plain()
@@ -137,18 +187,22 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.primary
         button.layer.cornerRadius = 15
         button.addAction(UIAction(handler: { [weak self] _ in
-            let stickerShetViewController = StickerSheetViewController()
-            stickerShetViewController.modalPresentationStyle = .overFullScreen
+            let alert = UIAlertController(title: nil, message: "정말로 워케이션을 종료하시겠어요?", preferredStyle: .actionSheet)
             
-            let dimView = UIView(frame: UIScreen.main.bounds)
-            dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
-            self?.view.addSubview(dimView)
-            self?.view.bringSubviewToFront(dimView)
-            stickerShetViewController.viewDidDismiss = {
-                dimView.removeFromSuperview()
-            }
+            alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
+                Task { [weak self] in
+                    guard let self = self, let user = UserManager.shared.user.value else { return }
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
+                }
+
+                UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
+                    self?.loginPaneView.isHidden = false
+                    self?.bottomPaneView.isHidden = true
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
-            self?.present( stickerShetViewController, animated: true)
+            self?.present(alert, animated: true)
         }), for: .touchUpInside)
         
         return button
@@ -163,16 +217,16 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
-    private func reusableStack(title: String, content: String) -> UIStackView {
+    private lazy var periodStack: UIStackView = {
         let titleLabel = UILabel()
         titleLabel.font = .customFont(for: .footnote)
         titleLabel.textColor = .theme.tertiary
-        titleLabel.text = title
+        titleLabel.text = "워케이션을 시작한 지"
         
         let contentLabel = UILabel()
         contentLabel.font = .customFont(for: .subHeadline)
         contentLabel.textColor = .theme.primary
-        contentLabel.text = content
+        contentLabel.text = "33일째"
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel])
         stackView.axis = .vertical
@@ -180,13 +234,38 @@ final class WorkationViewController: UIViewController {
         stackView.alignment = .leading
         
         return stackView
-    }
+    }()
+    
+    private let myLocationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .customFont(for: .subHeadline)
+        label.textColor = .theme.primary
+        label.text = ""
+        label.numberOfLines = 2
+        
+        return label
+    }()
+    
+    private lazy var locationStack: UIStackView = {
+        let titleLabel = UILabel()
+        titleLabel.font = .customFont(for: .footnote)
+        titleLabel.textColor = .theme.tertiary
+        titleLabel.text = "내 위치"
+        
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, myLocationLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        stackView.alignment = .leading
+        
+        return stackView
+    }()
     
     private lazy var bottomMiddleStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            reusableStack(title: "워케이션을 시작한 지", content: "33일째"),
-            reusableStack(title: "내 위치", content: "조천읍 조천2길")
+            periodStack,
+            locationStack
         ])
+        stackView.alignment = .top
         stackView.axis = .horizontal
         stackView.spacing = 16
         stackView.distribution = .fillEqually
@@ -217,18 +296,39 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
+    private let peopleCount: Int
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .theme.primary
+        view.backgroundColor = .clear
+        titleView.text = region.rawValue
+        numberOfWorkers.text = "\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
         setupNavigationBar()
+        bind()
+    }
+    
+    private func showSticker() {
+        let stickerShetViewController = StickerSheetViewController()
+        stickerShetViewController.modalPresentationStyle = .overFullScreen
+        
+        let dimView = UIView(frame: UIScreen.main.bounds)
+        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+        view.addSubview(dimView)
+        view.bringSubviewToFront(dimView)
+        stickerShetViewController.viewDidDismiss = {
+            dimView.removeFromSuperview()
+        }
+        
+        present( stickerShetViewController, animated: true)
     }
 }
 
 private extension WorkationViewController {
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItems = [closeButton, guideButton]
+        navigationItem.rightBarButtonItems = [navButton]
+        navigationItem.title = ""
     }
     
     private func setupLayout() {
@@ -236,12 +336,21 @@ private extension WorkationViewController {
         
         view.addSubview(bottomPaneView)
         NSLayoutConstraint.activate([
-            bottomPaneView.heightAnchor.constraint(equalToConstant: 300),
+            bottomPaneView.heightAnchor.constraint(equalToConstant: 320),
             bottomPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        bottomPaneView.isHidden = true
         
+        view.addSubview(loginPaneView)
+        NSLayoutConstraint.activate([
+            loginPaneView.heightAnchor.constraint(equalToConstant: 320),
+            loginPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loginPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loginPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
         view.addSubview(topPaneView)
         NSLayoutConstraint.activate([
             topPaneView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -298,5 +407,32 @@ private extension WorkationViewController {
             bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
+    }
+}
+
+extension WorkationViewController {
+    private func bind() {
+        UserManager.shared.user
+            .sink { [weak self] user in
+                DispatchQueue.main.async { [weak self] in
+                    self?.loginPaneView.isHidden = (user != nil)
+                    self?.navButton.image = (user != nil) ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image
+                    self?.bottomPaneView.isHidden = !(user != nil)
+                }
+            }
+            .store(in: &cancellable)
+        
+        workationViewModel.$subLocality
+            .combineLatest(workationViewModel.$throughfare)
+            .sink { [weak self] value1, value2 in
+                let subLocality = value1 ?? ""
+                let throughfare = value2 ?? ""
+                if value1 != value2 {
+                    self?.myLocationLabel.text = "\(subLocality) \(throughfare)"
+                } else {
+                    self?.myLocationLabel.text = "\(subLocality)"
+                }
+            }
+            .store(in: &cancellable)
     }
 }

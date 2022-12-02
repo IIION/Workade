@@ -10,15 +10,18 @@ import SafariServices
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
+    private let transitionManager = ExploreTransitionManager()
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     private var buttonConstraints: [RegionButton: [NSLayoutConstraint]] = [:]
     private let sectionPadding: CGFloat = 4
-    private let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
+    let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
     
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
         return UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
     }()
+    
+    private lazy var regionPeopleCounts = [Region: Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,17 @@ final class ExploreViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon")?.withRenderingMode(.alwaysOriginal), primaryAction: nil)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), UIBarButtonItem(customView: openChatButton)]
         setupLayout()
+        
+        for region in Region.allCases {
+            Task { [weak self] in
+                self?.regionPeopleCounts[region] = try await FirestoreDAO.shared.getActiveUsersNumber(region: region)
+            }
+        }
+        
+        for button in regionButtons {
+            guard let count = regionPeopleCounts[button.region] else { continue }
+            button.peopleCount = count
+        }
         
         viewModel.selectedRegion.bind { [weak self] region in
             guard let self = self else { return }
@@ -45,6 +59,15 @@ final class ExploreViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.regionButtons.forEach { button in
+            Task { @MainActor [weak self] in
+                button.peopleCount = await self?.viewModel.getUserCount(region: button.region) ?? 0
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupButtonLayout()
@@ -53,7 +76,7 @@ final class ExploreViewController: UIViewController {
     private lazy var regionButtons: [RegionButton] = {
         var regionButtons: [RegionButton] = []
         
-        for region in RegionModel.allCases {
+        for region in Region.allCases {
             let newButton = RegionButton(region: region, selectedRegion: viewModel.selectedRegion, peopleCount: 0)
             newButton.translatesAutoresizingMaskIntoConstraints = false
             
@@ -76,8 +99,15 @@ final class ExploreViewController: UIViewController {
         return view
     }()
     
-    private lazy var regionInfoView: RegionInfoView = {
-        let view = RegionInfoView(frame: .zero, selectedRegion: viewModel.selectedRegion)
+    lazy var regionInfoView: RegionInfoView = {
+        let view = RegionInfoView(frame: .zero, peopleCount: 0,
+                                  selectedRegion: viewModel.selectedRegion) { [weak self] in
+            guard let region = self?.viewModel.selectedRegion.value, let count = self?.regionPeopleCounts[region] else { return }
+            let navigationController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
+            navigationController.transitioningDelegate = self?.transitionManager
+            navigationController.modalPresentationStyle = .custom
+            self?.present(navigationController, animated: true)
+        }
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -135,7 +165,15 @@ final class ExploreViewController: UIViewController {
         config.imagePadding = 4
         button.configuration = config
         button.addAction(UIAction(handler: { [weak self] _ in
-            self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            if UserManager.shared.user.value != nil {
+                self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
+            } else {
+                let loginViewController = LoginInitViewController(region: self?.viewModel.selectedRegion.value)
+                let loginNavigation = UINavigationController(rootViewController: loginViewController)
+                loginNavigation.modalPresentationStyle = .overFullScreen
+                self?.present(loginNavigation, animated: true)
+            }
+            
         }), for: .touchUpInside)
         
         return button
@@ -234,7 +272,6 @@ final class ExploreViewController: UIViewController {
             buttonConstraints[regionButton]?.forEach({ constraint in
                 self.view.removeConstraint(constraint)
             })
-            print(mapImageView.frame.height)
             let constantX = regionButton.region.relativePos.x * mapImageView.frame.width / 100
             let constantY = regionButton.region.relativePos.y * mapImageView.frame.height / 100
             let constraintX = regionButton.leadingAnchor.constraint(equalTo: mapImageView.leadingAnchor, constant: constantX)
@@ -244,16 +281,18 @@ final class ExploreViewController: UIViewController {
         }
     }
     
-    private func changeLayout(by region: RegionModel?) {
+    private func changeLayout(by region: Region?) {
         let isRegionNil = region == nil
         
         regionInfoViewBottomConstraint?.constant = isRegionNil ? regionInfoViewHeight + sectionPadding : 0
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
-        regionInfoView.subTitleLabel.text = region?.rawValue ?? ""
+        regionInfoView.subTitleLabel.text = region?.romaName ?? ""
+        regionInfoView.warningView.isHidden = (region?.isCanWorkation ?? true) == true
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {
+            regionInfoView.peopleCount = regionPeopleCounts[region] ?? 0
             UIView.transition(with: mainContainerView,
                               duration: 0.25,
                               options: .transitionCrossDissolve,

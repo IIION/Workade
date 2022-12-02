@@ -174,7 +174,7 @@ class CellItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageContainer.topAnchor.constraint(equalTo: contentsContainer.topAnchor),
             imageContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageContainer.heightAnchor.constraint(equalToConstant: .topSafeArea + 375),
+            imageContainer.heightAnchor.constraint(equalToConstant: 375),
             imageContainer.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
         
@@ -236,9 +236,9 @@ extension CellItemDetailViewController: UIScrollViewDelegate {
         if currentScrollYOffset > defaultScrollYOffset {
             setupCustomNavigationRightItem()
             titleImageView.setupBookmarkImage()
-            customNavigationBar.view.alpha = currentScrollYOffset / (.topSafeArea + 259)
-            titleImageView.alpha = 1 - (currentScrollYOffset / (.topSafeArea + 259))
-            closeButton.alpha = 1 - (currentScrollYOffset / (.topSafeArea + 259))
+            customNavigationBar.view.alpha = currentScrollYOffset / (375 - customNavigationBar.view.bounds.height)
+            titleImageView.alpha = 1 - (currentScrollYOffset / (375 - customNavigationBar.view.bounds.height))
+            closeButton.alpha = 1 - (currentScrollYOffset / (375 - customNavigationBar.view.bounds.height))
         } else {
             customNavigationBar.view.alpha = 0
             titleImageView.alpha = 1

@@ -9,7 +9,6 @@ import UIKit
 
 final class EditProfileViewController: UIViewController {
     private var pickerCheck = false
-    private let pickerList = ["개발", "디자인", "기획", "마케팅", "콘텐츠 제작", "작가(글,웹툰)", "예술가", "프리랜서", "기타"]
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -22,11 +21,6 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        // TODO: Placeholder를 현재 사용자의 이름으로 설정
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "이름 입력하기",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
-        )
         textField.font = .customFont(for: .footnote2)
         textField.textColor = .theme.tertiary
         textField.backgroundColor = .theme.groupedBackground
@@ -71,13 +65,12 @@ final class EditProfileViewController: UIViewController {
     
     private lazy var pickerTableView: UITableView = {
         let pickerTableView = UITableView()
-        pickerTableView.backgroundColor = .theme.background
+        pickerTableView.backgroundColor = .theme.groupedBackground
         pickerTableView.separatorStyle = .none
         pickerTableView.showsVerticalScrollIndicator = false
         
         pickerTableView.layer.cornerRadius = 15
-        pickerTableView.layer.borderWidth = 0.2
-        pickerTableView.layer.borderColor = UIColor.theme.tertiary.cgColor
+        pickerTableView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
         pickerTableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -86,8 +79,6 @@ final class EditProfileViewController: UIViewController {
     
     private let pickerLabel: UILabel = {
         let pickerLabel = UILabel()
-        // TODO: 현재 사용자의 직업으로 설정
-        pickerLabel.text = "선택하기"
         pickerLabel.font = .customFont(for: .footnote2)
         pickerLabel.textColor = .theme.tertiary
         pickerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -102,9 +93,8 @@ final class EditProfileViewController: UIViewController {
         button.setTitleColor(.theme.background, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .customFont(for: .subHeadline)
-        button.addAction(UIAction(handler: { _ in
-            // TODO: UserInfo와 연결하여 유저정보 업데이트
-            print("설정된 이름 : \(self.nameTextField.text ?? "")\n설정된 직업: \(self.pickerLabel.text ?? "")")
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.updateUser()
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -121,6 +111,8 @@ final class EditProfileViewController: UIViewController {
         
         setupNavigationBar()
         setupLayout()
+        
+        setData()
     }
     
     private func setupLayout() {
@@ -176,14 +168,37 @@ final class EditProfileViewController: UIViewController {
     // 화면 터치시 Keyboard 내리기 & picker 접기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let frames = self.jobPickerButton.frame
-         self.view.endEditing(true)
+        self.view.endEditing(true)
         
         if pickerCheck {
             pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
         }
         pickerCheck = false
         presentPickerAnimation(frames: frames, height: 0)
-   }
+    }
+    
+    func setData() {
+        pickerLabel.text = UserManager.shared.user.value?.job.rawValue
+        nameTextField.attributedPlaceholder = NSAttributedString(
+            string: UserManager.shared.user.value?.name ?? "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
+        )
+    }
+    
+    func updateUser() {
+        Task {
+            guard let loginInfo = FirebaseManager.shared.getUser() else { return }
+            if self.nameTextField.text == "" {
+                self.nameTextField.text = UserManager.shared.user.value?.name
+            }
+            guard let job = Job(rawValue: self.pickerLabel.text ?? "") else { return }
+            let user = User(id: loginInfo.uid, name: self.nameTextField.text, email: loginInfo.email, job: job)
+            UserManager.shared.user.value = user
+            try await FirestoreDAO.shared.createUser(user: user)
+            
+            navigationController?.popViewController(animated: true)
+        }
+    }
 }
 
 private extension EditProfileViewController {
@@ -216,6 +231,7 @@ private extension EditProfileViewController {
         if pickerCheck {
             presentPickerAnimation(frames: frames, height: 300)
             pickerImage.transform = pickerImage.transform.rotated(by: .pi)
+            jobPickerButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         } else {
             presentPickerAnimation(frames: frames, height: 0)
             pickerImage.transform = pickerImage.transform.rotated(by: -.pi)
@@ -224,12 +240,18 @@ private extension EditProfileViewController {
     
     // tableView를 애니메이션을 통해 Picker처럼 표현
     private func presentPickerAnimation(frames: CGRect, height: CGFloat) {
-        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut) { [weak self]  in
+        //        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self]  in
+        UIView.animate(withDuration: 0.3) { [weak self]  in
             guard let self = self else { return }
             self.pickerTableView.frame = CGRect(x: frames.origin.x,
                                                 y: frames.origin.y + frames.height,
                                                 width: frames.width,
                                                 height: height)
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
+            if !self.pickerCheck {
+                self.jobPickerButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            }
         }
     }
 }
@@ -241,9 +263,7 @@ extension EditProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let frames = self.jobPickerButton.frame
-        
-        pickerLabel.text = pickerList[indexPath.row]
+        pickerLabel.text = Job.allCases[indexPath.row].rawValue
         presentPickerView()
     }
 }
@@ -252,13 +272,13 @@ extension EditProfileViewController: UITableViewDelegate {
 extension EditProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.pickerList.count
+        return Job.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PickerTableViewCell.cellId, for: indexPath) as? PickerTableViewCell
         guard let cell = cell else { return UITableViewCell() }
-        cell.pickerLabel.text = pickerList[indexPath.row]
+        cell.pickerLabel.text = Job.allCases[indexPath.row].rawValue
         
         return cell
     }
