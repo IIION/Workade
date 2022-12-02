@@ -141,14 +141,6 @@ final class FirebaseManager: NSObject {
     func getUser() -> Firebase.User? {
         return Auth.auth().currentUser
     }
-    
-    func logOut() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print("already logged out")
-        }
-    }
 }
 
 // MARK: - ASAuthorizationControllerDelegate
