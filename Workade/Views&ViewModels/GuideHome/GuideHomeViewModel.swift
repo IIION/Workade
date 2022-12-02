@@ -31,7 +31,6 @@ final class GuideHomeViewModel {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.requestHomeData()
-                self.isCompleteFetch.value = true
                 self.networkMonitor = nil
             }
     }
