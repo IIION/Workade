@@ -57,6 +57,8 @@ final class MyPageViewController: UIViewController {
         guard let user = UserManager.shared.user.value else { return }
         profileView.nameLabel.text = user.name
         profileView.jobLabel.text = user.job.rawValue
+        
+        // TODO: Combine이던, Binder던 콜렉션뷰 reload해야할것 같음
     }
 }
 
