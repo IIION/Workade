@@ -11,24 +11,22 @@ import UIKit
 final class StickerProgressView: UIView {
     var cancellable = Set<AnyCancellable>()
     
-    private lazy var progressStack: UIStackView = {
+    private let workationProgressView: UIProgressView = {
         let progressView = UIProgressView()
         let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
         var day = Float(offsetDate/86400)
-        
-        NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
-            .sink { _ in
-                let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
-                day = Float(offsetDate/86400)
-            }
-            .store(in: &cancellable)
         
         progressView.progress = day > 0 ? day/35 : 0
         progressView.backgroundColor = .theme.groupedBackground
         progressView.tintColor = .theme.workadeBlue
         progressView.transform = progressView.transform.scaledBy(x: 1, y: 0.1)
         
-        let stackView = UIStackView(arrangedSubviews: [UIView(), progressView])
+        return progressView
+    }()
+    
+    
+    private lazy var progressStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [UIView(), workationProgressView])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,7 +91,8 @@ final class StickerProgressView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.setupLayout()
+        setupLayout()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -118,6 +117,18 @@ final class StickerProgressView: UIView {
             lockStack.topAnchor.constraint(equalTo: guide.topAnchor),
             lockStack.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
         ])
+    }
+    
+    private func bind() {
+        NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
+            .sink { [weak self] _ in
+                DispatchQueue.main.async {
+                    let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
+                    let day = Float(offsetDate/86400)
+                    self?.workationProgressView.progress = day > 0 ? day/35 : 0
+                }
+            }
+            .store(in: &cancellable)
     }
 }
 
