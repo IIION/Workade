@@ -104,7 +104,6 @@ final class SettingViewController: UIViewController {
         
         loginInformationView.logOutButton.addAction(UIAction(handler: { [weak self] _ in
             FirebaseManager.shared.signout()
-            UserManager.shared.user.value = nil // TODO: UserManager에서 Firebase signOut 관리하기
             self?.navigationController?.popToRootViewController(animated: true)
         }), for: .touchUpInside)
     }

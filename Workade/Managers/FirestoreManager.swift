@@ -64,10 +64,14 @@ class FirestoreDAO {
     func createActiveUser(user: ActiveUser) async throws {
         guard let data = user.asDictionary else { return }
         try await dto.createDocument(collectionName: user.region.rawValue, documentName: user.id, data: data)
+        UserManager.shared.isActive = true
+        UserManager.shared.activeRegion = user.region
     }
     
     func deleteActiveUser(userID: String, region: Region) async throws {
         try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
+        UserManager.shared.user.value = nil
+        UserManager.shared.activeRegion = nil
     }
     
     func getActiveUsersNumber(region: Region) async throws -> Int {
