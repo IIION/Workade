@@ -18,11 +18,22 @@ final class LoginInitViewController: UIViewController {
     }()
     
     private lazy var loginSheetView: LoginSheetView = {
-        let sheet = LoginSheetView()
+        let sheet = LoginSheetView(region: region)
         sheet.translatesAutoresizingMaskIntoConstraints = false
         
         return sheet
     }()
+    
+    private let region: Region?
+    
+    init(region: Region?) {
+        self.region = region
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

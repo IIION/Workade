@@ -11,12 +11,12 @@ struct User: Codable {
     let id: String
     let name: String?
     let email: String?
-    let job: Job?
+    let job: Job
 }
 
 struct ActiveUser: Codable {
     let id: String
-    let job: Job?
+    let job: Job
     let region: Region
     let startDate: Date
 }

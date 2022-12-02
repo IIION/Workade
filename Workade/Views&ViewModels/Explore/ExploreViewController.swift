@@ -102,13 +102,8 @@ final class ExploreViewController: UIViewController {
     lazy var regionInfoView: RegionInfoView = {
         let view = RegionInfoView(frame: .zero, peopleCount: 0,
                                   selectedRegion: viewModel.selectedRegion) { [weak self] in
-            Task { [weak self] in
-                guard let user = UserManager.shared.user.value,
-                      let region = self?.viewModel.selectedRegion.value
-                else { return }
-//                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: Region(rawValue: region.rawValue)!, startDate: .now)) // TODO: RegionModel Region 통일하기  With @Toby @Evan
-            }
-            let navigationController = UINavigationController(rootViewController: WorkationViewController(region: .jeJuDo))
+            guard let region = self?.viewModel.selectedRegion.value, let count = self?.regionPeopleCounts[region] else { return }
+            let navigationController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
             navigationController.transitioningDelegate = self?.transitionManager
             navigationController.modalPresentationStyle = .custom
             self?.present(navigationController, animated: true)
@@ -170,11 +165,10 @@ final class ExploreViewController: UIViewController {
         config.imagePadding = 4
         button.configuration = config
         button.addAction(UIAction(handler: { [weak self] _ in
-            
             if UserManager.shared.user.value != nil {
                 self?.navigationController?.pushViewController(MyPageViewController(), animated: true)
             } else {
-                let loginViewController = LoginInitViewController()
+                let loginViewController = LoginInitViewController(region: self?.viewModel.selectedRegion.value)
                 let loginNavigation = UINavigationController(rootViewController: loginViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
                 self?.present(loginNavigation, animated: true)

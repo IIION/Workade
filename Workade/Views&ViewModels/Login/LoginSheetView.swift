@@ -61,7 +61,10 @@ class LoginSheetView: UIView {
         return loginButton
     }()
     
-    init() {
+    private let region: Region?
+    
+    init(region: Region?) {
+        self.region = region
         super.init(frame: .zero)
         layer.cornerRadius = 30
         backgroundColor = .theme.background
@@ -117,8 +120,8 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleAppleLogin() {
-        FirebaseManager.shared.touchUpAppleButton(appleSignupCompletion: {[weak self] in
-            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+        FirebaseManager.shared.touchUpAppleButton(region: region, appleSignupCompletion: {[weak self] in
+            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(region: self?.region), animated: true)
         },
                                                   appleSigninCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.dismiss(animated: true)
@@ -126,11 +129,13 @@ class LoginSheetView: UIView {
     }
     
     @objc func handleGoogleLogin() {
-        FirebaseManager.shared.touchUpGoogleButton(signupCompletion: { [weak self] in
-            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(), animated: true)
+        FirebaseManager.shared.touchUpGoogleButton(region: region,
+                                                   signupCompletion: { [weak self] in
+            self?.parentViewController?.navigationController?.pushViewController(LoginNameViewController(region: self?.region), animated: true)
         },
                                                    signinCompletion: { [weak self] in
             self?.parentViewController?.navigationController?.dismiss(animated: true)
-        })
+        }
+        )
     }
 }

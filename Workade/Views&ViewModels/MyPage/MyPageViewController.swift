@@ -56,7 +56,7 @@ final class MyPageViewController: UIViewController {
     
     func setData() {
         profileView.nameLabel.text = UserManager.shared.user.value?.name
-        profileView.jobLabel.text = UserManager.shared.user.value?.job?.rawValue
+        profileView.jobLabel.text = UserManager.shared.user.value?.job.rawValue
     }
 }
 

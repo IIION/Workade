@@ -87,10 +87,13 @@ class LoginJobViewController: UIViewController {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             guard let self = self else { return }
             Task { [weak self] in
-                guard let loginInfo = FirebaseManager.shared.getUser() else { return }
-                let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: self?.viewModel.selectedJob)
+                guard let loginInfo = FirebaseManager.shared.getUser(), let job = self?.viewModel.selectedJob else { return }
+                let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: job)
                 UserManager.shared.user.value = user
                 try await FirestoreDAO.shared.createUser(user: user)
+                
+                guard let region = self?.region else { return }
+                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: job, region: region, startDate: .now))
             }
             self.navigationController?.dismiss(animated: true)
             
@@ -102,7 +105,10 @@ class LoginJobViewController: UIViewController {
         return nextView
     }()
     
-    init(name: String?) {
+    private let region: Region?
+    
+    init(name: String?, region: Region?) {
+        self.region = region
         viewModel.name = name
         super.init(nibName: nil, bundle: nil)
         

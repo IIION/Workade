@@ -9,9 +9,11 @@ import Combine
 import UIKit
 
 class WorkerStatusSheetViewController: UIViewController {
+    private let peopleCount: Int
+    private let region: Region
     var viewDidDissmiss: (() -> Void)?
     
-    private let workerStatusSheetViewModel = WorkerStatusSheetViewModel()
+    private lazy var  workerStatusSheetViewModel = WorkerStatusSheetViewModel(region: region)
     
     private lazy var backgroundView = UIView(frame: view.frame)
     
@@ -66,60 +68,58 @@ class WorkerStatusSheetViewController: UIViewController {
         return label
     }()
     
-    private func jobLabel(job: String, number: CurrentValueSubject<Int, Never>, isMyJob: Bool) -> UILabel {
+    private func jobLabel(job: Job, number: Int, isMyJob: Bool) -> UILabel {
         let label = UILabel()
-        var cancellable = Set<AnyCancellable>()
         label.font = .customFont(for: .footnote)
         label.textColor = isMyJob ? .theme.workadeBlue : .theme.secondary
         
-        number
-            .sink { value in
-                let fullText = "\(job) \(number.value)명"
-                let attributedString = NSMutableAttributedString(string: fullText)
-                let range = (fullText as NSString).range(of: "\(number.value)명")
-                attributedString.addAttribute(.font, value: UIFont.customFont(for: .footnote2), range: range)
-                label.attributedText = attributedString
-            }
-            .store(in: &cancellable)
+        if let count = UserManager.shared.activeUsers[region]?[job]?.count {
+            let fullText = "\(job.rawValue) \(count)명"
+            let attributedString = NSMutableAttributedString(string: fullText)
+            let range = (fullText as NSString).range(of: "\(count)명")
+            attributedString.addAttribute(.font, value: UIFont.customFont(for: .footnote2), range: range)
+            label.attributedText = attributedString
+        }
         
         return label
     }
     
     private lazy var numberOfWorkersStack: UIStackView = {
         let firstStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.designer.rawValue, number: workerStatusSheetViewModel.numberOfDesigner, isMyJob: true),
-            jobLabel(job: Job.developer.rawValue, number: workerStatusSheetViewModel.numberOfDeveloper, isMyJob: false)
+            jobLabel(job: Job.designer, number: 0, isMyJob: true),
+            jobLabel(job: Job.developer, number: 0, isMyJob: false)
         ])
+        
         firstStack.axis = .horizontal
         firstStack.distribution = .fillEqually
         firstStack.spacing = 30
         
         let secondStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.writer.rawValue, number: workerStatusSheetViewModel.numberOfWriter, isMyJob: false),
-            jobLabel(job: Job.PM.rawValue, number: workerStatusSheetViewModel.numberOfPM, isMyJob: false)
+            jobLabel(job: Job.writer, number: 0, isMyJob: false),
+            jobLabel(job: Job.PM, number: 0, isMyJob: false)
         ])
         secondStack.axis = .horizontal
         secondStack.distribution = .fillEqually
         secondStack.spacing = 30
         
         let thirdStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.creater.rawValue, number: workerStatusSheetViewModel.numberOfCreator, isMyJob: false),
-            jobLabel(job: Job.marketer.rawValue, number: workerStatusSheetViewModel.numberOfMarketer, isMyJob: false)
+            jobLabel(job: Job.creater, number: 0, isMyJob: false),
+            jobLabel(job: Job.marketer, number: 0, isMyJob: false)
         ])
         thirdStack.axis = .horizontal
         thirdStack.distribution = .fillEqually
         thirdStack.spacing = 30
         
         let fourthStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.artist.rawValue, number: workerStatusSheetViewModel.numberOfArtist, isMyJob: false),
-            jobLabel(job: Job.freelancer.rawValue, number: workerStatusSheetViewModel.numberOfFreelancer, isMyJob: false)
+            jobLabel(job: Job.artist, number: 0, isMyJob: false),
+            jobLabel(job: Job.freelancer, number: 0, isMyJob: false)
         ])
         fourthStack.axis = .horizontal
         fourthStack.distribution = .fillEqually
         fourthStack.spacing = 30
         
         let fifthStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.etc.rawValue, number: workerStatusSheetViewModel.numberOfEtc, isMyJob: false),
+            jobLabel(job: Job.etc, number: 0, isMyJob: false),
             UIView()
         ])
         fifthStack.axis = .horizontal
@@ -145,8 +145,19 @@ class WorkerStatusSheetViewController: UIViewController {
         let backgroundViewTap = UITapGestureRecognizer(target: self, action: #selector(backgroundViewTapped(_:)))
         backgroundView.addGestureRecognizer(backgroundViewTap)
         backgroundView.isUserInteractionEnabled = true
+        wholeWorkerLabel.text = "\(region.name)에\n\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
+    }
+    
+    init(peopleCount: Int, region: Region) {
+        self.peopleCount = peopleCount
+        self.region = region
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

@@ -178,7 +178,7 @@ final class EditProfileViewController: UIViewController {
     }
     
     func setData() {
-        pickerLabel.text = UserManager.shared.user.value?.job?.rawValue
+        pickerLabel.text = UserManager.shared.user.value?.job.rawValue
         nameTextField.attributedPlaceholder = NSAttributedString(
             string: UserManager.shared.user.value?.name ?? "",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.theme.tertiary]
@@ -191,7 +191,8 @@ final class EditProfileViewController: UIViewController {
             if self.nameTextField.text == "" {
                 self.nameTextField.text = UserManager.shared.user.value?.name
             }
-            let user = User(id: loginInfo.uid, name: self.nameTextField.text, email: loginInfo.email, job: Job(rawValue: self.pickerLabel.text ?? ""))
+            guard let job = Job(rawValue: self.pickerLabel.text ?? "") else { return }
+            let user = User(id: loginInfo.uid, name: self.nameTextField.text, email: loginInfo.email, job: job)
             UserManager.shared.user.value = user
             try await FirestoreDAO.shared.createUser(user: user)
             

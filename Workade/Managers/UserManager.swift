@@ -9,9 +9,21 @@ import Combine
 import Foundation
 
 class UserManager {
-    private init() { }
+    private init() {
+        Task {
+            for region in Region.allCases {
+                activeUsers[region] = try await FirestoreDAO.shared.getActiveUsers(region: region)
+            }
+        }
+    }
     
     static let shared = UserManager()
     
     var user = CurrentValueSubject<User?, Never>(nil)
+    
+    var activeUsers = [Region: [Job: [ActiveUser]]]()
+    
+    func reloadActiveUser(region: Region) async throws {
+        activeUsers[region] = try await FirestoreDAO.shared.getActiveUsers(region: region)
+    }
 }

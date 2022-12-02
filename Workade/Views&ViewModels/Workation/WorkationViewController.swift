@@ -5,6 +5,7 @@
 //  Created by Wonhyuk Choi on 2022/11/17.
 //
 
+import FirebaseAuth
 import Combine
 import UIKit
 
@@ -30,7 +31,8 @@ final class WorkationViewController: UIViewController {
         })
     )
     
-    init(region: Region) {
+    init(region: Region, peopleCount: Int) {
+        self.peopleCount = peopleCount
         self.region = region
         
         super.init(nibName: nil, bundle: nil)
@@ -78,18 +80,19 @@ final class WorkationViewController: UIViewController {
         button.backgroundColor = .theme.workadeBlue
         button.layer.cornerRadius = 20
         button.addAction(UIAction(handler: { [weak self] _ in
-            let workStatusSheetViewController = WorkerStatusSheetViewController()
+            guard let self = self else { return }
+            let workStatusSheetViewController = WorkerStatusSheetViewController(peopleCount: self.peopleCount, region: self.region)
             workStatusSheetViewController.modalPresentationStyle = .overFullScreen
             
             let dimView = UIView(frame: UIScreen.main.bounds)
             dimView.backgroundColor = .theme.primary.withAlphaComponent(0.7)
-            self?.view.addSubview(dimView)
-            self?.view.bringSubviewToFront(dimView)
+            self.view.addSubview(dimView)
+            self.view.bringSubviewToFront(dimView)
             workStatusSheetViewController.viewDidDissmiss = {
                 dimView.removeFromSuperview()
             }
             
-            self?.present(workStatusSheetViewController, animated: true)
+            self.present(workStatusSheetViewController, animated: true)
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -101,7 +104,7 @@ final class WorkationViewController: UIViewController {
         label.font = .customFont(for: .caption2)
         label.textColor = .theme.tertiary
         
-        let fullText = "53명이 일하고 있어요"
+        let fullText = "00명이 일하고 있어요"
         let attributedString = NSMutableAttributedString(string: fullText)
         let range = (fullText as NSString).range(of: "53")
         attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: range)
@@ -134,17 +137,32 @@ final class WorkationViewController: UIViewController {
     
     private lazy var loginPaneView: LoginView = {
         let login = LoginView(action: UIAction { [weak self] _ in
+            guard let self = self else { return }
             let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
-                let loginInitViewController = LoginInitViewController()
+                if Auth.auth().currentUser == nil {
+                let loginInitViewController = LoginInitViewController(region: self?.region)
                 let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
                 loginNavigation.modalPresentationStyle = .overFullScreen
                 self?.present(loginNavigation, animated: true)
+            } else {
+                Task { [weak self] in
+                    guard let self = self,
+                          let uid = Auth.auth().currentUser?.uid,
+                          let user = try await FirestoreDAO.shared.getUser(userID: uid)
+                    else { return }
+                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
+                    try await UserManager.shared.reloadActiveUser(region: self.region)
+                }
+                
+                self?.loginPaneView.isHidden = true
+                self?.bottomPaneView.isHidden = false
+            }
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
-            self?.present(alert, animated: true)
+            self.present(alert, animated: true)
         }
         )
         login.translatesAutoresizingMaskIntoConstraints = false
@@ -172,22 +190,15 @@ final class WorkationViewController: UIViewController {
             let alert = UIAlertController(title: nil, message: "정말로 워케이션을 종료하시겠어요?", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
-                Task {
-                    guard let user = UserManager.shared.user.value else { return }
-                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: .jeJuDo)
+                Task { [weak self] in
+                    guard let self = self, let user = UserManager.shared.user.value else { return }
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
                 }
-                let stickerShetViewController = StickerSheetViewController()
-                stickerShetViewController.modalPresentationStyle = .overFullScreen
-                
-                let dimView = UIView(frame: UIScreen.main.bounds)
-                dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
-                self?.view.addSubview(dimView)
-                self?.view.bringSubviewToFront(dimView)
-                stickerShetViewController.viewDidDismiss = {
-                    dimView.removeFromSuperview()
+
+                UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
+                    self?.loginPaneView.isHidden = false
+                    self?.bottomPaneView.isHidden = true
                 }
-                
-                self?.present( stickerShetViewController, animated: true)
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
@@ -260,14 +271,32 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
+    private let peopleCount: Int
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        titleView.text = region.name
+        titleView.text = region.rawValue
+        numberOfWorkers.text = "\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
         setupNavigationBar()
         bind()
+    }
+    
+    private func showSticker() {
+        let stickerShetViewController = StickerSheetViewController()
+        stickerShetViewController.modalPresentationStyle = .overFullScreen
+        
+        let dimView = UIView(frame: UIScreen.main.bounds)
+        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+        view.addSubview(dimView)
+        view.bringSubviewToFront(dimView)
+        stickerShetViewController.viewDidDismiss = {
+            dimView.removeFromSuperview()
+        }
+        
+        present( stickerShetViewController, animated: true)
     }
 }
 
