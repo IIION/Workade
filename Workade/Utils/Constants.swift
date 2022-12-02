@@ -8,7 +8,7 @@
 import Foundation
 
 /// 각종 고정값을 저장한 구조체입니다.
-struct Constants {
+enum Constants {
     enum Address {
         static let officeResource = "https://raw.githubusercontent.com/IIION/WorkadeData/main/Home/office.json"
         static let magazineResource = "https://raw.githubusercontent.com/IIION/WorkadeData/main/Home/magazine.json"

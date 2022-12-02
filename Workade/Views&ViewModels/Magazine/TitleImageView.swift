@@ -12,6 +12,14 @@ class MagazineTitleImageView: UIImageView {
     let magazine: MagazineModel
     var bookmarkPublisher: PassthroughSubject<Void, Never>?
     
+    private let lightBlackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.05)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .theme.background
@@ -71,8 +79,16 @@ class MagazineTitleImageView: UIImageView {
     }
     
     private func setupLayout() {
+        addSubview(lightBlackView)
         addSubview(titleLabel)
         addSubview(bookmarkButton)
+        
+        NSLayoutConstraint.activate([
+            lightBlackView.topAnchor.constraint(equalTo: topAnchor),
+            lightBlackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lightBlackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lightBlackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

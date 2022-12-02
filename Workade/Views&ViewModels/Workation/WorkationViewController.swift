@@ -145,23 +145,23 @@ final class WorkationViewController: UIViewController {
             
             alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
                 if Auth.auth().currentUser == nil {
-                let loginInitViewController = LoginInitViewController(region: self?.region)
-                let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
-                loginNavigation.modalPresentationStyle = .overFullScreen
-                self?.present(loginNavigation, animated: true)
-            } else {
-                Task { [weak self] in
-                    guard let self = self,
-                          let uid = Auth.auth().currentUser?.uid,
-                          let user = try await FirestoreDAO.shared.getUser(userID: uid)
-                    else { return }
-                    try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
-                    try await UserManager.shared.reloadActiveUser(region: self.region)
+                    let loginInitViewController = LoginInitViewController(region: self?.region)
+                    let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
+                    loginNavigation.modalPresentationStyle = .overFullScreen
+                    self?.present(loginNavigation, animated: true)
+                } else {
+                    Task { [weak self] in
+                        guard let self = self,
+                              let uid = Auth.auth().currentUser?.uid,
+                              let user = try await FirestoreDAO.shared.getUser(userID: uid)
+                        else { return }
+                        try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
+                        try await UserManager.shared.reloadActiveUser(region: self.region)
+                    }
+                    
+                    self?.loginPaneView.isHidden = true
+                    self?.bottomPaneView.isHidden = false
                 }
-                
-                self?.loginPaneView.isHidden = true
-                self?.bottomPaneView.isHidden = false
-            }
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
@@ -220,16 +220,16 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
-    private func reusableStack(title: String, content: String) -> UIStackView {
+    private lazy var periodStack: UIStackView = {
         let titleLabel = UILabel()
         titleLabel.font = .customFont(for: .footnote)
         titleLabel.textColor = .theme.tertiary
-        titleLabel.text = title
+        titleLabel.text = "워케이션을 시작한 지"
         
         let contentLabel = UILabel()
         contentLabel.font = .customFont(for: .subHeadline)
         contentLabel.textColor = .theme.primary
-        contentLabel.text = content
+        contentLabel.text = "33일째"
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel])
         stackView.axis = .vertical
@@ -237,13 +237,38 @@ final class WorkationViewController: UIViewController {
         stackView.alignment = .leading
         
         return stackView
-    }
+    }()
+    
+    private let myLocationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .customFont(for: .subHeadline)
+        label.textColor = .theme.primary
+        label.text = ""
+        label.numberOfLines = 2
+        
+        return label
+    }()
+    
+    private lazy var locationStack: UIStackView = {
+        let titleLabel = UILabel()
+        titleLabel.font = .customFont(for: .footnote)
+        titleLabel.textColor = .theme.tertiary
+        titleLabel.text = "내 위치"
+        
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, myLocationLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        stackView.alignment = .leading
+        
+        return stackView
+    }()
     
     private lazy var bottomMiddleStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            reusableStack(title: "워케이션을 시작한 지", content: "33일째"),
-            reusableStack(title: "내 위치", content: "조천읍 조천2길")
+            periodStack,
+            locationStack
         ])
+        stackView.alignment = .top
         stackView.axis = .horizontal
         stackView.spacing = 16
         stackView.distribution = .fillEqually
@@ -390,11 +415,37 @@ private extension WorkationViewController {
 
 extension WorkationViewController {
     private func bind() {
+    
         UserManager.shared.user
             .sink { [weak self] user in
                 DispatchQueue.main.async { [weak self] in
                     self?.loginPaneView.isHidden = (user != nil)
                     self?.bottomPaneView.isHidden = !(user != nil)
+                }
+            }
+            .store(in: &cancellable)
+        
+        UserManager.shared.$isActive
+            .sink { [weak self] isActive in
+                DispatchQueue.main.async { [weak self] in
+                    if isActive {
+                        self?.navButton.image = UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+                    } else {
+                        self?.navButton.image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.primary)
+                    }
+                }
+             }
+             .store(in: &cancellable)
+
+        workationViewModel.$subLocality
+            .combineLatest(workationViewModel.$throughfare)
+            .sink { [weak self] value1, value2 in
+                let subLocality = value1 ?? ""
+                let throughfare = value2 ?? ""
+                if value1 != value2 {
+                    self?.myLocationLabel.text = "\(subLocality) \(throughfare)"
+                } else {
+                    self?.myLocationLabel.text = "\(subLocality)"
                 }
             }
             .store(in: &cancellable)

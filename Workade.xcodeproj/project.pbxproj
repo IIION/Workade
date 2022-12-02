@@ -128,6 +128,7 @@
 		96554F292928EE9F00BBE26A /* EllipseSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */; };
 		96554F2B29290C4200BBE26A /* EllipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96554F2A29290C4200BBE26A /* EllipseButton.swift */; };
 		96601F4828FEEF9C0064FEE2 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96601F4728FEEF9C0064FEE2 /* UIImage+.swift */; };
+		968C7517293A219200BDDAB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 968C7516293A219200BDDAB5 /* GoogleService-Info.plist */; };
 		9690404D292AB61500F5E590 /* MagazineCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690404C292AB61500F5E590 /* MagazineCategory.swift */; };
 		969285E2292E64F8008F0389 /* MagazineTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */; };
 		969285E6292E92DB008F0389 /* TitleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969285E5292E92DB008F0389 /* TitleImageView.swift */; };
@@ -286,6 +287,7 @@
 		96554F282928EE9F00BBE26A /* EllipseSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseSegmentControl.swift; sourceTree = "<group>"; };
 		96554F2A29290C4200BBE26A /* EllipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseButton.swift; sourceTree = "<group>"; };
 		96601F4728FEEF9C0064FEE2 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		968C7516293A219200BDDAB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9690404C292AB61500F5E590 /* MagazineCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineCategory.swift; sourceTree = "<group>"; };
 		969285E1292E64F8008F0389 /* MagazineTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTransitionManager.swift; sourceTree = "<group>"; };
 		969285E5292E92DB008F0389 /* TitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleImageView.swift; sourceTree = "<group>"; };
@@ -594,6 +596,7 @@
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
+				968C7516293A219200BDDAB5 /* GoogleService-Info.plist */,
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
@@ -919,6 +922,7 @@
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
+				968C7517293A219200BDDAB5 /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,

@@ -53,7 +53,7 @@ class FirestoreDAO {
             let data = document.data()
             let jsonData = try JSONSerialization.data(withJSONObject: data)
             let user = try decoder.decode(User.self, from: jsonData)
-            
+            UserManager.shared.user.value = user
             if user.id == userID {
                 return user
             }
@@ -72,6 +72,7 @@ class FirestoreDAO {
         try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
         UserManager.shared.user.value = nil
         UserManager.shared.activeRegion = nil
+        UserManager.shared.isActive = false
     }
     
     func getActiveUsersNumber(region: Region) async throws -> Int {
