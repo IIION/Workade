@@ -27,6 +27,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let user = Auth.auth().currentUser else { return }
             print(user)
             UserManager.shared.user.value = try await FirestoreDAO.shared.getUser(userID: user.uid)
+            if UserManager.shared.isActive {
+                if let region = UserManager.shared.activeRegion {
+                    async let count = try? await FirestoreDAO.shared.getActiveUsersNumber(region: region)
+                    await window?.rootViewController?.navigationController?.pushViewController(WorkationViewController(region: region, peopleCount: count ?? 0), animated: false)
+                }
+            }
         }
         
         if let url = connectionOptions.urlContexts.first?.url {
