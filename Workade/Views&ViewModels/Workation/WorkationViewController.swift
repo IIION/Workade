@@ -241,6 +241,7 @@ final class WorkationViewController: UIViewController {
         label.font = .customFont(for: .subHeadline)
         label.textColor = .theme.primary
         label.text = ""
+        label.numberOfLines = 2
         
         return label
     }()
@@ -264,6 +265,7 @@ final class WorkationViewController: UIViewController {
             periodStack,
             locationStack
         ])
+        stackView.alignment = .top
         stackView.axis = .horizontal
         stackView.spacing = 16
         stackView.distribution = .fillEqually
