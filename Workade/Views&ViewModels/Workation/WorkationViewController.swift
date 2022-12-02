@@ -201,8 +201,7 @@ final class WorkationViewController: UIViewController {
                 Task { [weak self] in
                     guard let self = self, var user = UserManager.shared.user.value else { return }
                     try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
-                    user.activeRegion = nil
-                    try await FirestoreDAO.shared.updateUser(user: user)
+                    try await FirestoreDAO.shared.createUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, stickers: user.stickers, activeRegion: nil))
                 }
 
                 UIView.animate(withDuration: 0.3, delay: 0) { [weak self] in
