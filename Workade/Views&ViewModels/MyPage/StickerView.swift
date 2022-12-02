@@ -66,13 +66,21 @@ extension StickerView: UICollectionViewDelegate {
 // MARK: CollectionView DataSource
 extension StickerView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // TODO: 유저의 스티커 갯수에 따라 리턴
-        return 5
+        guard let stickersArray = UserManager.shared.user.value?.stickers else { return 0 }
+        return stickersArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: StickerCollectionViewCell = collectionView.dequeue(for: indexPath)
-        // TODO: 유저의 스티커 내용을 리턴
+        guard let stickersArray = UserManager.shared.user.value?.stickers else { return StickerCollectionViewCell() }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        
+        cell.stickerNameLabel.text = stickersArray[indexPath.row].title.rawValue
+        cell.stickerImage.image = UIImage(named: stickersArray[indexPath.row].title.rawValue)
+        cell.stickerLocationLabel.text = "\(stickersArray[indexPath.row].region.name)에서 획득"
+        cell.stickerDataLabel.text = dateFormatter.string(from: stickersArray[indexPath.row].date)
         
         return cell
     }

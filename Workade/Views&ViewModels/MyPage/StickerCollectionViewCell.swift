@@ -20,43 +20,34 @@ class StickerCollectionViewCell: UICollectionViewCell {
         return stickerContainerView
     }()
     
-    private let stickerImage: UIImageView = {
+    let stickerImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        
-        // TODO: 스티커로 변경 예정
-        image.image = UIImage(named: "sampleSticker")
         
         return image
     }()
     
-    private let stickerNameLabel: UILabel = {
+    let stickerNameLabel: UILabel = {
         let stickerNameLabel = UILabel()
         stickerNameLabel.font = .customFont(for: .footnote2)
-        // TODO: Data 연결시 삭제
-        stickerNameLabel.text = "감귤 스티커"
         stickerNameLabel.sizeToFit()
         stickerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return stickerNameLabel
     }()
     
-    private let stickerDataLabel: UILabel = {
+    let stickerDataLabel: UILabel = {
         let stickerDataLabel = UILabel()
         stickerDataLabel.font = .customFont(for: .tag)
-        // TODO: Data 연결시 삭제
-        stickerDataLabel.text = "2022.12.03"
         stickerDataLabel.sizeToFit()
         stickerDataLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return stickerDataLabel
     }()
     
-    private let stickerLocationLabel: UILabel = {
+    let stickerLocationLabel: UILabel = {
         let stickerLocationLabel = UILabel()
         stickerLocationLabel.font = .customFont(for: .tag)
-        // TODO: Data 연결시 삭제
-        stickerLocationLabel.text = "제주에서 획득"
         stickerLocationLabel.sizeToFit()
         stickerLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         
