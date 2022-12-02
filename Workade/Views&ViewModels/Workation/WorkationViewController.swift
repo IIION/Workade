@@ -19,15 +19,18 @@ final class WorkationViewController: UIViewController {
     private var titleView = TitleLabel(title: "")
     private var region: Region
     
-    private lazy var navButton = UIBarButtonItem(
-        image: UserManager.shared.isActive ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image,
+    private lazy var closeButton = UIBarButtonItem(
+        image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            if UserManager.shared.isActive {
-                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
-            } else {
-                self?.dismissAction?()
-                self?.dismiss(animated: true)
-            }
+            self?.dismissAction?()
+            self?.dismiss(animated: true)
+        })
+    )
+
+    private lazy var guideButton = UIBarButtonItem(
+        image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
+        primaryAction: UIAction(handler: { [weak self] _ in
+            self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
         })
     )
     
@@ -327,7 +330,7 @@ final class WorkationViewController: UIViewController {
 
 private extension WorkationViewController {
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItems = [navButton]
+        navigationItem.rightBarButtonItems = [closeButton, guideButton]
         navigationItem.title = ""
     }
     
