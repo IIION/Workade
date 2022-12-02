@@ -133,17 +133,9 @@ final class StickerProgressView: UIView {
                     let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(offsetDate/86400)
                     self.workationProgressView.progress = Float(day > 0 ? day/35 : 0)
-                    user.progressDay = day
-                    self.updateActiveUser(user: user)
                 }
             }
             .store(in: &cancellable)
-    }
-    
-    private func updateActiveUser(user: ActiveUser) {
-        Task {
-            try await FirestoreDAO.shared.updateActiveUser(user: user)
-        }
     }
 }
 
