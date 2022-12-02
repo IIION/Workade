@@ -25,7 +25,8 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
         let toViewController = transitionContext.viewController(forKey: .to)
         
         guard let exploreViewController = (transition == .presentation ? fromViewController : toViewController)?.children.last as? ExploreViewController,
-              let workationViewController = (transition == .dismissal ? fromViewController : toViewController) as? WorkationViewController
+              let workationViewController = (transition == .dismissal ? fromViewController : toViewController)?.children.last as? WorkationViewController,
+            let navigationViewController = (transition == .dismissal ? fromViewController : toViewController) as? UINavigationController
         else {
             transitionContext.completeTransition(true)
             return
@@ -56,7 +57,7 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
                 bottomConstraint
             ])
             
-            let workationView = UINavigationController(rootViewController: workationViewController).view
+            let workationView = navigationViewController.view
             workationView?.alpha = 0
             if let workationView = workationView {
                 containerView.addSubview(workationView)
