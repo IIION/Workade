@@ -19,15 +19,18 @@ final class WorkationViewController: UIViewController {
     private var titleView = TitleLabel(title: "")
     private var region: Region
     
-    private lazy var navButton = UIBarButtonItem(
+    private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            if UserManager.shared.user.value == nil {
-                self?.dismissAction?()
-                self?.dismiss(animated: true)
-            } else {
-                self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
-            }
+            self?.dismissAction?()
+            self?.dismiss(animated: true)
+        })
+    )
+
+    private lazy var guideButton = UIBarButtonItem(
+        image: UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue),
+        primaryAction: UIAction(handler: { [weak self] _ in
+            self?.navigationController?.pushViewController(GuideHomeViewController(), animated: true)
         })
     )
     
@@ -276,7 +279,7 @@ final class WorkationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        titleView.text = region.rawValue
+        titleView.text = region.name
         numberOfWorkers.text = "\(peopleCount)명이 일하고 있어요"
         
         setupLayout()
@@ -302,7 +305,7 @@ final class WorkationViewController: UIViewController {
 
 private extension WorkationViewController {
     private func setupNavigationBar() {
-        navigationItem.rightBarButtonItems = [navButton]
+        navigationItem.rightBarButtonItems = [closeButton, guideButton]
         navigationItem.title = ""
     }
     
@@ -391,7 +394,6 @@ extension WorkationViewController {
             .sink { [weak self] user in
                 DispatchQueue.main.async { [weak self] in
                     self?.loginPaneView.isHidden = (user != nil)
-                    self?.navButton.image = (user != nil) ? UIImage.fromSystemImage(name: "text.book.closed.fill", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue) : SFSymbol.xmarkInNavigation.image
                     self?.bottomPaneView.isHidden = !(user != nil)
                 }
             }
