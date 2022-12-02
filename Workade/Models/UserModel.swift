@@ -12,6 +12,7 @@ struct User: Codable {
     let name: String?
     let email: String?
     let job: Job
+    var stickers = [StickerModel]()
 }
 
 struct ActiveUser: Codable {
