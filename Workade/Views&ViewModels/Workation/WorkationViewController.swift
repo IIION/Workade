@@ -462,5 +462,17 @@ extension WorkationViewController {
                 }
             }
             .store(in: &cancellable)
+        
+        UserManager.shared.$activeMyInfo
+            .sink { [weak self] user in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    let offsetDate = Date().timeIntervalSince(user?.startDate ?? Date())
+                    let day = Int(offsetDate/86400)
+                    self.dayLabel.text = "\(day)일째"
+                }
+            }
+            .store(in: &cancellable)
+        
     }
 }

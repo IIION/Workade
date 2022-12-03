@@ -13,17 +13,13 @@ final class StickerProgressView: UIView {
     
     private let workationProgressView: UIProgressView = {
         let progressView = UIProgressView()
-        let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
-        var day = Float(offsetDate/86400)
-        
-        progressView.progress = day > 0 ? day/35 : 0
+        progressView.progress = 0
         progressView.backgroundColor = .theme.groupedBackground
         progressView.tintColor = .theme.workadeBlue
         progressView.transform = progressView.transform.scaledBy(x: 1, y: 0.1)
         
         return progressView
     }()
-    
     
     private lazy var progressStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [UIView(), workationProgressView])
@@ -125,7 +121,18 @@ final class StickerProgressView: UIView {
                 DispatchQueue.main.async {
                     let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
                     let day = Float(offsetDate/86400)
-                    self?.workationProgressView.progress = day > 0 ? day/35 : 0
+                    self?.workationProgressView.setProgress(day > 0 ? day/35 : 0, animated: true)
+                }
+            }
+            .store(in: &cancellable)
+        
+        UserManager.shared.$activeMyInfo
+            .sink { [weak self] user in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    let offsetDate = Date().timeIntervalSince(user?.startDate ?? Date())
+                    let day = Int(offsetDate/86400)
+                    self.workationProgressView.progress = Float(day > 0 ? day/35 : 0)
                 }
             }
             .store(in: &cancellable)
