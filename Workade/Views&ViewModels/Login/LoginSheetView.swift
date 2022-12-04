@@ -12,11 +12,12 @@ class LoginSheetView: UIView {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
         logo.image = UIImage(named: "workationlogo")
+        logo.contentMode = .scaleAspectFit
         
         return logo
     }()
     
-    private let guideLable: UILabel = {
+    private let guideLabel: UILabel = {
         let guide = UILabel()
         guide.translatesAutoresizingMaskIntoConstraints = false
         guide.setLineHeight(lineHeight: 6)
@@ -48,14 +49,14 @@ class LoginSheetView: UIView {
     }()
     
     lazy var appleLoginButton: LoginButtonView = {
-        let loginButton = LoginButtonView(logo: UIImage(named: "applelogo"), guideance: "Apple로 게속하기")
+        let loginButton = LoginButtonView(logo: UIImage(named: "applelogo"), loginCase: .apple)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         
         return loginButton
     }()
     
     lazy var googleLoginButton: LoginButtonView = {
-        let loginButton = LoginButtonView(logo: UIImage(named: "googlelogo"), guideance: "Google로 계속하기")
+        let loginButton = LoginButtonView(logo: UIImage(named: "googlelogo"), loginCase: .google)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         
         return loginButton
@@ -84,10 +85,10 @@ class LoginSheetView: UIView {
             logoImageView.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-        addSubview(guideLable)
+        addSubview(guideLabel)
         NSLayoutConstraint.activate([
-            guideLable.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            guideLable.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 36.5)
+            guideLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            guideLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 36.5)
         ])
         
         addSubview(closeButton)
@@ -98,24 +99,24 @@ class LoginSheetView: UIView {
             closeButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 48) // 20 + 28
         ])
         
-        let appleTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleAppleLogin))
-        appleLoginButton.addGestureRecognizer(appleTabGesture)
-        addSubview(appleLoginButton)
-        NSLayoutConstraint.activate([
-            appleLoginButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 173),
-            appleLoginButton.trailingAnchor.constraint(equalTo: self.centerXAnchor, constant: -6),
-            appleLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
-            appleLoginButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 280)
-        ])
-        
         let googleTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleGoogleLogin))
         googleLoginButton.addGestureRecognizer(googleTabGesture)
         addSubview(googleLoginButton)
         NSLayoutConstraint.activate([
-            googleLoginButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 173),
-            googleLoginButton.leadingAnchor.constraint(equalTo: self.centerXAnchor, constant: 6),
             googleLoginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
-            googleLoginButton.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 280)
+            googleLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            googleLoginButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        let appleTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleAppleLogin))
+        appleLoginButton.addGestureRecognizer(appleTabGesture)
+        addSubview(appleLoginButton)
+        NSLayoutConstraint.activate([
+            appleLoginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            appleLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            appleLoginButton.heightAnchor.constraint(equalToConstant: 50),
+            appleLoginButton.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: 0),
+            appleLoginButton.topAnchor.constraint(equalTo: googleLoginButton.bottomAnchor, constant: 10)
         ])
     }
     

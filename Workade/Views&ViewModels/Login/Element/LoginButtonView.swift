@@ -7,33 +7,47 @@
 
 import UIKit
 
+enum LoginCase: String {
+    case apple
+    case google
+    
+    var name: String {
+        switch self {
+        case .apple:
+            return "Apple"
+        case .google:
+            return "Google"
+        }
+    }
+}
+
 final class LoginButtonView: UIView {
     var logoImage: UIImage?
-    var guideance: String
+    var loginCase: LoginCase
     
     private let logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        
+        logoImageView.contentMode = .scaleAspectFit
         return logoImageView
     }()
     
     private let textLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.font = .customFont(for: .footnote2)
-        textLabel.textColor = .black
+        textLabel.font = .systemFont(ofSize: 15, weight: .regular)
         
         return textLabel
     }()
     
-    init(logo: UIImage?, guideance: String) {
+    init(logo: UIImage?, loginCase: LoginCase) {
         self.logoImage = logo
-        self.guideance = guideance
+        self.loginCase = loginCase
         super.init(frame: .zero)
         
-        layer.cornerRadius = 20
-        backgroundColor = .theme.groupedBackground
+        layer.cornerRadius = 12
+        backgroundColor = loginCase == .apple ? .theme.primary : .theme.groupedBackground
+        textLabel.textColor = loginCase == .apple ? .theme.background : .theme.primary
         
         setData()
         setupLayout()
@@ -43,23 +57,24 @@ final class LoginButtonView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayout() {        addSubview(logoImageView)
+    private func setupLayout() {
+        addSubview(logoImageView)
         NSLayoutConstraint.activate([
             logoImageView.widthAnchor.constraint(equalToConstant: 24),
             logoImageView.heightAnchor.constraint(equalToConstant: 24),
-            logoImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 22.5)
+            logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
         addSubview(textLabel)
         NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+            textLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
     
     private func setData() {
         logoImageView.image = logoImage
-        textLabel.text = guideance
+        textLabel.text = loginCase.name + "로 로그인"
     }
 }

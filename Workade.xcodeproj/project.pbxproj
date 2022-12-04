@@ -53,6 +53,7 @@
 		2170C28F292BB0BC005146C3 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C28E292BB0BC005146C3 /* ExploreViewController.swift */; };
 		2170C291292C974B005146C3 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C290292C974B005146C3 /* ExploreViewModel.swift */; };
 		2170C293292CA689005146C3 /* RegionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2170C292292CA689005146C3 /* RegionInfoView.swift */; };
+		21723FB8293BA3800064255C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21723FB7293BA3800064255C /* GoogleService-Info.plist */; };
 		21862A912902675600518EBC /* GalleryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A902902675500518EBC /* GalleryDetailViewController.swift */; };
 		21862A93290280BD00518EBC /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21862A92290280BD00518EBC /* CardTransitionManager.swift */; };
 		218DA403290B1AA90089F896 /* LaunchScreenAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */; };
@@ -217,6 +218,7 @@
 		2170C28E292BB0BC005146C3 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		2170C290292C974B005146C3 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		2170C292292CA689005146C3 /* RegionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionInfoView.swift; sourceTree = "<group>"; };
+		21723FB7293BA3800064255C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21862A902902675500518EBC /* GalleryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDetailViewController.swift; sourceTree = "<group>"; };
 		21862A92290280BD00518EBC /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		218DA402290B1AA90089F896 /* LaunchScreenAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenAnimationView.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
+				21723FB7293BA3800064255C /* GoogleService-Info.plist */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
 				B7DE360250B0A3F5EC254C91 /* Pods */,
@@ -922,6 +925,7 @@
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
+				21723FB8293BA3800064255C /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
