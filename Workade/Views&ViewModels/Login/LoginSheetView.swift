@@ -117,7 +117,6 @@ class LoginSheetView: UIView {
             appleLoginButton.heightAnchor.constraint(equalToConstant: 50),
             appleLoginButton.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor, constant: 0),
             appleLoginButton.topAnchor.constraint(equalTo: googleLoginButton.bottomAnchor, constant: 10)
-            
         ])
     }
     
