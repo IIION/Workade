@@ -8,8 +8,6 @@
 import UIKit
 
 class ProfileView: UIView {
-    // TODO: Login User 정보 ViewModel 사용
-    
     let containerView: UIView = {
         let containerView = UIView()
         containerView.backgroundColor = .clear

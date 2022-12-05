@@ -302,5 +302,18 @@ final class ExploreViewController: UIViewController {
         } else {
             self.mainContainerView.image = UIImage(named: "")
         }
+        
+        setupDismissButtonColor()
+    }
+    
+    private func setupDismissButtonColor() {
+        var image: UIImage? = UIImage()
+        
+        if regionInfoView.warningView.isHidden {
+            image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.primary)?.withRenderingMode(.alwaysOriginal)
+        } else {
+            image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.background)?.withRenderingMode(.alwaysOriginal)
+        }
+        regionInfoView.dismissButton.setImage(image, for: .normal)
     }
 }
