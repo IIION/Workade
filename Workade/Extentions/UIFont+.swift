@@ -13,23 +13,33 @@ extension UIFont {
     static func customFont(for customStyle: CustomTextStyle) -> UIFont {
         switch customStyle {
         case .title1:
-            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .bold)
+            return UIFont(name: CustomFont.satoshiBlack.rawValue, size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .bold)
         case .title2:
-            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .bold)
+            return UIFont(name: CustomFont.satoshiBlack.rawValue, size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .bold)
         case .title3:
-            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .bold)
+            return UIFont(name: CustomFont.satoshiBold.rawValue, size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .bold)
         case .headline:
-            return UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
+            return UIFont(name: CustomFont.satoshiMedium.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
+        case .captionHeadline:
+            return UIFont(name: CustomFont.satoshiBlack.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
         case .subHeadline:
-            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
+            return UIFont(name: CustomFont.satoshiBold.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
         case .articleBody:
-            return UIFont(name: CustomFont.pretendardSemiBold.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .semibold)
+            return UIFont(name: CustomFont.satoshiMedium.rawValue, size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .semibold)
         case .footnote:
-            return UIFont(name: CustomFont.pretendardMedium.rawValue, size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium)
+            return UIFont(name: CustomFont.satoshiMedium.rawValue, size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium)
+        case .footnote2:
+            return UIFont(name: CustomFont.satoshiBold.rawValue, size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium)
         case .caption:
-            return UIFont(name: CustomFont.pretendardRegular.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
+            return UIFont(name: CustomFont.satoshiRegular.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
+        case .caption2:
+            return UIFont(name: CustomFont.satoshiBold.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
+        case .tag:
+            return UIFont(name: CustomFont.satoshiRegular.rawValue, size: 10) ?? UIFont.systemFont(ofSize: 10, weight: .regular)
         case .captionHeadlineNew:
-            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold) // TODO: Font 적용하기
+            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
+            // TODO: Font 적용하기
+            // TODO: Font 정리는 일일이 하기보단, 추후 한번에 정리하는게 효율적일듯 합니다.
         }
     }
 }
@@ -39,6 +49,11 @@ enum CustomFont: String {
     case pretendardSemiBold = "Pretendard-SemiBold"
     case pretendardMedium = "Pretendard-Medium"
     case pretendardRegular = "Pretendard-Regular"
+    
+    case satoshiBlack = "Satoshi-Black"
+    case satoshiBold = "Satoshi-Bold"
+    case satoshiMedium = "Satoshi-Medium"
+    case satoshiRegular = "Satoshi-Regular"
 }
 
 enum CustomTextStyle: String {
@@ -46,9 +61,13 @@ enum CustomTextStyle: String {
     case title2
     case title3
     case headline
+    case captionHeadline
     case subHeadline
     case articleBody
     case footnote
+    case footnote2
     case caption
+    case caption2
+    case tag
     case captionHeadlineNew
 }

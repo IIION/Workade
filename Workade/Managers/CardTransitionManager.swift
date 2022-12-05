@@ -7,14 +7,14 @@
 
 import UIKit
 
-enum CardTransitionType {
+enum TransitionType {
     case presentation
     case dismissal
 }
 
 class CardTransitionMananger: NSObject {
     let transitionDuration: Double = 0.4
-    var transition: CardTransitionType = .presentation
+    var transition: TransitionType = .presentation
     
     lazy var dimmingView: UIView = {
         let dimmingView = UIView(frame: .zero)

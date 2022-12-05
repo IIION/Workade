@@ -11,24 +11,17 @@ class NearbyPlaceDetailView: UIView {
     let officeModel: OfficeModel
     var introduceViewModel: IntroduceViewModel
     
+    var mapVC: MapViewController?
     var introduceBottomConstraints: NSLayoutConstraint!
     var galleryBottomConstraints: NSLayoutConstraint!
+    var featureBottomConstraints: NSLayoutConstraint!
+    var mapBottomConstrains: NSLayoutConstraint!
     
     let contensContainerView: UIView = {
         let contensContainerView = UIView()
         contensContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         return contensContainerView
-    }()
-    
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
-        scrollView.isScrollEnabled = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return scrollView
     }()
     
     let introduceView: IntroduceView = {
@@ -46,40 +39,57 @@ class NearbyPlaceDetailView: UIView {
         return view
     }()
     
+    var featureView: FeatureView!
+    
+    var mapView: UIView!
+    
     init(officeModel: OfficeModel) {
         self.officeModel = officeModel
         self.introduceViewModel = IntroduceViewModel()
+        
         super.init(frame: .zero)
-        
-        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
-        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
         translatesAutoresizingMaskIntoConstraints = false
-        
+        setFeatureView()
+        setupMapView()
+        setupViewBottomConstraints()
         setupIntroduceView()
         setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupLayout() {
-        addSubview(scrollView)
-        scrollView.addSubview(contensContainerView)
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
+    func setFeatureView() {
+        featureView = FeatureView(officeFeature: officeModel.feature)
+        featureView.isHidden = true
+        featureView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setupMapView() {
+        mapVC = MapViewController(office: officeModel)
+        mapVC?.setMapCamera()
         
-        let scrollViewGuide = scrollView.contentLayoutGuide
+        mapView = mapVC?.view
+        mapView.isHidden = true
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setupViewBottomConstraints() {
+        introduceBottomConstraints = introduceView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
+        galleryBottomConstraints = galleryView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
+        featureBottomConstraints = featureView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor, constant: -20)
+        mapBottomConstrains = mapView.bottomAnchor.constraint(equalTo: contensContainerView.bottomAnchor)
+    }
+    
+    func setupLayout() {
+        addSubview(contensContainerView)
+
         NSLayoutConstraint.activate([
-            contensContainerView.topAnchor.constraint(equalTo: scrollViewGuide.topAnchor),
-            contensContainerView.bottomAnchor.constraint(equalTo: scrollViewGuide.bottomAnchor),
-            contensContainerView.leadingAnchor.constraint(equalTo: scrollViewGuide.leadingAnchor),
-            contensContainerView.trailingAnchor.constraint(equalTo: scrollViewGuide.trailingAnchor),
-            contensContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            contensContainerView.topAnchor.constraint(equalTo: topAnchor),
+            contensContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contensContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contensContainerView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         contensContainerView.addSubview(introduceView)
@@ -90,12 +100,29 @@ class NearbyPlaceDetailView: UIView {
             introduceBottomConstraints
         ])
         
+        contensContainerView.addSubview(featureView)
+        NSLayoutConstraint.activate([
+            featureView.topAnchor.constraint(equalTo: contensContainerView.topAnchor, constant: 30),
+            featureView.leadingAnchor.constraint(equalTo: contensContainerView.leadingAnchor, constant: 20),
+            featureView.trailingAnchor.constraint(equalTo: contensContainerView.trailingAnchor, constant: -20),
+            featureView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 52)
+        ])
+        
         contensContainerView.addSubview(galleryView)
         NSLayoutConstraint.activate([
             galleryView.topAnchor.constraint(equalTo: contensContainerView.topAnchor, constant: 0),
             galleryView.leadingAnchor.constraint(equalTo: contensContainerView.leadingAnchor, constant: 0),
             galleryView.trailingAnchor.constraint(equalTo: contensContainerView.trailingAnchor, constant: 0),
-            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 50)
+            galleryView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 52)
+        ])
+        
+        contensContainerView.addSubview(mapView)
+        // 네비게이션 바 높이 = 60으로 고정값임. 디바이스별로 구분할 필요 없음.
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: contensContainerView.topAnchor),
+            mapView.leadingAnchor.constraint(equalTo: contensContainerView.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: contensContainerView.trailingAnchor),
+            mapView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height - .topSafeArea - 52 - 60)
         ])
     }
 }

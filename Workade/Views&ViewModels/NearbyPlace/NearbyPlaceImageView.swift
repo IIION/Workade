@@ -10,7 +10,6 @@ import UIKit
 // BaseImageView -> CloseButton / CustomNavigationBar -> locationLabel -> placeLabel -> mapButton
 class NearbyPlaceImageView: UIView {
     let officeModel: OfficeModel
-    weak var delegate: InnerTouchPresentDelegate?
     
     // MARK: Property 선언
     let imageView: UIImageView = {
@@ -18,20 +17,20 @@ class NearbyPlaceImageView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .theme.groupedBackground
         
         return imageView
     }()
     
-    private let locationLabel: UILabel = {
-        let locationLabel = UILabel()
-        locationLabel.font = UIFont.customFont(for: .title3)
-        locationLabel.textColor = .theme.background
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+    private let lightBlackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.05)
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        return locationLabel
+        return view
     }()
     
-    private let placeLabel: UILabel = {
+    let placeLabel: UILabel = {
         let placeLabel = UILabel()
         placeLabel.font = UIFont.customFont(for: .title1)
         placeLabel.textColor = .theme.background
@@ -40,29 +39,13 @@ class NearbyPlaceImageView: UIView {
         return placeLabel
     }()
     
-    lazy var mapButton: UIButton = {
-        let mapButton = UIButton()
-        let blur = UIVisualEffectView(effect:
-                                        UIBlurEffect(style: UIBlurEffect.Style.light))
-        mapButton.frame.size = CGSize(width: 48, height: 48)
-        mapButton.layer.cornerRadius = mapButton.bounds.height / 2
-        mapButton.setImage(SFSymbol.map.image, for: .normal)
+    let locationLabel: UILabel = {
+        let locationLabel = UILabel()
+        locationLabel.font = UIFont.customFont(for: .footnote)
+        locationLabel.textColor = .theme.background
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        blur.frame = mapButton.bounds
-        blur.isUserInteractionEnabled = false
-        blur.layer.cornerRadius = 0.5 * mapButton.bounds.size.height
-        blur.clipsToBounds = true
-        mapButton.insertSubview(blur, belowSubview: mapButton.imageView ?? UIImageView())
-        mapButton.addTarget(self, action: #selector(clickedMapButton), for: .touchUpInside)
-        
-        return mapButton
-    }()
-    
-    let mapButtonContainer: UIView = {
-        let mapButtonContainer = UIView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
-        mapButtonContainer.translatesAutoresizingMaskIntoConstraints = false
-        
-        return mapButtonContainer
+        return locationLabel
     }()
     
     init(officeModel: OfficeModel) {
@@ -95,39 +78,30 @@ class NearbyPlaceImageView: UIView {
     private func setupLayout() {
         addSubview(imageView)
         NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        imageView.addSubview(placeLabel)
+        addSubview(lightBlackView)
         NSLayoutConstraint.activate([
-            placeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
-            placeLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)
+            lightBlackView.topAnchor.constraint(equalTo: topAnchor),
+            lightBlackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lightBlackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lightBlackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
         imageView.addSubview(locationLabel)
         NSLayoutConstraint.activate([
-            locationLabel.bottomAnchor.constraint(equalTo: placeLabel.topAnchor, constant: -5),
-            locationLabel.leadingAnchor.constraint(equalTo: placeLabel.leadingAnchor)
+            locationLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20),
+            locationLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)
         ])
         
-        addSubview(mapButtonContainer)
+        imageView.addSubview(placeLabel)
         NSLayoutConstraint.activate([
-            mapButtonContainer.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -17),
-            mapButtonContainer.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -17)
+            placeLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -5),
+            placeLabel.leadingAnchor.constraint(equalTo: locationLabel.leadingAnchor)
         ])
-        
-        mapButtonContainer.addSubview(mapButton)
-        NSLayoutConstraint.activate([
-            mapButton.centerXAnchor.constraint(equalTo: mapButtonContainer.centerXAnchor),
-            mapButton.centerYAnchor.constraint(equalTo: mapButtonContainer.centerYAnchor)
-        ])
-    }
-    
-    // Button 클릭 관련 함수
-    @objc
-    func clickedMapButton() {
-        delegate?.touch(officeModel: self.officeModel)
     }
 }

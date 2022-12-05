@@ -5,31 +5,61 @@
 //  Created by Wonhyuk Choi on 2022/10/19.
 //
 
+import Combine
 import UIKit
 
 enum EditState {
     case edit, none
 }
 
-class CheckListViewController: UIViewController {
+final class CheckListViewController: UIViewController {
     private var checkListViewModel = CheckListViewModel()
     private var editState = EditState.none
+    private lazy var cancellables = Set<AnyCancellable>()
     
     private lazy var editButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(
-            title: "편집",
-            style: .plain,
-            target: self,
-            action: #selector(barButtonPressed(_:))
-        )
-        barButtonItem.tintColor = .black
+        let button = UIButton(type: .custom)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = 4
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets.init(top: 10, leading: 14, bottom: 10, trailing: 14)
+        
+        var attributedEditText = AttributedString.init("편집")
+        attributedEditText.font = .customFont(for: .caption)
+        var attributedCompleteText = AttributedString.init("완료")
+        attributedCompleteText.font = .customFont(for: .caption)
+        config.attributedTitle = attributedEditText
+        config.image = UIImage.fromSystemImage(name: "pencil", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+        
+        button.configuration = config
+        button.tintColor = .theme.workadeBlue
+        button.backgroundColor = .theme.workadeBackgroundBlue
+        button.layer.cornerRadius = 20
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            if self.editState == .edit {
+                self.editState = .none
+                config.image = UIImage.fromSystemImage(name: "pencil", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.workadeBlue)
+                config.attributedTitle = attributedEditText
+                button.configuration = config
+                self.checklistCollectionView.reloadData()
+            } else {
+                self.editState = .edit
+                config.image = nil
+                config.attributedTitle = attributedCompleteText
+                button.configuration = config
+                self.checklistCollectionView.reloadData()
+            }
+        }), for: .touchUpInside)
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
         
         return barButtonItem
     }()
     
     private let checkListLabel: UILabel = {
         let label = UILabel()
-        label.text = "Checklist"
+        label.text = "체크리스트"
         label.font = UIFont.customFont(for: .title2)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,53 +82,26 @@ class CheckListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .theme.background
         
-        self.setupNavigationBar()
-        self.setupLayout()
-        self.checkListViewModel.loadCheckList()
-        self.checklistCollectionView.reloadData()
+        setupNavigationBar()
+        setupLayout()
+        bind()
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(deleteCheckListNotification(_:)),
-            name: NSNotification.Name("deleteCheckList"),
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(editCheckListNotification(_:)),
-            name: NSNotification.Name("editCheckList"),
-            object: nil
-        )
+        checkListViewModel.loadCheckList()
+        checklistCollectionView.reloadData()
     }
     
-    @objc private func popToHomeViewController() {
+    @objc private func popToGuideHomeViewController() {
         navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
-        if editState == .edit {
-            editState = .none
-            editButton.title = "편집"
-            checklistCollectionView.reloadData()
-        } else {
-            editState = .edit
-            editButton.title = "완료"
-            checklistCollectionView.reloadData()
-        }
     }
     
     @objc private func deleteButtonPressed(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: "정말로 해당 체크리스트를 삭제하시겠어요?\n한 번 삭제하면 다시 복구할 수 없어요.", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-            guard let cid = self.checkListViewModel.checkList[sender.tag].cid else { return }
-            NotificationCenter.default.post(
-                name: NSNotification.Name("deleteCheckList"),
-                object: cid,
-                userInfo: nil
-            )
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+            guard let cid = self?.checkListViewModel.checkList[sender.tag].cid else { return }
+            self?.checkListViewModel.deleteCheckListPublisher.send(cid)
         }))
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
@@ -106,21 +109,27 @@ class CheckListViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    @objc func deleteCheckListNotification(_ notification: Notification) {
-        guard let cid = notification.object as? String else { return }
-        guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
-        self.checkListViewModel.deleteCheckList(at: index)
-        self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
-        for trailingIndex in stride(from: index, through: checkListViewModel.checkList.count-1, by: 1) {
-            self.checklistCollectionView.reloadItems(at: [IndexPath(row: trailingIndex, section: 0)])
-        }
-    }
-    
-    @objc func editCheckListNotification(_ notification: Notification) {
-        guard let checkList = notification.object as? CheckList else { return }
-        guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == checkList.cid }) else { return }
-        checkListViewModel.updateCheckList(at: index, checkList: checkList)
-        self.checklistCollectionView.reloadData()
+    private func bind() {
+        checkListViewModel.editCheckListPublisher
+            .sink { [weak self] checkList in
+                guard let self = self else { return }
+                guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == checkList.cid }) else { return }
+                self.checkListViewModel.updateCheckList(at: index, checkList: checkList)
+                self.checklistCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
+        
+        checkListViewModel.deleteCheckListPublisher
+            .sink { [weak self] cid in
+                guard let self = self else { return }
+                guard let index = self.checkListViewModel.checkList.firstIndex(where: { $0.cid == cid }) else { return }
+                self.checkListViewModel.deleteCheckList(at: index)
+                self.checklistCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+                for trailingIndex in stride(from: index, through: self.checkListViewModel.checkList.count-1, by: 1) {
+                    self.checklistCollectionView.reloadItems(at: [IndexPath(row: trailingIndex, section: 0)])
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -132,7 +141,7 @@ extension CheckListViewController {
             image: SFSymbol.chevronLeft.image,
             style: .done,
             target: self,
-            action: #selector(popToHomeViewController)
+            action: #selector(popToGuideHomeViewController)
         )
         navigationController?.navigationBar.tintColor = .theme.primary
     }
@@ -181,6 +190,8 @@ extension CheckListViewController: UICollectionViewDelegate {
                 self.checklistCollectionView.reloadItems(at: indexPathArray)
             }
             let detailViewController = CheckListDetailViewController()
+            detailViewController.editCheckListPublisher = checkListViewModel.editCheckListPublisher
+            detailViewController.deleteCheckListPublisher = checkListViewModel.deleteCheckListPublisher
             
             detailViewController.selectedCheckList = checkListViewModel.checkList[indexPath.row]
             
