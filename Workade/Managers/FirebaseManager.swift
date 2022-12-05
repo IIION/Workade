@@ -28,7 +28,6 @@ final class FirebaseManager: NSObject {
         authorizationController.presentationContextProvider = self
     }
     
-    
     func touchUpAppleButton(region: Region?, appleSignupCompletion: @escaping () -> Void, appleSigninCompletion: @escaping () -> Void) {
         self.region = region
         self.appleSigninCompletion = appleSigninCompletion

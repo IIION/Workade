@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class MyPageViewController: UIViewController {    
+final class MyPageViewController: UIViewController {
     // 특정 모서리만 둥글게 처리 참고 사이트 : https://swieeft.github.io/2020/03/05/UIViewRoundCorners.html
     private let profileView: ProfileView = {
         let profileView = ProfileView()
