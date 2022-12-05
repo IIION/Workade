@@ -18,10 +18,11 @@ class EmptyStickeView: UIView {
     
     private let emptyStickerLabel: UILabel = {
         let label = UILabel()
-        label.text = "각 지역별 워케이션을 통해 스티커를 획득하세요!"
+        label.text = "각 지역별 워케이션을 통해\n스티커를 획득하세요!"
         label.font = .customFont(for: .captionHeadline)
-        label.textColor = .theme.primary
-        label.numberOfLines = 1
+        label.textColor = .theme.tertiary
+        label.numberOfLines = 0
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
