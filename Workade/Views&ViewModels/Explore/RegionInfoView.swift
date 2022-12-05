@@ -71,10 +71,8 @@ final class RegionInfoView: UIView {
         return button
     }()
     
-    private lazy var dismissButton: UIButton = {
+    lazy var dismissButton: UIButton = {
         let button = UIButton(type: .custom)
-        let image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold))?.withRenderingMode(.alwaysOriginal)
-        button.setImage(image, for: .normal)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.selectedRegion.value = nil
         }), for: .touchUpInside)
@@ -159,14 +157,6 @@ final class RegionInfoView: UIView {
             completion()
         }, for: .touchUpInside)
         
-        self.addSubview(dismissButton)
-        NSLayoutConstraint.activate([
-            dismissButton.widthAnchor.constraint(equalToConstant: 28),
-            dismissButton.heightAnchor.constraint(equalToConstant: 28),
-            dismissButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            dismissButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20)
-        ])
-        
         self.addSubview(warningView)
         warningView.isHidden = true
         NSLayoutConstraint.activate([
@@ -174,6 +164,14 @@ final class RegionInfoView: UIView {
             warningView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             warningView.topAnchor.constraint(equalTo: self.topAnchor),
             warningView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+        
+        self.addSubview(dismissButton)
+        NSLayoutConstraint.activate([
+            dismissButton.widthAnchor.constraint(equalToConstant: 28),
+            dismissButton.heightAnchor.constraint(equalToConstant: 28),
+            dismissButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            dismissButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20)
         ])
     }
     
