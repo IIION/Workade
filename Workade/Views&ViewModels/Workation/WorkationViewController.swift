@@ -479,10 +479,12 @@ extension WorkationViewController {
         
         UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
-                guard let self = self, var user = user else { return }
-                DispatchQueue.main.async {
-                    self.bottomPaneView.isHidden = false
-                    self.loginPaneView.isHidden = true
+                guard let self = self else { return }
+                if user != nil {
+                    DispatchQueue.main.async {
+                        self.bottomPaneView.isHidden = false
+                        self.loginPaneView.isHidden = true
+                    }
                 }
             }
             .store(in: &cancellable)
