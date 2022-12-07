@@ -148,7 +148,7 @@ final class WorkationViewController: UIViewController {
             let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
-                if Auth.auth().currentUser == nil {
+                if UserManager.shared.user.value == nil {
                     let loginInitViewController = LoginInitViewController(region: self?.region)
                     let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
                     loginNavigation.modalPresentationStyle = .overFullScreen
@@ -208,6 +208,7 @@ final class WorkationViewController: UIViewController {
                     self?.loginPaneView.isHidden = false
                     self?.bottomPaneView.isHidden = true
                 }
+                
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
@@ -434,7 +435,6 @@ private extension WorkationViewController {
         guard var user = UserManager.shared.activeMyInfo else { return }
         let offsetDate = Date().timeIntervalSince(user.startDate)
         let day = Int(offsetDate/86400)
-        print(user.progressDay!, day)
         if let storedDay = user.progressDay, storedDay != day {
             self.compareProgressDay(presentDay: day, storedDay: storedDay)
             user.progressDay = day

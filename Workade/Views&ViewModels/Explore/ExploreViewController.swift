@@ -33,8 +33,6 @@ final class ExploreViewController: UIViewController {
         
         for region in Region.allCases {
             regionButtons[region]?.peopleCount = UserManager.shared.activeUsers[region]?.count ?? -2
-            print(UserManager.shared.activeUsers[.jeJuDo]?.count)
-            print()
         }
         
         viewModel.selectedRegion.bind { [weak self] region in
@@ -55,12 +53,18 @@ final class ExploreViewController: UIViewController {
             self.animator.startAnimation()
         }
         
-//        UserManager.shared.$activeUsers.sink { [weak self] activeUsers in
-//            guard let self = self else { return }
-//            for region in Region.allCases {
-//            }
-//        }
-//        .store(in: &anyCancellable)
+        UserManager.shared.$activeUsers.sink { [weak self] activeUsers in
+            guard let self = self else { return }
+            for region in Region.allCases {
+                guard let users = activeUsers[region] else { continue }
+                self.regionButtons[region]?.peopleCount = users.count
+                
+                if self.viewModel.selectedRegion.value == region {
+                    self.regionInfoView.peopleCount = users.count
+                }
+            }
+        }
+        .store(in: &anyCancellable)
     }
     
     override func viewDidAppear(_ animated: Bool) {
