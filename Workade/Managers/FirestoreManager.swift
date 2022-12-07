@@ -35,20 +35,20 @@ class FirestoreDAO {
         guard let data = user.asDictionary else { return }
         try await dto.createDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
         UserManager.shared.user.value = user
-        UserManager.shared.isActive = (user.activeRegion != nil)
+//        UserManager.shared.isActive = (user.activeRegion != nil)
     }
     
     func updateUser(user: User) async throws {
         guard let data = user.asDictionary else { return }
         try await dto.updateDocument(collectionName: allUserCollectionName, documentName: user.id, data: data)
         UserManager.shared.user.value = user
-        UserManager.shared.isActive = (user.activeRegion != nil)
+//        UserManager.shared.isActive = (user.activeRegion != nil)
     }
     
     func deleteUser(userid: String) async throws {
         try await dto.deleteDocument(collectionName: allUserCollectionName, documentName: userid)
         UserManager.shared.user.value = nil
-        UserManager.shared.isActive = false
+//        UserManager.shared.isActive = false
     }
     
     func getUser(userID: String) async throws -> User? {
@@ -61,7 +61,7 @@ class FirestoreDAO {
             let user = try decoder.decode(User.self, from: jsonData)
             UserManager.shared.user.value = user
             if user.id == userID {
-                UserManager.shared.isActive = (user.activeRegion != nil)
+//                UserManager.shared.isActive = (user.activeRegion != nil)
                 return user
             }
         }
@@ -71,8 +71,8 @@ class FirestoreDAO {
     func createActiveUser(user: ActiveUser) async throws {
         guard let data = user.asDictionary else { return }
         try await dto.createDocument(collectionName: user.region.rawValue, documentName: user.id, data: data)
-        UserManager.shared.isActive = true
-        UserManager.shared.activeRegion = user.region
+//        UserManager.shared.isActive = true
+//        UserManager.shared.activeRegion = user.region
         UserManager.shared.activeMyInfo = user
     }
     
@@ -83,9 +83,9 @@ class FirestoreDAO {
     
     func deleteActiveUser(userID: String, region: Region) async throws {
         try await dto.deleteDocument(collectionName: region.rawValue, documentName: userID)
-        UserManager.shared.activeRegion = nil
+//        UserManager.shared.activeRegion = nil
         UserManager.shared.activeMyInfo = nil
-        UserManager.shared.isActive = false
+//        UserManager.shared.isActive = false
     }
     
     func getActiveUsersNumber(region: Region) async throws -> Int {
@@ -101,19 +101,16 @@ class FirestoreDAO {
         UserManager.shared.activeMyInfo = activeUser
     }
     
-    func getActiveUsers(region: Region) async throws -> [Job: [ActiveUser]]? {
+    func getActiveUsers(region: Region) async throws -> [ActiveUser]? {
         let documents = try await dto.getDocuments(collectionName: region.rawValue)
         let decoder = JSONDecoder()
-        var users = [Job: [ActiveUser]]()
-        for job in Job.allCases {
-            users[job] = []
-        }
+        var users = [ActiveUser]()
         
         for document in documents {
             let data = document.data()
             let jsonData = try JSONSerialization.data(withJSONObject: data)
             let activeUser = try decoder.decode(ActiveUser.self, from: jsonData)
-            users[activeUser.job]?.append(activeUser)
+            users.append(activeUser)
         }
         return users
     }

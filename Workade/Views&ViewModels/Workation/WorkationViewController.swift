@@ -351,7 +351,7 @@ private extension WorkationViewController {
     private func setupLayout() {
         let guide = view.safeAreaLayoutGuide
         
-        if UserManager.shared.isActive {
+        if UserManager.shared.user.value?.activeRegion != nil {
             bottomPaneView.isHidden = false
             loginPaneView.isHidden = true
         }

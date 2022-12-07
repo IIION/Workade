@@ -13,8 +13,6 @@ class WorkerStatusSheetViewController: UIViewController {
     private let region: Region
     var viewDidDissmiss: (() -> Void)?
     
-    private lazy var  workerStatusSheetViewModel = WorkerStatusSheetViewModel(region: region)
-    
     private lazy var backgroundView = UIView(frame: view.frame)
     
     private lazy var containerView: UIView = {
@@ -73,7 +71,13 @@ class WorkerStatusSheetViewController: UIViewController {
         label.font = .customFont(for: .footnote)
         label.textColor = isMyJob ? .theme.workadeBlue : .theme.secondary
         
-        if let count = UserManager.shared.activeUsers[region]?[job]?.count {
+        if let users = UserManager.shared.activeUsers[region] {
+            var count = 0
+            for user in users {
+                if user.job == job {
+                    count += 1
+                }
+            }
             let fullText = "\(job.rawValue) \(count)명"
             let attributedString = NSMutableAttributedString(string: fullText)
             let range = (fullText as NSString).range(of: "\(count)명")

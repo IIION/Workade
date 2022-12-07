@@ -53,7 +53,7 @@ final class FirebaseManager: NSObject {
         do {
             try Auth.auth().signOut()
             if UserManager.shared.user.value?.activeRegion != nil,
-               let region = UserManager.shared.activeRegion,
+               let region = UserManager.shared.user.value?.activeRegion,
                let id = UserManager.shared.user.value?.id {
                 Task {
                     try await FirestoreDAO.shared.deleteActiveUser(userID: id, region: region)
