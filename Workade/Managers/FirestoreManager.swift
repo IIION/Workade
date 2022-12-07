@@ -9,12 +9,19 @@ import FirebaseFirestore
 import Foundation
 
 class FirestoreDAO {
-    private init() { }
+    private init() {
+        for region in Region.allCases {
+            
+            regionListener[region] = setRegionListener(region: region)
+        }
+    }
+    
     static let shared = FirestoreDAO()
     private let dto = FirestoreDTO()
     
     private let activeUserCollectionName = "ActiveUser"
     private let allUserCollectionName = "AllUser"
+    private var regionListener = [Region: ListenerRegistration]()
     
     func getUsers() async throws -> [User] {
         let documents = try await dto.getDocuments(collectionName: allUserCollectionName)
@@ -115,8 +122,33 @@ class FirestoreDAO {
         return users
     }
     
-    func setRegionListener(region: Region, listenerAction: @escaping (QuerySnapshot?, Error?) -> Void) -> ListenerRegistration {
-        return dto.setListener(collectionName: region.rawValue, listenderAction: listenerAction)
+    func setRegionListener(region: Region) -> ListenerRegistration {
+        return dto.setListener(collectionName: region.rawValue, listenderAction: { query, error in
+            if error != nil {
+                print(error, "Set Region Listener Error")
+                return
+            }
+            
+            guard let query = query else { return }
+            
+            let decoder = JSONDecoder()
+            for documentChange in query.documentChanges {
+                let document = documentChange.document
+                let data = document.data()
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: data)
+                    let activeUser = try decoder.decode(ActiveUser.self, from: jsonData)
+                    if UserManager.shared.activeUsers[activeUser.region] == nil {
+                        UserManager.shared.activeUsers[activeUser.region] = [activeUser]
+                    } else {
+                        UserManager.shared.activeUsers[activeUser.region]?.append(activeUser)
+                    }
+                } catch {
+                    print("Active User Decode Fail")
+                }
+            }
+            
+        })
     }
 }
 
