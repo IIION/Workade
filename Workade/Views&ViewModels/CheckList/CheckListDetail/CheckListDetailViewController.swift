@@ -291,7 +291,8 @@ extension CheckListDetailViewController {
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor)
+            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
