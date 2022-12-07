@@ -50,6 +50,7 @@ class CheckListDetailCell: UITableViewCell {
         checkButton.setImage(todo.done ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle"), for: .normal)
         checkButton.tintColor = todo.done ? .theme.workadeBlue : .theme.primary
         contentText.text = todo.content
+        contentText.textColor = todo.content != Optional("내용없음") ? .theme.primary : .lightGray
     }
 }
 

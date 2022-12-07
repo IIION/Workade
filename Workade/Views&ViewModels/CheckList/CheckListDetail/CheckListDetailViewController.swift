@@ -59,6 +59,7 @@ class CheckListDetailViewController: UIViewController {
     
     private lazy var titleLabel: UITextField = {
         let textField = UITextField()
+        textField.textColor = selectedCheckList?.title != Optional("제목없음") ? .theme.primary : .lightGray
         textField.text = selectedCheckList?.title ?? "제목없음"
         textField.font = .customFont(for: .title2)
         textField.tintColor = .theme.primary
@@ -367,11 +368,26 @@ extension CheckListDetailViewController: UITableViewDataSource {
 }
 
 extension CheckListDetailViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == titleLabel {
+            if textField.textColor == .lightGray {
+                textField.text = ""
+                textField.textColor = .theme.primary
+            }
+        } else {
+            if textField.textColor == .lightGray {
+                textField.text = ""
+                textField.textColor = .theme.primary
+            }
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == titleLabel {
             guard let targetCheckList = selectedCheckList else { return }
             if textField.text == "" {
                 textField.text = "제목없음"
+                textField.textColor = .lightGray
             }
             targetCheckList.title = textField.text
             editCheckListPublisher?.send(targetCheckList)
@@ -379,6 +395,7 @@ extension CheckListDetailViewController: UITextFieldDelegate {
             let todo = checkListDetailViewModel.todos[textField.tag]
             if textField.text == "" {
                 textField.text = "내용없음"
+                textField.textColor = .lightGray
             }
             todo.content = textField.text
             checkListDetailViewModel.updateTodo(at: textField.tag, todo: todo)
