@@ -86,8 +86,8 @@ class WorkerStatusSheetViewController: UIViewController {
     
     private lazy var numberOfWorkersStack: UIStackView = {
         let firstStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.designer, number: 0, isMyJob: true),
-            jobLabel(job: Job.developer, number: 0, isMyJob: false)
+            jobLabel(job: Job.designer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.designer),
+            jobLabel(job: Job.developer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.developer)
         ])
         
         firstStack.axis = .horizontal
@@ -95,31 +95,31 @@ class WorkerStatusSheetViewController: UIViewController {
         firstStack.spacing = 30
         
         let secondStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.writer, number: 0, isMyJob: false),
-            jobLabel(job: Job.PM, number: 0, isMyJob: false)
+            jobLabel(job: Job.writer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.writer),
+            jobLabel(job: Job.PM, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.PM)
         ])
         secondStack.axis = .horizontal
         secondStack.distribution = .fillEqually
         secondStack.spacing = 30
         
         let thirdStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.creater, number: 0, isMyJob: false),
-            jobLabel(job: Job.marketer, number: 0, isMyJob: false)
+            jobLabel(job: Job.creater, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.creater),
+            jobLabel(job: Job.marketer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.marketer)
         ])
         thirdStack.axis = .horizontal
         thirdStack.distribution = .fillEqually
         thirdStack.spacing = 30
         
         let fourthStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.artist, number: 0, isMyJob: false),
-            jobLabel(job: Job.freelancer, number: 0, isMyJob: false)
+            jobLabel(job: Job.artist, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.artist),
+            jobLabel(job: Job.freelancer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.freelancer)
         ])
         fourthStack.axis = .horizontal
         fourthStack.distribution = .fillEqually
         fourthStack.spacing = 30
         
         let fifthStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.etc, number: 0, isMyJob: false),
+            jobLabel(job: Job.etc, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.etc),
             UIView()
         ])
         fifthStack.axis = .horizontal
