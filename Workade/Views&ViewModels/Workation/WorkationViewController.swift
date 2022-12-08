@@ -156,12 +156,11 @@ final class WorkationViewController: UIViewController {
                 } else {
                     Task { [weak self] in
                         guard let self = self,
-                              let uid = Auth.auth().currentUser?.uid,
-                              var user = try await FirestoreDAO.shared.getUser(userID: uid)
+                              var user = UserManager.shared.user.value
                         else { return }
                         try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
-                        try await FirestoreDAO.shared.updateUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, activeRegion: self.region))
-                        try await UserManager.shared.reloadActiveUser(region: self.region)
+                        user.activeRegion = self.region
+                        try await FirestoreDAO.shared.updateUser(user: user)
                     }
                     
                     self?.loginPaneView.isHidden = true
@@ -312,7 +311,14 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
-    private let peopleCount: Int
+    private var peopleCount: Int {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let count = self?.peopleCount else { return }
+                self?.numberOfWorkers.text = "\(count)명이 일하고 있어요"
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -488,6 +494,12 @@ extension WorkationViewController {
                 }
             }
             .store(in: &cancellable)
+        
+        UserManager.shared.$activeUsers.sink { [weak self] users in
+            guard let self = self else { return }
+            self.peopleCount = users[self.region]?.count ?? 0
+        }
+        .store(in: &cancellable)
     }
     
     private func updateActiveUser(user: ActiveUser) {

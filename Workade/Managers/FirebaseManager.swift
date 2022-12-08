@@ -128,9 +128,9 @@ final class FirebaseManager: NSObject {
                 
                 if let user = result?.user {
                     Task { [weak self] in
-                        if var userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) {
-                            if let region = self?.region {
-                                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
+                        if UserManager.shared.user.value != nil {
+                            if let region = self?.region, let userInfo = UserManager.shared.user.value {
+                                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo	.id, job: userInfo.job, region: region, startDate: .now))
                                 try await FirestoreDAO.shared.updateUser(user: User(id: userInfo.id, name: userInfo.name, email: userInfo.email, job: userInfo.job, activeRegion: region))
                             }
                             DispatchQueue.main.async {
