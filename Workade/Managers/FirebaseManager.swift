@@ -145,10 +145,6 @@ final class FirebaseManager: NSObject {
             }
         }
     }
-    
-    func getUser() -> (Firebase.User)? {
-        return Auth.auth().currentUser
-    }
 }
 
 // MARK: - ASAuthorizationControllerDelegate
@@ -213,6 +209,6 @@ extension FirebaseManager: ASAuthorizationControllerDelegate {
 // MARK: - ASAuthorizationControllerPresentationContextProviding
 extension FirebaseManager: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return UIApplication.shared.windows.filter{$0.isKeyWindow}.first!
+        return UIApplication.shared.windows.filter{ $0.isKeyWindow }.first!
     }
 }

@@ -5,6 +5,7 @@
 //  Created by Inho Choi on 2022/11/22.
 //
 
+import FirebaseAuth
 import UIKit
 
 class LoginJobViewController: UIViewController {
@@ -87,7 +88,7 @@ class LoginJobViewController: UIViewController {
         let nextView = LoginNextButtonView(tapGesture: { [weak self] in
             guard let self = self else { return }
             Task { [weak self] in
-                guard let loginInfo = FirebaseManager.shared.getUser(), let job = self?.viewModel.selectedJob else { return }
+                guard let loginInfo = Auth.auth().currentUser, let job = self?.viewModel.selectedJob else { return }
                 let user = User(id: loginInfo.uid, name: self?.viewModel.name, email: loginInfo.email, job: job, activeRegion: self?.region)
                 do {
                     try await FirestoreDAO.shared.createUser(user: user)
