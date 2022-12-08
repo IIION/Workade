@@ -12,8 +12,6 @@ import UIKit
 final class WorkationViewController: UIViewController {
     private let workationViewModel = WorkationViewModel()
     
-    var dismissAction: (() -> Void)?
-    
     var cancellable = Set<AnyCancellable>()
     
     let canGetStickers: [StickerTitle] = [
@@ -26,7 +24,6 @@ final class WorkationViewController: UIViewController {
     private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            self?.dismissAction?()
             self?.dismiss(animated: true)
         })
     )
