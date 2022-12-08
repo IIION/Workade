@@ -57,8 +57,9 @@ final class ExploreViewController: UIViewController {
             guard let self = self else { return }
             for region in Region.allCases {
                 guard let users = activeUsers[region] else { continue }
-                self.regionButtons[region]?.peopleCount = users.count
-                
+                DispatchQueue.main.async {
+                    self.regionButtons[region]?.peopleCount = users.count
+                }
                 if self.viewModel.selectedRegion.value == region {
                     self.regionInfoView.peopleCount = users.count
                 }
