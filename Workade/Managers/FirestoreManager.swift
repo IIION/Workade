@@ -112,22 +112,18 @@ class FirestoreDAO {
             guard let query = query else { return }
             
             let decoder = JSONDecoder()
-            for documentChange in query.documentChanges {
-                let document = documentChange.document
+            var users = [ActiveUser]()
+            for document in query.documents {
                 let data = document.data()
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data)
                     let activeUser = try decoder.decode(ActiveUser.self, from: jsonData)
-                    if UserManager.shared.activeUsers[activeUser.region] == nil {
-                        UserManager.shared.activeUsers[activeUser.region] = [activeUser]
-                    } else {
-                        UserManager.shared.activeUsers[activeUser.region]?.append(activeUser)
-                    }
+                    users.append(activeUser)
                 } catch {
                     print("Active User Decode Fail")
                 }
             }
-            
+            UserManager.shared.activeUsers[region] = users
         })
     }
 }
