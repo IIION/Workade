@@ -434,7 +434,7 @@ private extension WorkationViewController {
         guard var user = UserManager.shared.activeMyInfo else { return }
         let offsetDate = Date().timeIntervalSince(user.startDate)
         let day = Int(offsetDate/86400)
-        print(user.progressDay!, day)
+        
         if let storedDay = user.progressDay, storedDay != day {
             self.compareProgressDay(presentDay: day, storedDay: storedDay)
             user.progressDay = day

@@ -9,6 +9,7 @@ import UIKit
 
 final class ExploreTransitionManager: NSObject {
     let duration: Double = 0.4
+    var presentByDragging: Bool = false
     private var transition: TransitionType = .presentation
 }
 
@@ -47,7 +48,9 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(regionInfoViewCopy)
             exploreViewController.regionInfoView.alpha = 0
             
-            let heightConstraint = regionInfoViewCopy.heightAnchor.constraint(equalToConstant: exploreViewController.regionInfoViewHeight)
+            let heightConstraint = regionInfoViewCopy.heightAnchor.constraint(
+                equalToConstant: exploreViewController.regionInfoViewHeight + (presentByDragging ? 50 : 0)
+            )
             let bottomConstraint = regionInfoViewCopy.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             
             NSLayoutConstraint.activate([
@@ -135,6 +138,7 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
         
         animator.startAnimation()
         fastOpacityAnimator.startAnimation()
+        presentByDragging = false
     }
     
     private func makeRegionInfoViewCopy(selectedRegion: Binder<Region?>) -> RegionInfoView {
