@@ -10,10 +10,13 @@ import UIKit
 final class RegionInfoView: UIView {
     var peopleCount: Int {
         didSet {
-            let text = "지금 \(peopleCount)명의 사람들이\n워케이션 중이에요"
-            let attributedString = NSMutableAttributedString(string: text)
-            attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: (text as NSString).range(of: "\(peopleCount)"))
-            desciptionLabel.attributedText = attributedString
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                let text = "지금 \(self.peopleCount)명의 사람들이\n워케이션 중이에요"
+                let attributedString = NSMutableAttributedString(string: text)
+                attributedString.addAttribute(.foregroundColor, value: UIColor.theme.workadeBlue, range: (text as NSString).range(of: "\(self.peopleCount)"))
+                self.desciptionLabel.attributedText = attributedString
+            }
         }
     }
     let selectedRegion: Binder<Region?>

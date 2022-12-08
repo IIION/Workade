@@ -148,7 +148,7 @@ final class WorkationViewController: UIViewController {
             let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
-                if Auth.auth().currentUser == nil {
+                if UserManager.shared.user.value == nil {
                     let loginInitViewController = LoginInitViewController(region: self?.region)
                     let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
                     loginNavigation.modalPresentationStyle = .overFullScreen
@@ -156,12 +156,11 @@ final class WorkationViewController: UIViewController {
                 } else {
                     Task { [weak self] in
                         guard let self = self,
-                              let uid = Auth.auth().currentUser?.uid,
-                              var user = try await FirestoreDAO.shared.getUser(userID: uid)
+                              var user = UserManager.shared.user.value
                         else { return }
                         try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
-                        try await FirestoreDAO.shared.updateUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, activeRegion: self.region))
-                        try await UserManager.shared.reloadActiveUser(region: self.region)
+                        user.activeRegion = self.region
+                        try await FirestoreDAO.shared.updateUser(user: user)
                     }
                     
                     self?.loginPaneView.isHidden = true
@@ -208,6 +207,7 @@ final class WorkationViewController: UIViewController {
                     self?.loginPaneView.isHidden = false
                     self?.bottomPaneView.isHidden = true
                 }
+                
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
@@ -311,7 +311,14 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
-    private let peopleCount: Int
+    private var peopleCount: Int {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let count = self?.peopleCount else { return }
+                self?.numberOfWorkers.text = "\(count)명이 일하고 있어요"
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -351,7 +358,7 @@ private extension WorkationViewController {
     private func setupLayout() {
         let guide = view.safeAreaLayoutGuide
         
-        if UserManager.shared.isActive {
+        if UserManager.shared.user.value?.activeRegion != nil {
             bottomPaneView.isHidden = false
             loginPaneView.isHidden = true
         }
@@ -434,7 +441,6 @@ private extension WorkationViewController {
         guard var user = UserManager.shared.activeMyInfo else { return }
         let offsetDate = Date().timeIntervalSince(user.startDate)
         let day = Int(offsetDate/86400)
-        print(user.progressDay!, day)
         if let storedDay = user.progressDay, storedDay != day {
             self.compareProgressDay(presentDay: day, storedDay: storedDay)
             user.progressDay = day
@@ -479,13 +485,21 @@ extension WorkationViewController {
         
         UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
-                guard let self = self, var user = user else { return }
-                DispatchQueue.main.async {
-                    self.bottomPaneView.isHidden = false
-                    self.loginPaneView.isHidden = true
+                guard let self = self else { return }
+                if user != nil {
+                    DispatchQueue.main.async {
+                        self.bottomPaneView.isHidden = false
+                        self.loginPaneView.isHidden = true
+                    }
                 }
             }
             .store(in: &cancellable)
+        
+        UserManager.shared.$activeUsers.sink { [weak self] users in
+            guard let self = self else { return }
+            self.peopleCount = users[self.region]?.count ?? 0
+        }
+        .store(in: &cancellable)
     }
     
     private func updateActiveUser(user: ActiveUser) {
