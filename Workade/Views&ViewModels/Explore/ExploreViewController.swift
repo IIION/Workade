@@ -32,7 +32,7 @@ final class ExploreViewController: UIViewController {
         setupLayout()
         
         for region in Region.allCases {
-            regionButtons[region]?.peopleCount = UserManager.shared.activeUsers[region]?.count ?? -2
+            regionButtons[region]?.peopleCount = UserManager.shared.activeUsers[region]?.count ?? 0
         }
         
         viewModel.selectedRegion.bind { [weak self] region in
