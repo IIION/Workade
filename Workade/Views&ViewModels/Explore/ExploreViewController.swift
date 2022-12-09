@@ -12,7 +12,6 @@ import UIKit
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
-    private let transitionManager = ExploreTransitionManager()
     private var regionInfoViewHeightConstraint: NSLayoutConstraint?
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     private var buttonConstraints: [RegionButton: [NSLayoutConstraint]] = [:]
@@ -20,7 +19,7 @@ final class ExploreViewController: UIViewController {
     private var anyCancellable = Set<AnyCancellable>()
     let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
     private lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(onDrag))
-    
+    private lazy var transitionManager = ExploreTransitionManager(region: viewModel.selectedRegion.value)
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
         return UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
@@ -364,7 +363,7 @@ private extension ExploreViewController {
     func present() {
         guard let region = viewModel.selectedRegion.value,
               region.isCanWorkation,
-              let count = regionPeopleCounts[region] else { return }
+              let count = UserManager.shared.activeUsers[region]?.count else { return }
         let navigationController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
         navigationController.transitioningDelegate = transitionManager
         transitionManager.presentByDragging = true
