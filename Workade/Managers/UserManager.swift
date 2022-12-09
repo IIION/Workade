@@ -21,9 +21,7 @@ class UserManager {
     
     var user = CurrentValueSubject<User?, Never>(nil)
     
-    var activeUsers = [Region: [Job: [ActiveUser]]]()
-    @Published var isActive = false
-    var activeRegion: Region? = nil
+    @Published var activeUsers = [Region: [ActiveUser]]()
     
     @Published var activeMyInfo: ActiveUser? = nil
     

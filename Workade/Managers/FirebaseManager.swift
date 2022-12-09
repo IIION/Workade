@@ -28,7 +28,6 @@ final class FirebaseManager: NSObject {
         authorizationController.presentationContextProvider = self
     }
     
-    
     func touchUpAppleButton(region: Region?, appleSignupCompletion: @escaping () -> Void, appleSigninCompletion: @escaping () -> Void) {
         self.region = region
         self.appleSigninCompletion = appleSigninCompletion
@@ -53,8 +52,7 @@ final class FirebaseManager: NSObject {
     func signout() {
         do {
             try Auth.auth().signOut()
-            if UserManager.shared.user.value?.activeRegion != nil,
-               let region = UserManager.shared.activeRegion,
+            if let region = UserManager.shared.user.value?.activeRegion,
                let id = UserManager.shared.user.value?.id {
                 Task {
                     try await FirestoreDAO.shared.deleteActiveUser(userID: id, region: region)
@@ -127,11 +125,11 @@ final class FirebaseManager: NSObject {
                     return
                 }
                 
-                if let user = result?.user {
+                if result?.user != nil {
                     Task { [weak self] in
-                        if var userInfo = try await FirestoreDAO.shared.getUser(userID: user.uid) {
-                            if let region = self?.region {
-                                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo.id, job: userInfo.job, region: region, startDate: .now))
+                        if UserManager.shared.user.value != nil {
+                            if let region = self?.region, let userInfo = UserManager.shared.user.value {
+                                try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: userInfo	.id, job: userInfo.job, region: region, startDate: .now))
                                 try await FirestoreDAO.shared.updateUser(user: User(id: userInfo.id, name: userInfo.name, email: userInfo.email, job: userInfo.job, activeRegion: region))
                             }
                             DispatchQueue.main.async {

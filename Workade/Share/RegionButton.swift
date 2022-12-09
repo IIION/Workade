@@ -12,7 +12,9 @@ final class RegionButton: UIButton {
     weak var selectedRegion: Binder<Region?>?
     var peopleCount: Int {
         didSet {
-            peopleCountLabel.text = "\(peopleCount)"
+            DispatchQueue.main.async { [weak self] in
+                self?.peopleCountLabel.text = "\(self!.peopleCount)"
+            }
         }
     }
     
