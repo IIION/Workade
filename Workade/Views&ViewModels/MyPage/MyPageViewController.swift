@@ -50,26 +50,12 @@ final class MyPageViewController: UIViewController {
         setupLayout()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setData()
-    }
-    
     private func editProfileButtonTapped() {
         profileView.editProfileButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             let viewController = EditProfileViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         }), for: .touchUpInside)
-    }
-    
-    func setData() {
-        guard let user = UserManager.shared.user.value else { return }
-        profileView.nameLabel.text = user.name
-        profileView.jobLabel.text = user.job.rawValue
-        
-        // TODO: Combine이던, Binder던 콜렉션뷰 reload해야할것 같음
     }
     
     func setupStickerView() {

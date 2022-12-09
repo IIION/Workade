@@ -74,16 +74,20 @@ final class SettingViewController: UIViewController {
         
         button.addAction(UIAction(handler: { [weak self] _ in
             Task { [weak self] in
-                guard let currentUser = Auth.auth().currentUser else { return }
-                if var user = try await FirestoreDAO.shared.getUser(userID: currentUser.uid) {
-                    if let region = user.activeRegion {
-                        try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: region)
-                    }
-                    try await FirestoreDAO.shared.deleteUser(userid: user.id)
+                guard let self = self, let user = UserManager.shared.user.value else { return }
+                let uid = user.id
+                
+                // 활동 중이면 활동중인 유저를 삭제
+                if let activeUser = UserManager.shared.activeMyInfo {
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: uid, region: activeUser.region)
                 }
-                try Auth.auth().signOut()
-                try await currentUser.delete()
-                self?.navigationController?.popToRootViewController(animated: true)
+                
+                // 먼저 계정 삭제 (로그 아웃 자동)
+                try await Auth.auth().currentUser?.delete()
+                // DB에서 계정 삭제
+                try await FirestoreDAO.shared.deleteUser(userid: uid)
+                
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }), for: .touchUpInside)
         
