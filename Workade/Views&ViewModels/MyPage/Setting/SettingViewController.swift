@@ -5,6 +5,7 @@
 //  Created by Hyeonsoo Kim on 2022/10/26.
 //
 
+import SafariServices
 import FirebaseAuth
 import UIKit
 
@@ -34,11 +35,12 @@ final class SettingViewController: UIViewController {
         return label
     }()
     
-    private let dataButton: SettingButton = {
-        let button = SettingButton(text: "데이터")
-        button.addAction(UIAction(handler: { _ in
-            // TODO: 데이터 뷰 이동
-            print("데이터 버튼 클릭")
+    private lazy var dataButton: SettingButton = {
+        let button = SettingButton(text: "개인정보 처리 방침")
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard let privacyPoliceURL = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/ILION.md") else { return }
+            let privacyPoliceSafariView: SFSafariViewController = SFSafariViewController(url: privacyPoliceURL)
+            self?.present(privacyPoliceSafariView, animated: true, completion: nil)
         }), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -46,11 +48,12 @@ final class SettingViewController: UIViewController {
         return button
     }()
     
-    private let licenseButton: SettingButton = {
+    private lazy var licenseButton: SettingButton = {
         let button = SettingButton(text: "라이센스")
-        button.addAction(UIAction(handler: { _ in
-            // TODO: 라이센스 뷰 이동
-            print("라이센스 버튼 클릭")
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard let licenseURL = URL(string: "https://raw.githubusercontent.com/IIION/WorkadeData/main/License.md") else { return }
+            let licenseSafariView: SFSafariViewController = SFSafariViewController(url: licenseURL)
+            self?.present(licenseSafariView, animated: true, completion: nil)
         }), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -71,16 +74,20 @@ final class SettingViewController: UIViewController {
         
         button.addAction(UIAction(handler: { [weak self] _ in
             Task { [weak self] in
-                guard let currentUser = Auth.auth().currentUser else { return }
-                if var user = try await FirestoreDAO.shared.getUser(userID: currentUser.uid) {
-                    if let region = user.activeRegion {
-                        try await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: region)
-                    }
-                    try await FirestoreDAO.shared.deleteUser(userid: user.id)
+                guard let self = self, let user = UserManager.shared.user.value else { return }
+                let uid = user.id
+                
+                // 활동 중이면 활동중인 유저를 삭제
+                if let activeUser = UserManager.shared.activeMyInfo {
+                    try await FirestoreDAO.shared.deleteActiveUser(userID: uid, region: activeUser.region)
                 }
-                try Auth.auth().signOut()
-                try await currentUser.delete()
-                self?.navigationController?.popToRootViewController(animated: true)
+                
+                // 먼저 계정 삭제 (로그 아웃 자동)
+                try await Auth.auth().currentUser?.delete()
+                // DB에서 계정 삭제
+                try await FirestoreDAO.shared.deleteUser(userid: uid)
+                
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }), for: .touchUpInside)
         

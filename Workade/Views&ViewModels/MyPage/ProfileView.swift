@@ -5,10 +5,11 @@
 //  Created by Hong jeongmin on 2022/11/16.
 //
 
+import Combine
 import UIKit
 
 class ProfileView: UIView {
-    // TODO: Login User 정보 ViewModel 사용
+    private var anyCancellable = Set<AnyCancellable>()
     
     let containerView: UIView = {
         let containerView = UIView()
@@ -42,6 +43,7 @@ class ProfileView: UIView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .title3)
+        label.text = UserManager.shared.user.value?.name ?? ""
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -50,6 +52,7 @@ class ProfileView: UIView {
     let jobLabel: UILabel = {
         let label = UILabel()
         label.font = .customFont(for: .footnote)
+        label.text = UserManager.shared.user.value?.job.rawValue ?? ""
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -59,6 +62,14 @@ class ProfileView: UIView {
         super.init(frame: frame)
         
         setupLayout()
+        
+        UserManager.shared.user.sink(receiveValue: { [weak self] user in
+            guard let user = user, let self = self else { return }
+            DispatchQueue.main.async {
+                self.jobLabel.text = user.job.rawValue
+                self.nameLabel.text = user.name ?? ""
+            }
+        }).store(in: &anyCancellable)
     }
     
     required init?(coder: NSCoder) {

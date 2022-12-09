@@ -13,8 +13,6 @@ class WorkerStatusSheetViewController: UIViewController {
     private let region: Region
     var viewDidDissmiss: (() -> Void)?
     
-    private lazy var  workerStatusSheetViewModel = WorkerStatusSheetViewModel(region: region)
-    
     private lazy var backgroundView = UIView(frame: view.frame)
     
     private lazy var containerView: UIView = {
@@ -73,7 +71,13 @@ class WorkerStatusSheetViewController: UIViewController {
         label.font = .customFont(for: .footnote)
         label.textColor = isMyJob ? .theme.workadeBlue : .theme.secondary
         
-        if let count = UserManager.shared.activeUsers[region]?[job]?.count {
+        if let users = UserManager.shared.activeUsers[region] {
+            var count = 0
+            for user in users {
+                if user.job == job {
+                    count += 1
+                }
+            }
             let fullText = "\(job.rawValue) \(count)명"
             let attributedString = NSMutableAttributedString(string: fullText)
             let range = (fullText as NSString).range(of: "\(count)명")
@@ -86,8 +90,8 @@ class WorkerStatusSheetViewController: UIViewController {
     
     private lazy var numberOfWorkersStack: UIStackView = {
         let firstStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.designer, number: 0, isMyJob: true),
-            jobLabel(job: Job.developer, number: 0, isMyJob: false)
+            jobLabel(job: Job.designer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.designer),
+            jobLabel(job: Job.developer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.developer)
         ])
         
         firstStack.axis = .horizontal
@@ -95,31 +99,31 @@ class WorkerStatusSheetViewController: UIViewController {
         firstStack.spacing = 30
         
         let secondStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.writer, number: 0, isMyJob: false),
-            jobLabel(job: Job.PM, number: 0, isMyJob: false)
+            jobLabel(job: Job.writer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.writer),
+            jobLabel(job: Job.PM, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.PM)
         ])
         secondStack.axis = .horizontal
         secondStack.distribution = .fillEqually
         secondStack.spacing = 30
         
         let thirdStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.creater, number: 0, isMyJob: false),
-            jobLabel(job: Job.marketer, number: 0, isMyJob: false)
+            jobLabel(job: Job.creater, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.creater),
+            jobLabel(job: Job.marketer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.marketer)
         ])
         thirdStack.axis = .horizontal
         thirdStack.distribution = .fillEqually
         thirdStack.spacing = 30
         
         let fourthStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.artist, number: 0, isMyJob: false),
-            jobLabel(job: Job.freelancer, number: 0, isMyJob: false)
+            jobLabel(job: Job.artist, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.artist),
+            jobLabel(job: Job.freelancer, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.freelancer)
         ])
         fourthStack.axis = .horizontal
         fourthStack.distribution = .fillEqually
         fourthStack.spacing = 30
         
         let fifthStack = UIStackView(arrangedSubviews: [
-            jobLabel(job: Job.etc, number: 0, isMyJob: false),
+            jobLabel(job: Job.etc, number: 0, isMyJob: UserManager.shared.activeMyInfo?.job == Job.etc),
             UIView()
         ])
         fifthStack.axis = .horizontal

@@ -15,7 +15,6 @@ final class WorkationViewController: UIViewController {
     var dismissAction: (() -> Void)?
     
     var cancellable = Set<AnyCancellable>()
-    var activeUserCancellable: AnyCancellable? = nil
     
     let canGetStickers: [StickerTitle] = [
         .halLaBong, .dolHaReuBang, .horse, .halLaSan
@@ -149,7 +148,7 @@ final class WorkationViewController: UIViewController {
             let alert = UIAlertController(title: nil, message: "정말로 워케이션을 시작하시겠어요?", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "시작하기", style: .default, handler: { [weak self] _ in
-                if Auth.auth().currentUser == nil {
+                if UserManager.shared.user.value == nil {
                     let loginInitViewController = LoginInitViewController(region: self?.region)
                     let loginNavigation = UINavigationController(rootViewController: loginInitViewController)
                     loginNavigation.modalPresentationStyle = .overFullScreen
@@ -157,12 +156,11 @@ final class WorkationViewController: UIViewController {
                 } else {
                     Task { [weak self] in
                         guard let self = self,
-                              let uid = Auth.auth().currentUser?.uid,
-                              var user = try await FirestoreDAO.shared.getUser(userID: uid)
+                              var user = UserManager.shared.user.value
                         else { return }
                         try await FirestoreDAO.shared.createActiveUser(user: ActiveUser(id: user.id, job: user.job, region: self.region, startDate: .now))
-                        try await FirestoreDAO.shared.updateUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, activeRegion: self.region))
-                        try await UserManager.shared.reloadActiveUser(region: self.region)
+                        user.activeRegion = self.region
+                        try await FirestoreDAO.shared.updateUser(user: user)
                     }
                     
                     self?.loginPaneView.isHidden = true
@@ -201,7 +199,6 @@ final class WorkationViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
                 Task { [weak self] in
                     guard let self = self, var user = UserManager.shared.user.value else { return }
-                    self.activeUserCancellable?.cancel()
                     try? await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
                     try? await FirestoreDAO.shared.createUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, stickers: user.stickers, activeRegion: nil))
                 }
@@ -210,6 +207,7 @@ final class WorkationViewController: UIViewController {
                     self?.loginPaneView.isHidden = false
                     self?.bottomPaneView.isHidden = true
                 }
+                
             }))
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
@@ -313,7 +311,14 @@ final class WorkationViewController: UIViewController {
         return stackView
     }()
     
-    private let peopleCount: Int
+    private var peopleCount: Int {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let count = self?.peopleCount else { return }
+                self?.numberOfWorkers.text = "\(count)명이 일하고 있어요"
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -323,6 +328,7 @@ final class WorkationViewController: UIViewController {
         
         setupLayout()
         setupNavigationBar()
+        setupProgressDay()
         bind()
     }
     
@@ -352,7 +358,7 @@ private extension WorkationViewController {
     private func setupLayout() {
         let guide = view.safeAreaLayoutGuide
         
-        if UserManager.shared.isActive {
+        if UserManager.shared.user.value?.activeRegion != nil {
             bottomPaneView.isHidden = false
             loginPaneView.isHidden = true
         }
@@ -430,6 +436,18 @@ private extension WorkationViewController {
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
     }
+    
+    private func setupProgressDay() {
+        guard var user = UserManager.shared.activeMyInfo else { return }
+        let offsetDate = Date().timeIntervalSince(user.startDate)
+        let day = Int(offsetDate/86400)
+        if let storedDay = user.progressDay, storedDay != day {
+            self.compareProgressDay(presentDay: day, storedDay: storedDay)
+            user.progressDay = day
+            self.updateActiveUser(user: user)
+        }
+        self.dayLabel.text = "\(day)일째"
+    }
 }
 
 extension WorkationViewController {
@@ -455,33 +473,33 @@ extension WorkationViewController {
                 DispatchQueue.main.async {
                     let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(ceil(offsetDate/86400))
-                    if let storedDay = user.progressDay {
+                    if let storedDay = user.progressDay, storedDay != day {
                         self.compareProgressDay(presentDay: day, storedDay: storedDay)
+                        user.progressDay = day
+                        self.updateActiveUser(user: user)
                     }
-                    user.progressDay = day
-                    self.updateActiveUser(user: user)
                     self.dayLabel.text = "\(day)일째"
                 }
             }
             .store(in: &cancellable)
         
-        activeUserCancellable = UserManager.shared.$activeMyInfo
+        UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
-                guard let self = self, var user = user else { return }
-                DispatchQueue.main.async {
-                    let offsetDate = Date().timeIntervalSince(user.startDate)
-                    let day = Int(offsetDate/86400)
-                    if let storedDay = user.progressDay {
-                        self.compareProgressDay(presentDay: day, storedDay: storedDay)
+                guard let self = self else { return }
+                if user != nil {
+                    DispatchQueue.main.async {
+                        self.bottomPaneView.isHidden = false
+                        self.loginPaneView.isHidden = true
                     }
-                    user.progressDay = day
-                    self.updateActiveUser(user: user)
-                    self.dayLabel.text = "\(day)일째"
-                    
-                    self.bottomPaneView.isHidden = false
-                    self.loginPaneView.isHidden = true
                 }
             }
+            .store(in: &cancellable)
+        
+        UserManager.shared.$activeUsers.sink { [weak self] users in
+            guard let self = self else { return }
+            self.peopleCount = users[self.region]?.count ?? 0
+        }
+        .store(in: &cancellable)
     }
     
     private func updateActiveUser(user: ActiveUser) {

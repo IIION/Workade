@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class MyPageViewController: UIViewController {    
+final class MyPageViewController: UIViewController {
     // 특정 모서리만 둥글게 처리 참고 사이트 : https://swieeft.github.io/2020/03/05/UIViewRoundCorners.html
     private let profileView: ProfileView = {
         let profileView = ProfileView()
@@ -30,19 +30,24 @@ final class MyPageViewController: UIViewController {
         return stickerView
     }()
     
+    private let emptyStickerView: EmptyStickeView = {
+        let emptyStickerView = EmptyStickeView()
+        emptyStickerView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStickerView.layer.cornerRadius = 30
+        emptyStickerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        emptyStickerView.backgroundColor = .theme.background
+        
+        return emptyStickerView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.primary
         
+        setupStickerView()
         editProfileButtonTapped()
         setupNavigationBar()
         setupLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setData()
     }
     
     private func editProfileButtonTapped() {
@@ -53,12 +58,20 @@ final class MyPageViewController: UIViewController {
         }), for: .touchUpInside)
     }
     
-    func setData() {
-        guard let user = UserManager.shared.user.value else { return }
-        profileView.nameLabel.text = user.name
-        profileView.jobLabel.text = user.job.rawValue
+    func setupStickerView() {
+        guard let stickersArray = UserManager.shared.user.value?.stickers else {
+            emptyStickerView.isHidden = false
+            stickerView.isHidden = true
+            return
+        }
         
-        // TODO: Combine이던, Binder던 콜렉션뷰 reload해야할것 같음
+        if stickersArray.count == 0 {
+            emptyStickerView.isHidden = false
+            stickerView.isHidden = true
+        } else {
+            emptyStickerView.isHidden = true
+            stickerView.isHidden = false
+        }
     }
 }
 
@@ -100,6 +113,14 @@ private extension MyPageViewController {
             stickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             stickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        view.addSubview(emptyStickerView)
+        NSLayoutConstraint.activate([
+            emptyStickerView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 4),
+            emptyStickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            emptyStickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyStickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
