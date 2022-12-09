@@ -36,10 +36,6 @@ extension UIFont {
             return UIFont(name: CustomFont.satoshiBold.rawValue, size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
         case .tag:
             return UIFont(name: CustomFont.satoshiRegular.rawValue, size: 10) ?? UIFont.systemFont(ofSize: 10, weight: .regular)
-        case .captionHeadlineNew:
-            return UIFont(name: CustomFont.pretendardBold.rawValue, size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
-            // TODO: Font 적용하기
-            // TODO: Font 정리는 일일이 하기보단, 추후 한번에 정리하는게 효율적일듯 합니다.
         }
     }
 }
@@ -69,5 +65,4 @@ enum CustomTextStyle: String {
     case caption
     case caption2
     case tag
-    case captionHeadlineNew
 }

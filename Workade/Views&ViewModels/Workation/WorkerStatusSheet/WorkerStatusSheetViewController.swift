@@ -51,7 +51,7 @@ class WorkerStatusSheetViewController: UIViewController {
     
     private let wholeWorkerLabel: UILabel = {
         let label = UILabel()
-        label.font = .customFont(for: .captionHeadlineNew)
+        label.font = .customFont(for: .captionHeadline)
         label.textColor = .theme.secondary
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
