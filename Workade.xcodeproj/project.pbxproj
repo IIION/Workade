@@ -13,6 +13,7 @@
 		0E36ABA3292CABEB00D6B2DD /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36ABA2292CABEB00D6B2DD /* ShareView.swift */; };
 		0E370E6529091B3A009C69BB /* OfficeDetailResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */; };
 		0E6227B329268CAD008690AE /* FeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */; };
+		0E8C6BCD29433817001CB903 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8C6BCC29433816001CB903 /* GoogleService-Info.plist */; };
 		0EFB5BA328FF08A100174291 /* NearbyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */; };
 		0EFB5BA52900E9D800174291 /* IntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BA42900E9D800174291 /* IntroduceView.swift */; };
 		0EFB5BCB29017FBB00174291 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB5BCA29017FBB00174291 /* GalleryView.swift */; };
@@ -176,6 +177,7 @@
 		0E36ABA2292CABEB00D6B2DD /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		0E370E6429091B3A009C69BB /* OfficeDetailResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficeDetailResource.swift; sourceTree = "<group>"; };
 		0E6227B229268CAD008690AE /* FeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E8C6BCC29433816001CB903 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0EFB5BA228FF08A100174291 /* NearbyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlaceViewController.swift; sourceTree = "<group>"; };
 		0EFB5BA42900E9D800174291 /* IntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceView.swift; sourceTree = "<group>"; };
 		0EFB5BCA29017FBB00174291 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 		5FDC17AE28FE799C0060DBB7 = {
 			isa = PBXGroup;
 			children = (
+				0E8C6BCC29433816001CB903 /* GoogleService-Info.plist */,
 				5FDC17D228FE7A900060DBB7 /* .swiftlint.yml */,
 				5FDC17B928FE799C0060DBB7 /* Workade */,
 				5FDC17B828FE799C0060DBB7 /* Products */,
@@ -922,6 +925,7 @@
 				5FDC17D328FE7A900060DBB7 /* .swiftlint.yml in Resources */,
 				21F6DE5D28FFED5D00ED72C6 /* Pretendard-Regular.otf in Resources */,
 				2103BBA929261F4D00BBCB2C /* Satoshi-Medium.otf in Resources */,
+				0E8C6BCD29433817001CB903 /* GoogleService-Info.plist in Resources */,
 				21F6DE5E28FFED5D00ED72C6 /* Pretendard-Bold.otf in Resources */,
 				5FDC17CA28FE799D0060DBB7 /* LaunchScreen.storyboard in Resources */,
 				21F6DE5C28FFED5D00ED72C6 /* Pretendard-SemiBold.otf in Resources */,
