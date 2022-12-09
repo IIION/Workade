@@ -12,13 +12,14 @@ import UIKit
 
 final class ExploreViewController: UIViewController {
     private let viewModel = ExploreViewModel()
-    private let transitionManager = ExploreTransitionManager()
+    private var regionInfoViewHeightConstraint: NSLayoutConstraint?
     private var regionInfoViewBottomConstraint: NSLayoutConstraint?
     private var buttonConstraints: [RegionButton: [NSLayoutConstraint]] = [:]
     private let sectionPadding: CGFloat = 4
     private var anyCancellable = Set<AnyCancellable>()
     let regionInfoViewHeight: CGFloat = 140 + CGFloat.bottomSafeArea
-    
+    private lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(onDrag))
+    private lazy var transitionManager = ExploreTransitionManager(region: viewModel.selectedRegion.value)
     private let animator: UIViewPropertyAnimator = {
         let springTiming = UISpringTimingParameters(mass: 1, stiffness: 178, damping: 20, initialVelocity: .init(dx: 0, dy: 2))
         return UIViewPropertyAnimator(duration: 0.4, timingParameters: springTiming)
@@ -255,11 +256,12 @@ final class ExploreViewController: UIViewController {
         ])
         
         view.addSubview(regionInfoView)
+        regionInfoViewHeightConstraint = regionInfoView.heightAnchor.constraint(equalToConstant: regionInfoViewHeight)
         regionInfoViewBottomConstraint = regionInfoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: regionInfoViewHeight + sectionPadding)
         NSLayoutConstraint.activate([
             regionInfoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             regionInfoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            regionInfoView.heightAnchor.constraint(equalToConstant: regionInfoViewHeight),
+            regionInfoViewHeightConstraint!,
             regionInfoViewBottomConstraint!,
             regionInfoView.topAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: sectionPadding)
         ])
@@ -291,10 +293,10 @@ final class ExploreViewController: UIViewController {
         titleLabel.alpha = isRegionNil ? 1 : 0
         regionInfoView.titleLabel.text = region?.name ?? ""
         regionInfoView.subTitleLabel.text = region?.romaName ?? ""
-        regionInfoView.warningView.isHidden = (region?.isCanWorkation ?? true) == true
         mapImageView.tintColor = isRegionNil ? .theme.workadeBlue : .white
         
         if let region = region {
+            regionInfoView.warningView.isHidden = region.isCanWorkation
             regionInfoView.peopleCount = UserManager.shared.activeUsers[region]?.count ?? -1
             UIView.transition(with: mainContainerView,
                               duration: 0.25,
@@ -302,8 +304,10 @@ final class ExploreViewController: UIViewController {
                               animations: { [weak self] in
                 self?.mainContainerView.image = UIImage(named: region.imageName)
             }, completion: nil)
+            addGesture()
         } else {
             self.mainContainerView.image = UIImage(named: "")
+            removeGesture()
         }
         
         setupDismissButtonColor()
@@ -318,5 +322,60 @@ final class ExploreViewController: UIViewController {
             image = UIImage.fromSystemImage(name: "xmark", font: .systemFont(ofSize: 15, weight: .bold), color: .theme.background)?.withRenderingMode(.alwaysOriginal)
         }
         regionInfoView.dismissButton.setImage(image, for: .normal)
+    }
+}
+
+// PanGesture
+private extension ExploreViewController {
+    func addGesture() {
+        // 같은 액션-대상 쌍의 경우, 누적되지않는다.
+        view.addGestureRecognizer(panGesture)
+    }
+    
+    func removeGesture() {
+        view.removeGestureRecognizer(panGesture)
+    }
+    
+    @objc
+    func onDrag(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            let translation = sender.translation(in: view)
+            update(using: translation.y)
+        case .ended:
+            restoreHeight()
+        default:
+            break
+        }
+    }
+    
+    func update(using translation: CGFloat) {
+        regionInfoViewHeightConstraint?.constant = regionInfoViewHeight - translation
+        if translation < -50 {
+            present()
+            restoreHeight()
+        } else if translation > 30 {
+            restoreHeight()
+            viewModel.selectedRegion.value = nil
+        }
+    }
+    
+    func present() {
+        guard let region = viewModel.selectedRegion.value,
+              region.isCanWorkation,
+              let count = UserManager.shared.activeUsers[region]?.count else { return }
+        let navigationController = UINavigationController(rootViewController: WorkationViewController(region: region, peopleCount: count))
+        navigationController.transitioningDelegate = transitionManager
+        transitionManager.presentByDragging = true
+        navigationController.modalPresentationStyle = .custom
+        present(navigationController, animated: true)
+    }
+    
+    func restoreHeight() {
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            guard let self = self else { return }
+            self.regionInfoViewHeightConstraint?.constant = self.regionInfoViewHeight
+            self.view.layoutIfNeeded()
+        }
     }
 }

@@ -9,7 +9,13 @@ import UIKit
 
 final class ExploreTransitionManager: NSObject {
     let duration: Double = 0.4
+    var presentByDragging: Bool = false
     private var transition: TransitionType = .presentation
+    private let region: Region?
+    
+    init(region: Region?) {
+        self.region = region
+    }
 }
 
 extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
@@ -47,7 +53,9 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
             containerView.addSubview(regionInfoViewCopy)
             exploreViewController.regionInfoView.alpha = 0
             
-            let heightConstraint = regionInfoViewCopy.heightAnchor.constraint(equalToConstant: exploreViewController.regionInfoViewHeight)
+            let heightConstraint = regionInfoViewCopy.heightAnchor.constraint(
+                equalToConstant: exploreViewController.regionInfoViewHeight + (presentByDragging ? 50 : 0)
+            )
             let bottomConstraint = regionInfoViewCopy.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             
             NSLayoutConstraint.activate([
@@ -135,10 +143,17 @@ extension ExploreTransitionManager: UIViewControllerAnimatedTransitioning {
         
         animator.startAnimation()
         fastOpacityAnimator.startAnimation()
+        presentByDragging = false
     }
     
     private func makeRegionInfoViewCopy(selectedRegion: Binder<Region?>) -> RegionInfoView {
-        let view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: selectedRegion) { }
+        // 여깁니다 토비 화이팅 peopleCount 쿄쿄!!!
+        let view: RegionInfoView
+        if let region = region, let count = UserManager.shared.activeUsers[region]?.count {
+            view = RegionInfoView(frame: .zero, peopleCount: count, selectedRegion: selectedRegion) { }
+        } else {
+            view = RegionInfoView(frame: .zero, peopleCount: 0, selectedRegion: selectedRegion) { }
+        }
         view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         

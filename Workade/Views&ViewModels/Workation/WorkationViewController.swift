@@ -12,7 +12,10 @@ import UIKit
 final class WorkationViewController: UIViewController {
     private let workationViewModel = WorkationViewModel()
     
-    var dismissAction: (() -> Void)?
+    private let bottomViewHeight: CGFloat = 320
+    private var bottomViewHeightConstraints: NSLayoutConstraint?
+    private var bottomViewBottomConstraints: NSLayoutConstraint?
+    private lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(onDrag))
     
     var cancellable = Set<AnyCancellable>()
     
@@ -26,7 +29,6 @@ final class WorkationViewController: UIViewController {
     private lazy var closeButton = UIBarButtonItem(
         image: SFSymbol.xmarkInNavigation.image,
         primaryAction: UIAction(handler: { [weak self] _ in
-            self?.dismissAction?()
             self?.dismiss(animated: true)
         })
     )
@@ -323,6 +325,7 @@ final class WorkationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        view.addGestureRecognizer(panGesture)
         titleView.text = region.name
         numberOfWorkers.text = "\(peopleCount)명이 일하고 있어요"
         
@@ -364,19 +367,21 @@ private extension WorkationViewController {
         }
         
         view.addSubview(bottomPaneView)
+        bottomViewHeightConstraints = bottomPaneView.heightAnchor.constraint(equalToConstant: 320)
+        bottomViewBottomConstraints = bottomPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
-            bottomPaneView.heightAnchor.constraint(equalToConstant: 320),
+            bottomViewHeightConstraints!,
+            bottomViewBottomConstraints!,
             bottomPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            bottomPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         view.addSubview(loginPaneView)
         NSLayoutConstraint.activate([
-            loginPaneView.heightAnchor.constraint(equalToConstant: 320),
+            loginPaneView.heightAnchor.constraint(equalTo: bottomPaneView.heightAnchor),
+            loginPaneView.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor),
             loginPaneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            loginPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            loginPaneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            loginPaneView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
 
         view.addSubview(topPaneView)
@@ -433,7 +438,7 @@ private extension WorkationViewController {
             bottomBottomStack.heightAnchor.constraint(equalToConstant: 140),
             bottomBottomStack.leadingAnchor.constraint(equalTo: bottomPaneView.leadingAnchor, constant: 20),
             bottomBottomStack.trailingAnchor.constraint(equalTo: bottomPaneView.trailingAnchor, constant: -20),
-            bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
+            bottomBottomStack.topAnchor.constraint(equalTo: bottomMiddleStack.bottomAnchor, constant: 30)
         ])
     }
     
@@ -523,6 +528,40 @@ extension WorkationViewController {
             stickerShetViewController.viewDidDismiss = {
                 dimView.removeFromSuperview()
             }
+        }
+    }
+}
+
+private extension WorkationViewController {
+    @objc
+    func onDrag(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            let translation = sender.translation(in: view)
+            update(using: translation.y)
+        case .ended:
+            restore()
+        default:
+            break
+        }
+    }
+    
+    func update(using translation: CGFloat) {
+        bottomViewHeightConstraints?.constant = bottomViewHeight - min(translation, 0)
+        bottomViewBottomConstraints?.constant = max(translation, 0)
+        if translation > 50 {
+            dismiss(animated: true)
+        } else if translation < -30 {
+            restore()
+        }
+    }
+    
+    func restore() {
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            guard let self = self else { return }
+            self.bottomViewHeightConstraints?.constant = self.bottomViewHeight
+            self.bottomViewBottomConstraints?.constant = 0
+            self.view.layoutIfNeeded()
         }
     }
 }

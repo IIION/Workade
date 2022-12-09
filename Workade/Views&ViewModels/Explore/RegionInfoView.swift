@@ -148,13 +148,13 @@ final class RegionInfoView: UIView {
         self.addSubview(desciptionLabel)
         NSLayoutConstraint.activate([
             desciptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            desciptionLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            desciptionLabel.topAnchor.constraint(equalTo: self.subTitleLabel.bottomAnchor, constant: 20)
         ])
         
         self.addSubview(workationButton)
         NSLayoutConstraint.activate([
             workationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            workationButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            workationButton.topAnchor.constraint(equalTo: self.subTitleLabel.bottomAnchor, constant: 23.5)
         ])
         workationButton.addAction(UIAction { _ in
             completion()
