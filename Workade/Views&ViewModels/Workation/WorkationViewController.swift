@@ -455,10 +455,11 @@ extension WorkationViewController {
         
         NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
             .sink { [weak self] _ in
+                guard let self = self else { return }
                 DispatchQueue.main.async {
                     let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
                     let day = Int(ceil(offsetDate/86400))
-                    self?.dayLabel.text = "\(day)일째"
+                    self.dayLabel.text = "\(day)일째"
                 }
             }
             .store(in: &cancellable)
