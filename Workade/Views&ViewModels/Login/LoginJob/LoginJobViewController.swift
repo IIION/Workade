@@ -23,7 +23,7 @@ class LoginJobViewController: UIViewController {
             guideLable.text = "XXX님의 현재\n무슨 일을 하고 계신가요?"
         }
         guideLable.textColor = .black
-        guideLable.font = .customFont(for: .captionHeadlineNew)
+        guideLable.font = .customFont(for: .captionHeadline)
         guideLable.setLineHeight(lineHeight: 10)
         guideLable.textAlignment = .center
         

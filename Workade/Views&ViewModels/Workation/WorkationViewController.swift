@@ -137,7 +137,7 @@ final class WorkationViewController: UIViewController {
     
     private let funnyWorkationLabel: UILabel = {
         let label = UILabel()
-        label.font = .customFont(for: .captionHeadlineNew)
+        label.font = .customFont(for: .captionHeadline)
         label.textColor = .theme.primary
         label.text = "즐거운 워케이션이네요!"
         

@@ -11,7 +11,7 @@ class LoginInformationView: UIView {
     private let loginInformationLabel: UILabel = {
         let loginInformationLabel = UILabel()
         loginInformationLabel.text = "로그인 정보"
-        loginInformationLabel.font = .customFont(for: .captionHeadlineNew)
+        loginInformationLabel.font = .customFont(for: .captionHeadline)
         loginInformationLabel.textColor = .theme.primary
         loginInformationLabel.translatesAutoresizingMaskIntoConstraints = false
         

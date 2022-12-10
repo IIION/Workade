@@ -28,7 +28,7 @@ final class SettingViewController: UIViewController {
     private let settingLabel: UILabel = {
         let label = UILabel()
         label.text = "설정"
-        label.font = .customFont(for: .captionHeadlineNew)
+        label.font = .customFont(for: .captionHeadline)
         label.textColor = .theme.primary
         label.translatesAutoresizingMaskIntoConstraints = false
         

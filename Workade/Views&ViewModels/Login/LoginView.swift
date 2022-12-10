@@ -13,7 +13,7 @@ class  LoginView: UIView {
         let guidance = UILabel()
         guidance.text = "워케이션을 즐기고\n다양한 스티커를 얻어보세요"
         guidance.setLineHeight(lineHeight: 10)
-        guidance.font = .customFont(for: .captionHeadlineNew)
+        guidance.font = .customFont(for: .captionHeadline)
         guidance.textAlignment = .center
         guidance.translatesAutoresizingMaskIntoConstraints = false
         guidance.numberOfLines = 0

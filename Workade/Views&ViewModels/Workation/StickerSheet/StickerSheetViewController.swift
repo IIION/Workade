@@ -37,7 +37,7 @@ class StickerSheetViewController: UIViewController {
     
     private let getStickerLabel: UILabel = {
         let label = UILabel()
-        label.font = .customFont(for: .captionHeadlineNew)
+        label.font = .customFont(for: .captionHeadline)
         label.textColor = .theme.background
         label.text = "새로운 스티커를 획득했어요!"
         label.translatesAutoresizingMaskIntoConstraints = false

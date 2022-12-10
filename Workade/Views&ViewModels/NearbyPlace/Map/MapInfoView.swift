@@ -21,7 +21,7 @@ final class MapInfoView: UIView {
     private let titleLabel: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = .customFont(for: .captionHeadlineNew)
+        title.font = .customFont(for: .captionHeadline)
         title.textColor = .black
         
         return title

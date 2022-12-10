@@ -12,7 +12,7 @@ final class LoginNameViewController: UIViewController, UITextFieldDelegate {
         let guideLabel = UILabel()
         guideLabel.translatesAutoresizingMaskIntoConstraints = false
         guideLabel.text = "안녕하세요\n이름이 뭔지 알려주세요!"
-        guideLabel.font = .customFont(for: .captionHeadlineNew)
+        guideLabel.font = .customFont(for: .captionHeadline)
         guideLabel.textColor = .black
         guideLabel.numberOfLines = 0
         guideLabel.setLineHeight(lineHeight: 10)
