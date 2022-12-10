@@ -73,10 +73,8 @@ class WorkerStatusSheetViewController: UIViewController {
         
         if let users = UserManager.shared.activeUsers[region] {
             var count = 0
-            for user in users {
-                if user.job == job {
-                    count += 1
-                }
+            for user in users where user.job == job {
+                count += 1
             }
             let fullText = "\(job.rawValue) \(count)명"
             let attributedString = NSMutableAttributedString(string: fullText)
