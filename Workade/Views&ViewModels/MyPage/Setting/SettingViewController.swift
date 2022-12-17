@@ -12,7 +12,6 @@ import UIKit
 final class SettingViewController: UIViewController {
     // 현재 앱의 버전 정보 + 빌드 정보 불러오기
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-    let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
         
     private let loginInformationView: LoginInformationView = {
         let logInInformationView = LoginInformationView()
@@ -98,7 +97,7 @@ final class SettingViewController: UIViewController {
     
     private lazy var versionInformationLabel: UILabel = {
         let label = UILabel()
-        label.text = "developed by iLiON\nVer \((version) + "." + (bundleVersion))"
+        label.text = "developed by iLiON\nVer \((version))"
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = .customFont(for: .caption2)
