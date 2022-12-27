@@ -5,15 +5,29 @@
 //  Created by Wonhyuk Choi on 2022/11/21.
 //
 
+import Combine
 import UIKit
 
 class StickerSheetViewController: UIViewController {
+    
+    @Published private var step = 0
+    var stickers: [StickerModel]
+    private var anyCancellable = Set<AnyCancellable>()
     var viewDidDismiss: (() -> Void)?
+    
+    init(stickers: [StickerModel]) {
+        self.stickers = stickers
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var backgroundView = UIView(frame: view.frame)
     
     private let stickerImage: UIImageView = {
-        let image = UIImage(named: "TangerineSticker")
+        let image = UIImage(named: "")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,8 +66,12 @@ class StickerSheetViewController: UIViewController {
     }()
     
     @objc private func backgroundViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        presentingViewController?.dismiss(animated: true)
-        self.viewDidDismiss?()
+        if step < stickers.count {
+            step += 1
+        } else {
+            presentingViewController?.dismiss(animated: true)
+            self.viewDidDismiss?()
+        }
     }
     
     override func viewDidLoad() {
@@ -64,6 +82,15 @@ class StickerSheetViewController: UIViewController {
         backgroundView.isUserInteractionEnabled = true
         
         setupLayout()
+        
+        self.$step.sink { [weak self] index in
+            if index < self?.stickers.count ?? 0 {
+                self?.stickerImage.image = UIImage(named: self?.stickers[index].title.rawValue ?? "")
+                self?.stickerNameLabel.text = self?.stickers[index].title.name
+                self?.dateAndPlaceLabel.text = Date().formatted(.dateTime.year().month().day()) + (self?.stickers[index].region.name ?? "") + "에서 휙득"
+            }
+        }
+        .store(in: &anyCancellable)
     }
 }
 
@@ -75,7 +102,8 @@ extension StickerSheetViewController {
         NSLayoutConstraint.activate([
             stickerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stickerImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stickerImage.heightAnchor.constraint(equalToConstant: 195)
+            stickerImage.heightAnchor.constraint(equalToConstant: 195),
+            stickerImage.widthAnchor.constraint(equalToConstant: 195)
         ])
         
         view.addSubview(getStickerLabel)

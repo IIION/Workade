@@ -16,6 +16,10 @@ final class WorkationViewController: UIViewController {
     
     var cancellable = Set<AnyCancellable>()
     
+    let canGetStickers: [StickerTitle] = [
+        .halLaBong, .dolHaReuBang, .horse, .halLaSan
+    ]
+    
     private var titleView = TitleLabel(title: "")
     private var region: Region
     
@@ -318,20 +322,21 @@ final class WorkationViewController: UIViewController {
         bind()
     }
     
-    private func showSticker() {
-        let stickerShetViewController = StickerSheetViewController()
-        stickerShetViewController.modalPresentationStyle = .overFullScreen
-        
-        let dimView = UIView(frame: UIScreen.main.bounds)
-        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
-        view.addSubview(dimView)
-        view.bringSubviewToFront(dimView)
-        stickerShetViewController.viewDidDismiss = {
-            dimView.removeFromSuperview()
-        }
-        
-        present( stickerShetViewController, animated: true)
-    }
+    //TODO: compareProgressDay()로 대체되었으나 dismiss 로직은 참고할 부분이 많아 ( 코드 정리 되고 테스트 해봐야 함. 남겨둠
+//    private func showSticker() {
+//        let stickerShetViewController = StickerSheetViewController()
+//        stickerShetViewController.modalPresentationStyle = .overFullScreen
+//
+//        let dimView = UIView(frame: UIScreen.main.bounds)
+//        dimView.backgroundColor = .theme.primary.withAlphaComponent(0.8)
+//        view.addSubview(dimView)
+//        view.bringSubviewToFront(dimView)
+//        stickerShetViewController.viewDidDismiss = {
+//            dimView.removeFromSuperview()
+//        }
+//
+//        present( stickerShetViewController, animated: true)
+//    }
 }
 
 private extension WorkationViewController {
@@ -440,10 +445,14 @@ extension WorkationViewController {
         
         NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
             .sink { [weak self] _ in
-                guard let self = self else { return }
+                guard let self = self,
+                      var user = UserManager.shared.activeMyInfo
+                else { return }
                 DispatchQueue.main.async {
-                    let offsetDate = Date().timeIntervalSince(UserManager.shared.activeMyInfo?.startDate ?? Date())
+                    let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(ceil(offsetDate/86400))
+                    user.progressDay = day
+                    self.updateActiveUser(user: user)
                     self.dayLabel.text = "\(day)일째"
                 }
             }
@@ -451,14 +460,34 @@ extension WorkationViewController {
         
         UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
-                guard let self = self else { return }
+                guard let self = self, var user = user else { return }
                 DispatchQueue.main.async {
-                    let offsetDate = Date().timeIntervalSince(user?.startDate ?? Date())
+                    let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(offsetDate/86400)
+                    if let storedDay = user.progressDay {
+                        self.compareProgressDay(presentDay: day, storedDay: storedDay)
+                    }
+                    user.progressDay = day
+                    self.updateActiveUser(user: user)
                     self.dayLabel.text = "\(day)일째"
                 }
             }
             .store(in: &cancellable)
-        
+    }
+    
+    private func updateActiveUser(user: ActiveUser) {
+        Task {
+            try await FirestoreDAO.shared.updateActiveUser(user: user)
+        }
+    }
+    
+    private func compareProgressDay(presentDay: Int, storedDay: Int) {
+        let step = presentDay / 7
+        let storedStep = storedDay / 7
+        if storedStep < step {
+            let getStickers = [StickerTitle](canGetStickers[storedStep..<step])
+            let stickers = getStickers.map { StickerModel(date: Date(), title: $0, region: self.region) }
+            self.present(StickerSheetViewController(stickers: stickers), animated: true)
+        }
     }
 }
