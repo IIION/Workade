@@ -15,7 +15,6 @@ final class WorkationViewController: UIViewController {
     var dismissAction: (() -> Void)?
     
     var cancellable = Set<AnyCancellable>()
-    var activeUserCancellable: AnyCancellable? = nil
     
     let canGetStickers: [StickerTitle] = [
         .halLaBong, .dolHaReuBang, .horse, .halLaSan
@@ -201,7 +200,6 @@ final class WorkationViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "종료", style: .destructive, handler: { [weak self] _ in
                 Task { [weak self] in
                     guard let self = self, var user = UserManager.shared.user.value else { return }
-                    self.activeUserCancellable?.cancel()
                     try? await FirestoreDAO.shared.deleteActiveUser(userID: user.id, region: self.region)
                     try? await FirestoreDAO.shared.createUser(user: User(id: user.id, name: user.name, email: user.email, job: user.job, stickers: user.stickers, activeRegion: nil))
                 }
@@ -323,6 +321,7 @@ final class WorkationViewController: UIViewController {
         
         setupLayout()
         setupNavigationBar()
+        setupProgressDay()
         bind()
     }
     
@@ -430,6 +429,19 @@ private extension WorkationViewController {
             bottomBottomStack.bottomAnchor.constraint(equalTo: bottomPaneView.bottomAnchor, constant: -34)
         ])
     }
+    
+    private func setupProgressDay() {
+        guard var user = UserManager.shared.activeMyInfo else { return }
+        let offsetDate = Date().timeIntervalSince(user.startDate)
+        let day = Int(offsetDate/86400)
+        print(user.progressDay!, day)
+        if let storedDay = user.progressDay, storedDay != day {
+            self.compareProgressDay(presentDay: day, storedDay: storedDay)
+            user.progressDay = day
+            self.updateActiveUser(user: user)
+        }
+        self.dayLabel.text = "\(day)일째"
+    }
 }
 
 extension WorkationViewController {
@@ -455,33 +467,25 @@ extension WorkationViewController {
                 DispatchQueue.main.async {
                     let offsetDate = Date().timeIntervalSince(user.startDate)
                     let day = Int(ceil(offsetDate/86400))
-                    if let storedDay = user.progressDay {
+                    if let storedDay = user.progressDay, storedDay != day {
                         self.compareProgressDay(presentDay: day, storedDay: storedDay)
+                        user.progressDay = day
+                        self.updateActiveUser(user: user)
                     }
-                    user.progressDay = day
-                    self.updateActiveUser(user: user)
                     self.dayLabel.text = "\(day)일째"
                 }
             }
             .store(in: &cancellable)
         
-        activeUserCancellable = UserManager.shared.$activeMyInfo
+        UserManager.shared.$activeMyInfo
             .sink { [weak self] user in
                 guard let self = self, var user = user else { return }
                 DispatchQueue.main.async {
-                    let offsetDate = Date().timeIntervalSince(user.startDate)
-                    let day = Int(offsetDate/86400)
-                    if let storedDay = user.progressDay {
-                        self.compareProgressDay(presentDay: day, storedDay: storedDay)
-                    }
-                    user.progressDay = day
-                    self.updateActiveUser(user: user)
-                    self.dayLabel.text = "\(day)일째"
-                    
                     self.bottomPaneView.isHidden = false
                     self.loginPaneView.isHidden = true
                 }
             }
+            .store(in: &cancellable)
     }
     
     private func updateActiveUser(user: ActiveUser) {
