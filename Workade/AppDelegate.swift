@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        NMFAuthManager.shared().clientId = "73fuvr2j6i"
-        KakaoSDK.initSDK(appKey: "beed144107e0a7f9f2886481b17872ff")
+        NMFAuthManager.shared().clientId = "KEY"
         FirebaseApp.configure()
         return true
     }
