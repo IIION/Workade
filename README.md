@@ -31,8 +31,6 @@ GPS 지역기반 커뮤니티를 형성할 수 있게 도와주는 서비스입�
 - 지역별 스티커 획득 기능 : 워케이션 기간에 따라 지역의 특색을 담은 스티커 획득
 - GPS 위치 정보 : GPS를 통해 내 위치 및 주변 정보 제공
 
-## :framed_picture: Demo
-### [⭐️ Workade ⭐️](https://youtu.be/bBylSazJQlQ)유튜브 영상데모 보러가기
 
 ## :fireworks: Screenshots
 
